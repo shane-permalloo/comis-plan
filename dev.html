@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COMIS Project Plan - Visual Timeline</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 100vh; background: #f0f2f5; }
+
+    .container { max-width: 100%; background: white; overflow: hidden; }
+
+    /* ── Header ───────────────────────────────────────────────────── */
+    .header {
+      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+      color: white; padding: 18px 24px; text-align: center;
+    }
+    .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+    .header .subtitle { font-size: 16px; opacity: .88; margin-top: 4px; line-height: 1.6; max-width: 1180px; min-width: 92vh; margin-left: auto; margin-right: auto; }
+    .header .meta { margin-top: 10px; font-size: 12px; opacity: .65; }
+
+    /* ── Gantt wrapper ────────────────────────────────────────────── */
+    .gantt-wrapper { overflow-x: auto; position: relative; }
+
+    .gantt-table { width: 100%; border-collapse: collapse; min-width: 1300px; }
+
+    /* ── thead ────────────────────────────────────────────────────── */
+    .gantt-table thead th {
+      background: #34495e; color: white;
+      padding: 8px 4px; text-align: center;
+      font-size: 12px; font-weight: 600;
+      border: 0;
+      position: sticky; top: 0; z-index: 10;
+      white-space: nowrap;
+    }
+    .gantt-table thead th.task-col {
+      text-align: left; min-width: 100px;
+      font-size: 13px;
+      border: 0;
+    }
+    .gantt-table thead th.today-col {
+      background: #922b21; font-weight: 700;
+    }
+    .today-label {
+      display: block; font-size: 9px; font-weight: 700;
+      background: #e74c3c; border-radius: 3px; padding: 1px 4px;
+      margin-top: 3px; letter-spacing: .5px;
+    }
+
+    /* ── tbody ────────────────────────────────────────────────────── */
+    .gantt-table tbody td {
+      border: 1px solid #dee2e6; padding: 0 2px;
+      font-size: 13px; height: 36px; vertical-align: middle;
+    }
+    .gantt-table tbody td.task-col {
+      background: #f8f9fa; font-weight: 500; color: #2c3e50;
+      padding: 6px 10px; white-space: nowrap; max-width: 150px; border: 0;
+    }
+
+    /* ── Phase row (bold header) ──────────────────────────────────── */
+    tr.phase-row td.task-col {
+      background: #2c3e50 !important; color: white !important;
+      font-weight: 700 !important; text-transform: uppercase;
+      letter-spacing: .5px; border-left: 4px solid #e74c3c;
+    }
+
+    /* ── Campaign row (hatched) ───────────────────────────────────── */
+    tr.campaign-row td {
+      border-top: 2px solid rgba(26,188,156,.55) !important;
+      border-bottom: 2px solid rgba(26,188,156,.55) !important;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(26,188,156,.07) 0px, rgba(26,188,156,.07) 5px,
+        transparent 5px, transparent 10px
+      );
+    }
+    tr.campaign-row td.task-col {
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(26,188,156,.18) 0px, rgba(26,188,156,.18) 5px,
+        #ecfaf6 5px, #ecfaf6 10px
+      ) !important;
+      border-left: 5px solid #1abc9c !important;
+      color: #0d6b57 !important;
+      font-weight: 700 !important;
+    }
+
+    /* ── Deliverable row ──────────────────────────────────────────── */
+    tr.deliverable-row td.task-col {
+      background: #fffbea !important; border-left: 4px solid #f1c40f;
+    }
+
+    /* ── Today column highlight ───────────────────────────────────── */
+    td.today-col { background: rgba(231,76,60,.04) !important; }
+    td.task-col.today-col { background: #f8f9fa !important; }
+
+    /* ── Today vertical line (CSS pseudo on wrapper) ──────────────── */
+    .gantt-table td.today-col:not(.task-col) {
+      border-left: 2px dashed rgba(231,76,60,.6) !important;
+      border-right: 2px dashed rgba(231,76,60,.6) !important;
+    }
+
+    /* ── Bar ──────────────────────────────────────────────────────── */
+    .bar {
+      height: 24px; border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 700; color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,.2);
+      text-transform: uppercase; letter-spacing: .5px;
+      white-space: nowrap; overflow: hidden;
+    }
+
+    /* bar colours */
+    .bar-initiation    { background: linear-gradient(135deg,#e74c3c,#c0392b); }
+    .bar-requirements  { background: linear-gradient(135deg,#f39c12,#e67e22); }
+    .bar-prototype     { background: linear-gradient(135deg,#3498db,#2980b9); }
+    .bar-development   { background: linear-gradient(135deg,#95a5a6,#7f8c8d); }
+    .bar-testing       { background: linear-gradient(135deg,#9b59b6,#8e44ad); }
+    .bar-training      { background: linear-gradient(135deg,#1abc9c,#16a085); }
+    .bar-golive        { background: linear-gradient(135deg,#e67e22,#d35400); }
+    .bar-deliverable   { background: linear-gradient(135deg,#f1c40f,#f39c12); color:#2c3e50; }
+    .bar-milestone     { background: linear-gradient(135deg,#e74c3c,#c0392b); }
+    .bar-campaign      { background: linear-gradient(135deg,#1abc9c,#0e8068);
+                         height:28px !important; box-shadow:0 3px 12px rgba(26,188,156,.55) !important; }
+
+    /* phase-row colour overrides */
+    tr.phase-row .bar-initiation    { background: linear-gradient(135deg,#e74c3c,#c0392b); }
+    tr.phase-row .bar-requirements  { background: linear-gradient(135deg,#f39c12,#e67e22); }
+    tr.phase-row .bar-prototype     { background: linear-gradient(135deg,#3498db,#2980b9); }
+    tr.phase-row .bar-development   { background: linear-gradient(135deg,#27ae60,#229954); }
+    tr.phase-row .bar-testing       { background: linear-gradient(135deg,#9b59b6,#8e44ad); }
+    tr.phase-row .bar-training      { background: linear-gradient(135deg,#1abc9c,#16a085); }
+    tr.phase-row .bar-golive        { background: linear-gradient(135deg,#e67e22,#d35400); }
+
+    /* ── Legend ───────────────────────────────────────────────────── */
+    .legend { padding: 24px 32px; background: #f8f9fa; border-top: 3px solid #e9ecef; }
+    .legend h3 { margin-bottom: 12px; color: #2c3e50; font-size: 16px; }
+    .legend-grid {
+      display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 10px;
+    }
+    .legend-item { display: flex; align-items: center; font-size: 12px; color: #555; }
+    .legend-box {
+      width: 28px; height: 16px; border-radius: 3px;
+      margin-right: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.2);
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ───────────────────────────────────────────────────── */
+    .footer {
+      padding: 14px 32px; text-align: center;
+      background: #2c3e50; color: white; font-size: 11px;
+    }
+
+    @media print {
+      body { background: white; }
+      .container { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="container" id="app">
+  <!-- rendered by JS -->
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════════════
+   ██████████████████  ADMINISTRATION SECTION  ████████████████████████
+   ════════════════════════════════════════════════════════════════════
+
+   All project content lives here. To update the chart:
+     • Change PROJECT.title / subtitle.
+     • Set TIMELINE_START (month 1–12 and year) — all columns are generated
+       automatically from the furthest bar end-index in ROWS.
+       The current month is detected automatically; no manual today:true needed.
+     • Each row in ROWS is an object:
+         label     – text in the left column
+         type      – "phase" | "task" | "campaign" | "deliverable"
+         bars      – array of { start, end, color, label }
+                       start / end are 0-based indices into TIMELINE
+                       color is one of the bar-* class suffixes listed below
+         (no bars) – empty row (section spacer not needed, just omit bars)
+
+   Bar color keys:
+     initiation | requirements | prototype | development
+     testing    | training     | golive    | deliverable
+     milestone  | campaign
+
+   ════════════════════════════════════════════════════════════════════ */
+
+const PROJECT = {
+  title:    "COMIS PROJECT IMPLEMENTATION PLAN",
+  notes:    "Production environment readiness delayed to August 2026 | " +
+            "NRB Integration deferred awaiting server readiness (Sept 2026) | " +
+            "Phase 1 Go-Live: Oct 2026 | Registration Campaign (3/4 months): Nov 2026 – Feb 2027 | " +
+            "Phase 2 Go-Live: March 2027",
+  version:  "v2.0 — June 2026",
+};
+
+// ── Timeline config ───────────────────────────────────────────────────────────
+// Only change TIMELINE_START; the number of columns is derived automatically
+// from the furthest bar end-index in ROWS, and today's column is auto-highlighted.
+const TIMELINE_START = { month: 9, year: 2025 };  // ← start month (1–12) and year
+
+// Task rows
+// start/end are column indices (0-based, inclusive)
+const ROWS = [
+
+  /* ── Phase 1: Initiation ─────────────────────────────────── */
+  { label: "1: PROJECT INITIATION",     type: "phase",
+    bars: [{ start:0, end:0, color:"initiation", label:"INIT" }] },
+
+  /* ── Phase 2: Requirements & Design ─────────────────────── */
+  { label: "2: REQUIREMENTS & DESIGN",  type: "phase",
+    bars: [{ start:1, end:7, color:"requirements", label:"REQ & DES" }] },
+
+  { label: " - Spex Gathering",         type: "task",
+    bars: [{ start:1, end:6, color:"prototype",    label:"SPEC" }] },
+
+  { label: " -  Design Prototype",    type: "task",
+    bars: [{ start:4, end:7, color:"prototype",    label:"DESIGN" }] },
+
+  /* ── Phase 3: Development Phase 1 ───────────────────────── */
+  { label: "3: DEV Phase 1",  type: "phase",
+    bars: [{ start:5, end:13, color:"development", label:"DEV PHASE 1" }] },
+
+  { label: " - Project Setup",          type: "task",
+    bars: [{ start:5, end:6,  color:"development", label:"PROJECT SETUP" }] },
+
+  { label: " - Assessment",             type: "task",
+    bars: [{ start:5, end:8,  color:"requirements", label:"ASSESSMENT" }] },
+
+  { label: " - CME",                    type: "task",
+    bars: [{ start:7, end:8,  color:"development", label:"CME" }] },
+
+  { label: " - Cooperative Registration", type: "task",
+    bars: [{ start:9, end:10, color:"development", label:"REG" }] },
+
+  { label: " - Amendment of Bylaws",    type: "task",
+    bars: [{ start:10, end:11, color:"development", label:"BYLAWS" }] },
+
+  { label: " - Member Management",      type: "task",
+    bars: [{ start:11, end:12, color:"development", label:"MEMBERS" }] },
+
+  { label: " - Post-training",          type: "task",
+    bars: [{ start:11, end:12, color:"development",   label:"POST-TRAIN" }] },
+
+  { label: " - Grievance Redress",      type: "task",
+    bars: [{ start:9, end:10,  color:"development", label:"GRIEVANCE" }] },
+
+  { label: " - Dissolution",            type: "task",
+    bars: [{ start:11, end:12, color:"development", label:"DISSOLUTION" }] },
+  { label: " - Preprod/Prod Env. Setup", type: "task",
+    bars: [{ start:11, end:12, color:"development", label:"ENV. SETUP" }] },
+
+  { label: " - NRB Integration (Preprod/Prod)", type: "task",
+    bars: [{ start:12, end:12, color:"development", label:"NRB" }] },
+
+  /* ── Phase 4: UAT Phase 1 ────────────────────────────────── */
+  { label: "4: UAT Phase 1",      type: "phase",
+    bars: [{ start:13, end:13, color:"testing",    label:"UAT" }] },
+
+  { label: " - UAT",                    type: "task",
+    bars: [{ start:13, end:13, color:"training",   label:"UAT" }] },
+
+  { label: " - Training",               type: "task",
+    bars: [{ start:13, end:13, color:"training",   label:"TRAIN" }] },
+
+  /* ── Phase 5: Registration Campaign ─────────────────────── */
+  { label: " 5: Registration Campaign", type: "campaign",
+    bars: [{ start:14, end:17, color:"campaign",   label:"CAMPAIGN" }] },
+
+  /* ── Phase 6: Go-Live Phase 1 ────────────────────────────── */
+  { label: "6: Dev Phase 1 GO-LIVE", type: "phase",
+    bars: [{ start:13, end:13, color:"golive",     label:"GO-LIVE P1" }] },
+
+  /* ── Phase 7: Development Phase 2 ───────────────────────── */
+  { label: "7: DEV Phase 2",  type: "phase",
+    bars: [{ start:14, end:17, color:"development", label:"DEV PHASE 2" }] },
+
+  { label: " - Dev (Finance Module)",   type: "task",
+    bars: [{ start:14, end:17, color:"development", label:"FINANCE" }] },
+
+  { label: " - Dev (Reporting & Analytics)", type: "task",
+    bars: [{ start:15, end:17, color:"development", label:"REPORTS" }] },
+
+  /* ── Phase 8: UAT Phase 2 ────────────────────────────────── */
+  { label: "8: Dev Phase 2 UAT",  type: "phase",
+    bars: [{ start:18, end:18, color:"testing",    label:"UAT" }] },
+
+  { label: " - UAT & CR",               type: "task",
+    bars: [{ start:18, end:18, color:"training",   label:"UAT" }] },
+
+  { label: " - Training",               type: "task",
+    bars: [{ start:18, end:18, color:"training",   label:"TRAIN" }] },
+
+  /* ── Phase 9: Go-Live Phase 2 ────────────────────────────── */
+  { label: "9: Dev Phase 2 GO-LIVE", type: "phase",
+    bars: [{ start:18, end:18, color:"testing",    label:"GO-LIVE P2" }] },
+];
+
+// Auto-generated from ROWS — do not edit this block
+const TIMELINE = (() => {
+  const ABBR = ["Jan","Feb","Mar","Apr","May","Jun",
+                "Jul","Aug","Sep","Oct","Nov","Dec"];
+  const now    = new Date();
+  const todayM = now.getMonth() + 1;   // 1-based
+  const todayY = now.getFullYear();
+  const count  = ROWS.reduce((max, row) =>
+    (row.bars || []).reduce((m, b) => Math.max(m, b.end ?? 0), max), 0) + 1;
+  return Array.from({ length: count }, (_, i) => {
+    const offset = (TIMELINE_START.month - 1) + i;   // 0-based from Jan
+    const m = (offset % 12) + 1;                     // 1-based month
+    const y = TIMELINE_START.year + Math.floor(offset / 12);
+    const col = { label: `${ABBR[m - 1]}\n${y}` };
+    if (m === todayM && y === todayY) col.today = true;
+    return col;
+  });
+})();
+
+/* ════════════════════════════════════════════════════════════════════
+   END OF ADMINISTRATION SECTION — do not edit below unless needed
+   ════════════════════════════════════════════════════════════════════ */
+
+const LEGEND_ITEMS = [
+  { color:"bar-initiation",   label:"Project Initiation",  hex:"#e74c3c" },
+  { color:"bar-requirements", label:"Requirements / Spec",  hex:"#f39c12" },
+  { color:"bar-prototype",    label:"Prototyping / Design", hex:"#3498db" },
+  { color:"bar-development",  label:"Development",          hex:"#27ae60" },
+  { color:"bar-testing",      label:"Testing / UAT",        hex:"#9b59b6" },
+  { color:"bar-training",     label:"Training",             hex:"#1abc9c" },
+  { color:"bar-golive",       label:"Go-Live",              hex:"#e67e22" },
+  { color:"bar-deliverable",  label:"Deliverable",          hex:"#f1c40f" },
+  { color:"bar-campaign",     label:"Registration Campaign",hex:"#1abc9c" },
+];
+
+// ── Render ────────────────────────────────────────────────────────
+
+function buildCells(row) {
+  const n = TIMELINE.length;
+  // Build a sparse map: colIndex → { span, barHtml }
+  const barMap = {};
+  const blocked = new Set();
+
+  (row.bars || []).forEach(b => {
+    const span = b.end - b.start + 1;
+    barMap[b.start] = { span, barHtml: `<div class="bar bar-${b.color}">${b.label}</div>` };
+    for (let i = b.start; i <= b.end; i++) blocked.add(i);
+  });
+
+  let html = "";
+  let skip = 0;
+  for (let c = 0; c < n; c++) {
+    if (skip > 0) { skip--; continue; }
+    const todayCls = TIMELINE[c].today ? " today-col" : "";
+    if (barMap[c]) {
+      const { span, barHtml } = barMap[c];
+      html += `<td class="gantt-cell${todayCls}"${span > 1 ? ` colspan="${span}"` : ""}>${barHtml}</td>`;
+      skip = span - 1;
+    } else {
+      html += `<td class="gantt-cell${todayCls}"></td>`;
+    }
+  }
+  return html;
+}
+
+function render() {
+  const todayIdx = TIMELINE.findIndex(t => t.today);
+
+  // Header columns
+  const thCols = TIMELINE.map((t, i) => {
+    const isToday = t.today;
+    const lines = t.label.split("\n");
+    return `<th${isToday ? ' class="today-col"' : ""}>
+      ${lines[0]}<br>${lines[1]}${isToday ? `<span class="today-label">TODAY</span>` : ""}
+    </th>`;
+  }).join("");
+
+  // Body rows
+  const bodyRows = ROWS.map(row => {
+    const rowClass = row.type === "phase"       ? "phase-row"
+                   : row.type === "campaign"    ? "phase-row campaign-row"
+                   : row.type === "deliverable" ? "deliverable-row"
+                   : "";
+    const taskTodayCls = TIMELINE[todayIdx]?.today ? "" : ""; // task col never gets today highlight
+    return `<tr class="${rowClass}">
+      <td class="task-col">${row.label}</td>
+      ${buildCells(row)}
+    </tr>`;
+  }).join("");
+
+  // Legend
+  const legendHtml = LEGEND_ITEMS.map(l =>
+    `<div class="legend-item">
+      <div class="legend-box" style="background:${l.hex}"></div>${l.label}
+    </div>`
+  ).join("");
+
+  document.getElementById("app").innerHTML = `
+    <div class="header">
+      <h1>${PROJECT.title}</h1>
+      <div class="subtitle">${PROJECT.notes}</div>
+    </div>
+
+    <div class="gantt-wrapper">
+      <table class="gantt-table">
+        <thead>
+          <tr>
+            <th class="task-col"></th>
+            ${thCols}
+          </tr>
+        </thead>
+        <tbody>
+          ${bodyRows}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="legend">
+      <h3>Legend</h3>
+      <div class="legend-grid">${legendHtml}</div>
+    </div>
+
+    <div class="footer">
+      COMIS Project Plan &nbsp;|&nbsp; ${PROJECT.version} &nbsp;|&nbsp; MNS Ltd
+    </div>
+  `;
+}
+
+render();
+</script>
+</body>
+</html>

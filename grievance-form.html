@@ -1,5 +1,5 @@
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -10,13 +10,13 @@
 --border-radius-lg:8px;
 --border:#d1dae6;--border-dark:#a8b8cc;
 --ff-display:'Playfair Display',serif;
---ff-body:'DM Sans',sans-serif;
+--ff-body:'Inter',sans-serif;
 }
 body{font-family:var(--ff-body);background:transparent;color:var(--navy)}
-.page{background:var(--color-background-primary); box-shadow: 0 0 18px var(--slate-pale); border: 1px solid var(--slate-pale); max-width: 80%; min-width: 800px; margin: 20px auto;border-radius:var(--border-radius-lg);overflow:hidden}
+.page{background:var(--color-background-primary); box-shadow: 0 0 18px var(--slate-pale); border: 1px solid var(--slate-pale); max-width: 75%; min-width: 800px; margin: 20px auto;border-radius:var(--border-radius-lg);overflow:hidden}
 .form-banner{background:var(--navy);padding:1.75rem 2rem;border-bottom:3px solid var(--gold)}
-.banner-eyebrow{font-family:var(--ff-body);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.5rem}
-.banner-title{font-family:var(--ff-display);font-size:22px;font-weight:500;color:#fff;line-height:1.3}
+.banner-eyebrow{font-family:var(--ff-body);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.5rem}
+.banner-title{font-family:var(--ff-display);font-size:24px;font-weight:500;color:#fff;line-height:1.3}
 .banner-sub{font-size:13px;color:rgba(255,255,255,.6);margin-top:.35rem;font-weight:300}
 .form-body{padding:1.75rem 2rem}
 .step-row{display:flex;gap:4px;margin-bottom:2rem;border-bottom:1px solid var(--border);padding-bottom:.85rem}
@@ -25,7 +25,7 @@ body{font-family:var(--ff-body);background:transparent;color:var(--navy)}
 .step+.step{margin-left:1.25rem}
 .section-head{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem}
 .section-num{width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.section-title{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
+.section-title{font-size:15px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
 .section-divider{height:1px;background:var(--border);margin:1.5rem 0}
 .field{margin-bottom:1.1rem}
 .field label{display:block;font-size:12.5px;font-weight:500;color:var(--navy);margin-bottom:.35rem;letter-spacing:.01em}
@@ -39,7 +39,8 @@ body{font-family:var(--ff-body);background:transparent;color:var(--navy)}
 .f-input.err,.f-select.err,.f-textarea.err{border-color:var(--red)}
 .err-msg{font-size:12px;color:var(--red);margin-top:.3rem;display:none;align-items:center;gap:4px}
 .err-msg.show{display:flex}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
 .contact-toggle{display:flex;border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:1.1rem}
 .ct-btn{flex:1;padding:9px;font-family:var(--ff-body);font-size:13px;font-weight:500;border:none;background:transparent;color:var(--slate);cursor:pointer;transition:background .15s,color .15s;display:flex;align-items:center;justify-content:center;gap:6px}
 .ct-btn.active{background:var(--navy);color:#fff}
@@ -70,6 +71,7 @@ body{font-family:var(--ff-body);background:transparent;color:var(--navy)}
 .coop-name{font-size:13.5px;color:var(--navy)}
 .coop-meta{font-size:11.5px;color:var(--slate-light);margin-top:1px}
 .coop-tag{display:inline-block;font-size:10.5px;font-weight:500;padding:1px 6px;border-radius:2px;margin-left:5px}
+.sections-12-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 2rem;align-items:start}
 .tag-active{background:#d4edda;color:#1a6b3a}
 .tag-inactive{background:#f8d7da;color:#721c24}
 .coop-selected{margin-top:.45rem;background:var(--navy-pale);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:13px;color:var(--navy);display:none;justify-content:space-between;align-items:center}
@@ -101,75 +103,80 @@ body{font-family:var(--ff-body);background:transparent;color:var(--navy)}
   </div>
 
   <div class="form-body">
-    <div class="section-head">
-      <div class="section-num">1</div>
-      <div class="section-title">Submission classification</div>
-    </div>
-
-    <div class="field" id="wrap-type">
-      <label for="sub-type">Submission type <span class="req">*</span></label>
-      <select class="f-select" id="sub-type" onchange="onTypeChange()">
-        <option value="">Select submission type</option>
-        <option value="Inquiry">Inquiry</option>
-        <option value="Complaint">Complaint</option>
-        <option value="Grievance">Grievance</option>
-      </select>
-      <div class="err-msg" id="err-type"><i class="ti ti-alert-circle" style="font-size:13px"></i>Please select a submission type.</div>
-    </div>
-
-    <div class="cond" id="block-grievance">
-      <div class="field" id="wrap-gtype">
-        <label for="grievance-type">Type of grievance <span class="req">*</span></label>
-        <select class="f-select" id="grievance-type">
-          <option value="">Select grievance type</option>
-          <option>Governance &amp; Leadership</option>
-          <option>Financial</option>
-          <option>Membership &amp; Rights</option>
-          <option>Operational &amp; Service Delivery</option>
-          <option>Legal &amp; Compliance</option>
-          <option>Others</option>
-        </select>
-        <div class="err-msg" id="err-gtype"><i class="ti ti-alert-circle" style="font-size:13px"></i>Please select a type of grievance.</div>
-      </div>
-
-      <div class="field">
-        <label>Prior discussion <span class="req">*</span></label>
-        <div class="checks">
-          <label><input type="checkbox" id="chk-internal"> Has this been discussed internally within the cooperative during a general or discipline meeting?</label>
-          <label><input type="checkbox" id="chk-union"> If the cooperative is part of a union, has it been discussed with the union during a general or discipline meeting?</label>
+    <div class="sections-12-grid">
+      <div>
+        <div class="section-head">
+          <div class="section-num">1</div>
+          <div class="section-title">Submission classification</div>
         </div>
-        <div class="err-msg" id="err-checks"><i class="ti ti-alert-circle" style="font-size:13px"></i>Please select at least one prior discussion option.</div>
-      </div>
 
-      <div class="field" id="wrap-upload">
-        <label>Supporting document <span class="req">*</span></label>
-        <div class="upload-zone" id="upload-zone">
-          <input type="file" id="file-inp" accept=".pdf,.jpg,.jpeg,.png" onchange="onFile(this)">
-          <i class="ti ti-cloud-upload" aria-hidden="true"></i>
-          <div class="uz-text">Click to upload or drag and drop</div>
-          <div class="uz-note">PDF, JPG or PNG · maximum 2 MB · If a discussion checkbox is ticked, upload the relevant Minutes of Meeting</div>
+        <div class="field" id="wrap-type">
+          <label for="sub-type">Submission type <span class="req">*</span></label>
+          <select class="f-select" id="sub-type" onchange="onTypeChange()">
+            <option value="">Select submission type</option>
+            <option value="Inquiry">Inquiry</option>
+            <option value="Complaint">Complaint</option>
+            <option value="Grievance">Grievance</option>
+          </select>
+          <div class="err-msg" id="err-type"><i class="ti ti-alert-circle" style="font-size:13px"></i>Please select a submission type.</div>
         </div>
-        <div class="file-ok" id="file-ok"><i class="ti ti-circle-check" style="font-size:14px;color:var(--green)"></i><span id="file-name-txt"></span></div>
-        <div class="err-msg" id="err-upload"><i class="ti ti-alert-circle" style="font-size:13px"></i>A valid supporting document is required (PDF, JPG or PNG, max 2 MB).</div>
+
+        <div class="cond" id="block-grievance">
+          <div class="field" id="wrap-gtype">
+            <label for="grievance-type">Type of grievance <span class="req">*</span></label>
+            <select class="f-select" id="grievance-type">
+              <option value="">Select grievance type</option>
+              <option>Governance &amp; Leadership</option>
+              <option>Financial</option>
+              <option>Membership &amp; Rights</option>
+              <option>Operational &amp; Service Delivery</option>
+              <option>Legal &amp; Compliance</option>
+              <option>Others</option>
+            </select>
+            <div class="err-msg" id="err-gtype"><i class="ti ti-alert-circle" style="font-size:13px"></i>Please select a type of grievance.</div>
+          </div>
+
+          <div class="field">
+            <label>Prior discussion <span class="req">*</span></label>
+            <div class="checks">
+              <label><input type="checkbox" id="chk-internal"> Has this been discussed internally within the cooperative during a general or discipline meeting?</label>
+              <label><input type="checkbox" id="chk-union"> If the cooperative is part of a union, has it been discussed with the union during a general or discipline meeting?</label>
+            </div>
+            <div class="err-msg" id="err-checks"><i class="ti ti-alert-circle" style="font-size:13px"></i>Please select at least one prior discussion option.</div>
+          </div>
+
+          <div class="field" id="wrap-upload">
+            <label>Supporting document <span class="req">*</span></label>
+            <div class="upload-zone" id="upload-zone">
+              <input type="file" id="file-inp" accept=".pdf,.jpg,.jpeg,.png" onchange="onFile(this)">
+              <i class="ti ti-cloud-upload" aria-hidden="true"></i>
+              <div class="uz-text">Click to upload or drag and drop</div>
+              <div class="uz-note">PDF, JPG or PNG · maximum 2 MB · If a discussion checkbox is ticked, upload the relevant Minutes of Meeting</div>
+            </div>
+            <div class="file-ok" id="file-ok"><i class="ti ti-circle-check" style="font-size:14px;color:var(--green)"></i><span id="file-name-txt"></span></div>
+            <div class="err-msg" id="err-upload"><i class="ti ti-alert-circle" style="font-size:13px"></i>A valid supporting document is required (PDF, JPG or PNG, max 2 MB).</div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="section-divider"></div>
+      <div>
+        <div class="section-head">
+          <div class="section-num">2</div>
+          <div class="section-title">Cooperative</div>
+        </div>
 
-    <div class="section-head">
-      <div class="section-num">2</div>
-      <div class="section-title">Cooperative</div>
-    </div>
-
-    <div class="field">
-      <label for="coop-inp">Cooperative name</label>
-      <div class="coop-wrap">
-        <input class="f-input" type="text" id="coop-inp" placeholder="Type at least 3 characters to search…" oninput="onCoopSearch(this.value)" autocomplete="off">
-        <div class="coop-dropdown" id="coop-dd"></div>
-      </div>
-      <div class="coop-selected" id="coop-sel">
-        <span id="coop-sel-txt"></span>
-        <button onclick="clearCoop()" aria-label="Remove cooperative">×</button>
+        <div class="field" id="wrap-coop">
+          <label for="coop-inp">Cooperative name <span class="req">*</span></label>
+          <div class="coop-wrap">
+            <input class="f-input" type="text" id="coop-inp" placeholder="Type at least 3 characters to search…" oninput="onCoopSearch(this.value)" autocomplete="off">
+            <div class="coop-dropdown" id="coop-dd"></div>
+          </div>
+          <div class="coop-selected" id="coop-sel">
+            <span id="coop-sel-txt"></span>
+            <button onclick="clearCoop()" aria-label="Remove cooperative">×</button>
+          </div>
+          <div class="err-msg" id="err-coop"><i class="ti ti-alert-circle" style="font-size:13px"></i>Please select a cooperative.</div>
+        </div>
       </div>
     </div>
 
@@ -186,7 +193,7 @@ body{font-family:var(--ff-body);background:transparent;color:var(--navy)}
     </div>
 
     <div id="identified-fields">
-      <div class="grid-2" id="wrap-name-email">
+      <div class="grid-3" id="wrap-name-email">
         <div class="field" id="wrap-fullname">
           <label for="fullname">Full name <span class="req" id="req-name">*</span><span class="opt" id="opt-name" style="display:none">optional</span></label>
           <input class="f-input" type="text" id="fullname" placeholder="e.g. John Banda">
@@ -197,11 +204,12 @@ body{font-family:var(--ff-body);background:transparent;color:var(--navy)}
           <input class="f-input" type="email" id="email" placeholder="e.g. john@example.com">
           <div class="err-msg" id="err-email"><i class="ti ti-alert-circle" style="font-size:13px"></i>A valid email address is required for Inquiry submissions.</div>
         </div>
+        <div class="field">
+          <label for="phone">Contact number </label>
+          <input class="f-input" type="tel" id="phone" placeholder="e.g. +265 999 000 000">
+        </div>
       </div>
-      <div class="field">
-        <label for="phone">Contact number <span class="opt">optional</span></label>
-        <input class="f-input" type="tel" id="phone" placeholder="e.g. +265 999 000 000" style="max-width:260px">
-      </div>
+      
     </div>
 
     <div id="anon-notice" style="display:none">
@@ -290,6 +298,8 @@ function clearCoop(){
   selCoop=null;
   document.getElementById('coop-inp').value='';
   document.getElementById('coop-sel').classList.remove('show');
+  document.getElementById('coop-inp').classList.remove('err');
+  document.getElementById('err-coop').classList.remove('show');
 }
 
 document.addEventListener('click',e=>{if(!e.target.closest('.coop-wrap'))document.getElementById('coop-dd').classList.remove('open')});
@@ -343,6 +353,7 @@ function handleSubmit(){
     setErr('wrap-fullname','err-name',!nm);if(!nm)ok=false;
     setErr('wrap-email','err-email',!em||!emOk);if(!em||!emOk)ok=false;
   }
+  if(!selCoop){document.getElementById('coop-inp').classList.add('err');document.getElementById('err-coop').classList.add('show');ok=false}else{document.getElementById('coop-inp').classList.remove('err');document.getElementById('err-coop').classList.remove('show')}
   const msg=document.getElementById('msg-txt').value.trim();
   setErr('wrap-msg','err-msg',!msg);if(!msg)ok=false;
   if(!ok)return;

@@ -1,0 +1,355 @@
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--navy:#0f2744;--navy-mid:#1a3a5c;--navy-light:#e8eef5;--navy-pale:#f3f6fa;
+--slate:#4a5568;--slate-light:#718096;--slate-pale:#edf2f7;
+--gold:#b8922a;--gold-light:#f5e6c3;
+--red:#c0392b;--green:#1a6b3a;
+--border-radius-lg:8px;
+--border:#d1dae6;--border-dark:#a8b8cc;
+--ff-display:'Playfair Display',serif;
+--ff-body:'DM Sans',sans-serif;
+}
+body{font-family:var(--ff-body);background:transparent;color:var(--navy)}
+.page{background:var(--color-background-primary); box-shadow: 0 0 18px var(--slate-pale); border: 1px solid var(--slate-pale); max-width: 80%; min-width: 800px; margin: 20px auto;border-radius:var(--border-radius-lg);overflow:hidden}
+.form-banner{background:var(--navy);padding:1.75rem 2rem;border-bottom:3px solid var(--gold)}
+.banner-eyebrow{font-family:var(--ff-body);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.5rem}
+.banner-title{font-family:var(--ff-display);font-size:22px;font-weight:500;color:#fff;line-height:1.3}
+.banner-sub{font-size:13px;color:rgba(255,255,255,.6);margin-top:.35rem;font-weight:300}
+.form-body{padding:1.75rem 2rem}
+.step-row{display:flex;gap:4px;margin-bottom:2rem;border-bottom:1px solid var(--border);padding-bottom:.85rem}
+.step{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--slate-light);padding-bottom:.6rem;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:default}
+.step.active{color:var(--navy);border-bottom-color:var(--gold)}
+.step+.step{margin-left:1.25rem}
+.section-head{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem}
+.section-num{width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.section-title{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
+.section-divider{height:1px;background:var(--border);margin:1.5rem 0}
+.field{margin-bottom:1.1rem}
+.field label{display:block;font-size:12.5px;font-weight:500;color:var(--navy);margin-bottom:.35rem;letter-spacing:.01em}
+.field label .req{color:var(--red);margin-left:2px}
+.field label .opt{font-size:11px;font-weight:400;color:var(--slate-light);margin-left:4px}
+.f-input,.f-select,.f-textarea{width:100%;font-family:var(--ff-body);font-size:14px;padding:9px 12px;border:1px solid var(--border);border-radius:4px;color:var(--navy);background:var(--color-background-primary);outline:none;transition:border-color .15s,box-shadow .15s;-webkit-appearance:none}
+.f-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a5568' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px;cursor:pointer}
+.f-textarea{resize:vertical;min-height:100px;line-height:1.6}
+.f-input:focus,.f-select:focus,.f-textarea:focus{border-color:var(--navy-mid);box-shadow:0 0 0 3px rgba(15,39,68,.08)}
+.f-input::placeholder,.f-textarea::placeholder{color:#aab4c2}
+.f-input.err,.f-select.err,.f-textarea.err{border-color:var(--red)}
+.err-msg{font-size:12px;color:var(--red);margin-top:.3rem;display:none;align-items:center;gap:4px}
+.err-msg.show{display:flex}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.contact-toggle{display:flex;border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:1.1rem}
+.ct-btn{flex:1;padding:9px;font-family:var(--ff-body);font-size:13px;font-weight:500;border:none;background:transparent;color:var(--slate);cursor:pointer;transition:background .15s,color .15s;display:flex;align-items:center;justify-content:center;gap:6px}
+.ct-btn.active{background:var(--navy);color:#fff}
+.ct-btn i{font-size:15px}
+.cond{display:none}
+.cond.show{display:block}
+.cond-grid{display:none}
+.cond-grid.show{display:grid}
+.upload-zone{border:1.5px dashed var(--border-dark);border-radius:4px;padding:1.25rem;text-align:center;cursor:pointer;position:relative;transition:border-color .15s,background .15s}
+.upload-zone:hover{border-color:var(--navy-mid);background:var(--navy-pale)}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-zone i{font-size:22px;color:var(--slate-light);display:block;margin-bottom:.4rem}
+.upload-zone .uz-text{font-size:13.5px;color:var(--slate)}
+.upload-zone .uz-note{font-size:11.5px;color:var(--slate-light);margin-top:.3rem}
+.file-ok{font-size:12.5px;color:var(--green);margin-top:.4rem;display:none;align-items:center;gap:5px}
+.file-ok.show{display:flex}
+.checks{display:flex;flex-direction:column;gap:.7rem;margin-top:.5rem}
+.checks label{display:flex;align-items:flex-start;gap:.6rem;font-size:13.5px;color:var(--slate);cursor:pointer;line-height:1.5}
+.checks input[type=checkbox]{width:15px;height:15px;margin-top:2px;flex-shrink:0;accent-color:var(--navy)}
+.anon-notice{background:var(--navy-pale);border-left:3px solid var(--navy-mid);border-radius:0 4px 4px 0;padding:.75rem 1rem;font-size:13px;color:var(--navy-mid);display:flex;gap:.6rem;align-items:flex-start}
+.anon-notice i{font-size:16px;flex-shrink:0;margin-top:1px}
+.coop-wrap{position:relative}
+.coop-dropdown{position:absolute;top:100%;left:0;right:0;background:var(--color-background-primary);border:1px solid var(--border-dark);border-top:none;border-radius:0 0 4px 4px;z-index:20;max-height:200px;overflow-y:auto;display:none}
+.coop-dropdown.open{display:block}
+.coop-item{padding:9px 12px;cursor:pointer;border-bottom:1px solid var(--border)}
+.coop-item:last-child{border-bottom:none}
+.coop-item:hover{background:var(--navy-pale)}
+.coop-name{font-size:13.5px;color:var(--navy)}
+.coop-meta{font-size:11.5px;color:var(--slate-light);margin-top:1px}
+.coop-tag{display:inline-block;font-size:10.5px;font-weight:500;padding:1px 6px;border-radius:2px;margin-left:5px}
+.tag-active{background:#d4edda;color:#1a6b3a}
+.tag-inactive{background:#f8d7da;color:#721c24}
+.coop-selected{margin-top:.45rem;background:var(--navy-pale);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:13px;color:var(--navy);display:none;justify-content:space-between;align-items:center}
+.coop-selected.show{display:flex}
+.coop-selected button{background:none;border:none;cursor:pointer;font-size:18px;color:var(--slate-light);line-height:1;padding:0 2px}
+.form-footer{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;background:var(--navy-pale);border-top:1px solid var(--border);gap:12px;flex-wrap:wrap}
+.footer-note{font-size:12px;color:var(--slate-light);display:flex;align-items:center;gap:.4rem}
+.footer-note i{font-size:15px}
+.btn-primary{font-family:var(--ff-body);font-size:14px;font-weight:500;padding:10px 28px;background:var(--navy);color:#fff;border:none;border-radius:4px;cursor:pointer;letter-spacing:.02em;transition:background .15s,transform .1s;display:flex;align-items:center;gap:.5rem}
+.btn-primary:hover{background:var(--navy-mid)}
+.btn-primary:active{transform:scale(.98)}
+.btn-primary i{font-size:16px}
+.success-wrap{padding:3rem 2rem;text-align:center}
+.success-icon-ring{width:64px;height:64px;border-radius:50%;border:2px solid var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem}
+.success-icon-ring i{font-size:28px;color:var(--green)}
+.success-title{font-family:var(--ff-display);font-size:20px;font-weight:500;color:var(--navy);margin-bottom:.5rem}
+.success-sub{font-size:14px;color:var(--slate);margin-bottom:1.5rem;line-height:1.6}
+.ref-display{display:inline-block;font-family:var(--ff-body);font-size:18px;font-weight:500;letter-spacing:.1em;color:var(--navy);background:var(--navy-pale);border:1px solid var(--border-dark);border-radius:4px;padding:10px 28px;margin-bottom:.75rem}
+.status-pill{display:inline-flex;align-items:center;gap:.4rem;font-size:12px;font-weight:500;background:var(--gold-light);color:#7a5e15;padding:4px 12px;border-radius:2px;letter-spacing:.04em;text-transform:uppercase}
+.status-pill i{font-size:13px}
+</style>
+
+
+<div class="page" id="main-page">
+  <div class="form-banner">
+    <div class="banner-eyebrow">Republic of Malawi — Office of the Registrar of Cooperatives</div>
+    <div class="banner-title">Public Submission Portal</div>
+    <div class="banner-sub">Submit an inquiry, complaint, or grievance. All submissions are handled through the appropriate channel.</div>
+  </div>
+
+  <div class="form-body">
+    <div class="section-head">
+      <div class="section-num">1</div>
+      <div class="section-title">Submission classification</div>
+    </div>
+
+    <div class="field" id="wrap-type">
+      <label for="sub-type">Submission type <span class="req">*</span></label>
+      <select class="f-select" id="sub-type" onchange="onTypeChange()">
+        <option value="">Select submission type</option>
+        <option value="Inquiry">Inquiry</option>
+        <option value="Complaint">Complaint</option>
+        <option value="Grievance">Grievance</option>
+      </select>
+      <div class="err-msg" id="err-type"><i class="ti ti-alert-circle" style="font-size:13px"></i>Please select a submission type.</div>
+    </div>
+
+    <div class="cond" id="block-grievance">
+      <div class="field" id="wrap-gtype">
+        <label for="grievance-type">Type of grievance <span class="req">*</span></label>
+        <select class="f-select" id="grievance-type">
+          <option value="">Select grievance type</option>
+          <option>Governance &amp; Leadership</option>
+          <option>Financial</option>
+          <option>Membership &amp; Rights</option>
+          <option>Operational &amp; Service Delivery</option>
+          <option>Legal &amp; Compliance</option>
+          <option>Others</option>
+        </select>
+        <div class="err-msg" id="err-gtype"><i class="ti ti-alert-circle" style="font-size:13px"></i>Please select a type of grievance.</div>
+      </div>
+
+      <div class="field">
+        <label>Prior discussion <span class="req">*</span></label>
+        <div class="checks">
+          <label><input type="checkbox" id="chk-internal"> Has this been discussed internally within the cooperative during a general or discipline meeting?</label>
+          <label><input type="checkbox" id="chk-union"> If the cooperative is part of a union, has it been discussed with the union during a general or discipline meeting?</label>
+        </div>
+        <div class="err-msg" id="err-checks"><i class="ti ti-alert-circle" style="font-size:13px"></i>Please select at least one prior discussion option.</div>
+      </div>
+
+      <div class="field" id="wrap-upload">
+        <label>Supporting document <span class="req">*</span></label>
+        <div class="upload-zone" id="upload-zone">
+          <input type="file" id="file-inp" accept=".pdf,.jpg,.jpeg,.png" onchange="onFile(this)">
+          <i class="ti ti-cloud-upload" aria-hidden="true"></i>
+          <div class="uz-text">Click to upload or drag and drop</div>
+          <div class="uz-note">PDF, JPG or PNG · maximum 2 MB · If a discussion checkbox is ticked, upload the relevant Minutes of Meeting</div>
+        </div>
+        <div class="file-ok" id="file-ok"><i class="ti ti-circle-check" style="font-size:14px;color:var(--green)"></i><span id="file-name-txt"></span></div>
+        <div class="err-msg" id="err-upload"><i class="ti ti-alert-circle" style="font-size:13px"></i>A valid supporting document is required (PDF, JPG or PNG, max 2 MB).</div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="section-head">
+      <div class="section-num">2</div>
+      <div class="section-title">Cooperative</div>
+    </div>
+
+    <div class="field">
+      <label for="coop-inp">Cooperative name</label>
+      <div class="coop-wrap">
+        <input class="f-input" type="text" id="coop-inp" placeholder="Type at least 3 characters to search…" oninput="onCoopSearch(this.value)" autocomplete="off">
+        <div class="coop-dropdown" id="coop-dd"></div>
+      </div>
+      <div class="coop-selected" id="coop-sel">
+        <span id="coop-sel-txt"></span>
+        <button onclick="clearCoop()" aria-label="Remove cooperative">×</button>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="section-head">
+      <div class="section-num">3</div>
+      <div class="section-title">Contact details</div>
+    </div>
+
+    <div class="contact-toggle" role="group" aria-label="Contact preference">
+      <button class="ct-btn active" id="btn-id" onclick="setContact('identified')"><i class="ti ti-user" aria-hidden="true"></i> Identified</button>
+      <button class="ct-btn" id="btn-anon" onclick="setContact('anonymous')"><i class="ti ti-user-off" aria-hidden="true"></i> Anonymous</button>
+    </div>
+
+    <div id="identified-fields">
+      <div class="grid-2" id="wrap-name-email">
+        <div class="field" id="wrap-fullname">
+          <label for="fullname">Full name <span class="req" id="req-name">*</span><span class="opt" id="opt-name" style="display:none">optional</span></label>
+          <input class="f-input" type="text" id="fullname" placeholder="e.g. John Banda">
+          <div class="err-msg" id="err-name"><i class="ti ti-alert-circle" style="font-size:13px"></i>Full name is required for Inquiry submissions.</div>
+        </div>
+        <div class="field" id="wrap-email">
+          <label for="email">Email address <span class="req" id="req-email">*</span><span class="opt" id="opt-email" style="display:none">optional</span></label>
+          <input class="f-input" type="email" id="email" placeholder="e.g. john@example.com">
+          <div class="err-msg" id="err-email"><i class="ti ti-alert-circle" style="font-size:13px"></i>A valid email address is required for Inquiry submissions.</div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="phone">Contact number <span class="opt">optional</span></label>
+        <input class="f-input" type="tel" id="phone" placeholder="e.g. +265 999 000 000" style="max-width:260px">
+      </div>
+    </div>
+
+    <div id="anon-notice" style="display:none">
+      <div class="anon-notice"><i class="ti ti-shield-lock" aria-hidden="true"></i> You are submitting anonymously. No personal identification data will be stored with your submission.</div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="section-head">
+      <div class="section-num">4</div>
+      <div class="section-title">Details</div>
+    </div>
+
+    <div class="field" id="wrap-msg">
+      <label for="msg-txt">Message <span class="req">*</span></label>
+      <textarea class="f-textarea" id="msg-txt" placeholder="Please describe your inquiry, complaint, or grievance in detail…" rows="5"></textarea>
+      <div class="err-msg" id="err-msg"><i class="ti ti-alert-circle" style="font-size:13px"></i>Please provide details for your submission.</div>
+    </div>
+  </div>
+
+  <div class="form-footer">
+    <div class="footer-note"></div>
+    <button class="btn-primary" onclick="handleSubmit()"><i class="ti ti-send" aria-hidden="true"></i> Submit</button>
+  </div>
+</div>
+
+<div style="display:none;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden" id="success-page">
+  <div class="form-banner">
+    <div class="banner-eyebrow">Republic of Malawi — Office of the Registrar of Cooperatives</div>
+    <div class="banner-title">Public Submission Portal</div>
+  </div>
+  <div class="success-wrap">
+    <div class="success-icon-ring"><i class="ti ti-check" aria-hidden="true"></i></div>
+    <div class="success-title">Submission received</div>
+    <div class="success-sub">Your submission has been forwarded to the Office of the Registrar of Cooperatives.<br>Please retain your reference number for any follow-up correspondence.</div>
+    <div class="ref-display" id="ref-out"></div>
+    <br>
+    <div class="status-pill"><i class="ti ti-clock" aria-hidden="true"></i> Pending review</div>
+  </div>
+</div>
+
+<script>
+const COOPS=[
+  {name:"Lilongwe Farmers Cooperative Society",reg:"CR/2001/0045",status:"Active"},
+  {name:"Lilongwe Urban Transport Cooperative",reg:"CR/2003/0102",status:"Active"},
+  {name:"Limbe Agricultural Cooperative",reg:"CR/1998/0012",status:"Active"},
+  {name:"Mzuzu Dairy Producers Cooperative",reg:"CR/2007/0238",status:"Inactive"},
+  {name:"Blantyre Women Empowerment Cooperative",reg:"CR/2011/0315",status:"Active"},
+  {name:"Zomba Teachers Savings Cooperative",reg:"CR/2005/0187",status:"Active"},
+  {name:"National Fishing Cooperative Union",reg:"CR/1995/0003",status:"Inactive"},
+  {name:"Southern Region Transport Cooperative",reg:"CR/2014/0401",status:"Active"}
+];
+let selCoop=null,contactMode='identified',chosenFile=null;
+
+function onTypeChange(){
+  const v=document.getElementById('sub-type').value;
+  const g=v==='Grievance';
+  document.getElementById('block-grievance').classList.toggle('show',g);
+  if(!g)document.getElementById('err-checks').classList.remove('show');
+  const isInq=v==='Inquiry';
+  document.getElementById('req-name').style.display=isInq?'':'none';
+  document.getElementById('opt-name').style.display=isInq?'none':'';
+  document.getElementById('req-email').style.display=isInq?'':'none';
+  document.getElementById('opt-email').style.display=isInq?'none':'';
+}
+
+function onCoopSearch(v){
+  const dd=document.getElementById('coop-dd');
+  if(v.length<3){dd.classList.remove('open');return}
+  const r=COOPS.filter(c=>c.name.toLowerCase().includes(v.toLowerCase()));
+  if(!r.length){dd.innerHTML='<div class="coop-item"><div class="coop-name" style="color:#718096">No matching cooperatives found</div></div>';dd.classList.add('open');return}
+  dd.innerHTML=r.map(c=>`<div class="coop-item" onclick="pickCoop('${c.name.replace(/'/g,"\\'")}','${c.reg}','${c.status}')"><div class="coop-name">${c.name}<span class="coop-tag ${c.status==='Active'?'tag-active':'tag-inactive'}">${c.status}</span></div><div class="coop-meta">${c.reg}</div></div>`).join('');
+  dd.classList.add('open');
+}
+
+function pickCoop(name,reg,status){
+  selCoop={name,reg,status};
+  document.getElementById('coop-inp').value=name;
+  document.getElementById('coop-dd').classList.remove('open');
+  const s=document.getElementById('coop-sel');
+  document.getElementById('coop-sel-txt').textContent=name+' — '+reg+' ('+status+')';
+  s.classList.add('show');
+}
+
+function clearCoop(){
+  selCoop=null;
+  document.getElementById('coop-inp').value='';
+  document.getElementById('coop-sel').classList.remove('show');
+}
+
+document.addEventListener('click',e=>{if(!e.target.closest('.coop-wrap'))document.getElementById('coop-dd').classList.remove('open')});
+
+function setContact(m){
+  contactMode=m;
+  document.getElementById('btn-id').classList.toggle('active',m==='identified');
+  document.getElementById('btn-anon').classList.toggle('active',m==='anonymous');
+  document.getElementById('identified-fields').style.display=m==='identified'?'block':'none';
+  document.getElementById('anon-notice').style.display=m==='anonymous'?'block':'none';
+}
+
+function onFile(inp){
+  const f=inp.files[0];
+  const ok=['application/pdf','image/jpeg','image/png'];
+  if(!f||!ok.includes(f.type)||f.size>2097152){
+    chosenFile=null;inp.value='';
+    document.getElementById('file-ok').classList.remove('show');
+    document.getElementById('err-upload').classList.add('show');
+    return;
+  }
+  chosenFile=f;
+  document.getElementById('file-name-txt').textContent=f.name+' ('+Math.round(f.size/1024)+' KB)';
+  document.getElementById('file-ok').classList.add('show');
+  document.getElementById('err-upload').classList.remove('show');
+  document.getElementById('upload-zone').style.borderColor='var(--green)';
+}
+
+function setErr(fieldId,errId,state){
+  const f=document.getElementById(fieldId);
+  const e=document.getElementById(errId);
+  if(f){const el=f.querySelector('.f-input,.f-select,.f-textarea');if(el)el.classList.toggle('err',state)}
+  if(e)e.classList.toggle('show',state);
+}
+
+function handleSubmit(){
+  let ok=true;
+  const type=document.getElementById('sub-type').value;
+  if(!type){setErr('wrap-type','err-type',true);ok=false}else{setErr('wrap-type','err-type',false)}
+  if(type==='Grievance'){
+    const gt=document.getElementById('grievance-type').value;
+    if(!gt){setErr('wrap-gtype','err-gtype',true);ok=false}else{setErr('wrap-gtype','err-gtype',false)}
+    const checksOk=document.getElementById('chk-internal').checked||document.getElementById('chk-union').checked;
+    document.getElementById('err-checks').classList.toggle('show',!checksOk);if(!checksOk)ok=false;
+    if(!chosenFile){document.getElementById('err-upload').classList.add('show');ok=false}else{document.getElementById('err-upload').classList.remove('show')}
+  }
+  if(contactMode==='identified'&&type==='Inquiry'){
+    const nm=document.getElementById('fullname').value.trim();
+    const em=document.getElementById('email').value.trim();
+    const emOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);
+    setErr('wrap-fullname','err-name',!nm);if(!nm)ok=false;
+    setErr('wrap-email','err-email',!em||!emOk);if(!em||!emOk)ok=false;
+  }
+  const msg=document.getElementById('msg-txt').value.trim();
+  setErr('wrap-msg','err-msg',!msg);if(!msg)ok=false;
+  if(!ok)return;
+  const ref='ROC/'+new Date().getFullYear()+'/'+String(Math.floor(Math.random()*900000)+100000);
+  document.getElementById('main-page').style.display='none';
+  const sp=document.getElementById('success-page');
+  sp.style.display='block';
+  document.getElementById('ref-out').textContent=ref;
+}
+</script>

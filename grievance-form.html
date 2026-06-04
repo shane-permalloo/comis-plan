@@ -274,6 +274,9 @@ function onTypeChange(){
   document.getElementById('opt-name').style.display=isInq?'none':'';
   document.getElementById('req-email').style.display=isInq?'':'none';
   document.getElementById('opt-email').style.display=isInq?'none':'';
+  // Inquiry requires contact details — force identified mode and hide the anonymous toggle
+  document.querySelector('.contact-toggle').style.display=isInq?'none':'';
+  if(isInq){setContact('identified');}
 }
 
 function onCoopSearch(v){
@@ -346,7 +349,7 @@ function handleSubmit(){
     document.getElementById('err-checks').classList.toggle('show',!checksOk);if(!checksOk)ok=false;
     if(!chosenFile){document.getElementById('err-upload').classList.add('show');ok=false}else{document.getElementById('err-upload').classList.remove('show')}
   }
-  if(contactMode==='identified'&&type==='Inquiry'){
+  if(type==='Inquiry'){
     const nm=document.getElementById('fullname').value.trim();
     const em=document.getElementById('email').value.trim();
     const emOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);

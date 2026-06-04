@@ -274,9 +274,10 @@ function onTypeChange(){
   document.getElementById('opt-name').style.display=isInq?'none':'';
   document.getElementById('req-email').style.display=isInq?'':'none';
   document.getElementById('opt-email').style.display=isInq?'none':'';
-  // Inquiry requires contact details — force identified mode and hide the anonymous toggle
-  document.querySelector('.contact-toggle').style.display=isInq?'none':'';
-  if(isInq){setContact('identified');}
+  // Inquiry and Grievance require contact details — force identified mode and hide the anonymous toggle
+  const requireContact=isInq||g;
+  document.querySelector('.contact-toggle').style.display=requireContact?'none':'';
+  if(requireContact){setContact('identified');}
 }
 
 function onCoopSearch(v){
@@ -349,7 +350,7 @@ function handleSubmit(){
     document.getElementById('err-checks').classList.toggle('show',!checksOk);if(!checksOk)ok=false;
     if(!chosenFile){document.getElementById('err-upload').classList.add('show');ok=false}else{document.getElementById('err-upload').classList.remove('show')}
   }
-  if(type==='Inquiry'){
+  if(type==='Inquiry'||type==='Grievance'){
     const nm=document.getElementById('fullname').value.trim();
     const em=document.getElementById('email').value.trim();
     const emOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);

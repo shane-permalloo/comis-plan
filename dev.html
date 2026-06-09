@@ -23,7 +23,7 @@
     /* ── Gantt wrapper ────────────────────────────────────────────── */
     .gantt-wrapper { overflow-x: auto; position: relative; }
 
-    .gantt-table { width: 100%; border-collapse: collapse; min-width: 1300px; }
+    .gantt-table { width: 100%; border-collapse: collapse; min-width: 1300px; table-layout: fixed; }
 
     /* ── thead ────────────────────────────────────────────────────── */
     .gantt-table thead th {
@@ -35,7 +35,7 @@
       white-space: nowrap;
     }
     .gantt-table thead th.task-col {
-      text-align: left; min-width: 100px;
+      text-align: left; width: 250px; min-width: 250px; max-width: 250px;
       font-size: 13px;
       border: 0;
     }
@@ -50,12 +50,16 @@
 
     /* ── tbody ────────────────────────────────────────────────────── */
     .gantt-table tbody td {
-      border: 1px solid #dee2e6; padding: 0 2px;
+      border: 1px solid #dee2e6; padding: 0;
       font-size: 13px; height: 36px; vertical-align: middle;
+      position: relative;
     }
     .gantt-table tbody td.task-col {
       background: #f8f9fa; font-weight: 500; color: #2c3e50;
-      padding: 6px 10px; white-space: nowrap; max-width: 150px; border: 0;
+      padding: 6px 10px; white-space: nowrap;
+      width: 250px; min-width: 250px; max-width: 250px;
+      overflow: hidden; text-overflow: ellipsis;
+      border: 0;
     }
 
     /* ── Phase row (bold header) ──────────────────────────────────── */
@@ -109,6 +113,7 @@
       box-shadow: 0 2px 4px rgba(0,0,0,.2);
       text-transform: uppercase; letter-spacing: .5px;
       white-space: nowrap; overflow: hidden;
+      background: linear-gradient(135deg,#95a5a6,#7f8c8d);
     }
 
     /* bar colours */
@@ -191,112 +196,105 @@
 const PROJECT = {
   title:    "COMIS PROJECT IMPLEMENTATION PLAN",
   notes:    "Production environment readiness delayed to August 2026 | " +
-            "NRB Integration deferred awaiting server readiness (Sept 2026) | " +
-            "Phase 1 Go-Live: Oct 2026 | Registration Campaign (3/4 months): Nov 2026 – Feb 2027 | " +
-            "Phase 2 Go-Live: March 2027",
+            "Development estimate till Phase 1 go-live",
   version:  "v2.0 — June 2026",
 };
 
 // ── Timeline config ───────────────────────────────────────────────────────────
 // Only change TIMELINE_START; the number of columns is derived automatically
 // from the furthest bar end-index in ROWS, and today's column is auto-highlighted.
-const TIMELINE_START = { month: 9, year: 2025 };  // ← start month (1–12) and year
+const TIMELINE_START = { month: 6, year: 2026 };  // ← start month (1–12) and year
 
 // Task rows
 // start/end are column indices (0-based, inclusive)
 const ROWS = [
 
-  /* ── Phase 1: Initiation ─────────────────────────────────── */
-  { label: "1: PROJECT INITIATION",     type: "phase",
-    bars: [{ start:0, end:0, color:"initiation", label:"INIT" }] },
+  { label: "Primary Coop registration",  type: "phase",
+    bars: [{ start:0, end:0.5, color:"development", label:"Regis" }] },
+  { label: "- UI", type: "task",
+    bars: [{ start:0, end:0.5, color:"UI",    label:"UI" }] },
+  { label: "- BE", type: "task",
+    bars: [{ start:0, end:0.5, color:"BE",    label:"BE" }] },
 
-  /* ── Phase 2: Requirements & Design ─────────────────────── */
-  { label: "2: REQUIREMENTS & DESIGN",  type: "phase",
-    bars: [{ start:1, end:7, color:"requirements", label:"REQ & DES" }] },
+  { label: "Bylaws Amendment",  type: "phase",
+    bars: [{ start:0, end:0.99, color:"development", label:"Bylaws" }] },
+    { label: "- BA", type: "task",
+    bars: [{ start:0, end:0.5,  color:"BA", label:"BA" }] },
+  { label: " - UI", type: "task",
+    bars: [{ start:0.5, end:1,  color:"UI", label:"UI" }] },
+  { label: " - BE", type: "task",
+    bars: [{ start:0.5, end:1,  color:"BE", label:"BE" }] },
 
-  { label: " - Spex Gathering",         type: "task",
-    bars: [{ start:1, end:6, color:"prototype",    label:"SPEC" }] },
+  { label: "Union coop registration",  type: "phase",
+    bars: [{ start:0.5, end:1.5, color:"development", label:"Union" }] },
+    { label: "- BA", type: "task",
+    bars: [{ start:0.5, end:1,  color:"BA", label:"BA" }] },
+  { label: " - UI", type: "task",
+    bars: [{ start:1, end:1.5,  color:"UI", label:"UI" }] },
+  { label: " - BE", type: "task",
+    bars: [{ start:1, end:1.5,  color:"BE", label:"BE" }] },
 
-  { label: " -  Design Prototype",    type: "task",
-    bars: [{ start:4, end:7, color:"prototype",    label:"DESIGN" }] },
+  { label: "Member management",  type: "phase",
+    bars: [{ start:0.5, end:2, color:"development", label:"Members" }] },
+    { label: "- BA", type: "task",
+    bars: [{ start:0.5, end:0.99,  color:"BA", label:"BA" }] },
+  { label: " - UI", type: "task",
+    bars: [{ start:1, end:2,  color:"UI", label:"UI" }] },
+  { label: " - BE", type: "task",
+    bars: [{ start:1, end:2,  color:"BE", label:"BE" }] },
 
-  /* ── Phase 3: Development Phase 1 ───────────────────────── */
-  { label: "3: DEV Phase 1",  type: "phase",
-    bars: [{ start:5, end:12, color:"development", label:"DEV PHASE 1" }] },
+  { label: "Grievance",  type: "phase",
+    bars: [{ start:0.5, end:1.99, color:"development", label:"Grievance" }] },
+    { label: "- BA", type: "task",
+    bars: [{ start:0.5, end:0.99,  color:"BA", label:"BA" }] },
+  { label: " - UI", type: "task",
+    bars: [{ start:1, end:1.99,  color:"UI", label:"UI" }] },
+  { label: " - BE", type: "task",
+    bars: [{ start:1, end:1.99,  color:"BE", label:"BE" }] },
 
-  { label: " - Project Setup",          type: "task",
-    bars: [{ start:5, end:6,  color:"development", label:"PROJECT SETUP" }] },
+  { label: "Post-training",  type: "phase",
+    bars: [{ start:0.5, end:1.5, color:"development", label:"Post-training" }] },
+    { label: "- BA", type: "task",
+    bars: [{ start:0.5, end:0.99,  color:"BA", label:"BA" }] },
+  { label: " - UI", type: "task",
+    bars: [{ start:1, end:1.5,  color:"UI", label:"UI" }] },
+  { label: " - BE", type: "task",
+    bars: [{ start:1, end:1.5,  color:"BE", label:"BE -SL" }] },
+  
 
-  { label: " - Assessment",             type: "task",
-    bars: [{ start:5, end:8,  color:"requirements", label:"ASSESSMENT" }] },
+  { label: "Dissolution",  type: "phase",
+    bars: [{ start:1, end:1.99, color:"development", label:"Dissolution" }] },
+    { label: "- BA", type: "task",
+    bars: [{ start:1, end:1.5,  color:"BA", label:"BA" }] },
+  { label: " - UI", type: "task",
+    bars: [{ start:1.5, end:1.99,  color:"UI", label:"UI" }] },
+  { label: " - BE", type: "task",
+    bars: [{ start:1.5, end:1.99,  color:"BE", label:"BE -SL" }] },
 
-  { label: " - CME",                    type: "task",
-    bars: [{ start:7, end:8,  color:"development", label:"CME" }] },
+    /*-------------------------------*/
+  { label: " - DevOps Env. Setup", type: "phase",
+    bars: [{ start:1, end:1.99, color:"requirements", label:"DevOps" }] },
 
-  { label: " - Cooperative Registration", type: "task",
-    bars: [{ start:9, end:10, color:"development", label:"REG" }] },
-
-  { label: " - Amendment of Bylaws",    type: "task",
-    bars: [{ start:10, end:11, color:"development", label:"BYLAWS" }] },
-
-  { label: " - Member Management",      type: "task",
-    bars: [{ start:11, end:12, color:"development", label:"MEMBERS" }] },
-
-  { label: " - Post-training",          type: "task",
-    bars: [{ start:11, end:12, color:"development",   label:"POST-TRAIN" }] },
-
-  { label: " - Grievance Redress",      type: "task",
-    bars: [{ start:9, end:10,  color:"development", label:"GRIEVANCE" }] },
-
-  { label: " - Dissolution",            type: "task",
-    bars: [{ start:11, end:12, color:"development", label:"DISSOLUTION" }] },
-  { label: " - Preprod/Prod Env. Setup", type: "task",
-    bars: [{ start:11, end:12, color:"development", label:"ENV. SETUP" }] },
-
-  { label: " - NRB Integration (Preprod/Prod)", type: "task",
-    bars: [{ start:12, end:12, color:"development", label:"NRB" }] },
+  { label: " - NRB Integration", type: "task",
+    bars: [{ start:2, end:2.5, color:"development", label:"NRB" }] },
 
   /* ── Phase 4: UAT Phase 1 ────────────────────────────────── */
-  { label: "4: UAT Phase 1",      type: "phase",
-    bars: [{ start:13, end:13, color:"testing",    label:"UAT" }] },
+  { label: "UAT Phase 1",      type: "phase",
+    bars: [{ start:2.5, end:2.99, color:"testing",    label:"UAT" }] },
 
   { label: " - UAT",                    type: "task",
-    bars: [{ start:13, end:13, color:"training",   label:"UAT" }] },
+    bars: [{ start:2.5, end:2.99, color:"UAT",   label:"UAT" }] },
 
   { label: " - Training",               type: "task",
-    bars: [{ start:13, end:13, color:"training",   label:"TRAIN" }] },
+    bars: [{ start:2.5, end:2.99, color:"UAT",   label:"TRAIN" }] },
+  { label: " - Golive",               type: "task",
+    bars: [{ start:2.99, end:3.09, color:"golive",   label:"" }] },
 
+    
   /* ── Phase 5: Registration Campaign ─────────────────────── */
-  { label: " 5: Registration Campaign", type: "campaign",
-    bars: [{ start:14, end:17, color:"campaign",   label:"CAMPAIGN" }] },
+  { label: " Registration Campaign", type: "campaign",
+    bars: [{ start:3, end:6.99, color:"campaign",   label:"CAMPAIGN" }] },
 
-  /* ── Phase 6: Go-Live Phase 1 ────────────────────────────── */
-  { label: "6: Dev Phase 1 GO-LIVE", type: "phase",
-    bars: [{ start:13, end:13, color:"golive",     label:"GO-LIVE P1" }] },
-
-  /* ── Phase 7: Development Phase 2 ───────────────────────── */
-  { label: "7: DEV Phase 2",  type: "phase",
-    bars: [{ start:14, end:17, color:"development", label:"DEV PHASE 2" }] },
-
-  { label: " - Dev (Finance Module)",   type: "task",
-    bars: [{ start:14, end:17, color:"development", label:"FINANCE" }] },
-
-  { label: " - Dev (Reporting & Analytics)", type: "task",
-    bars: [{ start:15, end:17, color:"development", label:"REPORTS" }] },
-
-  /* ── Phase 8: UAT Phase 2 ────────────────────────────────── */
-  { label: "8: Dev Phase 2 UAT",  type: "phase",
-    bars: [{ start:18, end:18, color:"testing",    label:"UAT" }] },
-
-  { label: " - UAT & CR",               type: "task",
-    bars: [{ start:18, end:18, color:"training",   label:"UAT" }] },
-
-  { label: " - Training",               type: "task",
-    bars: [{ start:18, end:18, color:"training",   label:"TRAIN" }] },
-
-  /* ── Phase 9: Go-Live Phase 2 ────────────────────────────── */
-  { label: "9: Dev Phase 2 GO-LIVE", type: "phase",
-    bars: [{ start:18, end:18, color:"testing",    label:"GO-LIVE P2" }] },
 ];
 
 // Auto-generated from ROWS — do not edit this block
@@ -307,7 +305,7 @@ const TIMELINE = (() => {
   const todayM = now.getMonth() + 1;   // 1-based
   const todayY = now.getFullYear();
   const count  = ROWS.reduce((max, row) =>
-    (row.bars || []).reduce((m, b) => Math.max(m, b.end ?? 0), max), 0) + 1;
+    (row.bars || []).reduce((m, b) => Math.max(m, Math.floor(b.end ?? 0)), max), 0) + 1;
   return Array.from({ length: count }, (_, i) => {
     const offset = (TIMELINE_START.month - 1) + i;   // 0-based from Jan
     const m = (offset % 12) + 1;                     // 1-based month
@@ -338,27 +336,50 @@ const LEGEND_ITEMS = [
 
 function buildCells(row) {
   const n = TIMELINE.length;
-  // Build a sparse map: colIndex → { span, barHtml }
-  const barMap = {};
-  const blocked = new Set();
 
-  (row.bars || []).forEach(b => {
-    const span = b.end - b.start + 1;
-    barMap[b.start] = { span, barHtml: `<div class="bar bar-${b.color}">${b.label}</div>` };
-    for (let i = b.start; i <= b.end; i++) blocked.add(i);
+  // Normalise each bar: support decimal start/end (e.g. 0.5 = mid-month)
+  const bars = (row.bars || []).map(b => {
+    const colStart = Math.floor(b.start);   // first column index
+    const colEnd   = Math.floor(b.end);     // last column index
+    const span     = colEnd - colStart + 1; // integer colspan
+
+    // Fractional positioning within the spanned columns
+    const totalCols = colEnd - colStart + 1;
+    const leftFrac  = (b.start - colStart) / totalCols;
+    const rightFrac = (colEnd + 1 - b.end) / totalCols;
+    const widthFrac = 1 - leftFrac - rightFrac;
+
+    const leftPct  = (leftFrac  * 100).toFixed(2) + "%";
+    const widthPct = (widthFrac * 100).toFixed(2) + "%";
+
+    const barHtml =
+      '<div style="position:absolute;top:50%;transform:translateY(-50%);' +
+      'left:' + leftPct + ';width:' + widthPct + ';padding:0 2px;box-sizing:border-box;">' +
+      '<div class="bar bar-' + b.color + '">' + b.label + '</div></div>';
+
+    return { colStart, span, barHtml };
+  });
+
+  // Map colStart → merged entry (support multiple bars per cell)
+  const barMap = {};
+  bars.forEach(b => {
+    if (!barMap[b.colStart]) barMap[b.colStart] = { span: b.span, barHtmls: [] };
+    barMap[b.colStart].span = Math.max(barMap[b.colStart].span, b.span);
+    barMap[b.colStart].barHtmls.push(b.barHtml);
   });
 
   let html = "";
   let skip = 0;
   for (let c = 0; c < n; c++) {
     if (skip > 0) { skip--; continue; }
-    const todayCls = TIMELINE[c].today ? " today-col" : "";
+    const todayCls = /*TIMELINE[c].today ? " today-col" :*/ "";
     if (barMap[c]) {
-      const { span, barHtml } = barMap[c];
-      html += `<td class="gantt-cell${todayCls}"${span > 1 ? ` colspan="${span}"` : ""}>${barHtml}</td>`;
+      const { span, barHtmls } = barMap[c];
+      const colAttr = span > 1 ? ' colspan="' + span + '"' : "";
+      html += '<td class="gantt-cell' + todayCls + '" style="position:relative;"' + colAttr + '>' + barHtmls.join("") + '</td>';
       skip = span - 1;
     } else {
-      html += `<td class="gantt-cell${todayCls}"></td>`;
+      html += '<td class="gantt-cell' + todayCls + '"></td>';
     }
   }
   return html;
@@ -404,6 +425,10 @@ function render() {
 
     <div class="gantt-wrapper">
       <table class="gantt-table">
+        <colgroup>
+          <col style="width:250px">
+          ${TIMELINE.map(() => '<col>').join('')}
+        </colgroup>
         <thead>
           <tr>
             <th class="task-col"></th>
@@ -416,10 +441,10 @@ function render() {
       </table>
     </div>
 
-    <div class="legend">
+    <!--<div class="legend">
       <h3>Legend</h3>
       <div class="legend-grid">${legendHtml}</div>
-    </div>
+    </div>-->
 
     <div class="footer">
       COMIS Project Plan &nbsp;|&nbsp; ${PROJECT.version} &nbsp;|&nbsp; MNS Ltd

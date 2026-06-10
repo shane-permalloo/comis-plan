@@ -23,7 +23,7 @@
     /* ── Gantt wrapper ────────────────────────────────────────────── */
     .gantt-wrapper { overflow-x: auto; position: relative; }
 
-    .gantt-table { width: 100%; border-collapse: collapse; min-width: 1300px; table-layout: fixed; }
+    .gantt-table { width: 100%; border-collapse: collapse; min-width: 1300px; }
 
     /* ── thead ────────────────────────────────────────────────────── */
     .gantt-table thead th {
@@ -35,7 +35,7 @@
       white-space: nowrap;
     }
     .gantt-table thead th.task-col {
-      text-align: left; width: 250px; min-width: 250px; max-width: 250px;
+      text-align: left; min-width: 100px;
       font-size: 13px;
       border: 0;
     }
@@ -56,10 +56,7 @@
     }
     .gantt-table tbody td.task-col {
       background: #f8f9fa; font-weight: 500; color: #2c3e50;
-      padding: 6px 10px; white-space: nowrap;
-      width: 250px; min-width: 250px; max-width: 250px;
-      overflow: hidden; text-overflow: ellipsis;
-      border: 0;
+      padding: 6px 10px; white-space: nowrap; max-width: 250px; border: 0;
     }
 
     /* ── Phase row (bold header) ──────────────────────────────────── */
@@ -96,14 +93,14 @@
     }
 
     /* ── Today column highlight ───────────────────────────────────── */
-    td.today-col { background: rgba(231,76,60,.04) !important; }
+    /* td.today-col { background: rgba(231,76,60,.04) !important; }
     td.task-col.today-col { background: #f8f9fa !important; }
 
     /* ── Today vertical line (CSS pseudo on wrapper) ──────────────── */
-    .gantt-table td.today-col:not(.task-col) {
+/*.gantt-table td.today-col:not(.task-col) {
       border-left: 2px dashed rgba(231,76,60,.6) !important;
       border-right: 2px dashed rgba(231,76,60,.6) !important;
-    }
+    } */
 
     /* ── Bar ──────────────────────────────────────────────────────── */
     .bar {
@@ -114,7 +111,14 @@
       text-transform: uppercase; letter-spacing: .5px;
       white-space: nowrap; overflow: hidden;
       background: linear-gradient(135deg,#95a5a6,#7f8c8d);
+      position: relative;
     }
+    .bar-progress {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      background: rgba(255,255,255,.28); border-radius: 4px 0 0 4px;
+      pointer-events: none; z-index: 0;
+    }
+    .bar-text { position: relative; z-index: 1; }
 
     /* bar colours */
     .bar-initiation    { background: linear-gradient(135deg,#e74c3c,#c0392b); }
@@ -137,6 +141,38 @@
     tr.phase-row .bar-testing       { background: linear-gradient(135deg,#9b59b6,#8e44ad); }
     tr.phase-row .bar-training      { background: linear-gradient(135deg,#1abc9c,#16a085); }
     tr.phase-row .bar-golive        { background: linear-gradient(135deg,#e67e22,#d35400); }
+
+    .bar-golive {
+      transform: rotate(45deg); box-shadow: 0 4px 18px rgba(230,126,34,.6); width: 18px !important; height: 18px !important; padding: 0;
+
+    }
+
+    /* ── Tooltip ──────────────────────────────────────────────────── */
+    .gantt-tooltip {
+      position: fixed; z-index: 9999;
+      background: #1a1a2e; color: #dde;
+      padding: 8px 13px; border-radius: 7px;
+      font-size: 12px; line-height: 1.8;
+      pointer-events: none; opacity: 0;
+      transition: opacity .15s ease;
+      box-shadow: 0 4px 18px rgba(0,0,0,.45);
+      max-width: 260px; white-space: nowrap;
+    }
+    .gantt-tooltip.visible { opacity: 1; }
+    .gantt-tooltip .tip-title {
+      color: #fff; font-weight: 700; font-size: 13px;
+      border-bottom: 1px solid rgba(255,255,255,.15);
+      padding-bottom: 4px; margin-bottom: 5px;
+    }
+    .gantt-tooltip .tip-row { display: flex; gap: 8px; }
+    .gantt-tooltip .tip-key { color: #aab; min-width: 68px; }
+    .gantt-tooltip .tip-val { color: #eef; }
+    .gantt-tooltip .tip-note {
+      margin-top: 5px; padding-top: 5px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      color: #cce; font-style: italic; font-size: 11px;
+      white-space: normal;
+    }
 
     /* ── Legend ───────────────────────────────────────────────────── */
     .legend { padding: 24px 32px; background: #f8f9fa; border-top: 3px solid #e9ecef; }
@@ -196,7 +232,7 @@
 const PROJECT = {
   title:    "COMIS PROJECT IMPLEMENTATION PLAN",
   notes:    "Production environment readiness delayed to August 2026 | " +
-            "Development estimate till Phase 1 go-live",
+            "Development estimate till Phase 1 go-live | Deadline for development: August 2026",
   version:  "v2.0 — June 2026",
 };
 
@@ -210,32 +246,23 @@ const TIMELINE_START = { month: 6, year: 2026 };  // ← start month (1–12) an
 const ROWS = [
 
   { label: "Primary Coop registration",  type: "phase",
-    bars: [{ start:0, end:0.5, color:"development", label:"Regis" }] },
+    bars: [{ start:0, end:0.5, color:"development", label:"Regis", progress: 50, note: "In QA by end of Sprint 8" }] },
   { label: "- UI", type: "task",
-    bars: [{ start:0, end:0.5, color:"UI",    label:"UI" }] },
+    bars: [{ start:0, end:0.5, color:"UI",  progress: 60,  label:"UI" }] },
   { label: "- BE", type: "task",
-    bars: [{ start:0, end:0.5, color:"BE",    label:"BE" }] },
+    bars: [{ start:0, end:0.5, color:"BE",  progress: 40,  label:"BE" }] },
 
   { label: "Bylaws Amendment",  type: "phase",
-    bars: [{ start:0, end:0.99, color:"development", label:"Bylaws" }] },
+    bars: [{ start:0, end:0.99, color:"development", label:"Bylaws", progress: 10, note: "In QA by end of Sprint 9" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0, end:0.5,  color:"BA", label:"BA" }] },
+    bars: [{ start:0, end:0.5,  color:"BA", progress: 75, label:"BA", note: "most US in spec review" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:0.5, end:1,  color:"UI", label:"UI" }] },
+    bars: [{ start:0.5, end:1.15,  color:"UI", label:"UI" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.5, end:1,  color:"BE", label:"BE" }] },
-
-  { label: "Union coop registration",  type: "phase",
-    bars: [{ start:0.5, end:1.5, color:"development", label:"Union" }] },
-    { label: "- BA", type: "task",
-    bars: [{ start:0.5, end:1,  color:"BA", label:"BA" }] },
-  { label: " - UI", type: "task",
-    bars: [{ start:1, end:1.5,  color:"UI", label:"UI" }] },
-  { label: " - BE", type: "task",
-    bars: [{ start:1, end:1.5,  color:"BE", label:"BE" }] },
+    bars: [{ start:0.5, end:1.15,  color:"BE", label:"BE" }] },
 
   { label: "Member management",  type: "phase",
-    bars: [{ start:0.5, end:2, color:"development", label:"Members" }] },
+    bars: [{ start:0.6, end:2.1, color:"development", label:"Members" }] },
     { label: "- BA", type: "task",
     bars: [{ start:0.5, end:0.99,  color:"BA", label:"BA" }] },
   { label: " - UI", type: "task",
@@ -243,23 +270,32 @@ const ROWS = [
   { label: " - BE", type: "task",
     bars: [{ start:1, end:2,  color:"BE", label:"BE" }] },
 
+  { label: "Union coop registration",  type: "phase",
+    bars: [{ start:1, end:2, color:"development", label:"Union" }] },
+    { label: "- BA", type: "task",
+    bars: [{ start:1, end:1.5,  color:"BA", label:"BA" }] },
+  { label: " - UI", type: "task",
+    bars: [{ start:1.5, end:2,  color:"UI", label:"UI" }] },
+  { label: " - BE", type: "task",
+    bars: [{ start:1.5, end:2,  color:"BE", label:"BE" }] },
+
   { label: "Grievance",  type: "phase",
     bars: [{ start:0.5, end:1.99, color:"development", label:"Grievance" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.5, end:0.99,  color:"BA", label:"BA" }] },
+    bars: [{ start:0.43, end:0.99,  color:"BA", label:"BA" }] },
   { label: " - UI", type: "task",
     bars: [{ start:1, end:1.99,  color:"UI", label:"UI" }] },
   { label: " - BE", type: "task",
     bars: [{ start:1, end:1.99,  color:"BE", label:"BE" }] },
 
   { label: "Post-training",  type: "phase",
-    bars: [{ start:0.5, end:1.5, color:"development", label:"Post-training" }] },
+    bars: [{ start:0.5, end:1.6, color:"development", label:"Train" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.5, end:0.99,  color:"BA", label:"BA" }] },
+    bars: [{ start:0.43, end:0.99,  color:"BA", label:"BA" }] },
   { label: " - UI", type: "task",
     bars: [{ start:1, end:1.5,  color:"UI", label:"UI" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:1, end:1.5,  color:"BE", label:"BE -SL" }] },
+    bars: [{ start:1, end:1.5,  color:"BE", label:"BE" }] },
   
 
   { label: "Dissolution",  type: "phase",
@@ -269,7 +305,7 @@ const ROWS = [
   { label: " - UI", type: "task",
     bars: [{ start:1.5, end:1.99,  color:"UI", label:"UI" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:1.5, end:1.99,  color:"BE", label:"BE -SL" }] },
+    bars: [{ start:1.5, end:1.99,  color:"BE", label:"BE" }] },
 
     /*-------------------------------*/
   { label: " - DevOps Env. Setup", type: "phase",
@@ -288,12 +324,12 @@ const ROWS = [
   { label: " - Training",               type: "task",
     bars: [{ start:2.5, end:2.99, color:"UAT",   label:"TRAIN" }] },
   { label: " - Golive",               type: "task",
-    bars: [{ start:2.99, end:3.09, color:"golive",   label:"" }] },
+    bars: [{ start:3, end:3.1, color:"golive",   label:"" }] },
 
     
   /* ── Phase 5: Registration Campaign ─────────────────────── */
   { label: " Registration Campaign", type: "campaign",
-    bars: [{ start:3, end:6.99, color:"campaign",   label:"CAMPAIGN" }] },
+    bars: [{ start:3, end:3.99, color:"campaign",   label:"CAMPAIGN - 4 months till Dec 2026" }] },
 
 ];
 
@@ -332,35 +368,60 @@ const LEGEND_ITEMS = [
   { color:"bar-campaign",     label:"Registration Campaign",hex:"#1abc9c" },
 ];
 
-// ── Render ────────────────────────────────────────────────────────
+// ── Month label helper (handles decimals correctly) ───────────────
+const MONTH_ABBR = ["Jan","Feb","Mar","Apr","May","Jun",
+                    "Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function colToMonthLabel(decimalIdx) {
+  // Use floor so 0.5 → column 0's month label, 1.99 → column 1's month label
+  const offset = (TIMELINE_START.month - 1) + Math.floor(decimalIdx);
+  const m = (offset % 12) + 1;
+  const y = TIMELINE_START.year + Math.floor(offset / 12);
+  return MONTH_ABBR[m - 1] + " " + y;
+}
+
+// ── buildCells ────────────────────────────────────────────────────
 
 function buildCells(row) {
   const n = TIMELINE.length;
 
-  // Normalise each bar: support decimal start/end (e.g. 0.5 = mid-month)
   const bars = (row.bars || []).map(b => {
-    const colStart = Math.floor(b.start);   // first column index
-    const colEnd   = Math.floor(b.end);     // last column index
-    const span     = colEnd - colStart + 1; // integer colspan
+    const colStart = Math.floor(b.start);
+    const colEnd   = Math.floor(b.end);
+    const span     = colEnd - colStart + 1;
 
-    // Fractional positioning within the spanned columns
     const totalCols = colEnd - colStart + 1;
     const leftFrac  = (b.start - colStart) / totalCols;
     const rightFrac = (colEnd + 1 - b.end) / totalCols;
     const widthFrac = 1 - leftFrac - rightFrac;
+    const leftPct   = (leftFrac  * 100).toFixed(2) + "%";
+    const widthPct  = (widthFrac * 100).toFixed(2) + "%";
 
-    const leftPct  = (leftFrac  * 100).toFixed(2) + "%";
-    const widthPct = (widthFrac * 100).toFixed(2) + "%";
+    // Build tooltip data attributes — only include optional fields when defined
+    let tipAttrs = ' data-tip-label="' + (b.label || row.label) + '"'
+                 + ' data-tip-start="' + colToMonthLabel(b.start) + '"'
+                 + ' data-tip-end="'   + colToMonthLabel(b.end)   + '"';
+    if (b.assignee !== undefined) tipAttrs += ' data-tip-assignee="' + b.assignee + '"';
+    if (b.progress !== undefined) tipAttrs += ' data-tip-progress="' + b.progress + '"';
+    if (b.note     !== undefined) tipAttrs += ' data-tip-note="'     + b.note     + '"';
+
+    // Progress fill strip (only rendered when b.progress is set)
+    const progressHtml = (b.progress !== undefined)
+      ? '<div class="bar-progress" style="width:' + b.progress + '%"></div>'
+      : '';
 
     const barHtml =
       '<div style="position:absolute;top:50%;transform:translateY(-50%);' +
       'left:' + leftPct + ';width:' + widthPct + ';padding:0 2px;box-sizing:border-box;">' +
-      '<div class="bar bar-' + b.color + '">' + b.label + '</div></div>';
+        '<div class="bar bar-' + b.color + '"' + tipAttrs + '>' +
+          progressHtml +
+          '<span class="bar-text">' + (b.label || '') + '</span>' +
+        '</div>' +
+      '</div>';
 
     return { colStart, span, barHtml };
   });
 
-  // Map colStart → merged entry (support multiple bars per cell)
   const barMap = {};
   bars.forEach(b => {
     if (!barMap[b.colStart]) barMap[b.colStart] = { span: b.span, barHtmls: [] };
@@ -372,7 +433,7 @@ function buildCells(row) {
   let skip = 0;
   for (let c = 0; c < n; c++) {
     if (skip > 0) { skip--; continue; }
-    const todayCls = /*TIMELINE[c].today ? " today-col" :*/ "";
+    const todayCls = TIMELINE[c].today ? " today-col" : "";
     if (barMap[c]) {
       const { span, barHtmls } = barMap[c];
       const colAttr = span > 1 ? ' colspan="' + span + '"' : "";
@@ -385,36 +446,71 @@ function buildCells(row) {
   return html;
 }
 
-function render() {
-  const todayIdx = TIMELINE.findIndex(t => t.today);
+// ── Tooltip ───────────────────────────────────────────────────────
 
-  // Header columns
-  const thCols = TIMELINE.map((t, i) => {
-    const isToday = t.today;
+function initTooltip() {
+  const tip = document.createElement("div");
+  tip.className = "gantt-tooltip";
+  document.body.appendChild(tip);
+
+  const table = document.querySelector(".gantt-table");
+
+  table.addEventListener("mouseover", e => {
+    const el = e.target.closest("[data-tip-label]");
+    if (!el) { tip.classList.remove("visible"); return; }
+
+    const label    = el.getAttribute("data-tip-label") || "";
+    const start    = el.getAttribute("data-tip-start") || "";
+    const end      = el.getAttribute("data-tip-end")   || "";
+    const assignee = el.getAttribute("data-tip-assignee");
+    const progress = el.getAttribute("data-tip-progress");
+    const note     = el.getAttribute("data-tip-note");
+
+    let html = '<div class="tip-title">' + label + '</div>';
+    html += '<div class="tip-row"><span class="tip-key">Start</span><span class="tip-val">' + start + '</span></div>';
+    html += '<div class="tip-row"><span class="tip-key">End</span><span class="tip-val">'   + end   + '</span></div>';
+    if (assignee) html += '<div class="tip-row"><span class="tip-key">Assignee</span><span class="tip-val">' + assignee + '</span></div>';
+    if (progress) html += '<div class="tip-row"><span class="tip-key">Progress</span><span class="tip-val">' + progress + '%</span></div>';
+    if (note)     html += '<div class="tip-note">' + note + '</div>';
+
+    tip.innerHTML = html;
+    tip.classList.add("visible");
+  });
+
+  table.addEventListener("mousemove", e => {
+    if (!tip.classList.contains("visible")) return;
+    let left = e.clientX + 14;
+    let top  = e.clientY + 14;
+    if (left + 280 > window.innerWidth)  left = e.clientX - 280;
+    if (top  + 130 > window.innerHeight) top  = e.clientY - 110;
+    tip.style.left = left + "px";
+    tip.style.top  = top  + "px";
+  });
+
+  table.addEventListener("mouseleave", () => tip.classList.remove("visible"));
+}
+
+// ── Render ────────────────────────────────────────────────────────
+
+function render() {
+  const thCols = TIMELINE.map(t => {
     const lines = t.label.split("\n");
-    return `<th${isToday ? ' class="today-col"' : ""}>
-      ${lines[0]}<br>${lines[1]}${isToday ? `<span class="today-label">TODAY</span>` : ""}
-    </th>`;
+    return `<th${t.today ? ' class="today-col"' : ""}>${lines[0]}<br>${lines[1]}${t.today ? '<span class="today-label">TODAY</span>' : ""}</th>`;
   }).join("");
 
-  // Body rows
   const bodyRows = ROWS.map(row => {
     const rowClass = row.type === "phase"       ? "phase-row"
                    : row.type === "campaign"    ? "phase-row campaign-row"
                    : row.type === "deliverable" ? "deliverable-row"
                    : "";
-    const taskTodayCls = TIMELINE[todayIdx]?.today ? "" : ""; // task col never gets today highlight
     return `<tr class="${rowClass}">
       <td class="task-col">${row.label}</td>
       ${buildCells(row)}
     </tr>`;
   }).join("");
 
-  // Legend
   const legendHtml = LEGEND_ITEMS.map(l =>
-    `<div class="legend-item">
-      <div class="legend-box" style="background:${l.hex}"></div>${l.label}
-    </div>`
+    `<div class="legend-item"><div class="legend-box" style="background:${l.hex}"></div>${l.label}</div>`
   ).join("");
 
   document.getElementById("app").innerHTML = `
@@ -422,34 +518,20 @@ function render() {
       <h1>${PROJECT.title}</h1>
       <div class="subtitle">${PROJECT.notes}</div>
     </div>
-
     <div class="gantt-wrapper">
       <table class="gantt-table">
         <colgroup>
-          <col style="width:250px">
+          <col style="width:160px">
           ${TIMELINE.map(() => '<col>').join('')}
         </colgroup>
-        <thead>
-          <tr>
-            <th class="task-col"></th>
-            ${thCols}
-          </tr>
-        </thead>
-        <tbody>
-          ${bodyRows}
-        </tbody>
+        <thead><tr><th class="task-col"></th>${thCols}</tr></thead>
+        <tbody>${bodyRows}</tbody>
       </table>
     </div>
-
-    <!--<div class="legend">
-      <h3>Legend</h3>
-      <div class="legend-grid">${legendHtml}</div>
-    </div>-->
-
-    <div class="footer">
-      COMIS Project Plan &nbsp;|&nbsp; ${PROJECT.version} &nbsp;|&nbsp; MNS Ltd
-    </div>
+    <div class="footer">COMIS Project Plan &nbsp;|&nbsp; ${PROJECT.version} &nbsp;|&nbsp; MNS Ltd</div>
   `;
+
+  initTooltip();
 }
 
 render();

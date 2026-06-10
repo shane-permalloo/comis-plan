@@ -143,8 +143,24 @@
     tr.phase-row .bar-golive        { background: linear-gradient(135deg,#e67e22,#d35400); }
 
     .bar-golive {
-      transform: rotate(45deg); box-shadow: 0 4px 18px rgba(230,126,34,.6); width: 18px !important; height: 18px !important; padding: 0;
+      transform: rotate(45deg); box-shadow: 0 0 20px rgba(230,126,34,.6); width: 18px !important; height: 18px !important; padding: 0;
 
+    }
+
+    /* ── Avatar chips ────────────────────────────────────────────── */
+    .bar-avatars {
+      position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+      display: flex; gap: 2px; align-items: center;
+      z-index: 2; pointer-events: none;
+    }
+    .avatar-chip {
+      width: 20px; height: 20px; border-radius: 50%;
+      font-size: 8px; color: #fff; letter-spacing: 1;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.35);
+      flex-shrink: 0; letter-spacing: 0;
+      text-transform: uppercase;
     }
 
     /* ── Tooltip ──────────────────────────────────────────────────── */
@@ -246,66 +262,66 @@ const TIMELINE_START = { month: 6, year: 2026 };  // ← start month (1–12) an
 const ROWS = [
 
   { label: "Primary Coop registration",  type: "phase",
-    bars: [{ start:0, end:0.5, color:"development", label:"Regis", progress: 50, note: "In QA by end of Sprint 8" }] },
+    bars: [{ start:0, end:0.5, color:"development", label:"Registration", progress: 50, note: "In QA by end of Sprint 8" }] },
   { label: "- UI", type: "task",
-    bars: [{ start:0, end:0.5, color:"UI",  progress: 60,  label:"UI" }] },
+    bars: [{ start:0, end:0.5, color:"UI",  progress: 60,  label:"UI", assignee: "Hans Lee" }] },
   { label: "- BE", type: "task",
     bars: [{ start:0, end:0.5, color:"BE",  progress: 40,  label:"BE" }] },
 
   { label: "Bylaws Amendment",  type: "phase",
-    bars: [{ start:0, end:0.99, color:"development", label:"Bylaws", progress: 10, note: "In QA by end of Sprint 9" }] },
+    bars: [{ start:0, end:0.99, color:"development", label:"Bylaws Amendment", progress: 10, note: "In QA by end of Sprint 9" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0, end:0.5,  color:"BA", progress: 75, label:"BA", note: "most US in spec review" }] },
+    bars: [{ start:0, end:0.5,  color:"BA", progress: 75, label:"BA", note: "most US in spec review", assignee: "Anusha Nurkoo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:0.5, end:1.15,  color:"UI", label:"UI" }] },
+    bars: [{ start:0.5, end:1.15,  color:"UI", label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
     bars: [{ start:0.5, end:1.15,  color:"BE", label:"BE" }] },
 
   { label: "Member management",  type: "phase",
-    bars: [{ start:0.6, end:2.1, color:"development", label:"Members" }] },
+    bars: [{ start:0.6, end:2.1, color:"development", label:"Members & Leaders" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.5, end:0.99,  color:"BA", label:"BA" }] },
+    bars: [{ start:0.5, end:0.99,  color:"BA", label:"BA", assignee: "Anusha Nurkoo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:1, end:2,  color:"UI", label:"UI" }] },
+    bars: [{ start:1, end:2,  color:"UI", label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
     bars: [{ start:1, end:2,  color:"BE", label:"BE" }] },
 
   { label: "Union coop registration",  type: "phase",
     bars: [{ start:1, end:2, color:"development", label:"Union" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:1, end:1.5,  color:"BA", label:"BA" }] },
+    bars: [{ start:1, end:1.5,  color:"BA", label:"BA", assignee: "Anusha Nurkoo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:1.5, end:2,  color:"UI", label:"UI" }] },
+    bars: [{ start:1.5, end:2,  color:"UI", label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:1.5, end:2,  color:"BE", label:"BE" }] },
+    bars: [{ start:1.5, end:2,  color:"BE", label:"BE", assignee: "Rajendra Ballgobin" }] },
 
   { label: "Grievance",  type: "phase",
     bars: [{ start:0.5, end:1.99, color:"development", label:"Grievance" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.43, end:0.99,  color:"BA", label:"BA" }] },
+    bars: [{ start:0.43, end:0.99,  color:"BA", label:"BA", assignee: "Alain Fok" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:1, end:1.99,  color:"UI", label:"UI" }] },
+    bars: [{ start:1, end:1.99,  color:"UI", label:"UI", assignee: "Hans Lee/Rajendra Ballgobin" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:1, end:1.99,  color:"BE", label:"BE" }] },
+    bars: [{ start:1, end:1.99,  color:"BE", label:"BE", assignee: "Rajendra Ballgobin" }] },
 
   { label: "Post-training",  type: "phase",
-    bars: [{ start:0.5, end:1.6, color:"development", label:"Train" }] },
+    bars: [{ start:0.5, end:1.6, color:"development", label:"Post-Training" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.43, end:0.99,  color:"BA", label:"BA" }] },
+    bars: [{ start:0.43, end:0.99,  color:"BA", label:"BA", assignee: "Shane Permalloo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:1, end:1.5,  color:"UI", label:"UI" }] },
+    bars: [{ start:1, end:1.5,  color:"UI", label:"UI", assignee: "Geerishraj Bheekhum" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:1, end:1.5,  color:"BE", label:"BE" }] },
+    bars: [{ start:1, end:1.5,  color:"BE", label:"BE", assignee: "Sri Lanka" }] },
   
 
   { label: "Dissolution",  type: "phase",
     bars: [{ start:1, end:1.99, color:"development", label:"Dissolution" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:1, end:1.5,  color:"BA", label:"BA" }] },
+    bars: [{ start:1, end:1.5,  color:"BA", label:"BA", assignee: "Alain Fok" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:1.5, end:1.99,  color:"UI", label:"UI" }] },
+    bars: [{ start:1.5, end:1.99,  color:"UI", label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:1.5, end:1.99,  color:"BE", label:"BE" }] },
+    bars: [{ start:1.5, end:1.99,  color:"BE", label:"BE", assignee: "Sri Lanka" }] },
 
     /*-------------------------------*/
   { label: " - DevOps Env. Setup", type: "phase",
@@ -380,6 +396,43 @@ function colToMonthLabel(decimalIdx) {
   return MONTH_ABBR[m - 1] + " " + y;
 }
 
+// ── Avatar chip helpers ───────────────────────────────────────────
+const AVATAR_PALETTE = [
+  "#e74c3c","#8e44ad","#2980b9","#27ae60","#d35400",
+  "#16a085","#c0392b","#7d3c98","#1a5276","#117a65",
+  "#784212","#1f618d","#6e2f9b","#145a32","#922b21",
+];
+const _avatarColorMap = {};
+let _avatarColorIdx = 0;
+
+function avatarColor(name) {
+  if (!_avatarColorMap[name]) {
+    _avatarColorMap[name] = AVATAR_PALETTE[_avatarColorIdx % AVATAR_PALETTE.length];
+    _avatarColorIdx++;
+  }
+  return _avatarColorMap[name];
+}
+
+function parseAssignees(str) {
+  if (!str) return [];
+  return str.split(/[\/,]/).map(s => s.trim()).filter(Boolean);
+}
+
+function initials(name) {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+function buildAvatarChips(assigneeStr) {
+  const people = parseAssignees(assigneeStr);
+  if (!people.length) return '';
+  const chips = people.map(p =>
+    `<div class="avatar-chip" style="background:${avatarColor(p)}" title="${p}">${initials(p)}</div>`
+  ).join('');
+  return `<div class="bar-avatars">${chips}</div>`;
+}
+
 // ── buildCells ────────────────────────────────────────────────────
 
 function buildCells(row) {
@@ -410,12 +463,15 @@ function buildCells(row) {
       ? '<div class="bar-progress" style="width:' + b.progress + '%"></div>'
       : '';
 
+    const avatarHtml = buildAvatarChips(b.assignee);
+
     const barHtml =
       '<div style="position:absolute;top:50%;transform:translateY(-50%);' +
       'left:' + leftPct + ';width:' + widthPct + ';padding:0 2px;box-sizing:border-box;">' +
         '<div class="bar bar-' + b.color + '"' + tipAttrs + '>' +
           progressHtml +
           '<span class="bar-text">' + (b.label || '') + '</span>' +
+          avatarHtml +
         '</div>' +
       '</div>';
 

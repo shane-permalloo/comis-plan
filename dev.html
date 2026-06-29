@@ -23,7 +23,10 @@
     /* ── Gantt wrapper ────────────────────────────────────────────── */
     .gantt-wrapper { overflow-x: auto; position: relative; }
 
-    .gantt-table { width: 100%; border-collapse: collapse; min-width: 1300px; }
+    .gantt-table {
+      width: 100%; border-collapse: collapse; min-width: 1300px;
+      table-layout: fixed; /* Decimal bar positions require equal-width month columns. */
+    }
 
     /* ── thead ────────────────────────────────────────────────────── */
     .gantt-table thead th {
@@ -285,85 +288,85 @@ const TIMELINE_START = { month: 6, year: 2026 };  // ← start month (1–12) an
 const ROWS = [
 
   { label: "Primary Coop registration",  type: "phase",
-    bars: [{ start:0, end:0.5, color:"development", label:"Registration", note: "In QA by end of Sprint 8" }] },
+    bars: [{ start:0, end:0.75, color:"development", label:"Registration", note: "In QA by end of Sprint 8" }] },
   { label: "- UI", type: "task",
-    bars: [{ start:0, end:0.5, color:"UI",  progress: 100,  label:"UI", assignee: "Hans Lee" }] },
+    bars: [{ start:0, end:0.75, color:"UI",  progress: 100,  label:"UI", assignee: "Hans Lee" }] },
   { label: "- BE", type: "task",
-    bars: [{ start:0, end:0.5, color:"BE",  progress: 100,  label:"BE",  assignee: "Yuvna Seeburrun/Gregory Delphine" }] },
+    bars: [{ start:0, end:0.75, color:"BE",  progress: 100,  label:"BE",  assignee: "Yuvna Seeburrun/Gregory Delphine" }] },
 
   { label: "Bylaws Amendment",  type: "phase",
-    bars: [{ start:0, end:0.99, color:"development", label:"Bylaws Amendment", note: "In QA by end of Sprint 9" }] },
+    bars: [{ start:0.25, end:1.25, color:"development", label:"Bylaws Amendment", note: "In QA by end of Sprint 9" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0, end:0.5,  color:"BA", progress: 100, label:"BA", note: "most US in spec review", assignee: "Anusha Nurkoo" }] },
+    bars: [{ start:0.25, end:0.75,  color:"BA", progress: 100, label:"BA", note: "most US in spec review", assignee: "Anusha Nurkoo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:0.5, end:1.15,  color:"UI", label:"UI", assignee: "Hans Lee" }] },
+    bars: [{ start:0.75, end:1.25,  color:"UI", label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.5, end:1.15,  color:"BE", label:"BE", assignee: "Yuvna Seeburrun" }] },
+    bars: [{ start:0.75, end:1.25,  color:"BE", label:"BE", assignee: "Yuvna Seeburrun" }] },
 
   { label: "Union coop registration",  type: "phase",
-    bars: [{ start:0.87, end:1.57, color:"development", label:"Union" }] },
+    bars: [{ start:0.9, end:1.7, color:"development", label:"Union" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.75, end:0.99,  color:"BA", label:"BA", assignee: "Shane Permalloo" }] },
+    bars: [{ start:0.9, end:1.2,  color:"BA", label:"BA", assignee: "Shane Permalloo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:1.0, end:1.5,  color:"UI", label:"UI", assignee: "Hans Lee" }] },
+    bars: [{ start:1.2, end:1.7,  color:"UI", label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:1.0, end:1.5,  color:"BE", label:"BE", assignee: "Yuvna Seeburrun" }] },
+    bars: [{ start:1.2, end:1.7,  color:"BE", label:"BE", assignee: "Yuvna Seeburrun" }] },
 
   { label: "Member management",  type: "phase",
-    bars: [{ start:0.6, end:2.1, color:"development", label:"Members & Leaders" }] },
+    bars: [{ start:0.6, end:1.99, color:"development", label:"Members & Leaders" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.5, end:0.99,  color:"BA", progress: 25, label:"BA", assignee: "Anusha Nurkoo" }] },
+    bars: [{ start:0.6, end:0.99,  color:"BA", progress: 25, label:"BA", assignee: "Anusha Nurkoo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:1, end:2,  color:"UI", progress: 40, label:"UI", assignee: "Hans Lee" }] },
+    bars: [{ start:1, end:1.99,  color:"UI", progress: 40, label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:1, end:2,  color:"BE", label:"BE", assignee: "Yuvna Seeburrun/Gregory Delphine" }] },
+    bars: [{ start:1, end:1.99,  color:"BE", label:"BE", assignee: "Yuvna Seeburrun/Gregory Delphine" }] },
 
   { label: "Grievance",  type: "phase",
-    bars: [{ start:0.52, end:1.5, color:"development", label:"Grievance" }] },
+    bars: [{ start:0.52, end:1.7, color:"development", label:"Grievance" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.52, end:1.5,  color:"BA", progress: 25, label:"BA", assignee: "Alain Fok" }] },
+    bars: [{ start:0.52, end:1.7,  color:"BA", progress: 25, label:"BA", assignee: "Alain Fok" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:0.99, end:1.5,  color:"UI", label:"UI", assignee: "Rajendra Ballgobin" }] },
+    bars: [{ start:0.99, end:1.7,  color:"UI", label:"UI", assignee: "Rajendra Ballgobin/Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.52, end:0.99,  color:"BE", label:"BE", assignee: "Rajendra Ballgobin" }] },
+    bars: [{ start:0.9, end:1.7,  color:"BE", progress: 50, label:"BE", assignee: "Rajendra Ballgobin" }] },
 
   { label: "Post-training",  type: "phase",
-    bars: [{ start:0.52, end:0.99, color:"development", label:"Post-Training" }] },
+    bars: [{ start:0.6, end:1.4, color:"development", label:"Post-Training" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.52, end:0.8,  color:"BA", progress: 100, label:"BA", assignee: "Shane Permalloo" }] },
+    bars: [{ start:0.6, end:0.95,  color:"BA", progress: 100, label:"BA", assignee: "Shane Permalloo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:0.52, end:0.99,  color:"UI", progress: 30, label:"UI", assignee: "Geerishraj Bheekhum" }] },
+    bars: [{ start:0.6, end:1.4,  color:"UI", progress: 30, label:"UI", assignee: "Geerishraj Bheekhum" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.52, end:0.99,  color:"BE", label:"BE", assignee: "Sri Lanka" }] },
+    bars: [{ start:0.9, end:1.4,  color:"BE", label:"BE", assignee: "Sri Lanka" }] },
   
 
   { label: "Dissolution",  type: "phase",
-    bars: [{ start:0.6, end:1.75, color:"development", label:"Dissolution" }] },
+    bars: [{ start:0.6, end:2.2, color:"development", label:"Dissolution" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.52, end:0.99,  color:"BA", progress: 80, label:"BA", assignee: "Alain Fok" }] },
+    bars: [{ start:0.6, end:1.4,  color:"BA", progress: 80, label:"BA", assignee: "Alain Fok" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:1, end:1.7,  color:"UI", label:"UI", assignee: "Geerishraj Bheekhum" }] },
+    bars: [{ start:1.4, end:2.2,  color:"UI", label:"UI", assignee: "Geerishraj Bheekhum" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.7, end:1.75,  color:"BE", label:"BE", assignee: "Sri Lanka" }] },
+    bars: [{ start:1.4, end:2.2,  color:"BE", label:"BE", assignee: "Sri Lanka" }] },
 
     /*-------------------------------*/
   { label: " - Bug Fixing + Nice To Have", type: "phase",
-    bars: [{ start:1.99, end:2.8, color:"development", label:"Bug + Nice To Have" }] },
+    bars: [{ start:2, end:3, color:"development", label:"Bug + Nice To Have" }] },
     { label: " - DevOps Env. Setup", type: "phase",
-    bars: [{ start:1.99, end:2.8, color:"requirements", label:"DevOps" }] },
+    bars: [{ start:2, end:3, color:"requirements", label:"DevOps" }] },
 
   { label: " - NRB Integration", type: "task",
-    bars: [{ start:2.7, end:2.99, color:"development", label:"NRB" }] },
+    bars: [{ start:2.8, end:3.2, color:"development", label:"NRB" }] },
 
   /* ── Phase 4: UAT Phase 1 ────────────────────────────────── */
   { label: "UAT Phase 1",      type: "phase",
-    bars: [{ start:3, end:3.99, color:"testing",    label:"UAT" }] },
+    bars: [{ start:3.2, end:3.99, color:"testing",    label:"UAT" }] },
 
   { label: " - UAT",                    type: "task",
-    bars: [{ start:3, end:3.99, color:"UAT",   label:"UAT" }] },
+    bars: [{ start:3.2, end:3.99, color:"UAT",   label:"UAT" }] },
 
   { label: " - Training",               type: "task",
-    bars: [{ start:3, end:3.99, color:"UAT",   label:"TRAIN" }] },
+    bars: [{ start:3.2, end:3.99, color:"UAT",   label:"TRAIN" }] },
   { label: " - Golive",               type: "task",
     bars: [{ start:4.01, end:4.11, color:"golive",   label:"" }] },
 
@@ -520,10 +523,10 @@ function buildCells(row) {
     const colEnd   = Math.floor(b.end);
     const span     = colEnd - colStart + 1;
 
-    const totalCols = colEnd - colStart + 1;
-    const leftFrac  = (b.start - colStart) / totalCols;
-    const rightFrac = (colEnd + 1 - b.end) / totalCols;
-    const widthFrac = 1 - leftFrac - rightFrac;
+    // Percentages are relative to the full colspan. For example, a bar from
+    // 0.50 to 1.15 starts halfway through month 0 and ends 15% into month 1.
+    const leftFrac  = (b.start - colStart) / span;
+    const widthFrac = (b.end - b.start) / span;
     const leftPct   = (leftFrac  * 100).toFixed(2) + "%";
     const widthPct  = (widthFrac * 100).toFixed(2) + "%";
 

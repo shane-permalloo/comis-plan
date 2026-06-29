@@ -35,7 +35,7 @@
       white-space: nowrap;
     }
     .gantt-table thead th.task-col {
-      text-align: left; min-width: 100px;
+      text-align: left; min-width: 230px;
       font-size: 13px;
       border: 0;
     }
@@ -64,6 +64,29 @@
       background: #2c3e50 !important; color: white !important;
       font-weight: 700 !important; text-transform: uppercase;
       letter-spacing: .5px; border-left: 4px solid #e74c3c;
+    }
+    .phase-label {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .phase-label-text {
+      min-width: 0; overflow: hidden; text-overflow: ellipsis;
+    }
+    .phase-progress {
+      flex: 0 0 auto; margin-left: auto; padding: 2px 6px;
+      border-radius: 10px; background: rgba(255,255,255,.18);
+      font-size: 10px; line-height: 1.4; letter-spacing: 0;
+    }
+
+    /* Child tasks are visually grouped beneath their phase. */
+    tr.nested-task-row td { height: 32px; }
+    tr.nested-task-row td.task-col {
+      background: #fff; padding-left: 26px;
+      border-left: 4px solid #d7dde2;
+      color: #4b5965;
+    }
+    .task-tree-connector {
+      display: inline-block; margin-right: 7px;
+      color: #9aa6af; font-weight: 700;
     }
 
     /* ── Campaign row (hatched) ───────────────────────────────────── */
@@ -262,16 +285,16 @@ const TIMELINE_START = { month: 6, year: 2026 };  // ← start month (1–12) an
 const ROWS = [
 
   { label: "Primary Coop registration",  type: "phase",
-    bars: [{ start:0, end:0.5, color:"development", label:"Registration", progress: 80, note: "In QA by end of Sprint 8" }] },
+    bars: [{ start:0, end:0.5, color:"development", label:"Registration", note: "In QA by end of Sprint 8" }] },
   { label: "- UI", type: "task",
-    bars: [{ start:0, end:0.5, color:"UI",  progress: 80,  label:"UI", assignee: "Hans Lee" }] },
+    bars: [{ start:0, end:0.5, color:"UI",  progress: 100,  label:"UI", assignee: "Hans Lee" }] },
   { label: "- BE", type: "task",
-    bars: [{ start:0, end:0.5, color:"BE",  progress: 80,  label:"BE",  assignee: "Yuvna Seeburrun/Gregory Delphine" }] },
+    bars: [{ start:0, end:0.5, color:"BE",  progress: 100,  label:"BE",  assignee: "Yuvna Seeburrun/Gregory Delphine" }] },
 
   { label: "Bylaws Amendment",  type: "phase",
-    bars: [{ start:0, end:0.99, color:"development", label:"Bylaws Amendment", progress: 20, note: "In QA by end of Sprint 9" }] },
+    bars: [{ start:0, end:0.99, color:"development", label:"Bylaws Amendment", note: "In QA by end of Sprint 9" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0, end:0.5,  color:"BA", progress: 80, label:"BA", note: "most US in spec review", assignee: "Anusha Nurkoo" }] },
+    bars: [{ start:0, end:0.5,  color:"BA", progress: 100, label:"BA", note: "most US in spec review", assignee: "Anusha Nurkoo" }] },
   { label: " - UI", type: "task",
     bars: [{ start:0.5, end:1.15,  color:"UI", label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
@@ -289,16 +312,16 @@ const ROWS = [
   { label: "Member management",  type: "phase",
     bars: [{ start:0.6, end:2.1, color:"development", label:"Members & Leaders" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.5, end:0.99,  color:"BA", label:"BA", assignee: "Anusha Nurkoo" }] },
+    bars: [{ start:0.5, end:0.99,  color:"BA", progress: 25, label:"BA", assignee: "Anusha Nurkoo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:1, end:2,  color:"UI", label:"UI", assignee: "Hans Lee" }] },
+    bars: [{ start:1, end:2,  color:"UI", progress: 40, label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
     bars: [{ start:1, end:2,  color:"BE", label:"BE", assignee: "Yuvna Seeburrun/Gregory Delphine" }] },
 
   { label: "Grievance",  type: "phase",
     bars: [{ start:0.52, end:1.5, color:"development", label:"Grievance" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.52, end:1.5,  color:"BA", label:"BA", assignee: "Alain Fok" }] },
+    bars: [{ start:0.52, end:1.5,  color:"BA", progress: 25, label:"BA", assignee: "Alain Fok" }] },
   { label: " - UI", type: "task",
     bars: [{ start:0.99, end:1.5,  color:"UI", label:"UI", assignee: "Rajendra Ballgobin" }] },
   { label: " - BE", type: "task",
@@ -307,17 +330,17 @@ const ROWS = [
   { label: "Post-training",  type: "phase",
     bars: [{ start:0.52, end:0.99, color:"development", label:"Post-Training" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.52, end:0.8,  color:"BA", label:"BA", assignee: "Shane Permalloo" }] },
+    bars: [{ start:0.52, end:0.8,  color:"BA", progress: 100, label:"BA", assignee: "Shane Permalloo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:0.52, end:0.99,  color:"UI", label:"UI", assignee: "Geerishraj Bheekhum" }] },
+    bars: [{ start:0.52, end:0.99,  color:"UI", progress: 30, label:"UI", assignee: "Geerishraj Bheekhum" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.52, end:0.99,  color:"BE", label:"BE", assignee: "Gregory Delphine" }] },
+    bars: [{ start:0.52, end:0.99,  color:"BE", label:"BE", assignee: "Sri Lanka" }] },
   
 
   { label: "Dissolution",  type: "phase",
     bars: [{ start:0.6, end:1.75, color:"development", label:"Dissolution" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.52, end:0.99,  color:"BA", label:"BA", assignee: "Alain Fok" }] },
+    bars: [{ start:0.52, end:0.99,  color:"BA", progress: 80, label:"BA", assignee: "Alain Fok" }] },
   { label: " - UI", type: "task",
     bars: [{ start:1, end:1.7,  color:"UI", label:"UI", assignee: "Geerishraj Bheekhum" }] },
   { label: " - BE", type: "task",
@@ -351,6 +374,58 @@ const ROWS = [
 
 ];
 
+// Build the phase/task hierarchy used for display. A phase owns every consecutive
+// task row below it, until the next phase or non-task section. Phase progress is
+// the rounded average of its task progress; tasks without progress count as 0%.
+function taskProgress(row) {
+  const bars = row.bars || [];
+  if (!bars.length) return 0;
+
+  const total = bars.reduce((sum, bar) => {
+    const value = Number(bar.progress);
+    return sum + (Number.isFinite(value) ? Math.min(100, Math.max(0, value)) : 0);
+  }, 0);
+  return total / bars.length;
+}
+
+function buildDisplayRows(rows) {
+  const displayRows = rows.map(row => ({
+    ...row,
+    bars: (row.bars || []).map(bar => ({ ...bar }))
+  }));
+  let currentPhase = null;
+
+  displayRows.forEach(row => {
+    if (row.type === "phase") {
+      currentPhase = row;
+      currentPhase.childProgress = [];
+      return;
+    }
+
+    if (row.type === "task" && currentPhase) {
+      row.isNestedTask = true;
+      currentPhase.childProgress.push(taskProgress(row));
+      return;
+    }
+
+    currentPhase = null;
+  });
+
+  displayRows.forEach(row => {
+    if (row.type !== "phase" || !row.childProgress.length) return;
+
+    row.calculatedProgress = Math.round(
+      row.childProgress.reduce((sum, progress) => sum + progress, 0) /
+      row.childProgress.length
+    );
+    row.bars.forEach(bar => { bar.progress = row.calculatedProgress; });
+  });
+
+  return displayRows;
+}
+
+const DISPLAY_ROWS = buildDisplayRows(ROWS);
+
 // Auto-generated from ROWS — do not edit this block
 const TIMELINE = (() => {
   const ABBR = ["Jan","Feb","Mar","Apr","May","Jun",
@@ -358,7 +433,7 @@ const TIMELINE = (() => {
   const now    = new Date();
   const todayM = now.getMonth() + 1;   // 1-based
   const todayY = now.getFullYear();
-  const count  = ROWS.reduce((max, row) =>
+  const count  = DISPLAY_ROWS.reduce((max, row) =>
     (row.bars || []).reduce((m, b) => Math.max(m, Math.floor(b.end ?? 0)), max), 0) + 1;
   return Array.from({ length: count }, (_, i) => {
     const offset = (TIMELINE_START.month - 1) + i;   // 0-based from Jan
@@ -556,13 +631,26 @@ function render() {
     return `<th${t.today ? ' class="today-col"' : ""}>${lines[0]}<br>${lines[1]}${t.today ? '<span class="today-label">TODAY</span>' : ""}</th>`;
   }).join("");
 
-  const bodyRows = ROWS.map(row => {
+  const bodyRows = DISPLAY_ROWS.map(row => {
     const rowClass = row.type === "phase"       ? "phase-row"
                    : row.type === "campaign"    ? "phase-row campaign-row"
                    : row.type === "deliverable" ? "deliverable-row"
                    : "";
-    return `<tr class="${rowClass}">
-      <td class="task-col">${row.label}</td>
+    const fullRowClass = [rowClass, row.isNestedTask ? "nested-task-row" : ""]
+      .filter(Boolean)
+      .join(" ");
+    const cleanLabel = row.isNestedTask ? row.label.replace(/^\s*-\s*/, "") : row.label;
+    const labelHtml = row.type === "phase"
+      ? `<div class="phase-label"><span class="phase-label-text" title="${cleanLabel}">${cleanLabel}</span>${
+          row.calculatedProgress !== undefined
+            ? `<span class="phase-progress" title="Calculated from ${row.childProgress.length} tasks">${row.calculatedProgress}%</span>`
+            : ""
+        }</div>`
+      : row.isNestedTask
+        ? `<span class="task-tree-connector" aria-hidden="true">↳</span>${cleanLabel}`
+        : cleanLabel;
+    return `<tr class="${fullRowClass}">
+      <td class="task-col">${labelHtml}</td>
       ${buildCells(row)}
     </tr>`;
   }).join("");
@@ -579,7 +667,7 @@ function render() {
     <div class="gantt-wrapper">
       <table class="gantt-table">
         <colgroup>
-          <col style="width:160px">
+          <col style="width:230px">
           ${TIMELINE.map(() => '<col>').join('')}
         </colgroup>
         <thead><tr><th class="task-col"></th>${thCols}</tr></thead>

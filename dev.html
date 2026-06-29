@@ -261,6 +261,8 @@
          type      – "phase" | "task" | "campaign" | "deliverable"
          bars      – array of { start, end, color, label }
                        start / end are 0-based indices into TIMELINE
+                       phase start / end may be omitted and will be derived
+                       from its earliest-starting and latest-ending tasks
                        color is one of the bar-* class suffixes listed below
          (no bars) – empty row (section spacer not needed, just omit bars)
 
@@ -284,18 +286,18 @@ const PROJECT = {
 const TIMELINE_START = { month: 6, year: 2026 };  // ← start month (1–12) and year
 
 // Task rows
-// start/end are column indices (0-based, inclusive)
+// start/end are 0-based month positions. They are optional on phases with tasks.
 const ROWS = [
 
   { label: "Primary Coop registration",  type: "phase",
-    bars: [{ start:0, end:0.75, color:"development", label:"Registration", note: "In QA by end of Sprint 8" }] },
+    bars: [{ color:"development", label:"Registration", note: "In QA by end of Sprint 8" }] },
   { label: "- UI", type: "task",
     bars: [{ start:0, end:0.75, color:"UI",  progress: 100,  label:"UI", assignee: "Hans Lee" }] },
   { label: "- BE", type: "task",
     bars: [{ start:0, end:0.75, color:"BE",  progress: 100,  label:"BE",  assignee: "Yuvna Seeburrun/Gregory Delphine" }] },
 
   { label: "Bylaws Amendment",  type: "phase",
-    bars: [{ start:0.25, end:1.25, color:"development", label:"Bylaws Amendment", note: "In QA by end of Sprint 9" }] },
+    bars: [{ color:"development", label:"Bylaws Amendment", note: "In QA by end of Sprint 9" }] },
     { label: "- BA", type: "task",
     bars: [{ start:0.25, end:0.75,  color:"BA", progress: 100, label:"BA", note: "most US in spec review", assignee: "Anusha Nurkoo" }] },
   { label: " - UI", type: "task",
@@ -304,7 +306,7 @@ const ROWS = [
     bars: [{ start:0.75, end:1.25,  color:"BE", label:"BE", assignee: "Yuvna Seeburrun" }] },
 
   { label: "Union coop registration",  type: "phase",
-    bars: [{ start:0.9, end:1.7, color:"development", label:"Union" }] },
+    bars: [{ color:"development", label:"Union" }] },
     { label: "- BA", type: "task",
     bars: [{ start:0.9, end:1.2,  color:"BA", label:"BA", assignee: "Shane Permalloo" }] },
   { label: " - UI", type: "task",
@@ -313,7 +315,7 @@ const ROWS = [
     bars: [{ start:1.2, end:1.7,  color:"BE", label:"BE", assignee: "Yuvna Seeburrun" }] },
 
   { label: "Member management",  type: "phase",
-    bars: [{ start:0.6, end:1.99, color:"development", label:"Members & Leaders" }] },
+    bars: [{ color:"development", label:"Members & Leaders" }] },
     { label: "- BA", type: "task",
     bars: [{ start:0.6, end:0.99,  color:"BA", progress: 25, label:"BA", assignee: "Anusha Nurkoo" }] },
   { label: " - UI", type: "task",
@@ -322,7 +324,7 @@ const ROWS = [
     bars: [{ start:1, end:1.99,  color:"BE", label:"BE", assignee: "Yuvna Seeburrun/Gregory Delphine" }] },
 
   { label: "Grievance",  type: "phase",
-    bars: [{ start:0.52, end:1.7, color:"development", label:"Grievance" }] },
+    bars: [{ color:"development", label:"Grievance" }] },
     { label: "- BA", type: "task",
     bars: [{ start:0.52, end:1.7,  color:"BA", progress: 25, label:"BA", assignee: "Alain Fok" }] },
   { label: " - UI", type: "task",
@@ -331,7 +333,7 @@ const ROWS = [
     bars: [{ start:0.9, end:1.7,  color:"BE", progress: 50, label:"BE", assignee: "Rajendra Ballgobin" }] },
 
   { label: "Post-training",  type: "phase",
-    bars: [{ start:0.6, end:1.4, color:"development", label:"Post-Training" }] },
+    bars: [{ color:"development", label:"Post-Training" }] },
     { label: "- BA", type: "task",
     bars: [{ start:0.6, end:0.95,  color:"BA", progress: 100, label:"BA", assignee: "Shane Permalloo" }] },
   { label: " - UI", type: "task",
@@ -341,7 +343,7 @@ const ROWS = [
   
 
   { label: "Dissolution",  type: "phase",
-    bars: [{ start:0.6, end:2.2, color:"development", label:"Dissolution" }] },
+    bars: [{ color:"development", label:"Dissolution" }] },
     { label: "- BA", type: "task",
     bars: [{ start:0.6, end:1.4,  color:"BA", progress: 80, label:"BA", assignee: "Alain Fok" }] },
   { label: " - UI", type: "task",
@@ -353,14 +355,17 @@ const ROWS = [
   { label: " - Bug Fixing + Nice To Have", type: "phase",
     bars: [{ start:2, end:3, color:"development", label:"Bug + Nice To Have" }] },
     { label: " - DevOps Env. Setup", type: "phase",
-    bars: [{ start:2, end:3, color:"requirements", label:"DevOps" }] },
-
+    bars: [{ color:"requirements", label:"DevOps" }] },
+  { label: " - Env. hardening and setup", type: "task",
+    bars: [{ start:2, end:2.8, color:"development", label:"Setup" }] },
+  { label: " - Vulnerability Test", type: "task",
+    bars: [{ start:2.8, end:3.2, color:"development", label:"VAPT" }] },
   { label: " - NRB Integration", type: "task",
     bars: [{ start:2.8, end:3.2, color:"development", label:"NRB" }] },
 
   /* ── Phase 4: UAT Phase 1 ────────────────────────────────── */
   { label: "UAT Phase 1",      type: "phase",
-    bars: [{ start:3.2, end:3.99, color:"testing",    label:"UAT" }] },
+    bars: [{ color:"testing", label:"UAT" }] },
 
   { label: " - UAT",                    type: "task",
     bars: [{ start:3.2, end:3.99, color:"UAT",   label:"UAT" }] },
@@ -378,8 +383,8 @@ const ROWS = [
 ];
 
 // Build the phase/task hierarchy used for display. A phase owns every consecutive
-// task row below it, until the next phase or non-task section. Phase progress is
-// the rounded average of its task progress; tasks without progress count as 0%.
+// task row below it, until the next phase or non-task section. Its missing dates
+// and its progress are derived from those tasks.
 function taskProgress(row) {
   const bars = row.bars || [];
   if (!bars.length) return 0;
@@ -402,12 +407,14 @@ function buildDisplayRows(rows) {
     if (row.type === "phase") {
       currentPhase = row;
       currentPhase.childProgress = [];
+      currentPhase.childBars = [];
       return;
     }
 
     if (row.type === "task" && currentPhase) {
       row.isNestedTask = true;
       currentPhase.childProgress.push(taskProgress(row));
+      currentPhase.childBars.push(...row.bars);
       return;
     }
 
@@ -417,11 +424,20 @@ function buildDisplayRows(rows) {
   displayRows.forEach(row => {
     if (row.type !== "phase" || !row.childProgress.length) return;
 
+    const childStarts = row.childBars.map(bar => Number(bar.start)).filter(Number.isFinite);
+    const childEnds = row.childBars.map(bar => Number(bar.end)).filter(Number.isFinite);
+    const derivedStart = childStarts.length ? Math.min(...childStarts) : undefined;
+    const derivedEnd = childEnds.length ? Math.max(...childEnds) : undefined;
+
     row.calculatedProgress = Math.round(
       row.childProgress.reduce((sum, progress) => sum + progress, 0) /
       row.childProgress.length
     );
-    row.bars.forEach(bar => { bar.progress = row.calculatedProgress; });
+    row.bars.forEach(bar => {
+      if (bar.start === undefined) bar.start = derivedStart;
+      if (bar.end === undefined) bar.end = derivedEnd;
+      bar.progress = row.calculatedProgress;
+    });
   });
 
   return displayRows;

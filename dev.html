@@ -352,8 +352,8 @@ const ROWS = [
     bars: [{ start:1.4, end:2.2,  color:"BE", label:"BE", assignee: "Sri Lanka" }] },
 
     /*-------------------------------*/
-  { label: " - Bug Fixing + Nice To Have", type: "phase",
-    bars: [{ start:2, end:3, color:"development", label:"Bug + Nice To Have" }] },
+  { label: " - Bug Fixing + Non-core features", type: "phase",
+    bars: [{ start:2, end:3, color:"development", label:"Bug + Non-core features" }] },
     { label: " - DevOps Env. Setup", type: "phase",
     bars: [{ color:"requirements", label:"DevOps" }] },
   { label: " - Env. hardening and setup", type: "task",
@@ -366,14 +366,12 @@ const ROWS = [
   /* ── Phase 4: UAT Phase 1 ────────────────────────────────── */
   { label: "UAT Phase 1",      type: "phase",
     bars: [{ color:"testing", label:"UAT" }] },
-
+      { label: " - Training",               type: "task",
+    bars: [{ start:3.2, end:3.6, color:"UAT",   label:"TRAIN" }] },
   { label: " - UAT",                    type: "task",
-    bars: [{ start:3.2, end:3.99, color:"UAT",   label:"UAT" }] },
-
-  { label: " - Training",               type: "task",
-    bars: [{ start:3.2, end:3.99, color:"UAT",   label:"TRAIN" }] },
+    bars: [{ start:3.6, end:3.9, color:"UAT",   label:"UAT" }] },
   { label: " - Golive",               type: "task",
-    bars: [{ start:4.01, end:4.11, color:"golive",   label:"" }] },
+    bars: [{ start:3.9, end:3.99, color:"golive",   label:"" }] },
 
     
   /* ── Phase 5: Registration Campaign ─────────────────────── */

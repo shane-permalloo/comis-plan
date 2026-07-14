@@ -216,6 +216,60 @@
       white-space: normal;
     }
 
+    /* ── Floating panels ──────────────────────────────────────────── */
+    .floating-panels {
+      position: fixed; top: 14px; right: 18px; z-index: 999;
+      width: min(340px, calc(100vw - 36px));
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .floating-panel {
+      background: rgba(255,255,255,.96);
+      border: 1px solid #d7dde2; border-left: 4px solid #c0392b;
+      border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.18);
+      color: #2c3e50; overflow: hidden;
+      backdrop-filter: blur(6px);
+    }
+    .floating-panel.release-panel { border-left-color: #2980b9; }
+    .floating-panel-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; padding: 10px 12px 8px;
+      background: #fff5f3; border-bottom: 1px solid #ead3ce;
+      width: 100%; border-top: 0; border-right: 0; border-bottom-width: 1px; border-left: 0;
+      cursor: pointer; color: inherit; font-family: inherit;
+      text-align: left;
+    }
+    .release-panel .floating-panel-head {
+      background: #f1f7fc; border-bottom-color: #cfdfed;
+    }
+    .floating-panel-title { font-size: 12px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+    .floating-panel-actions {
+      display: flex; align-items: center; gap: 8px; flex: 0 0 auto;
+    }
+    .floating-panel-count {
+      flex: 0 0 auto; min-width: 22px; height: 22px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #c0392b; color: white; font-size: 11px; font-weight: 800;
+    }
+    .release-panel .floating-panel-count { background: #2980b9; }
+    .floating-panel-caret {
+      color: #66727d; font-size: 12px; font-weight: 900;
+      transition: transform .16s ease;
+    }
+    .floating-panel.is-collapsed .floating-panel-caret { transform: rotate(-90deg); }
+    .floating-panel-body { max-height: 315px; overflow-y: auto; }
+    .floating-panel.is-collapsed .floating-panel-body { display: none; }
+    .panel-item { padding: 10px 12px; border-bottom: 1px solid #edf0f2; }
+    .panel-item:last-child { border-bottom: 0; }
+    .panel-person { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; }
+    .risk-level {
+      flex: 0 0 auto; padding: 2px 6px; border-radius: 999px;
+      font-size: 9px; line-height: 1.4; text-transform: uppercase;
+      background: #ffe2dc; color: #922b21; letter-spacing: .04em;
+    }
+    .panel-meta { margin-top: 4px; color: #66727d; font-size: 11px; line-height: 1.35; }
+    .panel-detail { margin-top: 5px; color: #34495e; font-size: 11px; line-height: 1.45; }
+    .panel-empty { padding: 12px; color: #66727d; font-size: 12px; }
+
     /* ── Legend ───────────────────────────────────────────────────── */
     .legend { padding: 24px 32px; background: #f8f9fa; border-top: 3px solid #e9ecef; }
     .legend h3 { margin-bottom: 12px; color: #2c3e50; font-size: 16px; }
@@ -269,107 +323,142 @@
    Bar color keys:
      initiation | requirements | prototype | development
      testing    | training     | golive    | deliverable
-     milestone  | campaign
+     milestone  | campaign     | QA
 
    ════════════════════════════════════════════════════════════════════ */
 
 const PROJECT = {
   title:    "COMIS: PHASE 1 IMPLEMENTATION PLAN",
-  notes:    "Production environment readiness delayed to August 2026 | " +
-            "Deadline for development: August 2026",
-  version:  "v2.0 — June 2026",
+  notes:    "Production environment readiness delayed to October 2026 | " +
+            "Deadline for development: September 2026 ",
+  version:  "v2.2 — July 2026 timeline starts in July",
 };
 
 // ── Timeline config ───────────────────────────────────────────────────────────
 // Only change TIMELINE_START; the number of columns is derived automatically
 // from the furthest bar end-index in ROWS, and today's column is auto-highlighted.
-const TIMELINE_START = { month: 6, year: 2026 };  // ← start month (1–12) and year
+const TIMELINE_START = { month: 7, year: 2026 };  // ← start month (1–12) and year
+
+const QA_ASSIGNEE = "Khoosboo Cannoo";
+
+function qaSprint(start, end, moduleName, progress, sprintWindow, assignee = QA_ASSIGNEE) {
+  return {
+    start,
+    end,
+    color: "QA",
+    progress,
+    label: "QA",
+    assignee,
+    note: `${sprintWindow}: ${moduleName}`
+  };
+}
 
 // Task rows
 // start/end are 0-based month positions. They are optional on phases with tasks.
 const ROWS = [
 
   { label: "Primary Coop registration",  type: "phase",
-    bars: [{ color:"development", label:"Registration", note: "In QA by end of Sprint 8" }] },
+    bars: [{ color:"development", label:"Registration", note: "" }] },
   { label: "- UI", type: "task",
-    bars: [{ start:0, end:0.75, color:"UI",  progress: 100,  label:"UI", assignee: "Hans Lee" }] },
+    bars: [{ start:0, end:0.25, color:"UI",  progress: 100,  label:"UI", assignee: "Hans Lee" }] },
   { label: "- BE", type: "task",
-    bars: [{ start:0, end:0.75, color:"BE",  progress: 100,  label:"BE",  assignee: "Yuvna Seeburrun/Gregory Delphine" }] },
+    bars: [{ start:0, end:0.25, color:"BE",  progress: 100,  label:"BE",  assignee: "Yuvna Seeburrun/Gregory Delphine" }] },
+  { label: "- QA", type: "task",
+    bars: [qaSprint(0.25, 0.75, "Primary Coop registration", 50, "")] },
 
   { label: "Bylaws Amendment",  type: "phase",
     bars: [{ color:"development", label:"Bylaws Amendment", note: "In QA by end of Sprint 9" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.25, end:0.75,  color:"BA", progress: 100, label:"BA", note: "most US in spec review", assignee: "Anusha Nurkoo" }] },
+    bars: [{ start:0, end:0.25,  color:"BA", progress: 100, label:"BA", note: "most US in spec review", assignee: "Anusha Nurkoo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:0.75, end:1.25,  color:"UI", progress: 25,  label:"UI", assignee: "Hans Lee" }] },
+    bars: [{ start:0.25, end:0.75,  color:"UI", progress: 25,  label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.75, end:1.25,  color:"BE", progress: 25, label:"BE", assignee: "Yuvna Seeburrun" }] },
+    bars: [{ start:0.25, end:0.99,  color:"BE", progress: 25, label:"BE", assignee: "Yuvna Seeburrun" }] },
+  { label: " - QA", type: "task",
+    bars: [qaSprint(1, 1.5, "Bylaws Amendment", 0, "")] },
 
   { label: "Union coop registration",  type: "phase",
     bars: [{ color:"development", label:"Union" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.9, end:1.2,  color:"BA", progress: 25, label:"BA", assignee: "Shane Permalloo" }] },
+    bars: [{ start:0, end:0.25,  color:"BA", progress: 100, label:"BA", note: "most US in spec review", assignee: "Shane Permalloo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:1.2, end:1.7,  color:"UI", label:"UI", assignee: "Hans Lee" }] },
+    bars: [{ start:0.25, end:0.75,  color:"UI", progress: 25,  label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:1.2, end:1.7,  color:"BE", label:"BE", assignee: "Yuvna Seeburrun" }] },
+    bars: [{ start:0.25, end:0.99,  color:"BE", progress: 25, label:"BE", assignee: "Gregory Delphine" }] },
+  { label: " - QA", type: "task",
+    bars: [qaSprint(1, 1.5, "Union coop registration", 0, "")] },
 
   { label: "Member management",  type: "phase",
     bars: [{ color:"development", label:"Members & Leaders" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.6, end:1.3,  color:"BA", progress: 30, label:"BA", assignee: "Anusha Nurkoo" }] },
+    bars: [{ start:0, end:0.8,  color:"BA", progress: 30, label:"BA", assignee: "Anusha Nurkoo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:1, end:1.99,  color:"UI", progress: 60, label:"UI", assignee: "Hans Lee" }] },
+    bars: [{ start:0, end:1.25,  color:"UI", progress: 60, label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:1.3, end:1.99,  color:"BE", label:"BE", assignee: "Yuvna Seeburrun/Gregory Delphine" }] },
+    bars: [{ start:1, end:2,  color:"BE", label:"BE", assignee: "Yanesh Caussy" }] },
+  { label: " - QA", type: "task",
+    bars: [qaSprint(1.8, 2.49, "Member management", 0, "Sprint 4: 9-22 Sep 2026", "Homesh Bhugmaneea")] },
 
   { label: "Grievance",  type: "phase",
     bars: [{ color:"development", label:"Grievance" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.52, end:1.7,  color:"BA", progress: 30, label:"BA", assignee: "Alain Fok" }] },
-  { label: " - UI", type: "task",
-    bars: [{ start:0.99, end:1.7,  color:"UI", label:"UI", assignee: "Rajendra Ballgobin/Hans Lee" }] },
-  { label: " - BE", type: "task",
-    bars: [{ start:0.9, end:1.7,  color:"BE", progress: 60, label:"BE", assignee: "Rajendra Ballgobin" }] },
+    bars: [{ start:0, end:0.99,  color:"BA", progress: 75, label:"BA", assignee: "Alain Fok" }] },
+  { label: " - UI & BE", type: "task",
+    bars: [{ start:0, end:0.99,  color:"UI", label:"UI", progress: 75, assignee: "Rajendra Ballgobin/Hans Lee" }] },
+  { label: " - QA", type: "task",
+    bars: [qaSprint(1, 1.8, "Grievance", 0, "Sprint 5: 23 Sep-6 Oct 2026", "Homesh Bhugmaneea")] },
 
   { label: "Post-training",  type: "phase",
     bars: [{ color:"development", label:"Post-Training" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.6, end:0.95,  color:"BA", progress: 100, label:"BA", assignee: "Shane Permalloo" }] },
+    bars: [{ start:0, end:0.45,  color:"BA", progress: 100, label:"BA", assignee: "Shane Permalloo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:0.6, end:1.4,  color:"UI", progress: 40, label:"UI", assignee: "Geerishraj Bheekhum" }] },
+    bars: [{ start:0, end:0.5,  color:"UI", progress: 50, label:"UI", assignee: "Geerishraj Bheekhum" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.9, end:1.4,  color:"BE", label:"BE", assignee: "Sri Lanka" }] },
+    bars: [{ start:0.25, end:0.99,  color:"BE", label:"BE", assignee: "Sri Lanka" }] },
+  { label: " - QA", type: "task",
+    bars: [qaSprint(1, 1.5, "Post-training", 0, "")] },
   
 
   { label: "Dissolution",  type: "phase",
     bars: [{ color:"development", label:"Dissolution" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.6, end:1.4,  color:"BA", progress: 80, label:"BA", assignee: "Alain Fok" }] },
+    bars: [{ start:0, end:0.5,  color:"BA", progress: 80, label:"BA", assignee: "Alain Fok" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:1.4, end:2.2,  color:"UI", label:"UI", assignee: "Geerishraj Bheekhum" }] },
+    bars: [{ start:0.5, end:1.5,  color:"UI", label:"UI", assignee: "Geerishraj Bheekhum" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:1.4, end:2.2,  color:"BE", label:"BE", assignee: "Sri Lanka" }] },
+    bars: [{ start:0.5, end:0.99,  color:"BE", label:"BE", assignee: "Yanesh Caussy" }] },
+  { label: " - QA", type: "task",
+    bars: [qaSprint(1.5, 1.99, "Dissolution", 0, "")] },
 
     /*-------------------------------*/
   { label: " - Bug Fixing + Non-core features", type: "phase",
-    bars: [{ start:2, end:3, color:"development", label:"Bug + Non-core features" }] },
+    bars: [{ color:"development", label:"Bug + Non-core features" }] },
+  { label: "- BA", type: "task",
+    bars: [{ start:1.5, end:2.5,  color:"BA", progress: 80, label:"BA", assignee: "Anusha Nurkoo" }] },
+  { label: " - UI", type: "task",
+    bars: [{ start:1.5, end:2.5,  color:"UI", label:"UI", assignee: "Hans Lee" }] },
+  { label: " - BE", type: "task",
+    bars: [{ start:1.5, end:2.5,  color:"BE", label:"BE", assignee: "Yuvna Seeburrun/Gregory Delphine" }] },
+  { label: " - QA", type: "task",
+    bars: [qaSprint(2.5, 3.49, "Bug Fixing + Non-core features", 0, "")] },
     { label: " - DevOps Env. Setup", type: "phase",
+
     bars: [{ color:"requirements", label:"DevOps" }] },
   { label: " - Env. hardening and setup", type: "task",
-    bars: [{ start:2, end:2.8, color:"development", label:"Setup" }] },
+    bars: [{ start:2.3, end:3, color:"development", label:"Setup" }] },
   { label: " - Vulnerability Test", type: "task",
-    bars: [{ start:2.8, end:3.2, color:"development", label:"VAPT" }] },
+    bars: [{ start:3, end:3.49, color:"development", label:"VAPT" }] },
   { label: " - NRB Integration", type: "task",
-    bars: [{ start:2.8, end:3.2, color:"development", label:"NRB" }] },
+    bars: [{ start:3.1, end:3.49, color:"development", label:"NRB" }] },
 
   /* ── Phase 4: UAT Phase 1 ────────────────────────────────── */
   { label: "UAT Phase 1",      type: "phase",
     bars: [{ color:"testing", label:"UAT" }] },
-      { label: " - Training",               type: "task",
-    bars: [{ start:3.2, end:3.6, color:"UAT",   label:"TRAIN" }] },
+  { label: " - Training",               type: "task",
+    bars: [{ start:3.5, end:3.7, color:"UAT",   label:"TRAIN" }] },
   { label: " - UAT",                    type: "task",
-    bars: [{ start:3.6, end:3.9, color:"UAT",   label:"UAT" }] },
+    bars: [{ start:3.5, end:3.9, color:"UAT",   label:"UAT" }] },
   { label: " - Golive",               type: "task",
     bars: [{ start:3.9, end:3.99, color:"golive",   label:"" }] },
 
@@ -472,6 +561,7 @@ const LEGEND_ITEMS = [
   { color:"bar-prototype",    label:"Prototyping / Design", hex:"#3498db" },
   { color:"bar-development",  label:"Development",          hex:"#27ae60" },
   { color:"bar-testing",      label:"Testing / UAT",        hex:"#9b59b6" },
+  { color:"bar-QA",           label:"QA",                   hex:"#6c5ce7" },
   { color:"bar-training",     label:"Training",             hex:"#1abc9c" },
   { color:"bar-golive",       label:"Go-Live",              hex:"#e67e22" },
   { color:"bar-deliverable",  label:"Deliverable",          hex:"#f1c40f" },
@@ -640,6 +730,193 @@ function initTooltip() {
   table.addEventListener("mouseleave", () => tip.classList.remove("visible"));
 }
 
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function dateWindow(start, end) {
+  const startLabel = colToMonthLabel(start);
+  const endLabel = colToMonthLabel(end);
+  return startLabel === endLabel ? startLabel : `${startLabel} - ${endLabel}`;
+}
+
+function colToDateLabel(decimalIdx) {
+  const offset = (TIMELINE_START.month - 1) + Math.floor(decimalIdx);
+  const month = (offset % 12) + 1;
+  const year = TIMELINE_START.year + Math.floor(offset / 12);
+  const daysInMonth = new Date(year, month, 0).getDate();
+  const day = Math.min(daysInMonth, Math.max(1, Math.round((decimalIdx - Math.floor(decimalIdx)) * daysInMonth)));
+  return `${String(day).padStart(2, "0")} ${MONTH_ABBR[month - 1]} ${year}`;
+}
+
+function collectAssigneeLoad(rows, options = {}) {
+  const load = {};
+  let currentPhase = "";
+  const excludeBA = options.excludeBA === true;
+
+  rows.forEach(row => {
+    if (row.type === "phase") currentPhase = row.label.trim();
+    if (row.type !== "task") return;
+
+    const task = row.label.replace(/^\s*-\s*/, "");
+    if (excludeBA && task.toUpperCase() === "BA") return;
+    (row.bars || []).forEach(bar => {
+      if (!bar.assignee || !Number.isFinite(Number(bar.start)) || !Number.isFinite(Number(bar.end))) return;
+
+      parseAssignees(bar.assignee).forEach(person => {
+        if (!load[person]) load[person] = [];
+        load[person].push({
+          task,
+          phase: currentPhase,
+          label: bar.label || task,
+          start: Number(bar.start),
+          end: Number(bar.end)
+        });
+      });
+    });
+  });
+
+  return load;
+}
+
+function findRiskItems(rows) {
+  const load = collectAssigneeLoad(rows, { excludeBA: true });
+
+  return Object.entries(load).map(([person, bars]) => {
+    const points = [...new Set(bars.flatMap(bar => [bar.start, bar.end]))]
+      .sort((a, b) => a - b);
+    let busiest = { count: 0, start: 0, end: 0, tasks: [] };
+
+    for (let i = 0; i < points.length - 1; i++) {
+      const start = points[i];
+      const end = points[i + 1];
+      const midpoint = (start + end) / 2;
+      const active = bars.filter(bar => bar.start <= midpoint && bar.end >= midpoint);
+      if (active.length > busiest.count) {
+        busiest = { count: active.length, start, end, tasks: active };
+      }
+    }
+
+    return {
+      person,
+      total: bars.length,
+      ...busiest
+    };
+  })
+    .filter(item => item.count > 1)
+    .sort((a, b) => b.count - a.count || b.total - a.total || a.person.localeCompare(b.person));
+}
+
+function findReleaseItems(rows) {
+  const load = collectAssigneeLoad(rows);
+
+  return Object.entries(load).map(([person, bars]) => {
+    const latest = bars.reduce((current, bar) => {
+      if (!current || bar.end > current.end) return bar;
+      return current;
+    }, null);
+
+    return {
+      person,
+      total: bars.length,
+      release: latest?.end + 0.5 ?? 0,
+      task: latest
+    };
+  })
+    .sort((a, b) => b.release - a.release || a.person.localeCompare(b.person));
+}
+
+function buildRiskPanel() {
+  const risks = findRiskItems(ROWS);
+  const content = risks.length
+    ? risks.map(risk => {
+        const tasks = risk.tasks.slice(0, 3)
+          .map(task => `${task.phase}: ${task.task}`)
+          .join("; ");
+        const more = risk.tasks.length > 3 ? `; +${risk.tasks.length - 3} more` : "";
+        const level = risk.count >= 3 ? "High" : "Watch";
+
+        return `<div class="panel-item">
+          <div class="panel-person">
+            <span>${escapeHtml(risk.person)}</span>
+            <span class="risk-level">${level}</span>
+          </div>
+          <div class="panel-meta">${risk.count} concurrent assignments &middot; ${dateWindow(risk.start, risk.end)}</div>
+          <div class="panel-detail">${escapeHtml(tasks + more)}</div>
+        </div>`;
+      }).join("")
+    : '<div class="panel-empty">No overlapping assignments detected.</div>';
+
+  return `<aside class="floating-panel risk-panel" data-floating-panel="risk" aria-label="At-risk assignments">
+    <button class="floating-panel-head" type="button" aria-expanded="true">
+      <div class="floating-panel-title">People At Risk</div>
+      <div class="floating-panel-actions">
+        <div class="floating-panel-count">${risks.length}</div>
+        <div class="floating-panel-caret">v</div>
+      </div>
+    </button>
+    <div class="floating-panel-body">${content}</div>
+  </aside>`;
+}
+
+function buildReleasePanel() {
+  const releases = findReleaseItems(ROWS);
+  const content = releases.length
+    ? releases.map(item => {
+        const task = item.task
+          ? `${item.task.phase}: ${item.task.task}`
+          : "No scheduled assignment";
+
+        return `<div class="panel-item">
+          <div class="panel-person">${escapeHtml(item.person)}</div>
+          <div class="panel-meta">Release date: ${colToDateLabel(item.release)}</div>
+          <div class="panel-detail">${escapeHtml(task)}</div>
+        </div>`;
+      }).join("")
+    : '<div class="panel-empty">No assigned team members detected.</div>';
+
+  return `<aside class="floating-panel release-panel is-collapsed" data-floating-panel="release" aria-label="Release dates">
+    <button class="floating-panel-head" type="button" aria-expanded="false">
+      <div class="floating-panel-title">Release Dates</div>
+      <div class="floating-panel-actions">
+        <div class="floating-panel-count">${releases.length}</div>
+        <div class="floating-panel-caret">v</div>
+      </div>
+    </button>
+    <div class="floating-panel-body">${content}</div>
+  </aside>`;
+}
+
+function buildFloatingPanels() {
+  return `<div class="floating-panels">
+    ${buildRiskPanel()}
+    ${buildReleasePanel()}
+  </div>`;
+}
+
+function initFloatingPanels() {
+  const panels = [...document.querySelectorAll(".floating-panel")];
+  panels.forEach(panel => {
+    const button = panel.querySelector(".floating-panel-head");
+    button.addEventListener("click", () => {
+      const shouldOpen = panel.classList.contains("is-collapsed");
+      panels.forEach(other => {
+        other.classList.add("is-collapsed");
+        other.querySelector(".floating-panel-head").setAttribute("aria-expanded", "false");
+      });
+      if (shouldOpen) {
+        panel.classList.remove("is-collapsed");
+        button.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
+}
+
 // ── Render ────────────────────────────────────────────────────────
 
 function render() {
@@ -677,6 +954,7 @@ function render() {
   ).join("");
 
   document.getElementById("app").innerHTML = `
+    ${buildFloatingPanels()}
     <div class="header">
       <h1>${PROJECT.title}</h1>
       <div class="subtitle">${PROJECT.notes}</div>
@@ -695,6 +973,7 @@ function render() {
   `;
 
   initTooltip();
+  initFloatingPanels();
 }
 
 render();

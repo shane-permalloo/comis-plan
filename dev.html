@@ -246,6 +246,36 @@
       color: #9aa6af; font-weight: 700;
     }
 
+    /* Gantt filters */
+    .gantt-toolbar {
+      display: flex; align-items: end; flex-wrap: wrap; gap: 10px;
+      padding: 12px 16px; background: #f8fafb;
+      border-bottom: 1px solid #dfe5ea;
+    }
+    .filter-field { display: grid; gap: 4px; }
+    .filter-field.search-field { flex: 1 1 220px; }
+    .filter-field label {
+      color: #66727d; font-size: 9px; font-weight: 800;
+      letter-spacing: .06em; text-transform: uppercase;
+    }
+    .filter-control {
+      height: 34px; min-width: 130px; padding: 0 10px;
+      border: 1px solid #ccd5dc; border-radius: 6px;
+      background: #fff; color: #2c3e50; font: 500 12px 'Inter', sans-serif;
+    }
+    .search-field .filter-control { width: 100%; }
+    .filter-control:focus { outline: 2px solid rgba(41,128,185,.25); border-color: #2980b9; }
+    .toolbar-actions { display: flex; gap: 6px; }
+    .toolbar-button {
+      display: inline-flex; align-items: center; gap: 4px; height: 34px;
+      padding: 0 10px; border: 1px solid #ccd5dc; border-radius: 6px;
+      background: #fff; color: #34495e; cursor: pointer;
+      font: 700 11px 'Inter', sans-serif;
+    }
+    .toolbar-button:hover { background: #edf3f6; }
+    .toolbar-button .material-symbols-rounded { font-size: 17px; }
+    .filter-result { margin-left: auto; align-self: center; color: #66727d; font-size: 11px; font-weight: 700; }
+
     /* ── Campaign row (hatched) ───────────────────────────────────── */
     tr.campaign-row td {
       border-top: 2px solid rgba(26,188,156,.55) !important;
@@ -299,6 +329,15 @@
       pointer-events: none; z-index: 0;
     }
     .bar-text { position: relative; z-index: 1; }
+    .bar.health-at-risk { outline: 2px solid #f39c12; outline-offset: 1px; }
+    .bar.health-overdue { outline: 2px solid #e74c3c; outline-offset: 1px; }
+    .health-flag {
+      position: absolute; left: 3px; top: 50%; z-index: 3;
+      transform: translateY(-50%); font-family: 'Material Symbols Rounded';
+      font-size: 15px; font-weight: normal; line-height: 1;
+      font-feature-settings: 'liga'; -webkit-font-feature-settings: 'liga';
+      text-shadow: 0 1px 2px rgba(0,0,0,.45);
+    }
 
     /* bar colours */
     .bar-initiation    { background: linear-gradient(135deg,#e74c3c,#c0392b); }
@@ -460,6 +499,7 @@
     @media print {
       body { background: white; }
       .container { box-shadow: none; }
+      .gantt-toolbar { display: none; }
     }
 
     @media screen and (max-width: 1100px) {
@@ -664,16 +704,16 @@ const ROWS = [
     { label: "- BA", type: "task",
     bars: [{ start:0, end:0.25,  color:"BA", progress: 100, label:"BA", note: "most US in spec review", assignee: "Shane Permalloo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:0.35, end:0.75,  color:"UI", progress: 50,  label:"UI", assignee: "Hans Lee" }] },
+    bars: [{ start:0.35, end:0.75,  color:"UI", progress: 60,  label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.35, end:0.99,  color:"BE", progress: 25, label:"BE", assignee: "Gregory Delphine" }] },
+    bars: [{ start:0.35, end:0.99,  color:"BE", progress: 40, label:"BE", assignee: "Gregory Delphine" }] },
   { label: " - QA", type: "task",
     bars: [qaSprint(1, 1.5, "Union coop registration", 0, "End of Sprint 10", "Khoosboo Cannoo")] },
 
   { label: "Member management",  type: "phase",
     bars: [{ color:"development", label:"Members & Leaders" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0, end:0.99,  color:"BA", progress: 30, label:"BA", assignee: "Anusha Nurkoo" }] },
+    bars: [{ start:0.25, end:0.99,  color:"BA", progress: 30, label:"BA", assignee: "Anusha Nurkoo" }] },
   { label: " - UI", type: "task",
     bars: [{ start:0, end:1.4,  color:"UI", progress: 60, label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
@@ -913,6 +953,37 @@ function buildAvatarChips(assigneeStr) {
   return `<div class="bar-avatars">${chips}</div>`;
 }
 
+function barProgress(bar) {
+  const value = Number(bar.progress);
+  return Number.isFinite(value) ? Math.min(100, Math.max(0, value)) : 0;
+}
+
+function currentTimelinePosition() {
+  const now = new Date();
+  const monthOffset = (now.getFullYear() - TIMELINE_START.year) * 12
+    + now.getMonth() - (TIMELINE_START.month - 1);
+  const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  return monthOffset + (now.getDate() - 1) / daysInMonth;
+}
+
+function scheduleHealth(bar) {
+  const start = Number(bar.start);
+  const end = Number(bar.end);
+  if (!Number.isFinite(start) || !Number.isFinite(end)) return { key: "unscheduled", label: "Not scheduled" };
+
+  const progress = barProgress(bar);
+  if (progress >= 100) return { key: "complete", label: "Complete" };
+
+  const today = currentTimelinePosition();
+  if (today > end) return { key: "overdue", label: "Overdue" };
+  if (today < start) return { key: "upcoming", label: "Upcoming" };
+
+  const duration = Math.max(end - start, 0.01);
+  const expectedProgress = Math.min(100, Math.max(0, ((today - start) / duration) * 100));
+  if (progress + 20 < expectedProgress) return { key: "at-risk", label: "At risk" };
+  return { key: "on-track", label: "On track" };
+}
+
 // ── buildCells ────────────────────────────────────────────────────
 
 function buildCells(row) {
@@ -929,11 +1000,13 @@ function buildCells(row) {
     const widthFrac = (b.end - b.start) / span;
     const leftPct   = (leftFrac  * 100).toFixed(2) + "%";
     const widthPct  = (widthFrac * 100).toFixed(2) + "%";
+    const health = scheduleHealth(b);
 
     // Build tooltip data attributes — only include optional fields when defined
     let tipAttrs = ' data-tip-label="' + (b.label || row.label) + '"'
                  + ' data-tip-start="' + colToWeekLabel(b.start) + '"'
-                 + ' data-tip-end="'   + colToWeekLabel(b.end)   + '"';
+                 + ' data-tip-end="'   + colToWeekLabel(b.end)   + '"'
+                 + ' data-tip-status="' + health.label + '"';
     if (b.assignee !== undefined) tipAttrs += ' data-tip-assignee="' + b.assignee + '"';
     if (b.progress !== undefined) tipAttrs += ' data-tip-progress="' + b.progress + '"';
     if (b.note     !== undefined) tipAttrs += ' data-tip-note="'     + b.note     + '"';
@@ -944,12 +1017,16 @@ function buildCells(row) {
       : '';
 
     const avatarHtml = buildAvatarChips(b.assignee);
+    const healthHtml = health.key === "overdue" || health.key === "at-risk"
+      ? `<span class="health-flag" aria-hidden="true">${health.key === "overdue" ? "event_busy" : "warning"}</span>`
+      : "";
 
     const barHtml =
       '<div style="position:absolute;top:50%;transform:translateY(-50%);' +
       'left:' + leftPct + ';width:' + widthPct + ';padding:0 2px;box-sizing:border-box;">' +
-        '<div class="bar bar-' + b.color + '"' + tipAttrs + '>' +
+        '<div class="bar bar-' + b.color + ' health-' + health.key + '"' + tipAttrs + '>' +
           progressHtml +
+          healthHtml +
           '<span class="bar-text">' + (b.label || '') + '</span>' +
           avatarHtml +
         '</div>' +
@@ -998,6 +1075,7 @@ function initTooltip() {
     const label    = el.getAttribute("data-tip-label") || "";
     const start    = el.getAttribute("data-tip-start") || "";
     const end      = el.getAttribute("data-tip-end")   || "";
+    const status   = el.getAttribute("data-tip-status") || "";
     const assignee = el.getAttribute("data-tip-assignee");
     const progress = el.getAttribute("data-tip-progress");
     const note     = el.getAttribute("data-tip-note");
@@ -1005,6 +1083,7 @@ function initTooltip() {
     let html = '<div class="tip-title">' + label + '</div>';
     html += '<div class="tip-row"><span class="tip-key">Start</span><span class="tip-val">' + start + '</span></div>';
     html += '<div class="tip-row"><span class="tip-key">End</span><span class="tip-val">'   + end   + '</span></div>';
+    html += '<div class="tip-row"><span class="tip-key">Status</span><span class="tip-val">' + status + '</span></div>';
     if (assignee) html += '<div class="tip-row"><span class="tip-key">Assignee</span><span class="tip-val">' + assignee + '</span></div>';
     if (progress) html += '<div class="tip-row"><span class="tip-key">Progress</span><span class="tip-val">' + progress + '%</span></div>';
     if (note)     html += '<div class="tip-note">' + note + '</div>';
@@ -1293,13 +1372,108 @@ function buildCommitteeDashboard() {
 
 // ── Render ────────────────────────────────────────────────────────
 
+function buildFilterToolbar() {
+  const assignees = [...new Set(ROWS.flatMap(row =>
+    (row.bars || []).flatMap(bar => parseAssignees(bar.assignee))
+  ))].sort((a, b) => a.localeCompare(b));
+  const assigneeOptions = assignees
+    .map(person => `<option value="${escapeHtml(person)}">${escapeHtml(person)}</option>`)
+    .join("");
+
+  return `<div class="gantt-toolbar" role="search" aria-label="Filter Gantt tasks">
+    <div class="filter-field search-field"><label for="gantt-search">Search</label><input id="gantt-search" class="filter-control" type="search" placeholder="Phase, task or assignee"></div>
+    <div class="filter-field"><label for="assignee-filter">Assignee</label><select id="assignee-filter" class="filter-control"><option value="">All assignees</option>${assigneeOptions}</select></div>
+    <div class="filter-field"><label for="workstream-filter">Workstream</label><select id="workstream-filter" class="filter-control"><option value="">All workstreams</option><option>BA</option><option>UI</option><option>BE</option><option>QA</option></select></div>
+    <div class="filter-field"><label for="status-filter">Schedule health</label><select id="status-filter" class="filter-control"><option value="">All tasks</option><option value="incomplete">Incomplete</option><option value="at-risk">At risk / overdue</option></select></div>
+    <div class="toolbar-actions">
+      <button id="expand-all" class="toolbar-button" type="button"><span class="material-symbols-rounded" aria-hidden="true">unfold_more</span>Expand</button>
+      <button id="collapse-all" class="toolbar-button" type="button"><span class="material-symbols-rounded" aria-hidden="true">unfold_less</span>Collapse</button>
+    </div>
+    <div id="filter-result" class="filter-result" aria-live="polite"></div>
+  </div>`;
+}
+
+function taskWorkstreams(row) {
+  const text = [row.label, ...(row.bars || []).map(bar => bar.label || "")].join(" ").toUpperCase();
+  return new Set(text.split(/[^A-Z]+/).filter(Boolean));
+}
+
+function initGanttFilters() {
+  const search = document.getElementById("gantt-search");
+  const assignee = document.getElementById("assignee-filter");
+  const workstream = document.getElementById("workstream-filter");
+  const status = document.getElementById("status-filter");
+  const phaseById = new Map(DISPLAY_ROWS.filter(row => row.type === "phase").map(row => [row.phaseId, row]));
+
+  const matches = row => {
+    if (row.type === "phase") return false;
+    const parent = phaseById.get(row.parentPhaseId);
+    const bars = row.bars || [];
+    const query = search.value.trim().toLowerCase();
+    const searchable = [row.label, parent?.label || "", ...bars.map(bar => bar.assignee || "")].join(" ").toLowerCase();
+    if (query && !searchable.includes(query)) return false;
+    if (assignee.value && !bars.some(bar => parseAssignees(bar.assignee).includes(assignee.value))) return false;
+    if (workstream.value && !taskWorkstreams(row).has(workstream.value)) return false;
+    if (status.value === "incomplete" && !bars.some(bar => barProgress(bar) < 100)) return false;
+    if (status.value === "at-risk" && !bars.some(bar => ["at-risk", "overdue"].includes(scheduleHealth(bar).key))) return false;
+    return true;
+  };
+
+  const applyFilters = () => {
+    const matchedRows = new Set();
+    const phasesWithMatches = new Set();
+    DISPLAY_ROWS.forEach((row, index) => {
+      if (!matches(row)) return;
+      matchedRows.add(index);
+      if (row.parentPhaseId) phasesWithMatches.add(row.parentPhaseId);
+    });
+
+    let visibleTasks = 0;
+    document.querySelectorAll(".gantt-table tbody tr[data-row-index]").forEach(tr => {
+      const index = Number(tr.dataset.rowIndex);
+      const row = DISPLAY_ROWS[index];
+      let visible = row.type === "phase" ? phasesWithMatches.has(row.phaseId) : matchedRows.has(index);
+      if (row.isNestedTask && collapsedPhases.has(row.parentPhaseId)) visible = false;
+      tr.hidden = !visible;
+      if (visible && row.type === "task") visibleTasks++;
+    });
+    document.getElementById("filter-result").textContent = `${visibleTasks} task${visibleTasks === 1 ? "" : "s"} shown`;
+  };
+
+  [search, assignee, workstream, status].forEach(control => {
+    control.addEventListener(control === search ? "input" : "change", applyFilters);
+  });
+  document.querySelectorAll(".phase-toggle").forEach(button => {
+    button.addEventListener("click", () => {
+      const phaseId = button.dataset.phaseId;
+      if (collapsedPhases.has(phaseId)) collapsedPhases.delete(phaseId);
+      else collapsedPhases.add(phaseId);
+      const expanded = !collapsedPhases.has(phaseId);
+      button.setAttribute("aria-expanded", String(expanded));
+      button.setAttribute("aria-label", `${expanded ? "Collapse" : "Expand"} phase tasks`);
+      applyFilters();
+    });
+  });
+  document.getElementById("expand-all").addEventListener("click", () => {
+    collapsedPhases.clear();
+    document.querySelectorAll(".phase-toggle").forEach(button => button.setAttribute("aria-expanded", "true"));
+    applyFilters();
+  });
+  document.getElementById("collapse-all").addEventListener("click", () => {
+    DISPLAY_ROWS.filter(row => row.type === "phase").forEach(row => collapsedPhases.add(row.phaseId));
+    document.querySelectorAll(".phase-toggle").forEach(button => button.setAttribute("aria-expanded", "false"));
+    applyFilters();
+  });
+  applyFilters();
+}
+
 function render() {
   const thCols = TIMELINE.map(t => {
     const lines = t.label.split("\n");
     return `<th${t.today ? ' class="today-col"' : ""}>${lines[0]}<br>${lines[1]}${t.today ? '<span class="today-label">TODAY</span>' : ""}</th>`;
   }).join("");
 
-  const bodyRows = DISPLAY_ROWS.map(row => {
+  const bodyRows = DISPLAY_ROWS.map((row, rowIndex) => {
     const rowClass = row.type === "phase"       ? "phase-row"
                    : row.type === "campaign"    ? "phase-row campaign-row"
                    : row.type === "deliverable" ? "deliverable-row"
@@ -1319,7 +1493,7 @@ function render() {
       : row.isNestedTask
         ? `<span class="task-tree-connector" aria-hidden="true">↳</span>${cleanLabel}`
         : cleanLabel;
-    return `<tr class="${fullRowClass}"${isHidden ? " hidden" : ""}>
+    return `<tr class="${fullRowClass}" data-row-index="${rowIndex}"${isHidden ? " hidden" : ""}>
       <td class="task-col">${labelHtml}</td>
       ${buildCells(row)}
     </tr>`;
@@ -1335,6 +1509,7 @@ function render() {
       <h1>${PROJECT.title}</h1>
       <div class="subtitle">${PROJECT.notes}</div>
     </div>
+    ${buildFilterToolbar()}
     <div class="gantt-wrapper">
       <table class="gantt-table">
         <colgroup>
@@ -1350,14 +1525,7 @@ function render() {
 
   initTooltip();
   initFloatingPanels();
-  document.querySelectorAll(".phase-toggle").forEach(button => {
-    button.addEventListener("click", () => {
-      const phaseId = button.dataset.phaseId;
-      if (collapsedPhases.has(phaseId)) collapsedPhases.delete(phaseId);
-      else collapsedPhases.add(phaseId);
-      render();
-    });
-  });
+  initGanttFilters();
 }
 
 render();

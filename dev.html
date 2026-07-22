@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,600,0,0" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -202,6 +203,28 @@
     .phase-label {
       display: flex; align-items: center; gap: 8px;
     }
+    .phase-toggle {
+      display: inline-flex; align-items: center; justify-content: center;
+      flex: 0 0 24px; width: 24px; height: 24px; padding: 0;
+      border: 0; border-radius: 4px; background: transparent;
+      color: inherit; cursor: pointer;
+    }
+    .phase-toggle:hover { background: rgba(255,255,255,.14); }
+    .phase-toggle:focus-visible {
+      outline: 2px solid #fff; outline-offset: 1px;
+    }
+    .phase-toggle-icon {
+      display: block; font-family: 'Material Symbols Rounded';
+      font-size: 20px; line-height: 1; font-weight: normal;
+      font-style: normal; letter-spacing: normal; text-transform: none;
+      white-space: nowrap; word-wrap: normal; direction: ltr;
+      -webkit-font-feature-settings: 'liga'; font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+      transition: transform .16s ease;
+    }
+    .phase-toggle[aria-expanded="false"] .phase-toggle-icon {
+      transform: rotate(-90deg);
+    }
     .phase-label-text {
       min-width: 0; overflow: hidden; text-overflow: ellipsis;
     }
@@ -329,7 +352,7 @@
       pointer-events: none; opacity: 0;
       transition: opacity .15s ease;
       box-shadow: 0 4px 18px rgba(0,0,0,.45);
-      max-width: 260px; white-space: nowrap;
+      max-width: 300px; white-space: nowrap;
     }
     .gantt-tooltip.visible { opacity: 1; }
     .gantt-tooltip .tip-title {
@@ -360,7 +383,7 @@
       color: #2c3e50; overflow: hidden;
       backdrop-filter: blur(6px);
     }
-    .floating-panel.release-panel { border-left-color: #2980b9; }
+    .floating-panel.release-panel { border-left-color: #2980b9; display: none !important}
     .floating-panel.summary-panel { border-left-color: #16a085; }
     .floating-panel.summary-panel:not(.is-collapsed) {
       width: min(760px, calc(100vw - 36px));
@@ -392,7 +415,12 @@
     .release-panel .floating-panel-count { background: #2980b9; }
     .summary-panel .floating-panel-count { background: #16a085; }
     .floating-panel-caret {
-      color: #66727d; font-size: 12px; font-weight: 900;
+      color: #66727d; font-family: 'Material Symbols Rounded';
+      font-size: 20px; font-weight: normal; line-height: 1;
+      font-style: normal; letter-spacing: normal; text-transform: none;
+      white-space: nowrap; direction: ltr;
+      -webkit-font-feature-settings: 'liga'; font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
       transition: transform .16s ease;
     }
     .floating-panel.is-collapsed .floating-panel-caret { transform: rotate(-90deg); }
@@ -560,24 +588,24 @@ const PROJECT = {
   title:    "COMIS: PHASE 1 IMPLEMENTATION PLAN",
   notes:    "Production environment readiness delayed to October 2026 | " +
             "Deadline for development: September 2026 ",
-  version:  "v2.3 — Committee view",
+  version:  "v2.4 - 22  Jul 2026",
 };
 
 const COMMITTEE_BRIEF = {
-  lastUpdated: "14 Jul 2026",
+  lastUpdated: "22 Jul 2026",
   summary: [
-    { label: "Go-live target", value: "Mid Oct 2026", note: "Maintained as the steering committee decision." },
-    { label: "Overall status", value: "At risk", note: "Primary watch item is resource overlap on delivery and QA." },
+    { label: "Go-live target", value: "3rd week of Oct 2026", note: "Training and UAT run in October ahead of the planned launch." },
+    { label: "Overall status", value: "At risk", note: "QA and remaining backend workload overlap across multiple modules." },
   ],
   decisions: [
-    "Confirm QA allocation for overloaded windows.",
-    "Agree development freeze criteria before UAT starts.",
-    "Confirm Go-live no-go conditions and approvers."
+    "Confirm QA allocation for the three concurrent August module windows.",
+    "Protect backend capacity through the September development freeze.",
+    "Confirm Go-live no-go conditions and approvers before October UAT."
   ],
   riskBrief: [
-    "UI work is concentrated on Hans Lee across several modules.",
-    "QA has overlapping module windows for Khoosboo Cannoo.",
-    "UAT sign-off path must remain clear to preserve end-October Go-live."
+    "Khoosboo Cannoo has three concurrent, not-started QA assignments in August.",
+    "Yuvna Seeburrun has overlapping unfinished backend work across Member Management and Bug Fixing.",
+    "Remaining development and QA must close before September environment readiness and October UAT."
   ],
   milestones: [
     { date: "Sep 2026", label: "Module QA and development closure" },
@@ -618,16 +646,16 @@ const ROWS = [
   { label: "- BE", type: "task",
     bars: [{ start:0, end:0.35, color:"BE",  progress: 100,  label:"BE",  assignee: "Yuvna Seeburrun/Gregory Delphine" }] },
   { label: "- QA", type: "task",
-    bars: [qaSprint(0.35, 0.99, "Primary Coop registration", 50, "End of Sprint 9", "Khoosboo Cannoo")] },
+    bars: [qaSprint(0.35, 0.99, "Primary Coop registration", 75, "End of Sprint 9", "Khoosboo Cannoo")] },
 
   { label: "Bylaws Amendment",  type: "phase",
     bars: [{ color:"development", label:"Bylaws Amendment", note: "" }] },
     { label: "- BA", type: "task",
     bars: [{ start:0, end:0.25,  color:"BA", progress: 100, label:"BA", note: "most US in spec review", assignee: "Anusha Nurkoo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:0.35, end:0.75,  color:"UI", progress: 25,  label:"UI", assignee: "Hans Lee" }] },
+    bars: [{ start:0.35, end:0.75,  color:"UI", progress: 100,  label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.35, end:0.99,  color:"BE", progress: 25, label:"BE", assignee: "Yuvna Seeburrun" }] },
+    bars: [{ start:0.35, end:0.99,  color:"BE", progress: 50, label:"BE", assignee: "Yuvna Seeburrun" }] },
   { label: " - QA", type: "task",
     bars: [qaSprint(1, 1.5, "Bylaws Amendment", 0, "End of Sprint 10", "Khoosboo Cannoo")] },
 
@@ -636,7 +664,7 @@ const ROWS = [
     { label: "- BA", type: "task",
     bars: [{ start:0, end:0.25,  color:"BA", progress: 100, label:"BA", note: "most US in spec review", assignee: "Shane Permalloo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:0.35, end:0.75,  color:"UI", progress: 25,  label:"UI", assignee: "Hans Lee" }] },
+    bars: [{ start:0.35, end:0.75,  color:"UI", progress: 50,  label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
     bars: [{ start:0.35, end:0.99,  color:"BE", progress: 25, label:"BE", assignee: "Gregory Delphine" }] },
   { label: " - QA", type: "task",
@@ -649,41 +677,40 @@ const ROWS = [
   { label: " - UI", type: "task",
     bars: [{ start:0, end:1.4,  color:"UI", progress: 60, label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:1, end:2,  color:"BE", label:"BE", assignee: "Yanesh Caussy/Yuvna Seeburrun" }] },
+    bars: [{ start:1, end:1.99,  color:"BE", label:"BE", assignee: "Yanesh Caussy/Yuvna Seeburrun" }] },
   { label: " - QA", type: "task",
-    bars: [qaSprint(1.8, 2.49, "Member management", 0, "", "Homesh Bhugmaneea")] },
-
-  { label: "Grievance",  type: "phase",
-    bars: [{ color:"development", label:"Grievance" }] },
-    { label: "- BA", type: "task",
-    bars: [{ start:0, end:1.2,  color:"BA", progress: 75, label:"BA", assignee: "Alain Fok" }] },
-  { label: " - UI & BE", type: "task",
-    bars: [{ start:0, end:0.99,  color:"UI", label:"UI", progress: 75, assignee: "Rajendra Ballgobin/Hans Lee" }] },
-  { label: " - QA", type: "task",
-    bars: [qaSprint(1.2, 1.8, "Grievance", 0, "", "Homesh Bhugmaneea")] },
+    bars: [qaSprint(2, 2.49, "Member management", 0, "", "Homesh Bhugmaneea")] },
 
   { label: "Post-training",  type: "phase",
     bars: [{ color:"development", label:"Post-Training" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0, end:0.45,  color:"BA", progress: 100, label:"BA", assignee: "Shane Permalloo" }] },
+    bars: [{ start:0, end:0.4,  color:"BA", progress: 100, label:"BA", assignee: "Shane Permalloo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:0, end:0.5,  color:"UI", progress: 50, label:"UI", assignee: "Geerishraj Bheekhum" }] },
+    bars: [{ start:0.4, end:0.99,  color:"UI", progress: 50, label:"UI", assignee: "Geerishraj Bheekhum" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.25, end:0.99,  color:"BE", label:"BE", assignee: "Sri Lanka" }] },
+    bars: [{ start:0.4, end:0.99, progress: 25, color:"BE", label:"BE", assignee: "Yanesh Caussy" }] },
   { label: " - QA", type: "task",
     bars: [qaSprint(1, 1.5, "Post-training", 0, "End of Sprint 10", "Khoosboo Cannoo")] },
-  
+
+  { label: "Grievance",  type: "phase",
+    bars: [{ color:"development", label:"Grievance" }] },
+    { label: "- BA", type: "task",
+    bars: [{ start:0, end:1.2,  color:"BA", progress: 80, label:"BA", assignee: "Alain Fok" }] },
+  { label: " - UI & BE", type: "task",
+    bars: [{ start:0, end:0.99,  color:"UI", label:"UI", progress: 80, assignee: "Rajendra Ballgobin" }] },
+  { label: " - QA", type: "task",
+    bars: [qaSprint(1.2, 1.6, "Grievance", 0, "", "Homesh Bhugmaneea")] },
 
   { label: "Dissolution",  type: "phase",
     bars: [{ color:"development", label:"Dissolution" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0, end:0.5,  color:"BA", progress: 80, label:"BA", assignee: "Alain Fok" }] },
+    bars: [{ start:0, end:0.99,  color:"BA", progress: 80, label:"BA", assignee: "Alain Fok" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:0.5, end:1.5,  color:"UI", label:"UI", assignee: "Geerishraj Bheekhum" }] },
+    bars: [{ start:1, end:1.6,  color:"UI", label:"UI", assignee: "Geerishraj Bheekhum" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.5, end:0.99,  color:"BE", label:"BE", assignee: "Yanesh Caussy" }] },
+    bars: [{ start:0.8, end:1.6,  color:"BE", label:"BE", assignee: "Rajendra Ballgobin" }] },
   { label: " - QA", type: "task",
-    bars: [qaSprint(1.5, 1.99, "Dissolution", 0, "")] },
+    bars: [qaSprint(1.6, 1.99, "Dissolution", 0, "", "Homesh Bhugmaneea")] },
 
     /*-------------------------------*/
   { label: " - Bug Fixing + Non-core features", type: "phase",
@@ -743,10 +770,12 @@ function buildDisplayRows(rows) {
     bars: (row.bars || []).map(bar => ({ ...bar }))
   }));
   let currentPhase = null;
+  let phaseIndex = 0;
 
   displayRows.forEach(row => {
     if (row.type === "phase") {
       currentPhase = row;
+      currentPhase.phaseId = `phase-${phaseIndex++}`;
       currentPhase.childProgress = [];
       currentPhase.childBars = [];
       return;
@@ -754,6 +783,7 @@ function buildDisplayRows(rows) {
 
     if (row.type === "task" && currentPhase) {
       row.isNestedTask = true;
+      row.parentPhaseId = currentPhase.phaseId;
       currentPhase.childProgress.push(taskProgress(row));
       currentPhase.childBars.push(...row.bars);
       return;
@@ -785,6 +815,7 @@ function buildDisplayRows(rows) {
 }
 
 const DISPLAY_ROWS = buildDisplayRows(ROWS);
+const collapsedPhases = new Set();
 
 // Auto-generated from ROWS — do not edit this block
 const TIMELINE = (() => {
@@ -832,6 +863,17 @@ function colToMonthLabel(decimalIdx) {
   const m = (offset % 12) + 1;
   const y = TIMELINE_START.year + Math.floor(offset / 12);
   return MONTH_ABBR[m - 1] + " " + y;
+}
+
+function colToWeekLabel(decimalIdx) {
+  const monthIndex = Math.floor(decimalIdx);
+  const monthFraction = Math.max(0, Math.min(0.999999, decimalIdx - monthIndex));
+  const week = Math.floor(monthFraction * 4) + 1;
+  const ordinal = ["1st", "2nd", "3rd", "4th"][week - 1];
+  const offset = (TIMELINE_START.month - 1) + monthIndex;
+  const month = ((offset % 12) + 12) % 12;
+  const year = TIMELINE_START.year + Math.floor(offset / 12);
+  return `${ordinal} week of ${MONTH_ABBR[month]} ${year}`;
 }
 
 // ── Avatar chip helpers ───────────────────────────────────────────
@@ -890,8 +932,8 @@ function buildCells(row) {
 
     // Build tooltip data attributes — only include optional fields when defined
     let tipAttrs = ' data-tip-label="' + (b.label || row.label) + '"'
-                 + ' data-tip-start="' + colToMonthLabel(b.start) + '"'
-                 + ' data-tip-end="'   + colToMonthLabel(b.end)   + '"';
+                 + ' data-tip-start="' + colToWeekLabel(b.start) + '"'
+                 + ' data-tip-end="'   + colToWeekLabel(b.end)   + '"';
     if (b.assignee !== undefined) tipAttrs += ' data-tip-assignee="' + b.assignee + '"';
     if (b.progress !== undefined) tipAttrs += ' data-tip-progress="' + b.progress + '"';
     if (b.note     !== undefined) tipAttrs += ' data-tip-note="'     + b.note     + '"';
@@ -1020,6 +1062,11 @@ function collectAssigneeLoad(rows, options = {}) {
     (row.bars || []).forEach(bar => {
       if (!bar.assignee || !Number.isFinite(Number(bar.start)) || !Number.isFinite(Number(bar.end))) return;
 
+      const progressValue = Number(bar.progress);
+      const progress = Number.isFinite(progressValue)
+        ? Math.min(100, Math.max(0, progressValue))
+        : 0;
+
       parseAssignees(bar.assignee).forEach(person => {
         if (!load[person]) load[person] = [];
         load[person].push({
@@ -1027,7 +1074,9 @@ function collectAssigneeLoad(rows, options = {}) {
           phase: currentPhase,
           label: bar.label || task,
           start: Number(bar.start),
-          end: Number(bar.end)
+          end: Number(bar.end),
+          progress,
+          remainingLoad: (100 - progress) / 100
         });
       });
     });
@@ -1042,15 +1091,18 @@ function findRiskItems(rows) {
   return Object.entries(load).map(([person, bars]) => {
     const points = [...new Set(bars.flatMap(bar => [bar.start, bar.end]))]
       .sort((a, b) => a - b);
-    let busiest = { count: 0, start: 0, end: 0, tasks: [] };
+    let busiest = { count: 0, remainingLoad: 0, start: 0, end: 0, tasks: [] };
 
     for (let i = 0; i < points.length - 1; i++) {
       const start = points[i];
       const end = points[i + 1];
       const midpoint = (start + end) / 2;
-      const active = bars.filter(bar => bar.start <= midpoint && bar.end >= midpoint);
-      if (active.length > busiest.count) {
-        busiest = { count: active.length, start, end, tasks: active };
+      const active = bars.filter(bar =>
+        bar.remainingLoad > 0 && bar.start <= midpoint && bar.end >= midpoint
+      );
+      const remainingLoad = active.reduce((sum, bar) => sum + bar.remainingLoad, 0);
+      if (remainingLoad > busiest.remainingLoad) {
+        busiest = { count: active.length, remainingLoad, start, end, tasks: active };
       }
     }
 
@@ -1060,8 +1112,8 @@ function findRiskItems(rows) {
       ...busiest
     };
   })
-    .filter(item => item.count > 1)
-    .sort((a, b) => b.count - a.count || b.total - a.total || a.person.localeCompare(b.person));
+    .filter(item => item.remainingLoad > 1)
+    .sort((a, b) => b.remainingLoad - a.remainingLoad || b.count - a.count || a.person.localeCompare(b.person));
 }
 
 function findReleaseItems(rows) {
@@ -1088,17 +1140,18 @@ function buildRiskPanel() {
   const content = risks.length
     ? risks.map(risk => {
         const tasks = risk.tasks.slice(0, 3)
-          .map(task => `${task.phase}: ${task.task}`)
+          .map(task => `${task.phase}: ${task.task} (${100 - task.progress}% remaining)`)
           .join("; ");
         const more = risk.tasks.length > 3 ? `; +${risk.tasks.length - 3} more` : "";
-        const level = risk.count >= 3 ? "High" : "Watch";
+        const level = risk.remainingLoad >= 2 ? "High" : "Watch";
+        const remainingLoad = risk.remainingLoad.toFixed(1).replace(/\.0$/, "");
 
         return `<div class="panel-item">
           <div class="panel-person">
             <span>${escapeHtml(risk.person)}</span>
             <span class="risk-level">${level}</span>
           </div>
-          <div class="panel-meta">${risk.count} concurrent assignments &middot; ${dateWindow(risk.start, risk.end)}</div>
+          <div class="panel-meta">${risk.count} concurrent unfinished assignments &middot; ${remainingLoad} FTE remaining &middot; ${dateWindow(risk.start, risk.end)}</div>
           <div class="panel-detail">${escapeHtml(tasks + more)}</div>
         </div>`;
       }).join("")
@@ -1109,7 +1162,7 @@ function buildRiskPanel() {
       <div class="floating-panel-title">People At Risk</div>
       <div class="floating-panel-actions">
         <div class="floating-panel-count">${risks.length}</div>
-        <div class="floating-panel-caret">v</div>
+        <span class="floating-panel-caret" aria-hidden="true">expand_more</span>
       </div>
     </button>
     <div class="floating-panel-body">${content}</div>
@@ -1137,7 +1190,7 @@ function buildReleasePanel() {
       <div class="floating-panel-title">Release Dates</div>
       <div class="floating-panel-actions">
         <div class="floating-panel-count">${releases.length}</div>
-        <div class="floating-panel-caret">v</div>
+        <span class="floating-panel-caret" aria-hidden="true">expand_more</span>
       </div>
     </button>
     <div class="floating-panel-body">${content}</div>
@@ -1150,7 +1203,7 @@ function buildSummaryPanel() {
       <div class="floating-panel-title">Committee Summary</div>
       <div class="floating-panel-actions">
         <div class="floating-panel-count">${COMMITTEE_BRIEF.summary.length}</div>
-        <div class="floating-panel-caret">v</div>
+        <span class="floating-panel-caret" aria-hidden="true">expand_more</span>
       </div>
     </button>
     <div class="floating-panel-body">${buildCommitteeDashboard()}</div>
@@ -1255,8 +1308,10 @@ function render() {
       .filter(Boolean)
       .join(" ");
     const cleanLabel = row.isNestedTask ? row.label.replace(/^\s*-\s*/, "") : row.label;
+    const isCollapsed = row.type === "phase" && collapsedPhases.has(row.phaseId);
+    const isHidden = row.isNestedTask && collapsedPhases.has(row.parentPhaseId);
     const labelHtml = row.type === "phase"
-      ? `<div class="phase-label"><span class="phase-label-text" title="${cleanLabel}">${cleanLabel}</span>${
+      ? `<div class="phase-label"><button class="phase-toggle" type="button" data-phase-id="${row.phaseId}" aria-expanded="${!isCollapsed}" aria-label="${isCollapsed ? "Expand" : "Collapse"} ${cleanLabel} tasks"><span class="phase-toggle-icon" aria-hidden="true">expand_more</span></button><span class="phase-label-text" title="${cleanLabel}">${cleanLabel}</span>${
           row.calculatedProgress !== undefined
             ? `<span class="phase-progress" title="Calculated from ${row.childProgress.length} tasks">${row.calculatedProgress}%</span>`
             : ""
@@ -1264,7 +1319,7 @@ function render() {
       : row.isNestedTask
         ? `<span class="task-tree-connector" aria-hidden="true">↳</span>${cleanLabel}`
         : cleanLabel;
-    return `<tr class="${fullRowClass}">
+    return `<tr class="${fullRowClass}"${isHidden ? " hidden" : ""}>
       <td class="task-col">${labelHtml}</td>
       ${buildCells(row)}
     </tr>`;
@@ -1295,6 +1350,14 @@ function render() {
 
   initTooltip();
   initFloatingPanels();
+  document.querySelectorAll(".phase-toggle").forEach(button => {
+    button.addEventListener("click", () => {
+      const phaseId = button.dataset.phaseId;
+      if (collapsedPhases.has(phaseId)) collapsedPhases.delete(phaseId);
+      else collapsedPhases.add(phaseId);
+      render();
+    });
+  });
 }
 
 render();

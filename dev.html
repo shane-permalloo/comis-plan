@@ -732,6 +732,17 @@ const ROWS = [
   { label: " - QA", type: "task",
     bars: [qaSprint(1, 1.5, "Post-training", 0, "End of Sprint 10", "Khoosboo Cannoo")] },
 
+  { label: "Public website",  type: "phase",
+    bars: [{ color:"development", label:"Public website" }] },
+    { label: "- BA", type: "task",
+    bars: [{ start:0.5, end:1.5,  color:"BA", progress: 75, label:"BA", assignee: "Shane Permalloo" }] },
+  { label: " - UI", type: "task",
+    bars: [{ start:1, end:1.99,  color:"UI", progress: 50, label:"UI", assignee: "Divya Dowlut" }] },
+  { label: " - BE", type: "task",
+    bars: [{ start:0.5, end:0.99, progress: 100, color:"BE", label:"BE", assignee: "Yuvna Seeburrun" }] },
+  { label: " - QA", type: "task",
+    bars: [qaSprint(2, 2.5, "Post-training", 0, "End of Sprint 10", "Shane Permalloo")] },
+
   { label: "Grievance",  type: "phase",
     bars: [{ color:"development", label:"Grievance" }] },
     { label: "- BA", type: "task",

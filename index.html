@@ -14,44 +14,66 @@
 
     .container { max-width: 100%; background: white; overflow: hidden; }
 
-    /* ── Floating issues panel ───────────────────────────────────── */
+    /* ── Header issue toggle ─────────────────────────────────────── */
     .risk-panel {
-      position: fixed;
-      top: 200px;
-      right: 10px;
-      width: min(500px, calc(100vw - 28px));
-      z-index: 30;
-      border: 1px solid #cfd7df;
-      border-radius: 12px;
-      background: #ffffff;
-      box-shadow: 0 12px 28px rgba(44, 62, 80, 0.22);
-      overflow: hidden;
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      z-index: 25;
+      text-align: left;
     }
     .risk-panel summary {
       list-style: none;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 12px 14px;
-      background: linear-gradient(135deg, #19324a 0%, #2d506f 100%);
-      color: #ffffff;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-    }
-    .risk-panel summary::-webkit-details-marker { display: none; }
-    .risk-count {
-      background: rgba(255, 255, 255, 0.18);
+      gap: 8px;
       border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      border-radius: 999px;
+      padding: 6px 10px;
       font-size: 11px;
       font-weight: 600;
-      padding: 3px 8px;
+      backdrop-filter: blur(4px);
+    }
+    .risk-panel summary::-webkit-details-marker { display: none; }
+    .risk-panel[open] summary {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.48);
+    }
+    .risk-icon {
+      width: 18px;
+      height: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .risk-count {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
       border-radius: 999px;
+      line-height: 1.2;
+    }
+    .risk-dropdown {
+      margin-top: 8px;
+      width: min(800px, calc(100vw - 26px));
+      border: 1px solid #cfd7df;
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow: 0 12px 26px rgba(44, 62, 80, 0.24);
+      overflow: hidden;
     }
     .risk-body {
-      max-height: min(58vh, 560px);
+      max-height: min(60vh, 600px);
       overflow-y: auto;
       padding: 12px;
       background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
@@ -69,15 +91,15 @@
     }
     .risk-card h4 {
       color: #1c3347;
-      font-size: 12px;
+      font-size: 15px;
       font-weight: 700;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
     .risk-text {
       color: #2f3f4e;
-      font-size: 12px;
+      font-size: 13px;
       line-height: 1.45;
     }
     .risk-card ul {
@@ -87,8 +109,8 @@
     .risk-card li {
       margin-bottom: 6px;
       color: #2f3f4e;
-      font-size: 12px;
-      line-height: 1.4;
+      font-size: 13px;
+      line-height: 1.45;
     }
     .risk-card li:last-child { margin-bottom: 0; }
     .risk-note {
@@ -106,6 +128,7 @@
     .header {
       background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
       color: white; padding: 18px 24px; text-align: center;
+      position: relative;
     }
     .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
     .header .subtitle { font-size: 16px; opacity: .88; margin-top: 4px; line-height: 1.6; max-width: 1180px; min-width: 92vh; margin-left: auto; margin-right: auto; }
@@ -253,8 +276,9 @@
       .risk-panel {
         top: 8px;
         right: 8px;
-        left: 8px;
-        width: auto;
+      }
+      .risk-dropdown {
+        width: min(96vw, 520px);
       }
       .risk-grid { grid-template-columns: 1fr; }
     }
@@ -476,51 +500,54 @@ function render() {
   ).join("");
 
   document.getElementById("app").innerHTML = `
-    <details class="risk-panel">
-      <summary>
-        <span>Project Issues & Mitigations</span>
-        <span class="risk-count">3 issues</span>
-      </summary>
-      <div class="risk-body">
-        <div class="risk-grid">
-          <div class="risk-card">
-            <h4>Issue 1</h4>
-            <p class="risk-text">Server hardware procurement. A tentative date is yet to be provided from the second supplier.<br /><br />Mauritius Team will need 1 full month for the setup and testing of the software on the Malawi environment.</p>
-          </div>
-          <div class="risk-card">
-            <h4>Mitigation Options</h4>
-            <ul>
-              <li>Escalate with the second supplier for a committed delivery window.</li>
-              <li>Decide on an alternative environment. This environment may be used for UAT and registration campaign till the Malawi environment is ready.</li>
-            </ul>
-          </div>
+    <div class="header">
+      <details class="risk-panel">
+        <summary>
+          <span class="risk-icon">!</span>
+          <span>Project Issues</span>
+          <span class="risk-count">2</span>
+        </summary>
+        <div class="risk-dropdown">
+          <div class="risk-body">
+            <div class="risk-grid">
+              <div class="risk-card">
+                <h4>Issue 1</h4>
+                <p class="risk-text">Server hardware procurement. A tentative date is yet to be provided from the second supplier.<br /><br />Mauritius Team will need 1 full month for the setup and testing of the software on the Malawi environment.</p>
+              </div>
+              <div class="risk-card">
+                <h4>Mitigation Options</h4>
+                <ul>
+                  <li>Escalate with the second supplier for a committed delivery window.</li>
+                  <li>Decide on an alternative environment. This environment may be used for UAT and registration campaign till the Malawi environment is ready.</li>
+                </ul>
+              </div>
 
-          <div class="risk-card">
-            <h4>Issue 2</h4>
-            <p class="risk-text">NRB API is only available on the GWAN Network.<br /><br />
-              So long the environment is not setup in Malawi, the NRB cannot be fully implemented.</p>
-          </div>
-          <div class="risk-card">
-            <h4>Mitigation Options</h4>
-            <ul>
-              <li>Prioritize Malawi environment readiness as a dependency milestone with clear owner and target date.</li>
-              <li>All NRB integration components has been developed with mock services to reduce final deployment effort.</li>
-            </ul>
-          </div>
+              <div class="risk-card">
+                <h4>Issue 2</h4>
+                <p class="risk-text">NRB API is only available on the GWAN Network.<br /><br />
+                  So long the environment is not setup in Malawi, the NRB cannot be fully implemented.</p>
+              </div>
+              <div class="risk-card">
+                <h4>Mitigation Options</h4>
+                <ul>
+                  <li>Prioritize Malawi environment readiness as a dependency milestone with clear owner and target date.</li>
+                  <li>All NRB integration components has been developed with mock services to reduce final deployment effort.</li>
+                </ul>
+              </div>
 
-          <div class="risk-card">
-            <h4>Issue 3</h4>
-            <p class="risk-text">Outstanding amount on 1st Milestone.</p>
-          </div>
-          <div class="risk-card">
-            <h4>Current Status</h4>
-            <p class="risk-text">Statement of account has already been sent to detail the outstanding amount.</p>
+              <!--<div class="risk-card">
+                <h4>Issue 3</h4>
+                <p class="risk-text">Outstanding amount on 1st Milestone.</p>
+              </div>
+              <div class="risk-card">
+                <h4>Current Status</h4>
+                <p class="risk-text">Statement of account has already been sent to detail the outstanding amount.</p>
+              </div> -->
+            </div>
           </div>
         </div>
-      </div>
-    </details>
+      </details>
 
-    <div class="header">
       <h1>${PROJECT.title}</h1>
       <div class="subtitle">${PROJECT.notes}</div>
     </div>

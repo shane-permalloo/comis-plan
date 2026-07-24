@@ -72,6 +72,30 @@
       box-shadow: 0 12px 26px rgba(44, 62, 80, 0.24);
       overflow: hidden;
     }
+    .risk-dropdown-head {
+      display: flex;
+      justify-content: flex-end;
+      padding: 8px 10px 0;
+    }
+    .risk-close-btn {
+      border: 1px solid #d4dde5;
+      background: #ffffff;
+      color: #5c6a78;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 17px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .16s ease, color .16s ease;
+    }
+    .risk-close-btn:hover {
+      background: #eef3f7;
+      color: #1f3347;
+    }
     .risk-body {
       max-height: min(60vh, 600px);
       overflow-y: auto;
@@ -133,6 +157,36 @@
     .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
     .header .subtitle { font-size: 16px; opacity: .88; margin-top: 4px; line-height: 1.6; max-width: 1180px; min-width: 92vh; margin-left: auto; margin-right: auto; }
     .header .meta { margin-top: 10px; font-size: 12px; opacity: .65; }
+    .header-actions {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+    }
+    .client-view-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      background: rgba(255, 255, 255, 0.12);
+      padding: 6px 12px;
+      border-radius: 999px;
+    }
+    .client-view-link:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .timeline-link-row { cursor: pointer; }
+    .timeline-link-row:hover td {
+      background-color: rgba(52, 152, 219, 0.08);
+    }
+    .timeline-link-row:focus-visible {
+      outline: 2px solid rgba(52, 152, 219, 0.9);
+      outline-offset: -2px;
+    }
 
     /* ── Gantt wrapper ────────────────────────────────────────────── */
     .gantt-wrapper { overflow-x: auto; position: relative; }
@@ -351,7 +405,7 @@ const ROWS = [
     bars: [{ start:5, end:12, color:"development", label:"DEV PHASE 1" }] },
 
   { label: " - Development",          type: "task",
-    bars: [{ start:5, end:12,  color:"development", label:"DEV" }] },
+    bars: [{ start:5, end:11,  color:"development", label:"DEV" }] },
  
   { label: " - Preprod/Prod Env. Setup", type: "task",
     bars: [{ start:11, end:12, color:"development", label:"ENV. SETUP" }] },
@@ -437,6 +491,13 @@ const LEGEND_ITEMS = [
   { color:"bar-campaign",     label:"Registration Campaign",hex:"#1abc9c" },
 ];
 
+const DEV_PHASE1_LINK_LABELS = new Set([
+  "3: DEV Phase 1",
+  "- Development",
+  "- Preprod/Prod Env. Setup",
+  "- NRB Integration (Preprod/Prod)",
+]);
+
 // ── Render ────────────────────────────────────────────────────────
 
 function buildCells(row) {
@@ -485,8 +546,13 @@ function render() {
                    : row.type === "campaign"    ? "phase-row campaign-row"
                    : row.type === "deliverable" ? "deliverable-row"
                    : "";
+    const isDevPhase1Link = DEV_PHASE1_LINK_LABELS.has(row.label.trim());
+    const fullRowClass = `${rowClass}${isDevPhase1Link ? " timeline-link-row" : ""}`.trim();
+    const rowLinkAttrs = isDevPhase1Link
+      ? ' data-dev-link="true" tabindex="0" role="link" aria-label="Open development details" title="Open development details"'
+      : "";
     const taskTodayCls = TIMELINE[todayIdx]?.today ? "" : ""; // task col never gets today highlight
-    return `<tr class="${rowClass}">
+    return `<tr class="${fullRowClass}"${rowLinkAttrs}>
       <td class="task-col">${row.label}</td>
       ${buildCells(row)}
     </tr>`;
@@ -508,6 +574,9 @@ function render() {
           <span class="risk-count">2</span>
         </summary>
         <div class="risk-dropdown">
+          <div class="risk-dropdown-head">
+            <button type="button" class="risk-close-btn" data-close-risk aria-label="Close issues panel">×</button>
+          </div>
           <div class="risk-body">
             <div class="risk-grid">
               <div class="risk-card">
@@ -550,6 +619,7 @@ function render() {
 
       <h1>${PROJECT.title}</h1>
       <div class="subtitle">${PROJECT.notes}</div>
+      
     </div>
 
     <div class="gantt-wrapper">
@@ -575,6 +645,28 @@ function render() {
       COMIS Project Plan &nbsp;|&nbsp; ${PROJECT.version} &nbsp;|&nbsp; MNS Ltd
     </div>
   `;
+
+  const riskPanel = document.querySelector(".risk-panel");
+  const closeRiskButton = document.querySelector("[data-close-risk]");
+  if (riskPanel && closeRiskButton) {
+    closeRiskButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      riskPanel.removeAttribute("open");
+    });
+  }
+
+  document.querySelectorAll("[data-dev-link]").forEach((row) => {
+    row.addEventListener("click", () => {
+      window.location.href = "client-modules.html";
+    });
+    row.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        window.location.href = "client-modules.html";
+      }
+    });
+  });
 }
 
 render();

@@ -478,8 +478,7 @@
           <thead>
             <tr>
               <th class="task-col">Module</th>
-              <th>Jan-May 2026</th>
-              <th>Jun 2026</th>
+              <th>Jan-Jun 2026</th>
               <th>Jul 2026</th>
               <th>Aug 2026</th>
               <th>Sep 2026</th>
@@ -500,8 +499,7 @@
 
   <script>
     const TIMELINE = [
-      { label: "Jan-May 2026", month: 5, year: 2026 },
-      { label: "Jun 2026", month: 6, year: 2026 },
+      { label: "Jan-Jun 2026", month: 6, year: 2026 },
       { label: "Jul 2026", month: 7, year: 2026 },
       { label: "Aug 2026", month: 8, year: 2026 },
       { label: "Sep 2026", month: 9, year: 2026 },
@@ -550,22 +548,22 @@
         module: "Post-Training",
         status: "Complete",
         remaining: ["Complete UI and backend", "Run QA"],
-        start: 2,
-        end: 2
+        start: 1,
+        end: 1
       },
       {
         module: "Member Management",
         status: "In progress",
         remaining: ["Complete BA, UI, and backend work", "Run QA and closure testing"],
-        start: 3,
-        end: 3
+        start: 2,
+        end: 2
       },
       {
         module: "Public Website",
         status: "In progress",
         remaining: ["Complete BA and UI", "Run QA and acceptance"],
-        start: 1,
-        end: 3
+        start: 0,
+        end: 3.6
       },
       {
         module: "Grievance",
@@ -582,11 +580,18 @@
         end: 2
       },
       {
+        module: "Non-core features",
+        status: "In progress",
+        remaining: ["Complete UI and backend development", "Run QA"],
+        start: 2,
+        end: 3.6
+      },
+      {
         module: "Environment and NRB Integration",
         status: "On Hold",
         remaining: ["Complete environment hardening and VAPT", "Finalize NRB integration on target environment"],
-        start: 3,
-        end: 4
+        start: 2,
+        end: 3
       },
     ];
 
@@ -598,9 +603,20 @@
       return "bar-progress";
     }
 
+    function formatTimelinePoint(point, isEnd = false) {
+      const baseIndex = Math.floor(point);
+      const fraction = point - baseIndex;
+      const entry = TIMELINE[baseIndex];
+      if (!entry) return "";
+      if (fraction === 0.5) {
+        return isEnd ? `Mid ${entry.label}` : `${entry.label} (mid)`;
+      }
+      return entry.label;
+    }
+
     function formatWindow(start, end) {
-      const startLabel = TIMELINE[start]?.label || "";
-      const endLabel = TIMELINE[end]?.label || "";
+      const startLabel = formatTimelinePoint(start, false);
+      const endLabel = formatTimelinePoint(end, true);
       if (!startLabel || !endLabel) return "";
       return startLabel === endLabel ? startLabel : `${startLabel} - ${endLabel}`;
     }
@@ -612,7 +628,7 @@
 
     function renderSummary() {
       const total = MODULES.length;
-      const pending = MODULES.filter(item => item.status === "Pending").length;
+      const pending = MODULES.filter(item => item.status === "Pending" || item.status === "On Hold").length;
       const inProgress = MODULES.filter(item => item.status === "In progress").length;
 
       document.getElementById("summary").innerHTML = `
@@ -638,13 +654,19 @@
       const rows = MODULES.map(item => {
         const window = formatWindow(item.start, item.end);
         const remainingText = item.remaining.join("; ");
-        const span = item.end - item.start + 1;
+        const startCol = Math.floor(item.start);
+        const endPoint = Number.isInteger(item.end) ? item.end + 1 : item.end;
+        const renderEnd = Math.min(endPoint, TIMELINE.length);
+        const span = Math.ceil(renderEnd) - startCol;
         let monthCells = "";
 
         for (let i = 0; i < TIMELINE.length; i++) {
           const todayCls = isTodayColumn(TIMELINE[i].month, TIMELINE[i].year) ? " today-col" : "";
-          if (i === item.start) {
-            monthCells += `<td class="bar-cell${todayCls}"${span > 1 ? ` colspan="${span}"` : ""}><div class="bar ${statusClass(item.status)}">${item.status}</div></td>`;
+          if (i === startCol) {
+            const leftPct = ((item.start - startCol) / span) * 100;
+            const rightPct = ((Math.ceil(renderEnd) - renderEnd) / span) * 100;
+            const barStyle = `style="left:${leftPct}%;right:${rightPct}%;"`;
+            monthCells += `<td class="bar-cell${todayCls}"${span > 1 ? ` colspan="${span}"` : ""}><div class="bar ${statusClass(item.status)}" ${barStyle}>${item.status}</div></td>`;
             i += span - 1;
           } else {
             monthCells += `<td class="${todayCls.trim()}"></td>`;

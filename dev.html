@@ -628,11 +628,11 @@ const PROJECT = {
   title:    "COMIS: PHASE 1 IMPLEMENTATION PLAN",
   notes:    "Production environment readiness delayed to October 2026 | " +
             "Deadline for development: September 2026 ",
-  version:  "v2.4 - 22  Jul 2026",
+  version:  "v2.6 - 06 Aug 2026",
 };
 
 const COMMITTEE_BRIEF = {
-  lastUpdated: "22 Jul 2026",
+  lastUpdated: "06 August 2026",
   summary: [
     { label: "Go-live target", value: "3rd week of Oct 2026", note: "Training and UAT run in October ahead of the planned launch." },
     { label: "Overall status", value: "At risk", note: "QA and remaining backend workload overlap across multiple modules." },
@@ -686,7 +686,7 @@ const ROWS = [
   { label: "- BE", type: "task",
     bars: [{ start:0, end:0.35, color:"BE",  progress: 100,  label:"BE",  assignee: "Yuvna Seeburrun/Gregory Delphine" }] },
   { label: "- QA", type: "task",
-    bars: [qaSprint(0.35, 0.99, "Primary Coop registration", 75, "End of Sprint 9", "Khoosboo Cannoo")] },
+    bars: [qaSprint(0.35, 0.99, "Primary Coop registration", 90, "End of Sprint 9", "Khoosboo Cannoo")] },
 
   { label: "Bylaws Amendment",  type: "phase",
     bars: [{ color:"development", label:"Bylaws Amendment", note: "" }] },
@@ -695,7 +695,7 @@ const ROWS = [
   { label: " - UI", type: "task",
     bars: [{ start:0.35, end:0.75,  color:"UI", progress: 100,  label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.35, end:0.99,  color:"BE", progress: 50, label:"BE", assignee: "Yuvna Seeburrun" }] },
+    bars: [{ start:0.35, end:0.99,  color:"BE", progress: 100, label:"BE", assignee: "Yuvna Seeburrun" }] },
   { label: " - QA", type: "task",
     bars: [qaSprint(1, 1.5, "Bylaws Amendment", 0, "End of Sprint 10", "Khoosboo Cannoo")] },
 
@@ -704,16 +704,16 @@ const ROWS = [
     { label: "- BA", type: "task",
     bars: [{ start:0, end:0.25,  color:"BA", progress: 100, label:"BA", note: "most US in spec review", assignee: "Shane Permalloo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:0.35, end:0.75,  color:"UI", progress: 60,  label:"UI", assignee: "Hans Lee" }] },
+    bars: [{ start:0.35, end:0.75,  color:"UI", progress: 100,  label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.35, end:0.99,  color:"BE", progress: 40, label:"BE", assignee: "Gregory Delphine" }] },
+    bars: [{ start:0.35, end:0.99,  color:"BE", progress: 90, label:"BE", assignee: "Gregory Delphine" }] },
   { label: " - QA", type: "task",
     bars: [qaSprint(1, 1.5, "Union coop registration", 0, "End of Sprint 10", "Khoosboo Cannoo")] },
 
   { label: "Member management",  type: "phase",
     bars: [{ color:"development", label:"Members & Leaders" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.25, end:0.99,  color:"BA", progress: 30, label:"BA", assignee: "Anusha Nurkoo" }] },
+    bars: [{ start:0.25, end:0.99,  color:"BA", progress: 50, label:"BA", assignee: "Anusha Nurkoo" }] },
   { label: " - UI", type: "task",
     bars: [{ start:0, end:1.4,  color:"UI", progress: 60, label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
@@ -726,9 +726,9 @@ const ROWS = [
     { label: "- BA", type: "task",
     bars: [{ start:0, end:0.4,  color:"BA", progress: 100, label:"BA", assignee: "Shane Permalloo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:0.4, end:0.99,  color:"UI", progress: 50, label:"UI", assignee: "Geerishraj Bheekhum" }] },
+    bars: [{ start:0.4, end:0.99,  color:"UI", progress: 80, label:"UI", assignee: "Geerishraj Bheekhum" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.4, end:0.99, progress: 25, color:"BE", label:"BE", assignee: "Yanesh Caussy" }] },
+    bars: [{ start:0.4, end:0.99, progress: 100, color:"BE", label:"BE", assignee: "Yanesh Caussy" }] },
   { label: " - QA", type: "task",
     bars: [qaSprint(1, 1.5, "Post-training", 0, "End of Sprint 10", "Khoosboo Cannoo")] },
 
@@ -739,7 +739,7 @@ const ROWS = [
   { label: " - UI", type: "task",
     bars: [{ start:1, end:1.99,  color:"UI", progress: 50, label:"UI", assignee: "Divya Dowlut" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.5, end:0.99, progress: 100, color:"BE", label:"BE", assignee: "Yuvna Seeburrun" }] },
+    bars: [{ start:0.5, end:1.2, progress: 90, color:"BE", label:"BE", assignee: "Yuvna Seeburrun" }] },
   { label: " - QA", type: "task",
     bars: [qaSprint(2, 2.5, "Post-training", 0, "End of Sprint 10", "Shane Permalloo")] },
 
@@ -748,20 +748,20 @@ const ROWS = [
     { label: "- BA", type: "task",
     bars: [{ start:0, end:1.2,  color:"BA", progress: 80, label:"BA", assignee: "Alain Fok" }] },
   { label: " - UI & BE", type: "task",
-    bars: [{ start:0, end:0.99,  color:"UI", label:"UI", progress: 80, assignee: "Rajendra Ballgobin" }] },
+    bars: [{ start:0, end:1.2,  color:"UI", label:"UI", progress: 80, assignee: "Rajendra Ballgobin" }] },
   { label: " - QA", type: "task",
     bars: [qaSprint(1.2, 1.6, "Grievance", 0, "", "Homesh Bhugmaneea")] },
 
   { label: "Dissolution",  type: "phase",
     bars: [{ color:"development", label:"Dissolution" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0, end:0.99,  color:"BA", progress: 80, label:"BA", assignee: "Alain Fok" }] },
+    bars: [{ start:0.5, end:1.2,  color:"BA", progress: 90, label:"BA", assignee: "Alain Fok" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:1, end:1.6,  color:"UI", label:"UI", assignee: "Geerishraj Bheekhum" }] },
+    bars: [{ start:1.2, end:1.8,  color:"UI", label:"UI", assignee: "Geerishraj Bheekhum" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.8, end:1.6,  color:"BE", label:"BE", assignee: "Rajendra Ballgobin" }] },
+    bars: [{ start:1.1, end:1.5,  color:"BE", label:"BE", assignee: "Yanesh Caussy/Rajendra Ballgobin" }] },
   { label: " - QA", type: "task",
-    bars: [qaSprint(1.6, 1.99, "Dissolution", 0, "", "Homesh Bhugmaneea")] },
+    bars: [qaSprint(1.8, 2, "Dissolution", 0, "", "Homesh Bhugmaneea")] },
 
     /*-------------------------------*/
   { label: "Bug Fixing + Non-core features", type: "phase",

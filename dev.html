@@ -698,7 +698,7 @@ const ROWS = [
   { label: " - UI", type: "task",
     bars: [{ start:1, end:1.5,  color:"UI", progress: 80,  label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.35, end:0.99,  color:"BE", progress: 100, label:"BE", assignee: "Yuvna Seeburrun" }] },
+    bars: [{ start:0.35, end:0.99,  color:"BE", progress: 90, label:"BE", assignee: "Yuvna Seeburrun" }] },
   { label: " - QA", type: "task",
     bars: [qaSprint(1, 1.5, "Bylaws Amendment", 0, "End of Sprint 10", "Khoosboo Cannoo")] },
 
@@ -1453,10 +1453,46 @@ function initGanttFilters() {
     });
     document.getElementById("filter-result").textContent = `${visibleTasks} task${visibleTasks === 1 ? "" : "s"} shown`;
   };
+  // Persist filter + collapsed state to localStorage so UI restores on refresh
+  const STORAGE_KEY = "comis.gantt.filters";
+
+  const saveState = () => {
+    const state = {
+      search: search.value || "",
+      assignee: assignee.value || "",
+      workstream: workstream.value || "",
+      status: status.value || "",
+      collapsed: Array.from(collapsedPhases)
+    };
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) { /* ignore */ }
+  };
+
+  const loadState = () => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const st = JSON.parse(raw);
+      if (st.search !== undefined) search.value = st.search;
+      if (st.assignee !== undefined) assignee.value = st.assignee;
+      if (st.workstream !== undefined) workstream.value = st.workstream;
+      if (st.status !== undefined) status.value = st.status;
+      if (Array.isArray(st.collapsed)) {
+        collapsedPhases.clear();
+        st.collapsed.forEach(id => collapsedPhases.add(id));
+        document.querySelectorAll(".phase-toggle").forEach(button => {
+          const pid = button.dataset.phaseId;
+          const expanded = !collapsedPhases.has(pid);
+          button.setAttribute("aria-expanded", String(expanded));
+        });
+      }
+    } catch (e) { /* ignore malformed storage */ }
+  };
 
   [search, assignee, workstream, status].forEach(control => {
-    control.addEventListener(control === search ? "input" : "change", applyFilters);
+    const ev = control === search ? "input" : "change";
+    control.addEventListener(ev, () => { saveState(); applyFilters(); });
   });
+
   document.querySelectorAll(".phase-toggle").forEach(button => {
     button.addEventListener("click", () => {
       const phaseId = button.dataset.phaseId;
@@ -1465,19 +1501,25 @@ function initGanttFilters() {
       const expanded = !collapsedPhases.has(phaseId);
       button.setAttribute("aria-expanded", String(expanded));
       button.setAttribute("aria-label", `${expanded ? "Collapse" : "Expand"} phase tasks`);
+      saveState();
       applyFilters();
     });
   });
+
   document.getElementById("expand-all").addEventListener("click", () => {
     collapsedPhases.clear();
     document.querySelectorAll(".phase-toggle").forEach(button => button.setAttribute("aria-expanded", "true"));
+    saveState();
     applyFilters();
   });
   document.getElementById("collapse-all").addEventListener("click", () => {
     DISPLAY_ROWS.filter(row => row.type === "phase").forEach(row => collapsedPhases.add(row.phaseId));
     document.querySelectorAll(".phase-toggle").forEach(button => button.setAttribute("aria-expanded", "false"));
+    saveState();
     applyFilters();
   });
+
+  loadState();
   applyFilters();
 }
 

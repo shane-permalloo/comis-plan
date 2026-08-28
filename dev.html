@@ -274,7 +274,7 @@
     }
     .toolbar-button:hover { background: #edf3f6; }
     .toolbar-button .material-symbols-rounded { font-size: 17px; }
-    .filter-result { margin-left: auto; align-self: center; color: #66727d; font-size: 11px; font-weight: 700; }
+    .filter-result { margin-left: auto; padding-top: 14px; align-self: center; color: #66727d; font-size: 11px; font-weight: 700; }
 
     /* ── Campaign row (hatched) ───────────────────────────────────── */
     tr.campaign-row td {
@@ -626,19 +626,19 @@
 
 const PROJECT = {
   title:    "COMIS: PHASE 1 IMPLEMENTATION PLAN",
-  notes:    "Production environment readiness delayed to October 2026 | " +
+  notes:    "Go-live delayed to October 2026 | " +
             "Deadline for development: September 2026 ",
-  version:  "v2.7 - 14 Aug 2026",
+  version:  "v1.9 - 26 Aug 2026",
 };
 
 const COMMITTEE_BRIEF = {
-  lastUpdated: "24 July 2026",
+  lastUpdated: "26 August 2026",
   summary: [
-    { label: "Go-live target", value: "3rd week of Nov 2026", note: "Training and UAT run in October ahead of the registration campaign." },
-    { label: "Overall status", value: "At risk", note: "QA and remaining workload overlap across multiple modules." },
+    { label: "Go-live target", value: "4th week of Oct 2026", note: "Training and UAT run in October ahead of the registration campaign." },
+    { label: "Overall status", value: "At risk", note: "QA and remaining workload overlap from late August through September." },
   ],
   decisions: [
-    "Confirm QA allocation for the three concurrent August module windows.",
+    "Confirm QA allocation across the late-August and September module windows.",
     "Protect backend capacity through the September development freeze.",
     "Confirm training and UAT schedule with stakeholders.",
     "Confirm production environment readiness. - Very unlikely to be ready before October 2026, thus will use MNS test environment for UAT.",
@@ -646,7 +646,7 @@ const COMMITTEE_BRIEF = {
     "Confirm registration campaign launch date and marketing plan.",
   ],
   riskBrief: [
-    "Khoosboo Cannoo has three concurrent, not-started QA assignments in August.",
+    "Khoosboo Cannoo has overlapping unfinished QA assignments from late August through September, peaking at four concurrent assignments.",
     "Remaining development and QA must close before September environment readiness and October UAT.",
     "Production environment readiness is delayed to October 2026, thus UAT will be run in the MNS test environment.",
   ],
@@ -693,128 +693,126 @@ const ROWS = [
 
   { label: "Bylaws Amendment",  type: "phase",
     bars: [{ color:"development", label:"Bylaws Amendment", note: "" }] },
-    { label: "- BA", type: "task",
-    bars: [{ start:0, end:0.25,  color:"BA", progress: 100, label:"BA", note: "most US in spec review", assignee: "Anusha Nurkoo" }] },
-  { label: " - UI", type: "task",
-    bars: [{ start:1, end:1.5,  color:"UI", progress: 80,  label:"UI", assignee: "Hans Lee" }] },
+    { label: " - UI", type: "task",
+    bars: [{ start:0.5, end:2,  color:"UI", progress: 90,  label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.35, end:0.99,  color:"BE", progress: 90, label:"BE", assignee: "Yuvna Seeburrun" }] },
+    bars: [{ start:0.5, end:2,  color:"BE", progress: 90, label:"BE", assignee: "Yuvna Seeburrun" }] },
   { label: " - QA", type: "task",
-    bars: [qaSprint(1, 1.5, "Bylaws Amendment", 0, "End of Sprint 10", "Khoosboo Cannoo")] },
+    bars: [qaSprint(2, 2.5, "Bylaws Amendment", 0, "End of Sprint 10", "Khoosboo Cannoo")] },
 
   { label: "Union coop registration",  type: "phase",
     bars: [{ color:"development", label:"Union" }] },
-    { label: "- BA", type: "task",
-    bars: [{ start:0, end:0.25,  color:"BA", progress: 100, label:"BA", note: "most US in spec review", assignee: "Shane Permalloo" }] },
-  { label: " - UI", type: "task",
-    bars: [{ start:0.35, end:0.75,  color:"UI", progress: 100,  label:"UI", assignee: "Hans Lee" }] },
+    { label: " - UI", type: "task",
+    bars: [{ start:0.5, end:2,  color:"UI", progress: 90,  label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:0.35, end:0.99,  color:"BE", progress: 100, label:"BE", assignee: "Gregory Delphine" }] },
+    bars: [{ start:0.5, end:2,  color:"BE", progress: 90, label:"BE", assignee: "Gregory Delphine" }] },
   { label: " - QA", type: "task",
-    bars: [qaSprint(1, 1.5, "Union coop registration", 80, "End of Sprint 10", "Khoosboo Cannoo")] },
+    bars: [qaSprint(1.7, 2.5, "Union coop registration", 80, "End of Sprint 10", "Khoosboo Cannoo")] },
 
   { label: "Member management",  type: "phase",
     bars: [{ color:"development", label:"Members & Leaders" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.5, end:1.5,  color:"BA", progress: 60, label:"BA", assignee: "Anusha Nurkoo" }] },
+    bars: [{ start:1, end:2,  color:"BA", progress: 100, label:"BA", assignee: "Anusha Nurkoo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:0, end:1.7,  color:"UI", progress: 60, label:"UI", assignee: "Hans Lee" }] },
+    bars: [{ start:1, end:2.5,  color:"UI", progress: 80, label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:1, end:1.99,  color:"BE", progress: 20, label:"BE", assignee: "Gregory Delphine/Yuvna Seeburrun" }] },
+    bars: [{ start:1, end:2.5,  color:"BE", progress: 40, label:"BE", assignee: "Gregory Delphine/Yuvna Seeburrun" }] },
   { label: " - QA", type: "task",
-    bars: [qaSprint(2, 2.49, "Member management", 0, "", "Homesh Bhugmaneea")] },
+    bars: [qaSprint(2.5, 3, "Member management", 0, "", "Homesh Bhugmaneea")] },
 
   { label: "Post-training",  type: "phase",
     bars: [{ color:"development", label:"Post-Training" }] },
-    { label: "- BA", type: "task",
-    bars: [{ start:0.5, end:0.8,  color:"BA", progress: 100, label:"BA", assignee: "Shane Permalloo" }] },
-  { label: " - UI", type: "task",
-    bars: [{ start:0.8, end:1.5,  color:"UI", progress: 100, label:"UI", assignee: "Geerishraj Bheekhum" }] },
+    { label: " - UI", type: "task",
+    bars: [{ start:1, end:2,  color:"UI", progress: 90, label:"UI", assignee: "Geerishraj Bheekhum" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:1, end:1.5, progress: 100, color:"BE", label:"BE", assignee: "Yanesh Caussy" }] },
+    bars: [{ start:1, end:2, progress: 90, color:"BE", label:"BE", assignee: "Yanesh Caussy" }] },
   { label: " - QA", type: "task",
-    bars: [qaSprint(1.5, 1.7, "Post-training", 0, "End of Sprint 11", "Khoosboo Cannoo")] },
+    bars: [qaSprint(1.75, 2.5, "Post-training", 80, "End of Sprint 11", "Khoosboo Cannoo")] },
 
   { label: "Public website",  type: "phase",
     bars: [{ color:"development", label:"Public website" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:0.5, end:1.5,  color:"BA", progress: 80, label:"BA", assignee: "Shane Permalloo" }] },
+    bars: [{ start:1, end:2.5,  color:"BA", progress: 80, label:"BA", assignee: "Shane Permalloo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:1, end:2.2,  color:"UI", progress: 50, label:"UI", assignee: "Divya Dowlut" }] },
+    bars: [{ start:1, end:2.7,  color:"UI", progress: 50, label:"UI", assignee: "Divya Dowlut" }] },
   { label: " - QA", type: "task",
-    bars: [qaSprint(2.2, 2.5, "Post-training", 0, "End of Sprint 12", "Shane Permalloo")] },
+    bars: [qaSprint(2.7, 3, "Post-training", 0, "End of Sprint 12", "Shane Permalloo")] },
 
   { label: "Grievance",  type: "phase",
     bars: [{ color:"development", label:"Grievance" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:1.4, end:1.7,  color:"BA/Config", progress: 80, label:"BA", assignee: "Alain Fok/Divya Dowlut" }] },
+    bars: [{ start:1.8, end:2.1,  color:"BA/Config", progress: 60, label:"BA", assignee: "Alain Fok/Divya Dowlut" }] },
   { label: " - QA", type: "task",
-    bars: [qaSprint(1.7, 2, "Grievance", 0, "", "Homesh Bhugmaneea")] },
+    bars: [qaSprint(2.1, 2.3, "Grievance", 0, "", "Homesh Bhugmaneea")] },
 
   { label: "Dissolution",  type: "phase",
     bars: [{ color:"development", label:"Dissolution" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:1.4, end:1.8,  color:"BA/Config", progress: 80, label:"BA", assignee: "Alain Fok/Divya Dowlut" }] },
+    bars: [{ start:2, end:2.3,  color:"BA/Config", progress: 60, label:"BA", assignee: "Alain Fok/Divya Dowlut" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:1.5, end:2,  color:"UI", label:"UI", assignee: "Geerishraj Bheekhum" }] },
+    bars: [{ start:2.1, end:2.5,  color:"UI", progress: 0, label:"UI", assignee: "Geerishraj Bheekhum" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:1.4, end:1.7,  color:"BE", label:"BE", assignee: "Yanesh Caussy/Rajendra Ballgobin" }] },
+    bars: [{ start:1.8, end:2.1,  color:"BE", progress: 60, label:"BE", assignee: "Yanesh Caussy/Rajendra Ballgobin" }] },
   { label: " - QA", type: "task",
-    bars: [qaSprint(2, 2.3, "Dissolution", 0, "", "Homesh Bhugmaneea")] },
+    bars: [qaSprint(2.3, 2.5, "Dissolution", 0, "", "Homesh Bhugmaneea")] },
 
     /*-------------------------------*/
   { label: "Bug Fixing + Non-core features", type: "phase",
     bars: [{ color:"development", label:"Bug + Non-core features" }] },
   { label: "- BA", type: "task",
-    bars: [{ start:1.7, end:2.5,  color:"BA", label:"BA", assignee: "Anusha Nurkoo/Shane Permalloo" }] },
+    bars: [{ start:2, end:2.5,  color:"BA", label:"BA", assignee: "Anusha Nurkoo/Shane Permalloo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:1.7, end:2.5,  color:"UI", label:"UI", assignee: "Hans Lee" }] },
+    bars: [{ start:2, end:3,  color:"UI", label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:1.7, end:2.5,  color:"BE", label:"BE", assignee: "Yanesh Caussy" }] },
+    bars: [{ start:2, end:3,  color:"BE", label:"BE", assignee: "Yanesh Caussy" }] },
   { label: " - Bug Fixing", type: "task",
-    bars: [{ start:2, end:2.99,  color:"BE", label:"Bugs", assignee: "Gregory Delphine/Geerishraj Bheekhum" }] },
+    bars: [{ start:2.5, end:3,  color:"BE", label:"Bugs", assignee: "Gregory Delphine/Geerishraj Bheekhum" }] },
     { label: "- User Manual", type: "task",
-    bars: [{ start:2, end:2.99,  color:"BA", label:"User manual", assignee: "Anusha Nurkoo" }] },
+    bars: [{ start:2.5, end:3,  color:"BA", label:"User manual", assignee: "Anusha Nurkoo" }] },
   { label: " - QA", type: "task",
-    bars: [qaSprint(2, 2.99, "Bug Fixing + Non-core features", 0, "")] },
+    bars: [qaSprint(2.25, 3, "Bug Fixing + Non-core features", 0, "")] },
 
     { label: "Env. Setup", type: "phase",
     bars: [{ color:"requirements", label:"DevOps" }] },
-  { label: " - Env. hardening and setup", type: "task",
-    bars: [{ start:2, end:2.5, color:"development", label:"Setup" }] },
-  { label: " - Vulnerability Test", type: "task",
-    bars: [{ start:2.5, end:2.99, color:"development", label:"VAPT" }] },
-  { label: " - NRB Integration", type: "task",
-    bars: [{ start:2.8, end:2.99, color:"development", label:"NRB" }] },
+  { label: " - Env. readiness", type: "task",
+    bars: [{ start:3, end:3.25, color:"development", label:"Setup" }] },
+  // { label: " - Vulnerability Test", type: "task",
+  //   bars: [{ start:2.5, end:2.99, color:"development", label:"VAPT" }] },
+  // { label: " - NRB Integration", type: "task",
+  //   bars: [{ start:2.8, end:2.99, color:"development", label:"NRB" }] },
 
   /* ── Phase 4: UAT Phase 1 ────────────────────────────────── */
   { label: "UAT Phase 1",      type: "phase",
     bars: [{ color:"testing", label:"UAT" }] },
   { label: " - Training",               type: "task",
-    bars: [{ start:3, end:3.3, color:"UAT", assignee:"Shane Permalloo/Anusha Nurkoo", label:"TRAIN" }] },
+    bars: [{ start:3.25, end:3.5, color:"UAT", assignee:"Shane Permalloo/Anusha Nurkoo", label:"TRAIN" }] },
   { label: " - UAT",                    type: "task",
-    bars: [{ start:3.2, end:3.6, color:"UAT",   label:"UAT", assignee:"Shane Permalloo/Anusha Nurkoo" }] },
+    bars: [{ start:3.5, end:3.75, color:"UAT",   label:"UAT", assignee:"Shane Permalloo/Anusha Nurkoo" }] },
   { label: " - Golive",               type: "task",
-    bars: [{ start:3.6, end:3.65, color:"golive",   label:"" }] },
+    bars: [{ start:3.75, end:3.8, color:"golive",   label:"" }] },
 
     
   /* ── Phase 5: Registration Campaign ─────────────────────── */
   { label: "Registration Campaign", type: "campaign",
-    bars: [{ start:3.7, end:4.99, color:"campaign",   label:"CAMPAIGN - 3 months till Dec 2026" }] },
+    bars: [{ start:3.85, end:4.99, color:"campaign",   label:"CAMPAIGN - 3 months till Jan 2026" }] },
 
 ];
 
 // Build the phase/task hierarchy used for display. A phase owns every consecutive
 // task row below it, until the next phase or non-task section. Its missing dates
 // and its progress are derived from those tasks.
+function normalizedProgress(value) {
+  const numericValue = Number(value);
+  return Number.isFinite(numericValue)
+    ? Math.min(100, Math.max(0, numericValue))
+    : 0;
+}
+
 function taskProgress(row) {
   const bars = row.bars || [];
   if (!bars.length) return 0;
 
-  const total = bars.reduce((sum, bar) => {
-    const value = Number(bar.progress);
-    return sum + (Number.isFinite(value) ? Math.min(100, Math.max(0, value)) : 0);
-  }, 0);
+  const total = bars.reduce((sum, bar) => sum + normalizedProgress(bar.progress), 0);
   return total / bars.length;
 }
 
@@ -968,8 +966,7 @@ function buildAvatarChips(assigneeStr) {
 }
 
 function barProgress(bar) {
-  const value = Number(bar.progress);
-  return Number.isFinite(value) ? Math.min(100, Math.max(0, value)) : 0;
+  return normalizedProgress(bar.progress);
 }
 
 function currentTimelinePosition() {
@@ -1155,10 +1152,7 @@ function collectAssigneeLoad(rows, options = {}) {
     (row.bars || []).forEach(bar => {
       if (!bar.assignee || !Number.isFinite(Number(bar.start)) || !Number.isFinite(Number(bar.end))) return;
 
-      const progressValue = Number(bar.progress);
-      const progress = Number.isFinite(progressValue)
-        ? Math.min(100, Math.max(0, progressValue))
-        : 0;
+      const progress = normalizedProgress(bar.progress);
 
       parseAssignees(bar.assignee).forEach(person => {
         if (!load[person]) load[person] = [];
@@ -1244,7 +1238,7 @@ function buildRiskPanel() {
             <span>${escapeHtml(risk.person)}</span>
             <span class="risk-level">${level}</span>
           </div>
-          <div class="panel-meta">${risk.count} concurrent unfinished assignments &middot; ${remainingLoad} FTE remaining &middot; ${dateWindow(risk.start, risk.end)}</div>
+          <div class="panel-meta">${risk.count} concurrent unfinished assignments &middot; ${remainingLoad} workload remaining &middot; ${dateWindow(risk.start, risk.end)}</div>
           <div class="panel-detail">${escapeHtml(tasks + more)}</div>
         </div>`;
       }).join("")

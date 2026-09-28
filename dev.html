@@ -626,36 +626,34 @@
 
 const PROJECT = {
   title:    "COMIS: PHASE 1 IMPLEMENTATION PLAN",
-  notes:    "Go-live delayed to October 2026 | " +
+  notes:    "Go-live delayed to November 2026 | " +
             "Deadline for development: September 2026 ",
-  version:  "v1.9 - 26 Aug 2026",
+  version:  "v2.1 - 26 September 2026",
 };
 
 const COMMITTEE_BRIEF = {
   lastUpdated: "26 August 2026",
   summary: [
-    { label: "Go-live target", value: "4th week of Oct 2026", note: "Training and UAT run in October ahead of the registration campaign." },
-    { label: "Overall status", value: "At risk", note: "QA and remaining workload overlap from late August through September." },
+    { label: "Go-live Phase 1 target", value: "November 2026", note: "Training runs mid-to-late October, with UAT closing out the month ahead of the registration campaign." },
+    { label: "Overall status", value: "At risk", note: "QA convergence for Homesh Bhugmaneea and open Bug Fixing/Public website work now carry into early October." },
   ],
   decisions: [
-    "Confirm QA allocation across the late-August and September module windows.",
-    "Protect backend capacity through the September development freeze.",
-    "Confirm training and UAT schedule with stakeholders.",
-    "Confirm production environment readiness. - Very unlikely to be ready before October 2026, thus will use MNS test environment for UAT.",
-    "Confirm Go-live no-go conditions and approvers before October UAT.",
-    "Confirm registration campaign launch date and marketing plan.",
+    "Protect UI/BE capacity to close out Bug Fixing + Non-core features (40% complete) and Public website UI (60% complete), both extending into October.",
+    "Confirm training and UAT schedule with stakeholders, now scheduled for mid-to-late October.",
+    "Confirm production environment procurement. - Very unlikely to be ready this year, 2026, thus will use MNS test environment for UAT.",
+    "Confirm registration campaign launch date and marketing plan, most probably for next year, 2027.",
   ],
   riskBrief: [
-    "Khoosboo Cannoo has overlapping unfinished QA assignments from late August through September, peaking at four concurrent assignments.",
-    "Remaining development and QA must close before September environment readiness and October UAT.",
-    "Production environment readiness is delayed to October 2026, thus UAT will be run in the MNS test environment.",
+    "Homesh Bhugmaneea has three concurrent QA assignments (Member management, Grievance, Dissolution) all converging at the September/October boundary.",
+    "Bug Fixing + Non-core features (UI/BE at 40%) and Public website UI (60%) remain open into October, compressing the buffer ahead of UAT.",
+    "Production environment readiness is delayed to next year, 2027, thus UAT will be run in the MNS test environment.",
   ],
   milestones: [
-    { date: "Sep 2026", label: "Module QA and development closure" },
-    { date: "Sep 2026", label: "DevOps, VAPT, and NRB readiness" },
-    { date: "Oct 2026", label: "Training and UAT execution" },
-    { date: "Oct 2026", label: "Go-live decision and launch" },
-    { date: "Nov 2026", label: "Registration campaign starts" }
+    { date: "Sep 2026", label: "Module development and QA closure" },
+    { date: "Oct 2026", label: "Bug fixing and non-core features closure" },
+    { date: "Mid Oct 2026", label: "Training and UAT execution" },
+    { date: "Nov 2026", label: "Go-live decision and launch" },
+    { date: "Early 2027", label: "Registration campaign starts" }
   ]
 };
 
@@ -714,11 +712,11 @@ const ROWS = [
     { label: "- BA", type: "task",
     bars: [{ start:1, end:2,  color:"BA", progress: 100, label:"BA", assignee: "Anusha Nurkoo" }] },
   { label: " - UI", type: "task",
-    bars: [{ start:1, end:2.85,  color:"UI", progress: 75, label:"UI", assignee: "Hans Lee" }] },
+    bars: [{ start:1, end:2.85,  color:"UI", progress: 80, label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:1, end:2.85,  color:"BE", progress: 75, label:"BE", assignee: "Yuvna Seeburrun" }] },
+    bars: [{ start:1, end:2.85,  color:"BE", progress: 80, label:"BE", assignee: "Yuvna Seeburrun" }] },
   { label: " - QA", type: "task",
-    bars: [qaSprint(2.75, 3, "Member management", 0, "", "Homesh Bhugmaneea")] },
+    bars: [qaSprint(2.75, 3, "Member management", 50, "", "Homesh Bhugmaneea")] },
 
   { label: "Post-training",  type: "phase",
     bars: [{ color:"development", label:"Post-Training" }] },
@@ -748,11 +746,11 @@ const ROWS = [
   { label: "Dissolution",  type: "phase",
     bars: [{ color:"development", label:"Dissolution" }] },
     { label: "- BA", type: "task",
-    bars: [{ start:2, end:2.7,  color:"BA/Config", progress: 80, label:"BA", assignee: "Alain Fok/Divya Dowlut" }] },
+    bars: [{ start:2, end:2.7,  color:"BA/Config", progress: 100, label:"BA", assignee: "Alain Fok/Divya Dowlut" }] },
   { label: " - UI", type: "task",
     bars: [{ start:2.1, end:2.7,  color:"UI", progress: 80, label:"UI", assignee: "Geerishraj Bheekhum" }] },
   { label: " - BE", type: "task",
-    bars: [{ start:2.1, end:2.7,  color:"BE", progress: 80, label:"BE", assignee: "Yanesh Caussy/Rajendra Ballgobin" }] },
+    bars: [{ start:2.1, end:2.7,  color:"BE", progress: 100, label:"BE", assignee: "Yanesh Caussy/Rajendra Ballgobin" }] },
   { label: " - QA", type: "task",
     bars: [qaSprint(2.7, 3, "Dissolution", 0, "", "Homesh Bhugmaneea")] },
 
@@ -760,7 +758,7 @@ const ROWS = [
   { label: "Bug Fixing + Non-core features", type: "phase",
     bars: [{ color:"development", label:"Bug + Non-core features" }] },
   { label: "- BA", type: "task",
-    bars: [{ start:2, end:2.75,  color:"BA", progress: 80, label:"BA", assignee: "Anusha Nurkoo/Shane Permalloo" }] },
+    bars: [{ start:2, end:2.75,  color:"BA", progress: 100, label:"BA", assignee: "Anusha Nurkoo/Shane Permalloo" }] },
   { label: " - UI", type: "task",
     bars: [{ start:2.75, end:3.5,  color:"UI", progress: 40, label:"UI", assignee: "Hans Lee" }] },
   { label: " - BE", type: "task",
@@ -768,7 +766,7 @@ const ROWS = [
   { label: " - Bug Fixing", type: "task",
     bars: [{ start:2.75, end:3.5,  color:"BE", label:"Bugs", assignee: "Gregory Delphine/Geerishraj Bheekhum" }] },
     { label: "- User Manual", type: "task",
-    bars: [{ start:2.75, end:3.5,  color:"BA", label:"User manual", assignee: "Anusha Nurkoo" }] },
+    bars: [{ start:3, end:3.5,  color:"BA", label:"User manual", assignee: "Anusha Nurkoo" }] },
   { label: " - QA", type: "task",
     bars: [qaSprint(3, 3.5, "Bug Fixing + Non-core features", 0, "")] },
 

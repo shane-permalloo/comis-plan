@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COMIS UAT Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* Layout: masthead, role filter, 6-day x 2-half-day timetable with attendance, session detail panel, then reference cards.
+   Palette: paper-grey ground, deep green ink accent, one amber for "conditional", four role hues. */
+:root {
+  --bg: #f2f5f3; --surface: #ffffff; --fg: #15221c; --muted: #5a6b62; --line: #d5ddd8;
+  --accent: #17654a; --accent-soft: #dcefe6; --warn: #9a5b00; --warn-soft: #fbeccc; --over: #a3261b; --over-soft: #fbe1dd;
+  --r-app: #1f5fa8; --r-off: #7a3fa0; --r-sup: #b2461f; --r-pub: #5a6b62; --r-adm: #17654a;
+  --shadow: 0 1px 2px rgba(20,34,28,.08);
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1713; --surface: #16211b; --fg: #e6efe9; --muted: #9db0a5; --line: #2b3a32;
+    --accent: #5fc79b; --accent-soft: #1b3a2d; --warn: #f0b95a; --warn-soft: #3a2c10; --over: #ff9c8f; --over-soft: #45201c;
+    --r-app: #7fb2ee; --r-off: #c39be0; --r-sup: #f0906b; --r-pub: #9db0a5; --r-adm: #5fc79b;
+    --shadow: none; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1713; --surface: #16211b; --fg: #e6efe9; --muted: #9db0a5; --line: #2b3a32;
+  --accent: #5fc79b; --accent-soft: #1b3a2d; --warn: #f0b95a; --warn-soft: #3a2c10; --over: #ff9c8f; --over-soft: #45201c;
+  --r-app: #7fb2ee; --r-off: #c39be0; --r-sup: #f0906b; --r-pub: #9db0a5; --r-adm: #5fc79b;
+  --shadow: none; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--f-body); font-size: 16px; line-height: 1.5; }
+.wrap { max-width: 1280px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 56px; display: grid; gap: 28px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); letter-spacing: -0.01em; }
+h2 { font-size: 1.35rem; }
+h3 { font-size: 1.05rem; }
+p { margin: 0; }
+.mono { font-family: var(--f-mono); font-size: .8rem; }
+.label { font-family: var(--f-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.mast { display: grid; gap: 14px; }
+.mast p { color: var(--muted); }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 60px; padding-top: 6px; }
+.facts div { display: grid; gap: 2px; min-width: 0; }
+.facts b { font-family: var(--f-display); font-size: 1.05rem; font-weight: 700; }
+
+.pre { display: grid; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; box-shadow: var(--shadow); }
+.pre-head { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; justify-content: space-between; }
+.agenda { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+.agenda li { border-left: 3px solid var(--r-adm); padding: 2px 0 2px 10px; min-width: 0; }
+.agenda .t { font-family: var(--f-mono); font-size: .75rem; color: var(--muted); display: block; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.chip { font: 600 .85rem var(--f-body); border: 1px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 999px; padding: 6px 12px; cursor: pointer; display: inline-flex; gap: 7px; align-items: center; }
+.chip i { width: 9px; height: 9px; border-radius: 50%; background: var(--c, var(--muted)); display: inline-block; }
+.chip[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.chip:focus-visible, .cell:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.vmeet { display: grid; gap: 4px; padding: 12px 16px; border: 1px solid var(--line, #cfd6d2); border-left: 4px solid var(--accent, #1f5f4a); border-radius: 10px; background: var(--card, #fff); }
+.vmeet b { font-size: 1rem; }
+.board { display: grid; grid-template-columns: 64px repeat(7, minmax(0, 1fr)); gap: 8px; }
+.dayhead { padding: 4px 2px; display: grid; gap: 1px; }
+.dayhead b { font-family: var(--f-display); font-size: 1rem; }
+.slot { align-self: stretch; display: grid; align-content: center; }
+.cell { text-align: left; font: inherit; color: inherit; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px; cursor: pointer; display: grid; gap: 6px; align-content: start; min-width: 0; box-shadow: var(--shadow); transition: opacity .15s, border-color .15s; }
+.cell:hover { border-color: var(--accent); }
+.cell[aria-current="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+.cell.dim { opacity: .35; }
+.cell .no { font-family: var(--f-mono); font-size: .72rem; color: var(--muted); }
+.cell .ttl { font-family: var(--f-display); font-weight: 700; font-size: .95rem; line-height: 1.2; }
+.dots { display: flex; gap: 4px; flex-wrap: wrap; }
+.dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); display: inline-block; }
+.tag { font-family: var(--f-mono); font-size: .68rem; background: var(--warn-soft); color: var(--warn); border-radius: 4px; padding: 1px 6px; justify-self: start; }
+.cell .n { font-family: var(--f-mono); font-size: .72rem; color: var(--muted); }
+
+.detail { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 14px; box-shadow: var(--shadow); }
+.detail-head { display: grid; gap: 6px; }
+.roles { display: flex; flex-wrap: wrap; gap: 6px; }
+.role { font-size: .8rem; font-weight: 600; border: 1px solid var(--c); color: var(--c); border-radius: 999px; padding: 1px 10px; }
+.cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 20px; }
+.scen { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.scen li { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 10px; align-items: baseline; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.scen li:last-child { border-bottom: 0; }
+.scen .id { font-family: var(--f-body); font-size: .9rem; font-weight: 600; color: var(--fg); }
+.epics { margin: 0; padding-left: 18px; }
+.scen .when { display: block; font-family: var(--f-mono); font-size: .72rem; font-weight: 400; color: var(--muted); }
+.scen li.grp { background: var(--accent-soft); border-radius: 6px; padding: 6px 10px; border-bottom: 0; }
+.scen li.grp .id { font-family: var(--f-display); }
+.scen li.x .id, .scen li.x > span + span { color: var(--muted); }
+.scen li.x .id { font-weight: 400; }
+.flag { font-family: var(--f-mono); font-size: .68rem; border-radius: 4px; padding: 1px 6px; justify-self: start; border: 1px solid transparent; }
+.flag.over { background: var(--over-soft); color: var(--over); border-color: var(--over); font-weight: 500; }
+.flag.tight { background: var(--warn-soft); color: var(--warn); border-color: var(--warn); }
+.flag.ok { color: var(--muted); border-color: var(--line); }
+.cell.is-over { border-color: var(--over); }
+.loadbar { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; max-width: 320px; }
+.loadbar i { display: block; height: 100%; background: var(--muted); }
+.loadbar.over i { background: var(--over); }
+.loadbar.tight i { background: var(--warn); }
+.loadbox { display: grid; gap: 8px; border: 1px solid var(--line); border-left-width: 4px; border-radius: 8px; padding: 12px 14px; background: var(--bg); }
+.loadbox.over { border-left-color: var(--over); }
+.loadbox.tight { border-left-color: var(--warn); }
+.loadbox ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.summary { display: grid; gap: 6px; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; background: var(--surface); }
+.summary b.o { color: var(--over); }
+.summary b.t { color: var(--warn); }
+
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.card p { color: var(--muted); font-size: .95rem; }
+.sev { display: grid; gap: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); overflow-x: auto; }
+.sev div { display: grid; grid-template-columns: 90px minmax(200px, 2fr) minmax(160px, 1.3fr); gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line); min-width: 520px; }
+.sev div:last-child { border-bottom: 0; }
+.sev b { font-family: var(--f-display); }
+.exit { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 75ch; }
+.foot { color: var(--muted); font-size: .85rem; }
+
+
+.dots i.call { background: transparent; border: 2px solid var(--c); }
+.att { display: grid; gap: 3px; font-size: .78rem; line-height: 1.3; }
+.att span { display: block; }
+.att .k { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.att .oc { color: var(--muted); }
+.who { display: grid; gap: 10px; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; background: var(--bg); }
+.who .row { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; }
+.who .row .label { min-width: 84px; }
+.role.call { border-style: dashed; color: var(--muted); border-color: var(--c); }
+.role.req { background: var(--c); color: var(--surface); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; font-size: .85rem; color: var(--muted); }
+.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; vertical-align: -1px; margin-right: 6px; }
+.legend .f { background: var(--fg); }
+.legend .h { border: 2px solid var(--fg); }
+
+@media (max-width: 860px) {
+  .board { grid-template-columns: 1fr; }
+  .dayhead { border-top: 1px solid var(--line); padding-top: 14px; }
+  .slot { display: none; }
+  .cols { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { .cell { transition: none; } }
+</style>
+</head>
+<body>
+
+<main class="wrap">
+  <header class="mast">
+    <h1>COMIS user acceptance testing, 23 to 30 October 2026</h1>
+    <p>Twelve half-day sessions over six working days, with no weekend work. The IT administrator day comes first, then the cooperative society, Officer and Supervisor testers take over. Pick a session to see its agenda, who must attend, and whether the session is heavy.</p>
+    <div class="facts">
+      <div><span class="label">Hours (CAT)</span><b>08:30 to 12:30, 13:30 to 17:00</b></div>
+      <div><span class="label">Sessions</span><b>12 half-days, plus the 3 Nov meeting</b></div>
+      <div><span class="label">Virtual meeting</span><b>Tue 3 Nov: defects classified</b></div>
+    </div>
+  </header>
+
+  <section aria-labelledby="week" style="display:grid;gap:14px">
+    <div style="display:grid;gap:10px">
+      <h2 id="week">The UAT week</h2>
+      <div class="filters" role="group" aria-label="Filter sessions by role">
+        <span class="label">Highlight sessions I must attend as</span>
+        <button class="chip" type="button" data-role="adm" aria-pressed="false" style="--c:var(--r-adm)"><i></i>IT Administrator</button>
+        <button class="chip" type="button" data-role="app" aria-pressed="false" style="--c:var(--r-app)"><i></i>Cooperative Society</button>
+        <button class="chip" type="button" data-role="off" aria-pressed="false" style="--c:var(--r-off)"><i></i>Registrar Officer</button>
+        <button class="chip" type="button" data-role="sup" aria-pressed="false" style="--c:var(--r-sup)"><i></i>Registrar Supervisor</button>
+      </div>
+      <div class="legend"><span><i class="f"></i>Must attend the whole session</span><span><i class="h"></i>On call, joins when needed</span></div>
+      <div class="legend"><span class="flag over">Overloaded 95%+</span><span class="flag tight">Tight 85 to 94%</span><span class="flag ok">Comfortable below 85%</span><span>Load = planned testing time compared with the time left after breaks, the daily review and 30 minutes of spare time</span></div>
+    </div>
+    <div class="board" id="board"></div>
+  </section>
+
+  <section class="detail" id="detail" aria-live="polite"></section>
+
+  <section style="display:grid;gap:12px" aria-labelledby="sys">
+    <h2 id="sys">The four systems testers will use</h2>
+    <div class="grid3">
+      <div class="card"><h3>Keycloak</h3><p>Sign-in, password reset and user management for every COMIS user.</p></div>
+      <div class="card"><h3>Public portal</h3><p>WordPress site with information, publications and resources, the online search of cooperative societies and each cooperative's basic public profile.</p></div>
+      <div class="card"><h3>COMIS back-office</h3><p>Where cooperative societies and the Registrar's Office carry out most cooperative management, from assessment to certificate.</p></div>
+      <div class="card"><h3>COMIS ticketing system</h3><p>Grievance redress and the dissolution process.</p></div>
+    </div>
+  </section>
+
+  <section style="display:grid;gap:12px" aria-labelledby="sevh">
+    <h2 id="sevh">How defects are handled</h2>
+    <div class="sev" role="table" aria-label="Defect severities">
+      <div role="row"><b>Critical</b><span>Blocks a core process or corrupts data, no workaround</span><span>Logged now; TBD and prioritised on 3 Nov</span></div>
+      <div role="row"><b>High</b><span>Major function fails, difficult workaround</span><span>Logged now; TBD on 3 Nov</span></div>
+      <div role="row"><b>Medium</b><span>Works with a minor error or easy workaround</span><span>Classified on 3 Nov</span></div>
+      <div role="row"><b>Low</b><span>Cosmetic, wording or minor usability</span><span>Classified on 3 Nov</span></div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var ROLES = {
+    adm: { name: "IT Administrator", short: "IT Admin", c: "var(--r-adm)" },
+    app: { name: "Cooperative Society", short: "Society", c: "var(--r-app)" },
+    off: { name: "Registrar Officer", short: "Officer", c: "var(--r-off)" },
+    sup: { name: "Registrar Supervisor", short: "Supervisor", c: "var(--r-sup)" }
+  };
+  var DAYS = [
+    { n: "Friday", d: "23 Oct" }, { n: "Monday", d: "26 Oct" }, { n: "Tuesday", d: "27 Oct" },
+    { n: "Wednesday", d: "28 Oct" }, { n: "Thursday", d: "29 Oct" }, { n: "Friday", d: "30 Oct" }, { n: "Tuesday", d: "3 Nov", meet: true }
+  ];
+  // Agenda items: [minutes | "HH:MM" (fixed start), title, description, guide reference, "x" = not a test (break, review, intro)]
+  var S = [
+    { no: 1, day: 0, slot: 0, title: "IT admin: the UI, four systems, WordPress and Keycloak", req: ["adm"], call: [], count: 4, avail: 195,
+      note: "The client UAT Lead is welcome to observe. MNS trainers lead the day.",
+      epics: ["User Management", "Public portal content (WordPress)", "All four systems"],
+      ag: [[75, "Tour of the four systems", "Keycloak, the public portal, the COMIS back-office and the ticketing system: what each is for and how they connect", "", "x"],
+           [60, "Publish on the public portal", "Publish an information page and a resource, check they show on the website, then remove them", ""],
+           [15, "Break", "", "", "x"],
+           [45, "Create users and give them roles", "Create users in Keycloak and give each one the right role", ""],
+           [15, "Remove a role", "Take a role away and check the user loses that access", ""],
+           [30, "Deactivate and reactivate a user", "A deactivated user cannot sign in; reactivate the user; check the change log", ""]] },
+    { no: 2, day: 0, slot: 1, title: "IT admin: ticketing users, System Parameters and tester accounts", req: ["adm"], call: [], count: 9, avail: 150,
+      note: "The client UAT Lead joins the readiness check. The entry gate is confirmed at 17:00.",
+      epics: ["User Management", "System Parameters", "Common modules (announcements, quick links)"],
+      relief: ["The tester accounts come first, because every later session depends on them.", "The readiness check can be shortened to 15 minutes if needed."],
+      ag: [[20, "Ticketing system users", "Create ticketing users for officers and supervisors", ""],
+           [15, "Look up system settings", "Search and sort the system parameters, for example the minimum number of members", ""],
+           [15, "Change a setting", "Change a value and see it saved; check the business limits", ""],
+           [25, "Lists of choices", "Browse the lists behind the forms, add a value, and add reserved words for cooperative names", ""],
+           [20, "Fees", "Set a fee with a start and end date", ""],
+           [15, "Lists on public forms, post-training list", "See the lists on the public forms; add or edit a post-training", ""],
+           [20, "Create the UAT tester accounts", "One account per tester with the right role", ""],
+           [10, "Break", "", "", "x"],
+           [40, "Spare time", "Room for late starts and tests that need a second try", "", "x"],
+           [30, "Questions and readiness check", "The UAT Lead joins; the entry gate is confirmed at 17:00", "", "x"]] },
+    { no: 3, day: 1, slot: 0, title: "Orientation, sign-in, common features and public portal", req: ["app", "off", "sup"], call: ["adm"], avail: 120,
+      note: "After the orientation, two groups work at the same time. The client UAT Lead attends. The IT Administrator is on call for accounts. Officers run the public portal checks signed out, in a private browser window. MNS prepares a registered cooperative with a certificate so the QR check has something to scan.",
+      epics: ["All systems", "User Management", "Common modules", "Public Information and Search Portal"],
+      tracks: { A: "Group A: sign-in and access", B: "Group B: common features and the public portal" },
+      ag: [[20, "Welcome and ground rules", "Objectives, how to record results and how to report a problem", "", "x"],
+           [30, "The four systems and how they connect", "", "", "x"],
+           [45, "The COMIS screens for each role", "A short tour for each role, and how to use the Navigation Guide", "", "x"],
+           [15, "Break", "", "", "x"],
+           [20, "Register a cooperative", "Self-register, receive the verification email and activate the account", "", "", "A"],
+           [15, "Sign in", "Right password, wrong password, deactivated account", "", "", "A"],
+           [10, "Sign out", "Sign out with a confirmation; automatic sign-out after idle time", "", "", "A"],
+           [15, "Forgot password", "Reset by email and sign in with the new password", "", "", "A"],
+           [15, "Who sees what", "Each role sees only its own menus; other roles' pages are refused", "", "", "A"],
+           [30, "Common features", "Recently opened pages, invalid characters refused, dashboard announcement and quick links", "", "", "B"],
+           [20, "Notifications, CSV export, rating link", "Notifications, exporting search results to a CSV file, and the rating link in completion emails", "", "", "B"],
+           [10, "Public portal pages", "Information pages, publications and resources display and download, on computer and phone", "", "", "B"],
+           [10, "Search for a cooperative", "Search by name, number, sector, district or status, and open the public profile", "", "", "B"],
+           [10, "Check a certificate", "Scan the QR code; it opens the right public profile", "", "", "B"],
+           [20, "Send an inquiry from the contact form", "Receive a reference number", "", "", "B"],
+           [30, "Wrap-up", "Questions and catch-up", "", "x"]] },
+    { no: 4, day: 1, slot: 1, title: "Assessment", req: ["app", "off", "sup"], call: ["adm"], avail: 150,
+      note: "The first step of the cooperative's journey. Each cooperative approved here carries on into CME the next morning.",
+      epics: ["Assessment"],
+      ag: [[45, "Start an assessment and submit it", "Fill in every section; each blocks submission when data is missing or wrong; totals add up and phone numbers follow the Malawi format", ""],
+           [10, "Leave the form part-way", "No keeps your entries, Yes discards them", ""],
+           [15, "Names and limits", "Reserved or duplicate names are refused; each cooperative can have only one application", ""],
+           [15, "Officer finds the assessment", "The officer is emailed, opens the queue and searches for the application", ""],
+           [20, "Approve one, reject one", "The officer decides with a comment; approved opens the CME step, rejected lets the cooperative start again", ""],
+           [15, "Follow the status", "Dashboards of the cooperative and of the officers show the right status and counts", ""],
+           [60, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"],
+           [30, "Daily review", "With the client UAT Lead", "", "x"]] },
+    { no: 5, day: 2, slot: 0, title: "CME training", req: ["app", "off"], call: ["sup", "adm"], avail: 195,
+      note: "Uses the cooperatives approved in Session 4.",
+      epics: ["CME Training"],
+      ag: [[25, "Request CME training", "Ask with the number of members and a comment; the request shows Pending and is read-only", ""],
+           [20, "Follow the request", "Status colours on the dashboard and the officer's reason on a banner", ""],
+           [20, "Officer dashboard and list", "Counts per status; search and page the CME list", ""],
+           [15, "Break", "", "", "x"],
+           [20, "Put on hold and release", "Hold with a reason, then release", ""],
+           [25, "Approve", "Add report, venue, dates and reason", ""],
+           [15, "View the approved request", "Open it and download the approved report", ""],
+           [30, "Validity and deadlines", "Expired status; request again within the deadline; registration opens with a deadline banner and the invoice", ""],
+           [70, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"]] },
+    { no: 6, day: 2, slot: 1, title: "Registration", req: ["app", "off"], call: ["sup", "adm"], avail: 150,
+      note: "Two groups work at the same time. MNS submits a few registrations beforehand so the officers can start reviewing while the applicants are still filling in the form.",
+      epics: ["Cooperative Registration"],
+      tracks: { A: "Group A: the applicant", B: "Group B: the Registrar Officer" },
+      ag: [[20, "Start a registration", "Details are prefilled from the assessment", "", "", "A"],
+           [30, "Add members and shares", "Add, edit and delete members; totals and percentages calculate; a member above the limit is highlighted", "", "", "A"],
+           [10, "Break", "", "", "x", "A"],
+           [25, "Upload documents and receipt", "By-Laws, Action Plan and payment receipt; wrong files or a missing receipt are refused", "", "", "A"],
+           [15, "Submit and follow", "The submitted registration is read-only and the dashboard shows its status", "", "", "A"],
+           [15, "Name and documents", "The cooperative name is checked; documents open only for authorised people", "", "", "A"],
+           [20, "Officer finds applications", "Search the registration applications and read the dashboard counts", "", "", "B"],
+           [25, "Review and recommend", "The officer recommends for approval and the supervisor is emailed", "", "", "B"],
+           [10, "Break", "", "", "x", "B"],
+           [15, "Fast track registration", "Register through fast track; a registered cooperative cannot register again", "", "", "B"],
+           [65, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"],
+           [30, "Daily review", "With the client UAT Lead", "", "x"]] },
+    { no: 7, day: 3, slot: 0, title: "Registration decision, By-Laws Amendment and member register", req: ["app", "off", "sup"], call: ["adm"], avail: 195,
+      note: "Two groups work at the same time. The registration decision comes first, then the cooperative moves on to its profile and to a By-Laws Amendment. The member register is tested on cooperatives MNS has already approved.",
+      epics: ["Cooperative Registration", "Cooperative profile with By-Laws Amendment", "Membership Management with leaders"],
+      tracks: { A: "Group A: decision, profile and By-Laws Amendment", B: "Group B: the member register" },
+      ag: [[20, "Supervisor approves a registration", "The applicant's email carries the certificate and By-Laws with QR codes", "", "", "A"],
+           [20, "Return for amendment, resubmit", "The supervisor asks for changes; the applicant amends and resubmits; or the application is rejected", "", "", "A"],
+           [15, "View the cooperative profile", "The cooperative sees its own profile", "", "", "A"],
+           [15, "Edit the cooperative profile", "Change the editable fields and check they are kept", "", "", "A"],
+           [10, "Officer searches cooperatives", "Search and open any cooperative's profile", "", "", "A"],
+           [15, "Break", "", "", "x", "A"],
+           [25, "Create and save an amendment", "Choose the amendment type, update the fields (the name of the cooperative is editable), save, and see the invoice", "", "", "A"],
+           [20, "Upload the receipt and submit", "A missing receipt is refused", "", "", "A"],
+           [33, "View the member register", "Columns, 10 per page, highest shareholding first, totals correct, member details read-only", "", "", "B"],
+           [51, "Add a member", "Correct details are saved; missing data, under 18, future dates, duplicate or invalid ID, shares below 1 and bad email or phone are refused", "", "", "B"],
+           [15, "Break", "", "", "x", "B"],
+           [54, "Edit a member", "Change details; shares to 0 makes the member Inactive; back to 1 or more makes the member Active again; the minimum number of active members is protected", "", "", "B"],
+           [87, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"]] },
+    { no: 8, day: 3, slot: 1, title: "By-Laws Amendment review and first election of leaders", req: ["app", "off", "sup"], call: ["adm"], avail: 150,
+      note: "Two groups work at the same time. MNS prepares By-Laws amendments in different statuses. For the election, MNS prepares cooperatives with at least 20 active members (one of them inactive) and the committee names written down beforehand. The election is tested here so that the meeting and committee tests on Thursday and Friday have a submitted election to work from.",
+      epics: ["Cooperative profile with By-Laws Amendment", "Membership Management with leaders"],
+      tracks: { A: "Group A: By-Laws Amendment", B: "Group B: the first election of leaders" },
+      ag: [[20, "Follow up as the applicant", "Status and reviewer comment; amend and resubmit; start again after a rejection", "", "", "A"],
+           [15, "Dashboard and search", "Counts per status and searching the amendments", "", "", "A"],
+           [20, "Officer reviews", "Recommend, ask for changes or reject", "", "", "A"],
+           [20, "Supervisor decides", "Approve, ask for changes or reject", "", "", "A"],
+           [10, "Break", "", "", "x", "A"],
+           [15, "After approval", "New details on the profile, a new certificate, approved By-Laws, previous by-laws archived", "", "", "A"],
+           [15, "Transfer and history", "Move a cooperative to another applicant; history shows who did what and when", "", "", "A"],
+           [99, "First election of leaders", "Enter the meeting and term dates; fill the Management, Executive, Education and Supervisory committees under their rules; errors are listed; submit with the minutes and confirmation; the result is read-only", "", "", "B"],
+           [10, "Break", "", "", "x", "B"],
+           [34, "Find members while choosing leaders", "Type three letters to search; already chosen members are greyed out; inactive members never appear", "", "", "B"],
+           [37, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"],
+           [30, "Daily review", "With the client UAT Lead", "", "x"]] },
+    { no: 9, day: 4, slot: 0, title: "Bulk upload, officer member views, and election extras", req: ["app", "off", "sup"], call: ["adm"], avail: 195,
+      note: "Three groups work at the same time. MNS prepares a fresh cooperative with an untouched register for the upload, a set of CSV files (one good file and about a dozen faulty ones), a cooperative with a submitted election, and a cooperative with 12 or more submitted meetings across two years for the meeting history.",
+      epics: ["Membership Management with leaders"],
+      tracks: { A: "Group A: bulk upload of members", B: "Group B: officer member views", C: "Group C: subcommittees, election email and meeting history" },
+      ag: [[61, "Upload a member file", "The overwrite warning; a good file replaces the register; a faulty file changes nothing; the upload button disappears after a success", "", "", "A"],
+           [57, "Faulty files are refused", "Wrong file type, too big, missing columns, empty, duplicate IDs, under-18, bad shares, too few active members; a good file with blank lines and accents is accepted", "", "", "A"],
+           [15, "Break", "", "", "x", "A"],
+           [46, "Emails about the upload", "A failed upload email with an error report; a success email with the total; every contact receives them", "", "", "A"],
+           [25, "Officer opens a cooperative's members", "Search a cooperative, open its members, read-only details, no Add or Edit", "", "", "B"],
+           [45, "Officer searches all members", "Filter by cooperative details, member ID, name, gender and age band; page sizes; no match message", "", "", "B"],
+           [15, "Break", "", "", "x", "B"],
+           [44, "Member history", "A change of shares or status shows a history line; a contact change does not; officers can view it", "", "", "B"],
+           [62, "Optional subcommittees", "Add a subcommittee with a name, a minimum of 3 and an odd maximum up to 15; wrong names and sizes are refused; one chairperson and one secretary; the limit switches Add off; the subcommittee is kept when the election is submitted", "", "", "C"],
+           [25, "Election submission email", "\"Election Submission Successful\" arrives with the cooperative, the date and the committees; every contact receives it; a failed submission sends nothing", "", "", "C"],
+           [15, "Break", "", "", "x", "C"],
+           [42, "View a submitted election", "Applicant, officer and supervisor open the committees, roles, members, minutes and documents; nothing can be changed", "", "", "C"],
+           [40, "Meeting history", "General and annual meetings, newest first, 10 per page; year filter; open a meeting as it was submitted; later changes leave old meetings untouched; documents download", "", "", "C"],
+           [50, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"]] },
+    { no: 10, day: 4, slot: 1, title: "Post-training, Union assessment, member search and committee changes", req: ["app", "off", "sup"], call: ["adm"], avail: 150,
+      note: "Three groups work at the same time. MNS prepares enough active primary cooperatives for the Union, and cooperatives with a submitted election for the meeting tests (one with a committee member whose term has ended, one with a member sitting on several committees).",
+      epics: ["Post-training", "Cooperative Union", "Membership Management with leaders"],
+      tracks: { A: "Group A: post-training", B: "Group B: Union assessment and member search", C: "Group C: new meetings, replacing committee members" },
+      ag: [[20, "Request a post-training", "Only active trainings are listed; enroll with the number of members and a comment", "", "", "A"],
+           [10, "Post-training history", "Search, clear, and open a request read-only", "", "", "A"],
+           [10, "Post-training dashboard", "Counts per status, opening the list from a card", "", "", "A"],
+           [8, "Find a post-training request", "Search and open requests; Edit is offered only for open ones", "", "", "A"],
+           [8, "Mark In Progress", "Add a comment; the status changes", "", "", "A"],
+           [10, "Put on hold, release", "Hold with a reason; release returns it to Pending", "", "", "A"],
+           [10, "Break", "", "", "x", "A"],
+           [12, "Complete a request", "Venue, dates, report and remarks; the request becomes read-only", "", "", "A"],
+           [7, "Reject a request", "Reject with a comment", "", "", "A"],
+           [10, "Email notifications", "The cooperative is emailed at each status change", "", "", "A"],
+           [20, "Union: start an assessment", "Choose Union Cooperative; the list of primary cooperatives appears; submit", "", "", "B"],
+           [20, "Union: add primary cooperatives", "Only active registered ones, never another Union; the minimum number is respected", "", "", "B"],
+           [10, "Break", "", "", "x", "B"],
+           [15, "Union: officer decides", "Approve or reject the assessment with a comment", "", "", "B"],
+           [41, "Search members", "By name, ID, gender, shareholding range and status, alone or combined; Clear resets the search", "", "", "B"],
+           [58, "Start a new meeting", "Choose a general or annual meeting; dates and place; the form is prefilled with the last committees; a member whose term ended is highlighted; add members; submit with confirmation; cancel changes nothing; the old structure stays in the history", "", "", "C"],
+           [10, "Break", "", "", "x", "C"],
+           [53, "Replace a committee member", "Replace an inactive or an active member; replacing the Executive Vice Chairman updates the Education chairperson; a member on several committees triggers a warning that lists them; a mandatory role left empty blocks submission", "", "", "C"],
+           [59, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"],
+           [30, "Daily review", "With the client UAT Lead", "", "x"]] },
+    { no: 11, day: 5, slot: 0, title: "Cooperative Union, committee changes, banners and full journeys", req: ["app", "off", "sup"], call: ["adm"], avail: 150,
+      note: "Three groups work at the same time. Officers check the Union page signed out. MNS prepares an approved Union for the By-Laws Amendment, cooperatives with committee members who have become inactive, and cooperatives whose approval and meeting dates were moved on the test system so the deadline banners can be seen. Ticketing is the last module and is tested in the afternoon.",
+      epics: ["Cooperative Union", "Membership Management with leaders", "End-to-end journeys"],
+      tracks: { A: "Group A: Cooperative Union", B: "Group B: Union By-Laws Amendment and deadline banners", C: "Group C: removing members and inactive members on committees" },
+      ag: [[30, "Union: submit the registration", "Prefilled details, primaries, members and shares, documents and payment proof", "", "", "A"],
+           [20, "Union: officer and supervisor review", "Recommend, approve or reject with comments", "", "", "A"],
+           [15, "Union: amend and resubmit", "Request an amendment; the applicant updates and resubmits", "", "", "A"],
+           [15, "Break", "", "", "x", "A"],
+           [15, "Union: view the profile", "On the back-office and, signed out, on the public portal", "", "", "A"],
+           [15, "Union: manage primaries", "Add and remove primary cooperatives; officers see the updated list", "", "", "A"],
+           [20, "Union By-Laws Amendment", "Submit and process a Union By-Laws Amendment", "", "", "B"],
+           [62, "Deadline banners", "Yellow banner for 30 days after approval, red when overdue; the Elect Leaders button for the applicant only; banner gone once submitted; next meeting due after the financial year end; only one banner at a time", "", "", "B"],
+           [15, "Break", "", "", "x", "B"],
+           [45, "Remove a committee member", "Mandatory roles cannot be removed; a committee at its minimum size refuses; the Education chairperson depends on the Executive Vice Chairman; an optional subcommittee can be removed whole", "", "", "C"],
+           [53, "Member becomes inactive", "Making an elected member inactive marks the committee roles, shows a warning and a Non-Compliant committee; filling the vacancy in a new meeting makes it compliant again", "", "", "C"],
+           [15, "Break", "", "", "x", "C"],
+           [67, "Catch-up", "Tests blocked or not finished in earlier sessions", "", "x"],
+           ["11:30", "Three full journeys, start to finish", "Confirm one cooperative from sign-up to certificate, the rejection loop, and a registered cooperative's changes; catch up on blocked tests", "", "x", "", 60]] },
+    { no: 12, day: 5, slot: 1, title: "Dissolution, Grievance, results review and close (virtual meeting Tue 3 Nov)", req: ["app", "off", "sup"], call: ["adm"], avail: 80,
+      note: "Dissolution and Grievance run on the COMIS ticketing system and come last. Two groups work at the same time until about 14:50. Officers submit the public forms signed out. The client UAT Lead and the Registrar or delegate must attend the closing from 15:05.",
+      epics: ["Dissolution (COMIS ticketing system)", "Grievance Redress Mechanism (COMIS ticketing system)", "Client UAT Lead and Registrar or delegate", "Defects are classified at the virtual meeting on Tue 3 Nov"],
+      tracks: { A: "Group A: Dissolution", B: "Group B: Grievance" },
+      ag: [[25, "Dissolution: request to confirmed", "Created as Pending, escalated to the supervisor and confirmed; the cooperative then shows as Dissolved", "", "", "A"],
+           [20, "Request a dissolution from COMIS", "From the cooperative profile and from a cooperative record; check the ticket", "", "", "A"],
+           [15, "Reject a dissolution", "The cooperative stays active and the applicant is told", "", "", "A"],
+           [30, "Grievance: the three forms", "Inquiry, Complaint (with an attachment) and Grievance from the website; each creates the right ticket", "", "", "B"],
+           [15, "Work a grievance to closure", "The officer and supervisor take a ticket through its statuses", "", "", "B"],
+           [20, "Catch-up", "Tests still blocked or not finished; nothing is fixed during UAT", "", "x"],
+           [15, "Break", "", "", "x"],
+           [45, "Review of the problems logged", "Every problem found during the week, with a first view of its severity", "", "x"],
+           [30, "UAT summary", "MNS presents tests run, passed, failed and blocked per area", "", "x"],
+           [40, "Close of testing and the Tue 3 Nov virtual meeting", "Confirm the virtual fix-and-confirm meeting on Tuesday 3 November, where the team classifies the defects with MNS. Nothing is fixed before then", "", "x"]] },
+    { no: 13, day: 6, slot: 0, meet: true, title: "Virtual fix-and-confirm meeting", req: ["off", "sup"], call: ["app", "adm"],
+      note: "Held online, after the six testing days. Time to be confirmed at the close of testing in Session 12. The client UAT Lead, the Registrar or delegate and the MNS team attend. Nothing is fixed during UAT: every defect logged during the week is classified here.",
+      epics: ["Defects logged in Sessions 1 to 12", "Client UAT Lead, Registrar or delegate, MNS team"],
+      ag: [[10, "Welcome and purpose", "What the meeting decides and how the defects are recorded", "", "x"],
+           [40, "Go through the problems logged", "Area by area, from Assessment to Dissolution and Grievance, with the tester's notes", "", "x"],
+           [40, "Classify each defect", "Critical, High, Medium or Low, using the severity table in this plan", "", "x"],
+           [30, "Agree what is fixed and confirmed", "Which defects are fixed first, who owns them, and how each fix is confirmed with the client", "", "x"],
+           [10, "Next steps", "Dates for the fixes and for confirming them", "", "x"]] }
+  ];
+
+  var board = document.getElementById("board");
+  var detail = document.getElementById("detail");
+  var active = new Set();
+  var current = 1;
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function names(list) { return list.map(function (r) { return ROLES[r].short; }).join(", "); }
+
+  function dots(s) {
+    return '<span class="dots" aria-hidden="true">' +
+      s.req.map(function (r) { return '<i style="--c:' + ROLES[r].c + '"></i>'; }).join("") +
+      s.call.map(function (r) { return '<i class="call" style="--c:' + ROLES[r].c + '"></i>'; }).join("") + "</span>";
+  }
+
+  function countText(s) {
+    if (s.close) return "Closing session";
+    if (s.meet) return "Online, about 2 h 10 min";
+    var a = agenda(s);
+    return "About " + hours(a.test) + " of testing" + (s.tracks ? ", " + ["", "one", "two", "three"][Object.keys(s.tracks).length] + " groups" : "");
+  }
+
+  function hm(m) { return String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0"); }
+  function toMin(t) { var p = t.split(":"); return +p[0] * 60 + +p[1]; }
+  function agenda(s) {
+    var common = s.slot ? 810 : 510, tr = {}, tt = {}, test = 0, mins = 0;
+    function flush() {
+      var ks = Object.keys(tr);
+      if (!ks.length) return;
+      common = Math.max.apply(null, ks.map(function (k) { return tr[k]; }).concat([common]));
+      test += Math.max.apply(null, ks.map(function (k) { return tt[k]; }));
+      tr = {}; tt = {};
+    }
+    var rows = s.ag.map(function (i) {
+      var fixed = typeof i[0] === "string", track = i[5] || "", start, dur, isTest = !i[4];
+      if (track) {
+        dur = i[0];
+        start = tr[track] == null ? common : tr[track];
+        tr[track] = start + dur; tt[track] = (tt[track] || 0) + (isTest ? dur : 0);
+      } else {
+        flush();
+        if (fixed) { common = toMin(i[0]); dur = i[6] || 0; } else { dur = i[0]; }
+        start = common; common += dur;
+        if (isTest) test += dur;
+      }
+      return { start: start, end: start + dur, title: i[1], desc: i[2], ref: i[3], x: !!i[4], track: track };
+    });
+    flush();
+    return { rows: rows, test: test, end: common };
+  }
+  function load(s) {
+    if (s.close || s.meet) return null;
+    var pct = Math.round(agenda(s).test / s.avail * 100);
+    return { pct: pct, level: pct >= 95 ? "over" : pct >= 85 ? "tight" : "ok" };
+  }
+  function hours(m) { var h = Math.floor(m / 60), r = m % 60; return h ? h + " h" + (r ? " " + r + " min" : "") : r + " min"; }
+  var LV = { over: "Overloaded", tight: "Tight", ok: "Load" };
+
+  function renderBoard() {
+    var html = '<div class="slot"></div>' + DAYS.map(function (d) {
+      return '<div class="dayhead"><b>' + d.n + '</b><span class="mono">' + d.d + "</span></div>";
+    }).join("");
+    [0, 1].forEach(function (slot) {
+      html += '<div class="slot label">' + (slot ? "Afternoon" : "Morning") + "</div>";
+      DAYS.forEach(function (d, di) {
+        var s = S.filter(function (x) { return x.day === di && x.slot === slot; })[0];
+        if (!s) { html += '<div></div>'; return; }
+        var l = load(s);
+        var dim = active.size && !s.req.some(function (r) { return active.has(r); });
+        html += '<button type="button" class="cell' + (dim ? " dim" : "") + (l && l.level === "over" ? " is-over" : "") + '" data-no="' + s.no + '"' +
+          (s.no === current ? ' aria-current="true"' : "") + ">" +
+          '<span class="no">Session ' + s.no + "</span>" +
+          '<span class="ttl">' + esc(s.title) + "</span>" +
+          '<span class="att"><span><span class="k">Must attend</span>' + esc(names(s.req)) + "</span>" +
+          (s.call.length ? '<span class="oc"><span class="k">On call</span>' + esc(names(s.call)) + "</span>" : "") + "</span>" +
+          dots(s) +
+          (l ? '<span class="flag ' + l.level + '">' + LV[l.level] + " " + l.pct + "%</span>" : "") +
+          '<span class="n">' + countText(s) + "</span></button>";
+      });
+    });
+    board.innerHTML = html;
+  }
+
+  function pills(list, cls) {
+    return list.map(function (r) { return '<span class="role ' + cls + '" style="--c:' + ROLES[r].c + '">' + ROLES[r].name + "</span>"; }).join("");
+  }
+
+  function agendaRows(s) {
+    var last = null;
+    return agenda(s).rows.map(function (r) {
+      var head = "";
+      if (s.tracks && r.track && r.track !== last) head = '<li class="grp"><span class="id">' + esc(s.tracks[r.track]) + "</span><span></span></li>";
+      if (r.track) last = r.track; else last = null;
+      return head + '<li class="' + (r.x ? "x" : "") + '"><span class="id"><span class="when">' + (s.meet ? (r.end - r.start) + " min" : hm(r.start) + (r.end > r.start ? " to " + hm(r.end) : "")) + "</span>" + esc(r.title) + "</span><span>" + esc(r.desc) +
+        "</span></li>";
+    }).join("");
+  }
+
+  function loadBox(s) {
+    var l = load(s);
+    if (!l) return "";
+    var txt = "About " + l.pct + "% of the testing time is planned" + (s.tracks ? "." : ".");
+    var head = l.level === "over" ? "Overloaded session" : l.level === "tight" ? "Tight session" : "Session load";
+    return '<div class="loadbox ' + l.level + '"><div class="row"><span class="flag ' + l.level + '">' + head + " · " + l.pct + '%</span></div>' +
+      '<div class="loadbar ' + l.level + '"><i style="width:' + Math.min(100, l.pct) + '%"></i></div><p>' + esc(txt) + "</p>" +
+      (s.relief ? '<p class="foot"><b>How the time is made to work</b></p><ul>' + s.relief.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" : "") + "</div>";
+  }
+
+  function renderDetail() {
+    var s = S.filter(function (x) { return x.no === current; })[0];
+    var d = DAYS[s.day];
+    var admin = s.no <= 2;
+    detail.innerHTML =
+      '<div class="detail-head"><span class="label">Session ' + s.no + " · " + d.n + " " + d.d + " · " + (s.meet ? "online, time to be confirmed" : (s.slot ? "13:30 to 17:00" : "08:30 to 12:30") + " CAT") + "</span>" +
+      "<h2>" + esc(s.title) + "</h2></div>" +
+      '<div class="who"><div class="row"><span class="label">Must attend</span>' + pills(s.req, "req") + "</div>" +
+      (s.call.length ? '<div class="row"><span class="label">On call</span>' + pills(s.call, "call") + "</div>" : "") +
+      // (s.note ? '<p class="foot">' + esc(s.note) + "</p>" : "") + "</div>" +
+      loadBox(s) +
+      '<div class="cols"><div><h3>Areas covered</h3><ul class="epics">' + s.epics.map(function (e) { return "<li>" + esc(e) + "</li>"; }).join("") + "</ul>" +
+      "</div>" +
+      '<div><h3>Agenda</h3><ul class="scen">' + agendaRows(s) + "</ul></div></div>";
+  }
+
+  board.addEventListener("click", function (e) {
+    var b = e.target.closest(".cell");
+    if (!b) return;
+    current = +b.dataset.no;
+    renderBoard(); renderDetail();
+    var again = board.querySelector('[data-no="' + current + '"]'); if (again) again.focus({ preventScroll: true });
+  });
+
+  document.querySelectorAll(".chip").forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      var r = chip.dataset.role;
+      if (active.has(r)) active.delete(r); else active.add(r);
+      chip.setAttribute("aria-pressed", active.has(r) ? "true" : "false");
+      renderBoard();
+    });
+  });
+
+  renderBoard(); renderDetail();
+})();
+</script>
+
+</body>
+</html>

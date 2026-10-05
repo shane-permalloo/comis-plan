@@ -44,8 +44,8 @@ p { margin: 0; }
 .label { font-family: var(--f-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 
 .mast { display: grid; gap: 14px; }
-.mast p { color: var(--muted); }
-.facts { display: flex; flex-wrap: wrap; gap: 8px 60px; padding-top: 6px; }
+.mast p { max-width: 65ch; color: var(--muted); }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 22px; padding-top: 6px; }
 .facts div { display: grid; gap: 2px; min-width: 0; }
 .facts b { font-family: var(--f-display); font-size: 1.05rem; font-weight: 700; }
 
@@ -61,9 +61,7 @@ p { margin: 0; }
 .chip[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
 .chip:focus-visible, .cell:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
-.vmeet { display: grid; gap: 4px; padding: 12px 16px; border: 1px solid var(--line, #cfd6d2); border-left: 4px solid var(--accent, #1f5f4a); border-radius: 10px; background: var(--card, #fff); }
-.vmeet b { font-size: 1rem; }
-.board { display: grid; grid-template-columns: 64px repeat(7, minmax(0, 1fr)); gap: 8px; }
+.board { display: grid; grid-template-columns: 64px repeat(6, minmax(0, 1fr)); gap: 8px; }
 .dayhead { padding: 4px 2px; display: grid; gap: 1px; }
 .dayhead b { font-family: var(--f-display); font-size: 1rem; }
 .slot { align-self: stretch; display: grid; align-content: center; }
@@ -89,6 +87,7 @@ p { margin: 0; }
 .scen .id { font-family: var(--f-body); font-size: .9rem; font-weight: 600; color: var(--fg); }
 .epics { margin: 0; padding-left: 18px; }
 .scen .when { display: block; font-family: var(--f-mono); font-size: .72rem; font-weight: 400; color: var(--muted); }
+.scen .ref { display: inline-block; margin-left: 8px; font-family: var(--f-mono); font-size: .7rem; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 0 6px; white-space: nowrap; }
 .scen li.grp { background: var(--accent-soft); border-radius: 6px; padding: 6px 10px; border-bottom: 0; }
 .scen li.grp .id { font-family: var(--f-display); }
 .scen li.x .id, .scen li.x > span + span { color: var(--muted); }
@@ -135,6 +134,7 @@ p { margin: 0; }
 .legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; vertical-align: -1px; margin-right: 6px; }
 .legend .f { background: var(--fg); }
 .legend .h { border: 2px solid var(--fg); }
+.dayhead.fri { }
 
 @media (max-width: 860px) {
   .board { grid-template-columns: 1fr; }
@@ -149,11 +149,12 @@ p { margin: 0; }
 
 <main class="wrap">
   <header class="mast">
-    <h1>COMIS user acceptance testing, 23 to 30 October 2026</h1>
-    <p>Twelve half-day sessions over six working days, with no weekend work. The IT administrator day comes first, then the cooperative society, Officer and Supervisor testers take over. Pick a session to see its agenda, who must attend, and whether the session is heavy.</p>
+    <span class="label">Office of the Registrar of Cooperatives, Malawi</span>
+    <h1>COMIS user acceptance testing, 26 to 30 October 2026</h1>
+    <p>Ten half-day sessions over five working days, Monday 26 to Friday 30 October, followed by a virtual meeting on Tuesday 3 November. Monday is the IT administrator day; the cooperative society, Officer and Supervisor testers join from Tuesday 27 October. Pick a session to see its agenda, who must attend, and whether the session is heavy.</p>
     <div class="facts">
       <div><span class="label">Hours (CAT)</span><b>08:30 to 12:30, 13:30 to 17:00</b></div>
-      <div><span class="label">Sessions</span><b>12 half-days, plus the 3 Nov meeting</b></div>
+      <div><span class="label">Sessions</span><b>10 half-days, plus the 3 Nov meeting</b></div>
       <div><span class="label">Virtual meeting</span><b>Tue 3 Nov: defects classified</b></div>
     </div>
   </header>
@@ -172,6 +173,7 @@ p { margin: 0; }
       <div class="legend"><span class="flag over">Overloaded 95%+</span><span class="flag tight">Tight 85 to 94%</span><span class="flag ok">Comfortable below 85%</span><span>Load = planned testing time compared with the time left after breaks, the daily review and 30 minutes of spare time</span></div>
     </div>
     <div class="board" id="board"></div>
+    <p class="foot">Each session is one timeline, from the start of the session to its end. Sessions 1 and 2 (Monday) are the IT administrator day; Sessions 3 to 10 are for the cooperative society, Officer and Supervisor testers, with the IT Administrator on call. MNS prepares the test data beforehand.</p>
   </section>
 
   <section class="detail" id="detail" aria-live="polite"></section>
@@ -189,10 +191,10 @@ p { margin: 0; }
   <section style="display:grid;gap:12px" aria-labelledby="sevh">
     <h2 id="sevh">How defects are handled</h2>
     <div class="sev" role="table" aria-label="Defect severities">
-      <div role="row"><b>Critical</b><span>Blocks a core process or corrupts data, no workaround</span><span>Logged now; TBD and prioritised on 3 Nov</span></div>
-      <div role="row"><b>High</b><span>Major function fails, difficult workaround</span><span>Logged now; TBD on 3 Nov</span></div>
-      <div role="row"><b>Medium</b><span>Works with a minor error or easy workaround</span><span>Classified on 3 Nov</span></div>
-      <div role="row"><b>Low</b><span>Cosmetic, wording or minor usability</span><span>Classified on 3 Nov</span></div>
+      <div role="row"><b>Critical</b><span>Blocks a core process or corrupts data, no workaround</span><span>Logged now; first item at the 3 Nov meeting</span></div>
+      <div role="row"><b>High</b><span>Major function fails, difficult workaround</span><span>Logged now; classified on 3 Nov</span></div>
+      <div role="row"><b>Medium</b><span>Works with a minor error or easy workaround</span><span>Classified on 3 Nov; planned into a release</span></div>
+      <div role="row"><b>Low</b><span>Cosmetic, wording or minor usability</span><span>Classified on 3 Nov; backlog, prioritised with the client</span></div>
     </div>
   </section>
 </main>
@@ -206,12 +208,12 @@ p { margin: 0; }
     sup: { name: "Registrar Supervisor", short: "Supervisor", c: "var(--r-sup)" }
   };
   var DAYS = [
-    { n: "Friday", d: "23 Oct" }, { n: "Monday", d: "26 Oct" }, { n: "Tuesday", d: "27 Oct" },
+    { n: "Monday", d: "26 Oct" }, { n: "Tuesday", d: "27 Oct" },
     { n: "Wednesday", d: "28 Oct" }, { n: "Thursday", d: "29 Oct" }, { n: "Friday", d: "30 Oct" }, { n: "Tuesday", d: "3 Nov", meet: true }
   ];
   // Agenda items: [minutes | "HH:MM" (fixed start), title, description, guide reference, "x" = not a test (break, review, intro)]
   var S = [
-    { no: 1, day: 0, slot: 0, title: "IT admin: the UI, four systems, WordPress and Keycloak", req: ["adm"], call: [], count: 4, avail: 195,
+    { no: 1, day: 0, slot: 0, title: "User Management and Public Information and Search Portal", req: ["adm"], call: [], count: 4, avail: 195,
       note: "The client UAT Lead is welcome to observe. MNS trainers lead the day.",
       epics: ["User Management", "Public portal content (WordPress)", "All four systems"],
       ag: [[75, "Tour of the four systems", "Keycloak, the public portal, the COMIS back-office and the ticketing system: what each is for and how they connect", "", "x"],
@@ -220,7 +222,7 @@ p { margin: 0; }
            [45, "Create users and give them roles", "Create users in Keycloak and give each one the right role", ""],
            [15, "Remove a role", "Take a role away and check the user loses that access", ""],
            [30, "Deactivate and reactivate a user", "A deactivated user cannot sign in; reactivate the user; check the change log", ""]] },
-    { no: 2, day: 0, slot: 1, title: "IT admin: ticketing users, System Parameters and tester accounts", req: ["adm"], call: [], count: 9, avail: 150,
+    { no: 2, day: 0, slot: 1, title: "User Management, System Parameters and Common modules", req: ["adm"], call: [], count: 9, avail: 150,
       note: "The client UAT Lead joins the readiness check. The entry gate is confirmed at 17:00.",
       epics: ["User Management", "System Parameters", "Common modules (announcements, quick links)"],
       relief: ["The tester accounts come first, because every later session depends on them.", "The readiness check can be shortened to 15 minutes if needed."],
@@ -234,175 +236,136 @@ p { margin: 0; }
            [10, "Break", "", "", "x"],
            [40, "Spare time", "Room for late starts and tests that need a second try", "", "x"],
            [30, "Questions and readiness check", "The UAT Lead joins; the entry gate is confirmed at 17:00", "", "x"]] },
-    { no: 3, day: 1, slot: 0, title: "Orientation, sign-in, common features and public portal", req: ["app", "off", "sup"], call: ["adm"], avail: 120,
-      note: "After the orientation, two groups work at the same time. The client UAT Lead attends. The IT Administrator is on call for accounts. Officers run the public portal checks signed out, in a private browser window. MNS prepares a registered cooperative with a certificate so the QR check has something to scan.",
-      epics: ["All systems", "User Management", "Common modules", "Public Information and Search Portal"],
-      tracks: { A: "Group A: sign-in and access", B: "Group B: common features and the public portal" },
-      ag: [[20, "Welcome and ground rules", "Objectives, how to record results and how to report a problem", "", "x"],
-           [30, "The four systems and how they connect", "", "", "x"],
-           [45, "The COMIS screens for each role", "A short tour for each role, and how to use the Navigation Guide", "", "x"],
+    { no: 3, day: 1, slot: 0, title: "User Management, Common modules, Public Information and Search Portal and Assessment", req: ["app", "off", "sup"], call: ["adm"], avail: 165,
+      note: "The first day for the cooperative society, Officer and Supervisor testers. The client UAT Lead attends. The IT Administrator, who prepared the accounts on Monday, is on call. Officers run the public portal checks signed out, in a private browser window. MNS prepares a registered cooperative with a certificate so the QR check has something to scan.",
+      epics: ["All systems", "User Management", "Common modules", "Public Information and Search Portal", "Assessment"],
+      ag: [[30, "Welcome, ground rules and the four systems", "Objectives, how to record results and how to report a problem; Keycloak, the public portal, the COMIS back-office and the ticketing system, and how they connect", "", "x"],
+           [15, "Register a cooperative", "Self-register, receive the verification email and activate the account", ""],
+           [10, "Sign in", "Right password, wrong password, deactivated account", ""],
+           [5, "Sign out", "Sign out with a confirmation", ""],
+           [10, "Forgot password", "Reset by email and sign in with the new password", ""],
            [15, "Break", "", "", "x"],
-           [20, "Register a cooperative", "Self-register, receive the verification email and activate the account", "", "", "A"],
-           [15, "Sign in", "Right password, wrong password, deactivated account", "", "", "A"],
-           [10, "Sign out", "Sign out with a confirmation; automatic sign-out after idle time", "", "", "A"],
-           [15, "Forgot password", "Reset by email and sign in with the new password", "", "", "A"],
-           [15, "Who sees what", "Each role sees only its own menus; other roles' pages are refused", "", "", "A"],
-           [30, "Common features", "Recently opened pages, invalid characters refused, dashboard announcement and quick links", "", "", "B"],
-           [20, "Notifications, CSV export, rating link", "Notifications, exporting search results to a CSV file, and the rating link in completion emails", "", "", "B"],
-           [10, "Public portal pages", "Information pages, publications and resources display and download, on computer and phone", "", "", "B"],
-           [10, "Search for a cooperative", "Search by name, number, sector, district or status, and open the public profile", "", "", "B"],
-           [10, "Check a certificate", "Scan the QR code; it opens the right public profile", "", "", "B"],
-           [20, "Send an inquiry from the contact form", "Receive a reference number", "", "", "B"],
-           [30, "Wrap-up", "Questions and catch-up", "", "x"]] },
-    { no: 4, day: 1, slot: 1, title: "Assessment", req: ["app", "off", "sup"], call: ["adm"], avail: 150,
-      note: "The first step of the cooperative's journey. Each cooperative approved here carries on into CME the next morning.",
-      epics: ["Assessment"],
-      ag: [[45, "Start an assessment and submit it", "Fill in every section; each blocks submission when data is missing or wrong; totals add up and phone numbers follow the Malawi format", ""],
-           [10, "Leave the form part-way", "No keeps your entries, Yes discards them", ""],
-           [15, "Names and limits", "Reserved or duplicate names are refused; each cooperative can have only one application", ""],
-           [15, "Officer finds the assessment", "The officer is emailed, opens the queue and searches for the application", ""],
-           [20, "Approve one, reject one", "The officer decides with a comment; approved opens the CME step, rejected lets the cooperative start again", ""],
-           [15, "Follow the status", "Dashboards of the cooperative and of the officers show the right status and counts", ""],
-           [60, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"],
-           [30, "Daily review", "With the client UAT Lead", "", "x"]] },
-    { no: 5, day: 2, slot: 0, title: "CME training", req: ["app", "off"], call: ["sup", "adm"], avail: 195,
-      note: "Uses the cooperatives approved in Session 4.",
-      epics: ["CME Training"],
-      ag: [[25, "Request CME training", "Ask with the number of members and a comment; the request shows Pending and is read-only", ""],
-           [20, "Follow the request", "Status colours on the dashboard and the officer's reason on a banner", ""],
-           [20, "Officer dashboard and list", "Counts per status; search and page the CME list", ""],
-           [15, "Break", "", "", "x"],
-           [20, "Put on hold and release", "Hold with a reason, then release", ""],
-           [25, "Approve", "Add report, venue, dates and reason", ""],
-           [15, "View the approved request", "Open it and download the approved report", ""],
-           [30, "Validity and deadlines", "Expired status; request again within the deadline; registration opens with a deadline banner and the invoice", ""],
-           [70, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"]] },
-    { no: 6, day: 2, slot: 1, title: "Registration", req: ["app", "off"], call: ["sup", "adm"], avail: 150,
-      note: "Two groups work at the same time. MNS submits a few registrations beforehand so the officers can start reviewing while the applicants are still filling in the form.",
-      epics: ["Cooperative Registration"],
-      tracks: { A: "Group A: the applicant", B: "Group B: the Registrar Officer" },
-      ag: [[20, "Start a registration", "Details are prefilled from the assessment", "", "", "A"],
-           [30, "Add members and shares", "Add, edit and delete members; totals and percentages calculate; a member above the limit is highlighted", "", "", "A"],
-           [10, "Break", "", "", "x", "A"],
-           [25, "Upload documents and receipt", "By-Laws, Action Plan and payment receipt; wrong files or a missing receipt are refused", "", "", "A"],
-           [15, "Submit and follow", "The submitted registration is read-only and the dashboard shows its status", "", "", "A"],
-           [15, "Name and documents", "The cooperative name is checked; documents open only for authorised people", "", "", "A"],
-           [20, "Officer finds applications", "Search the registration applications and read the dashboard counts", "", "", "B"],
-           [25, "Review and recommend", "The officer recommends for approval and the supervisor is emailed", "", "", "B"],
-           [10, "Break", "", "", "x", "B"],
-           [15, "Fast track registration", "Register through fast track; a registered cooperative cannot register again", "", "", "B"],
-           [65, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"],
-           [30, "Daily review", "With the client UAT Lead", "", "x"]] },
-    { no: 7, day: 3, slot: 0, title: "Registration decision, By-Laws Amendment and member register", req: ["app", "off", "sup"], call: ["adm"], avail: 195,
-      note: "Two groups work at the same time. The registration decision comes first, then the cooperative moves on to its profile and to a By-Laws Amendment. The member register is tested on cooperatives MNS has already approved.",
-      epics: ["Cooperative Registration", "Cooperative profile with By-Laws Amendment", "Membership Management with leaders"],
-      tracks: { A: "Group A: decision, profile and By-Laws Amendment", B: "Group B: the member register" },
-      ag: [[20, "Supervisor approves a registration", "The applicant's email carries the certificate and By-Laws with QR codes", "", "", "A"],
-           [20, "Return for amendment, resubmit", "The supervisor asks for changes; the applicant amends and resubmits; or the application is rejected", "", "", "A"],
-           [15, "View the cooperative profile", "The cooperative sees its own profile", "", "", "A"],
-           [15, "Edit the cooperative profile", "Change the editable fields and check they are kept", "", "", "A"],
-           [10, "Officer searches cooperatives", "Search and open any cooperative's profile", "", "", "A"],
-           [15, "Break", "", "", "x", "A"],
-           [25, "Create and save an amendment", "Choose the amendment type, update the fields (the name of the cooperative is editable), save, and see the invoice", "", "", "A"],
-           [20, "Upload the receipt and submit", "A missing receipt is refused", "", "", "A"],
-           [33, "View the member register", "Columns, 10 per page, highest shareholding first, totals correct, member details read-only", "", "", "B"],
-           [51, "Add a member", "Correct details are saved; missing data, under 18, future dates, duplicate or invalid ID, shares below 1 and bad email or phone are refused", "", "", "B"],
-           [15, "Break", "", "", "x", "B"],
-           [54, "Edit a member", "Change details; shares to 0 makes the member Inactive; back to 1 or more makes the member Active again; the minimum number of active members is protected", "", "", "B"],
-           [87, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"]] },
-    { no: 8, day: 3, slot: 1, title: "By-Laws Amendment review and first election of leaders", req: ["app", "off", "sup"], call: ["adm"], avail: 150,
-      note: "Two groups work at the same time. MNS prepares By-Laws amendments in different statuses. For the election, MNS prepares cooperatives with at least 20 active members (one of them inactive) and the committee names written down beforehand. The election is tested here so that the meeting and committee tests on Thursday and Friday have a submitted election to work from.",
-      epics: ["Cooperative profile with By-Laws Amendment", "Membership Management with leaders"],
-      tracks: { A: "Group A: By-Laws Amendment", B: "Group B: the first election of leaders" },
-      ag: [[20, "Follow up as the applicant", "Status and reviewer comment; amend and resubmit; start again after a rejection", "", "", "A"],
-           [15, "Dashboard and search", "Counts per status and searching the amendments", "", "", "A"],
-           [20, "Officer reviews", "Recommend, ask for changes or reject", "", "", "A"],
-           [20, "Supervisor decides", "Approve, ask for changes or reject", "", "", "A"],
-           [10, "Break", "", "", "x", "A"],
-           [15, "After approval", "New details on the profile, a new certificate, approved By-Laws, previous by-laws archived", "", "", "A"],
-           [15, "Transfer and history", "Move a cooperative to another applicant; history shows who did what and when", "", "", "A"],
-           [99, "First election of leaders", "Enter the meeting and term dates; fill the Management, Executive, Education and Supervisory committees under their rules; errors are listed; submit with the minutes and confirmation; the result is read-only", "", "", "B"],
-           [10, "Break", "", "", "x", "B"],
-           [34, "Find members while choosing leaders", "Type three letters to search; already chosen members are greyed out; inactive members never appear", "", "", "B"],
-           [37, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"],
-           [30, "Daily review", "With the client UAT Lead", "", "x"]] },
-    { no: 9, day: 4, slot: 0, title: "Bulk upload, officer member views, and election extras", req: ["app", "off", "sup"], call: ["adm"], avail: 195,
-      note: "Three groups work at the same time. MNS prepares a fresh cooperative with an untouched register for the upload, a set of CSV files (one good file and about a dozen faulty ones), a cooperative with a submitted election, and a cooperative with 12 or more submitted meetings across two years for the meeting history.",
-      epics: ["Membership Management with leaders"],
-      tracks: { A: "Group A: bulk upload of members", B: "Group B: officer member views", C: "Group C: subcommittees, election email and meeting history" },
-      ag: [[61, "Upload a member file", "The overwrite warning; a good file replaces the register; a faulty file changes nothing; the upload button disappears after a success", "", "", "A"],
-           [57, "Faulty files are refused", "Wrong file type, too big, missing columns, empty, duplicate IDs, under-18, bad shares, too few active members; a good file with blank lines and accents is accepted", "", "", "A"],
-           [15, "Break", "", "", "x", "A"],
-           [46, "Emails about the upload", "A failed upload email with an error report; a success email with the total; every contact receives them", "", "", "A"],
-           [25, "Officer opens a cooperative's members", "Search a cooperative, open its members, read-only details, no Add or Edit", "", "", "B"],
-           [45, "Officer searches all members", "Filter by cooperative details, member ID, name, gender and age band; page sizes; no match message", "", "", "B"],
-           [15, "Break", "", "", "x", "B"],
-           [44, "Member history", "A change of shares or status shows a history line; a contact change does not; officers can view it", "", "", "B"],
-           [62, "Optional subcommittees", "Add a subcommittee with a name, a minimum of 3 and an odd maximum up to 15; wrong names and sizes are refused; one chairperson and one secretary; the limit switches Add off; the subcommittee is kept when the election is submitted", "", "", "C"],
-           [25, "Election submission email", "\"Election Submission Successful\" arrives with the cooperative, the date and the committees; every contact receives it; a failed submission sends nothing", "", "", "C"],
-           [15, "Break", "", "", "x", "C"],
-           [42, "View a submitted election", "Applicant, officer and supervisor open the committees, roles, members, minutes and documents; nothing can be changed", "", "", "C"],
-           [40, "Meeting history", "General and annual meetings, newest first, 10 per page; year filter; open a meeting as it was submitted; later changes leave old meetings untouched; documents download", "", "", "C"],
+           [20, "Common features", "Recently opened pages, notifications, exporting search results to a CSV file, dashboard announcements and quick links, and the rating link in completion emails", ""],
+           [10, "Public portal pages", "Information pages, publications and resources display and download, on computer and phone", ""],
+           [10, "Search for a cooperative", "Search by name, number, sector, district or status, and open the public profile", ""],
+           [10, "Check a certificate", "Scan the QR code; it opens the right public profile", ""],
+           [15, "Send an inquiry from the contact form", "Receive a reference number", ""],
+           [25, "Start an assessment and submit it", "Fill in every section; each blocks submission when data is missing or wrong; totals add up and phone numbers follow the Malawi format", ""],
+           [5, "Leave the form part-way", "No keeps your entries, Yes discards them", ""],
+           [10, "Names and limits", "Reserved or duplicate names are refused; each cooperative can have only one application", ""],
            [50, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"]] },
-    { no: 10, day: 4, slot: 1, title: "Post-training, Union assessment, member search and committee changes", req: ["app", "off", "sup"], call: ["adm"], avail: 150,
-      note: "Three groups work at the same time. MNS prepares enough active primary cooperatives for the Union, and cooperatives with a submitted election for the meeting tests (one with a committee member whose term has ended, one with a member sitting on several committees).",
-      epics: ["Post-training", "Cooperative Union", "Membership Management with leaders"],
-      tracks: { A: "Group A: post-training", B: "Group B: Union assessment and member search", C: "Group C: new meetings, replacing committee members" },
-      ag: [[20, "Request a post-training", "Only active trainings are listed; enroll with the number of members and a comment", "", "", "A"],
-           [10, "Post-training history", "Search, clear, and open a request read-only", "", "", "A"],
-           [10, "Post-training dashboard", "Counts per status, opening the list from a card", "", "", "A"],
-           [8, "Find a post-training request", "Search and open requests; Edit is offered only for open ones", "", "", "A"],
-           [8, "Mark In Progress", "Add a comment; the status changes", "", "", "A"],
-           [10, "Put on hold, release", "Hold with a reason; release returns it to Pending", "", "", "A"],
-           [10, "Break", "", "", "x", "A"],
-           [12, "Complete a request", "Venue, dates, report and remarks; the request becomes read-only", "", "", "A"],
-           [7, "Reject a request", "Reject with a comment", "", "", "A"],
-           [10, "Email notifications", "The cooperative is emailed at each status change", "", "", "A"],
-           [20, "Union: start an assessment", "Choose Union Cooperative; the list of primary cooperatives appears; submit", "", "", "B"],
-           [20, "Union: add primary cooperatives", "Only active registered ones, never another Union; the minimum number is respected", "", "", "B"],
-           [10, "Break", "", "", "x", "B"],
-           [15, "Union: officer decides", "Approve or reject the assessment with a comment", "", "", "B"],
-           [41, "Search members", "By name, ID, gender, shareholding range and status, alone or combined; Clear resets the search", "", "", "B"],
-           [58, "Start a new meeting", "Choose a general or annual meeting; dates and place; the form is prefilled with the last committees; a member whose term ended is highlighted; add members; submit with confirmation; cancel changes nothing; the old structure stays in the history", "", "", "C"],
-           [10, "Break", "", "", "x", "C"],
-           [53, "Replace a committee member", "Replace an inactive or an active member; replacing the Executive Vice Chairman updates the Education chairperson; a member on several committees triggers a warning that lists them; a mandatory role left empty blocks submission", "", "", "C"],
-           [59, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"],
+    { no: 4, day: 1, slot: 1, title: "Assessment and CME Training", req: ["app", "off", "sup"], call: ["adm"], avail: 150,
+      note: "Each cooperative approved in the Assessment carries on into CME, then Registration the next morning.",
+      epics: ["Assessment", "CME Training"],
+      ag: [[10, "Officer finds the assessment", "The officer is emailed, opens the queue and searches for the application", ""],
+           [15, "Approve one, reject one", "The officer decides with a comment; approved opens the CME step, rejected lets the cooperative start again", ""],
+           [5, "Follow the status", "Dashboards of the cooperative and of the officers show the right status and counts", ""],
+           [15, "Request CME training", "Ask with the number of members and a comment; the request shows Pending and is read-only", ""],
+           [10, "Follow the request", "Status colours on the dashboard and the officer's reason on a banner", ""],
+           [15, "Officer dashboard and list", "Counts per status; search and page the CME list", ""],
+           [15, "Break", "", "", "x"],
+           [15, "Put on hold and release", "Hold with a reason, then release", ""],
+           [15, "Approve", "Add the report and the reason", ""],
+           [10, "View the approved request", "Open it and download the approved report", ""],
+           [10, "Validity and deadlines", "Expired status; registration opens with a deadline banner and the invoice", ""],
+           [45, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"],
            [30, "Daily review", "With the client UAT Lead", "", "x"]] },
-    { no: 11, day: 5, slot: 0, title: "Cooperative Union, committee changes, banners and full journeys", req: ["app", "off", "sup"], call: ["adm"], avail: 150,
-      note: "Three groups work at the same time. Officers check the Union page signed out. MNS prepares an approved Union for the By-Laws Amendment, cooperatives with committee members who have become inactive, and cooperatives whose approval and meeting dates were moved on the test system so the deadline banners can be seen. Ticketing is the last module and is tested in the afternoon.",
-      epics: ["Cooperative Union", "Membership Management with leaders", "End-to-end journeys"],
-      tracks: { A: "Group A: Cooperative Union", B: "Group B: Union By-Laws Amendment and deadline banners", C: "Group C: removing members and inactive members on committees" },
-      ag: [[30, "Union: submit the registration", "Prefilled details, primaries, members and shares, documents and payment proof", "", "", "A"],
-           [20, "Union: officer and supervisor review", "Recommend, approve or reject with comments", "", "", "A"],
-           [15, "Union: amend and resubmit", "Request an amendment; the applicant updates and resubmits", "", "", "A"],
-           [15, "Break", "", "", "x", "A"],
-           [15, "Union: view the profile", "On the back-office and, signed out, on the public portal", "", "", "A"],
-           [15, "Union: manage primaries", "Add and remove primary cooperatives; officers see the updated list", "", "", "A"],
-           [20, "Union By-Laws Amendment", "Submit and process a Union By-Laws Amendment", "", "", "B"],
-           [62, "Deadline banners", "Yellow banner for 30 days after approval, red when overdue; the Elect Leaders button for the applicant only; banner gone once submitted; next meeting due after the financial year end; only one banner at a time", "", "", "B"],
-           [15, "Break", "", "", "x", "B"],
-           [45, "Remove a committee member", "Mandatory roles cannot be removed; a committee at its minimum size refuses; the Education chairperson depends on the Executive Vice Chairman; an optional subcommittee can be removed whole", "", "", "C"],
-           [53, "Member becomes inactive", "Making an elected member inactive marks the committee roles, shows a warning and a Non-Compliant committee; filling the vacancy in a new meeting makes it compliant again", "", "", "C"],
-           [15, "Break", "", "", "x", "C"],
-           [67, "Catch-up", "Tests blocked or not finished in earlier sessions", "", "x"],
-           ["11:30", "Three full journeys, start to finish", "Confirm one cooperative from sign-up to certificate, the rejection loop, and a registered cooperative's changes; catch up on blocked tests", "", "x", "", 60]] },
-    { no: 12, day: 5, slot: 1, title: "Dissolution, Grievance, results review and close (virtual meeting Tue 3 Nov)", req: ["app", "off", "sup"], call: ["adm"], avail: 80,
-      note: "Dissolution and Grievance run on the COMIS ticketing system and come last. Two groups work at the same time until about 14:50. Officers submit the public forms signed out. The client UAT Lead and the Registrar or delegate must attend the closing from 15:05.",
-      epics: ["Dissolution (COMIS ticketing system)", "Grievance Redress Mechanism (COMIS ticketing system)", "Client UAT Lead and Registrar or delegate", "Defects are classified at the virtual meeting on Tue 3 Nov"],
-      tracks: { A: "Group A: Dissolution", B: "Group B: Grievance" },
-      ag: [[25, "Dissolution: request to confirmed", "Created as Pending, escalated to the supervisor and confirmed; the cooperative then shows as Dissolved", "", "", "A"],
-           [20, "Request a dissolution from COMIS", "From the cooperative profile and from a cooperative record; check the ticket", "", "", "A"],
-           [15, "Reject a dissolution", "The cooperative stays active and the applicant is told", "", "", "A"],
-           [30, "Grievance: the three forms", "Inquiry, Complaint (with an attachment) and Grievance from the website; each creates the right ticket", "", "", "B"],
-           [15, "Work a grievance to closure", "The officer and supervisor take a ticket through its statuses", "", "", "B"],
-           [20, "Catch-up", "Tests still blocked or not finished; nothing is fixed during UAT", "", "x"],
+    { no: 5, day: 2, slot: 0, title: "Cooperative Registration and Cooperative profile with By-Laws Amendment", req: ["app", "off", "sup"], call: ["adm"], avail: 195,
+      note: "Registration starts with the cooperatives that have a valid CME. MNS submits a few registrations beforehand so the officer can start reviewing while the applicant is still filling in the form. The decision comes next, then the registered cooperative's profile.",
+      epics: ["Cooperative Registration", "Cooperative profile with By-Laws Amendment"],
+      ag: [[15, "Choose the journey and start a registration", "Pick the registration journey on the dashboard; details are prefilled from the assessment", ""],
+           [15, "Add members and shares", "Add, edit and delete members; totals and percentages calculate; a member above the limit is highlighted", ""],
+           [15, "Upload documents and receipt", "By-Laws, Action Plan and payment receipt; wrong files or a missing receipt are refused", ""],
+           [10, "Submit and follow", "The submitted registration is read-only and the dashboard shows its status", ""],
+           [10, "Name and documents", "The cooperative name is checked; documents open only for authorised people", ""],
+           [15, "Break", "", "", "x"],
+           [10, "Officer finds applications", "Search the registration applications and read the dashboard counts", ""],
+           [15, "Review and recommend", "The officer recommends for approval and the supervisor is emailed", ""],
+           [15, "Supervisor approves a registration", "The applicant's email carries the certificate and By-Laws with QR codes", ""],
+           [15, "Return for amendment, resubmit", "The supervisor asks for changes; the applicant amends and resubmits; or the application is rejected", ""],
+           [10, "Fast track registration", "Register through fast track; a registered cooperative cannot register again", ""],
+           [15, "View the cooperative profile", "The cooperative sees its own profile, with its supporting documents and the informational banner", ""],
+           [10, "Edit the cooperative profile", "Change the editable fields and check they are kept", ""],
+           [5, "Officer searches cooperatives", "Search and open any cooperative's profile", ""],
+           [65, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"]] },
+    { no: 6, day: 2, slot: 1, title: "Cooperative profile with By-Laws Amendment, Membership Management with leaders and Cooperative Union", req: ["app", "off", "sup"], call: ["adm"], avail: 150,
+      note: "MNS prepares By-Laws amendments in different statuses, active primary cooperatives for the Union, and cooperatives with members in the states each test needs (untouched, changed shares, inactive, on a committee).",
+      epics: ["Cooperative profile with By-Laws Amendment", "Membership Management with leaders", "Cooperative Union"],
+      ag: [[15, "Create and save an amendment", "Choose the amendment type, update the fields (the name of the cooperative is editable), save, and see the invoice", ""],
+           [10, "Upload the receipt and submit", "A missing receipt is refused", ""],
+           [10, "Follow up as the applicant", "Status and reviewer comment; amend and resubmit; start again after a rejection", ""],
+           [10, "Dashboard and search", "Counts per status and searching the amendments", ""],
+           [15, "Officer reviews", "Recommend, ask for changes or reject", ""],
+           [15, "Supervisor decides", "Approve, ask for changes or reject", ""],
+           [10, "After approval", "New details on the profile, a new certificate, approved By-Laws, previous by-laws archived", ""],
+           [10, "By-Laws Amendment history", "The applicant, and the officer and supervisor, see the history of a cooperative's amendments", ""],
+           [15, "Break", "", "", "x"],
+           [15, "View the member register", "Columns, 10 per page, highest shareholding first, totals correct, member details read-only", ""],
+           [25, "Union: assessment", "Choose Union Cooperative, add primary cooperatives (active, registered, never another Union); the officer approves or rejects", ""],
+           [30, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"],
+           [30, "Daily review", "With the client UAT Lead", "", "x"]] },
+    { no: 7, day: 3, slot: 0, title: "Membership Management with leaders, Post-training and Cooperative Union", req: ["app", "off", "sup"], call: ["adm"], avail: 195,
+      note: "MNS prepares a fresh cooperative with an untouched register for the upload, a set of prepared CSV files (one good file and about a dozen faulty ones), cooperatives whose approval dates are moved on the test system so the deadline banners can be seen, and an approved Union for its By-Laws Amendment.",
+      caution: "Some of the officer views and the deadline banners are still being built.",
+      epics: ["Membership Management with leaders", "Post-training", "Cooperative Union"],
+      ag: [[20, "Add a member", "Correct details are saved; missing data, under 18, future dates, duplicate or invalid ID, shares below 1 and bad email or phone are refused", ""],
+           [20, "Edit a member", "Change details; shares to 0 makes the member Inactive; back to 1 or more makes the member Active again; the minimum number of active members is protected", ""],
+           [15, "Deadline banners", "Yellow banner for 30 days after approval, red when overdue; the Elect Leaders button for the applicant only; banner gone once the election is submitted", ""],
+           [15, "Search members", "By name, ID, gender, shareholding range and status; Clear resets the search", ""],
+           [15, "Break", "", "", "x"],
+           [15, "Officer opens a cooperative's members", "Search a cooperative, open its members, read-only details, no Add or Edit", ""],
+           [15, "Officer searches all members", "Filter by cooperative details, member ID, name and gender; no match message", ""],
+           [15, "Member history", "A change of shares or status shows a history line; a contact change does not", ""],
+           [10, "Union By-Laws Amendment", "Submit and process a Union By-Laws Amendment", ""],
+           [30, "Upload a member file", "The overwrite warning; a good file replaces the register; a faulty file changes nothing; the upload button disappears after a success", ""],
+           [20, "Request a post-training", "Only active trainings are listed; enroll with the number of members and a comment; history and dashboard counts", ""],
+           [50, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"]] },
+    { no: 8, day: 3, slot: 1, title: "Membership Management with leaders and Post-training", req: ["app", "off", "sup"], call: ["adm"], avail: 150,
+      note: "The election needs a cooperative with at least 20 active members (one of them inactive) and the committee names written down beforehand. MNS prepares several such cooperatives, because an election can be submitted only once for each, and one cooperative with 12 or more submitted meetings across two years for the meeting history. The post-training requests from Session 7 are handled here.",
+      caution: "The election of leaders is still in development.",
+      epics: ["Membership Management with leaders", "Post-training"],
+      ag: [[25, "Faulty files are refused", "Wrong file type, too big, missing columns, empty, duplicate IDs, under-18, bad shares, too few active members", ""],
+           [10, "Emails about the upload", "A failed upload email with an error report; a success email with the total", ""],
+           [15, "Post-training: start handling a request", "Find a request, mark it In Progress, hold and release", ""],
+           [15, "Break", "", "", "x"],
+           [15, "Meeting history", "General and annual meetings, newest first; year filter; open a meeting as it was submitted; later changes leave old meetings untouched", ""],
+           [55, "First election of leaders", "Enter the meeting and term dates; fill the Management, Executive, Education and Supervisory committees under their rules; errors are listed; submit with the minutes and confirmation; the result is read-only", ""],
+           [15, "Find members while choosing leaders", "Type three letters to search; already chosen members are greyed out; inactive members never appear", ""],
+           [30, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"],
+           [30, "Daily review", "With the client UAT Lead", "", "x"]] },
+    { no: 9, day: 4, slot: 0, title: "Membership Management with leaders, Post-training and Cooperative Union", req: ["app", "off", "sup"], call: ["adm"], avail: 195,
+      note: "MNS prepares cooperatives with a submitted election for the meeting tests, with a committee member whose term has ended, a member on several committees, and an elected member who becomes inactive. MNS also prepares an approved Union with primary cooperatives.",
+      caution: "The meeting and committee-change screens are still in development.",
+      epics: ["Membership Management with leaders", "Post-training", "Cooperative Union"],
+      ag: [[20, "Optional subcommittees", "Add a subcommittee with a name, a minimum of 3 and an odd maximum up to 15; wrong names and sizes are refused; one chairperson and one secretary; kept when the election is submitted", ""],
+           [5, "Election submission email", "\"Election Submission Successful\" arrives with the cooperative, the date and the committees; a failed submission sends nothing", ""],
+           [15, "View a submitted election", "Applicant, officer and supervisor open the committees, roles, members, minutes and documents; nothing can be changed", ""],
+           [25, "Start a new meeting", "Choose a general or annual meeting; the form is prefilled with the last committees; a member whose term ended is highlighted; add members; submit with confirmation", ""],
+           [15, "Break", "", "", "x"],
+           [20, "Replace a committee member", "Replace an inactive or an active member; replacing the Executive Vice Chairman updates the Education chairperson; a member on several committees triggers a warning", ""],
+           [15, "Remove a committee member", "Mandatory roles cannot be removed; a committee at its minimum size refuses", ""],
+           [15, "Member becomes inactive", "The committee roles are marked, a warning and a Non-Compliant committee show", ""],
+           [20, "Post-training: complete or reject", "Complete with venue, dates and report, or reject with a comment; the cooperative is emailed at each change", ""],
+           [20, "Union: registration and review", "Prefilled details, primaries, members and shares, documents and payment proof; officer and supervisor review; amend and resubmit", ""],
+           [10, "Union: profile and primaries", "View the profile on the back-office and, signed out, on the public portal; add and remove primary cooperatives", ""],
+           [60, "Spare time", "Room for late starts, slow emails and tests that need a second try", "", "x"]] },
+    { no: 10, day: 4, slot: 1, title: "Membership Management with leaders, Dissolution and Grievance Redress Mechanism", req: ["app", "off", "sup"], call: ["adm"], avail: 80,
+      note: "Dissolution and Grievance run on the COMIS ticketing system and come last. Officers submit the public forms signed out. For the reminder emails, MNS moves the dates or triggers the reminder job on the test system. The client UAT Lead and the Registrar or delegate must attend the closing from 15:15.",
+      caution: "The reminder emails are not built yet, and the officer and supervisor workflow screens of the ticketing system (working a dissolution or grievance ticket through its statuses) are still being specified, so they are not part of this UAT.",
+      epics: ["Membership Management with leaders", "Dissolution (COMIS ticketing system)", "Grievance Redress Mechanism (COMIS ticketing system)", "Client UAT Lead and Registrar or delegate", "Defects are classified at the virtual meeting on Tue 3 Nov"],
+      ag: [[15, "Reminder emails before the financial year end", "An email 14 days before the financial year end with the cooperative name, registration number, dates and days remaining; the applicant and every contact receive it; none once the meeting is submitted", ""],
+           [15, "Reminder emails before the meeting deadline", "An email 14 days before the deadline to submit the annual general meeting", ""],
+           [15, "Dissolution: request by the cooperative", "From the cooperative profile, the request is created as Pending and a ticket appears in the COMIS ticketing system", ""],
+           [10, "Dissolution: request by the officer", "The officer starts a dissolution request for a cooperative; check the ticket", ""],
+           [20, "Grievance: the three forms", "Inquiry, Complaint (with an attachment) and Grievance from the website; each creates the right ticket", ""],
+           [15, "Catch-up", "Tests still blocked or not finished; nothing is fixed during UAT", "", "x"],
            [15, "Break", "", "", "x"],
            [45, "Review of the problems logged", "Every problem found during the week, with a first view of its severity", "", "x"],
            [30, "UAT summary", "MNS presents tests run, passed, failed and blocked per area", "", "x"],
-           [40, "Close of testing and the Tue 3 Nov virtual meeting", "Confirm the virtual fix-and-confirm meeting on Tuesday 3 November, where the team classifies the defects with MNS. Nothing is fixed before then", "", "x"]] },
-    { no: 13, day: 6, slot: 0, meet: true, title: "Virtual fix-and-confirm meeting", req: ["off", "sup"], call: ["app", "adm"],
-      note: "Held online, after the six testing days. Time to be confirmed at the close of testing in Session 12. The client UAT Lead, the Registrar or delegate and the MNS team attend. Nothing is fixed during UAT: every defect logged during the week is classified here.",
-      epics: ["Defects logged in Sessions 1 to 12", "Client UAT Lead, Registrar or delegate, MNS team"],
+           [30, "Close of testing and the Tue 3 Nov virtual meeting", "Confirm the virtual fix-and-confirm meeting on Tuesday 3 November, where the team classifies the defects with MNS. Nothing is fixed before then", "", "x"]] },
+    { no: 11, day: 5, slot: 0, meet: true, title: "Virtual fix-and-confirm meeting", req: ["off", "sup"], call: ["app", "adm"],
+      note: "Held online, after the five testing days. Time to be confirmed at the close of testing in Session 10. The client UAT Lead, the Registrar or delegate and the MNS team attend. Nothing is fixed during UAT: every defect logged during the week is classified here.",
+      epics: ["Defects logged in Sessions 1 to 10", "Client UAT Lead, Registrar or delegate, MNS team"],
       ag: [[10, "Welcome and purpose", "What the meeting decides and how the defects are recorded", "", "x"],
            [40, "Go through the problems logged", "Area by area, from Assessment to Dissolution and Grievance, with the tester's notes", "", "x"],
            [40, "Classify each defect", "Critical, High, Medium or Low, using the severity table in this plan", "", "x"],
@@ -510,10 +473,11 @@ p { margin: 0; }
   function loadBox(s) {
     var l = load(s);
     if (!l) return "";
-    var txt = "About " + l.pct + "% of the testing time is planned" + (s.tracks ? "." : ".");
+    var txt = "About " + l.pct + "% of the testing time is planned" + (s.tracks ? " in the busiest of the groups." : ".");
     var head = l.level === "over" ? "Overloaded session" : l.level === "tight" ? "Tight session" : "Session load";
     return '<div class="loadbox ' + l.level + '"><div class="row"><span class="flag ' + l.level + '">' + head + " · " + l.pct + '%</span></div>' +
       '<div class="loadbar ' + l.level + '"><i style="width:' + Math.min(100, l.pct) + '%"></i></div><p>' + esc(txt) + "</p>" +
+      (s.caution ? '<p class="foot">' + esc(s.caution) + "</p>" : "") +
       (s.relief ? '<p class="foot"><b>How the time is made to work</b></p><ul>' + s.relief.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" : "") + "</div>";
   }
 
@@ -526,7 +490,7 @@ p { margin: 0; }
       "<h2>" + esc(s.title) + "</h2></div>" +
       '<div class="who"><div class="row"><span class="label">Must attend</span>' + pills(s.req, "req") + "</div>" +
       (s.call.length ? '<div class="row"><span class="label">On call</span>' + pills(s.call, "call") + "</div>" : "") +
-      // (s.note ? '<p class="foot">' + esc(s.note) + "</p>" : "") + "</div>" +
+      (s.note ? '<p class="foot">' + esc(s.note) + "</p>" : "") + "</div>" +
       loadBox(s) +
       '<div class="cols"><div><h3>Areas covered</h3><ul class="epics">' + s.epics.map(function (e) { return "<li>" + esc(e) + "</li>"; }).join("") + "</ul>" +
       "</div>" +

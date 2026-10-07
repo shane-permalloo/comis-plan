@@ -30,7 +30,7 @@
 body { background: var(--bg); color: var(--fg); font-family: var(--f-body); font-size: 16px; line-height: 1.5; }
 .wrap { max-width: 1280px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 56px; display: grid; gap: 28px; }
 h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.15; }
-h1 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); letter-spacing: -0.01em; }
+h1 { font-size: clamp(1.9rem, 4.2vw, 2.8rem); letter-spacing: -0.01em; }
 h2 { font-size: 1.35rem; }
 h3 { font-size: 1.05rem; }
 p { margin: 0; }
@@ -926,42 +926,43 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
       doc.setFont("helvetica", "normal").setFontSize(8).setTextColor.apply(doc, MUT);
       doc.text("COMIS user acceptance testing - 26 to 30 October 2026 - virtual meeting 3 November 2026", M, y);
       doc.setDrawColor.apply(doc, LINE).line(M, y + 2, W - M, y + 2); y += 9;
-      doc.setFontSize(8.5).text(t("SESSION " + s.no + " - " + d.n.toUpperCase() + " " + d.d + " - " + (s.meet ? "ONLINE, TIME TO BE CONFIRMED" : (s.slot ? "13:30 TO 17:00" : "08:30 TO 12:30") + " CAT")), M, y); y += 6;
-      doc.setFont("helvetica", "bold").setFontSize(15).setTextColor.apply(doc, INK);
-      var tl = doc.splitTextToSize(t(s.title), CW); doc.text(tl, M, y); y += tl.length * 6.4 + 1;
-      doc.setFontSize(9.5).setFont("helvetica", "bold").text("Must attend:", M, y);
+      doc.setFontSize(10).text(t("SESSION " + s.no + " - " + d.n.toUpperCase() + " " + d.d + " - " + (s.meet ? "ONLINE, TIME TO BE CONFIRMED" : (s.slot ? "13:30 TO 17:00" : "08:30 TO 12:30") + " CAT")), M, y); y += 6;
+      doc.setFont("helvetica", "bold").setFontSize(17).setTextColor.apply(doc, INK);
+      var tl = doc.splitTextToSize(t(s.title), CW); doc.text(tl, M, y); y += tl.length * 7.2 + 1;
+      doc.setFontSize(10.5).setFont("helvetica", "bold").text("Must attend:", M, y);
       doc.setFont("helvetica", "normal").text(t(s.req.map(function (r) { return ROLES[r].name; }).join(", ")), M + 24, y); y += 5;
       if (s.call.length) { doc.setFont("helvetica", "bold").text("On call:", M, y); doc.setFont("helvetica", "normal").text(t(s.call.map(function (r) { return ROLES[r].name; }).join(", ")), M + 24, y); y += 5; }
-      if (s.note) { doc.setFontSize(8.5).setTextColor.apply(doc, MUT); var nl = doc.splitTextToSize(t(s.note), CW); doc.text(nl, M, y); y += nl.length * 3.8 + 1; }
+      if (s.note) { doc.setFontSize(10).setTextColor.apply(doc, MUT); var nl = doc.splitTextToSize(t(s.note), CW); doc.text(nl, M, y); y += nl.length * 4.7 + 1; }
       var l = load(s);
       if (l) {
         y += 1;
         var col = l.level === "over" ? [163, 38, 27] : l.level === "tight" ? [154, 91, 0] : GREEN;
-        doc.setFont("helvetica", "bold").setFontSize(9.5).setTextColor.apply(doc, col);
+        doc.setFont("helvetica", "bold").setFontSize(10.5).setTextColor.apply(doc, col);
         doc.text((l.level === "over" ? "Overloaded session" : l.level === "tight" ? "Tight session" : "Session load") + " - " + l.pct + "% of the planned testing time", M, y);
         doc.setFillColor.apply(doc, LINE).rect(M, y + 2, 70, 2, "F"); doc.setFillColor.apply(doc, col).rect(M, y + 2, 70 * Math.min(100, l.pct) / 100, 2, "F"); y += 8;
-        if (s.caution) { doc.setFont("helvetica", "normal").setFontSize(8.5).setTextColor.apply(doc, MUT); var cl = doc.splitTextToSize(t(s.caution), CW); doc.text(cl, M, y); y += cl.length * 3.8 + 1; }
+        if (s.caution) { doc.setFont("helvetica", "normal").setFontSize(10).setTextColor.apply(doc, MUT); var cl = doc.splitTextToSize(t(s.caution), CW); doc.text(cl, M, y); y += cl.length * 4.7 + 1; }
       }
       y += 3; doc.setDrawColor.apply(doc, LINE).line(M, y, W - M, y); y += 6;
-      var LW = 38, AX = M + LW + 6, AW = W - M - AX, TW = 44;
+      var LW = 40, AX = M + LW + 6, AW = W - M - AX, TW = 50;
       doc.setFont("helvetica", "bold").setFontSize(10).setTextColor.apply(doc, INK);
       doc.text("Areas covered", M, y); doc.text("Agenda", AX, y);
       var ly = y + 5.5;
-      doc.setFont("helvetica", "normal").setFontSize(8.5);
-      s.epics.forEach(function (e) { var el = doc.splitTextToSize(t("- " + e), LW); doc.text(el, M, ly); ly += el.length * 3.8 + 1.2; });
+      doc.setFont("helvetica", "normal").setFontSize(10);
+      s.epics.forEach(function (e) { var el = doc.splitTextToSize(t("- " + e), LW); doc.text(el, M, ly); ly += el.length * 4.7 + 2; });
       var ay = y + 5.5;
       agenda(s).rows.forEach(function (r) {
-        doc.setFontSize(8.5);
+        doc.setFontSize(10);
         var tt = doc.splitTextToSize(t(r.title), TW), dd = doc.splitTextToSize(t(r.desc), AW - TW - 4);
-        var h = Math.max(tt.length * 3.8 + 3.2, dd.length * 3.8) + 2.2;
-        if (ay + h > H - M) { doc.addPage(); ay = M; }
-        doc.setFont("helvetica", "normal").setFontSize(7).setTextColor.apply(doc, MUT);
-        doc.text(s.meet ? (r.end - r.start) + " min" : hm(r.start) + (r.end > r.start ? " to " + hm(r.end) : ""), AX, ay);
-        doc.setFontSize(8.5).setFont("helvetica", r.x ? "normal" : "bold").setTextColor.apply(doc, r.x ? MUT : INK);
-        doc.text(tt, AX, ay + 3.4);
+        var h = 8.8 + (Math.max(tt.length, dd.length) - 1) * 4.5 + 3;
+        if (ay + h > H - M) { doc.addPage(); doc.setFont("helvetica", "normal").setFontSize(8.5).setTextColor.apply(doc, MUT); doc.text(t("COMIS UAT - Session " + s.no + ": " + s.title + " (agenda continued)").substring(0, 120), M, M); doc.setDrawColor.apply(doc, LINE).line(M, M + 2, W - M, M + 2); ay = M + 10; }
+        doc.setFont("helvetica", "normal").setFontSize(8).setTextColor.apply(doc, MUT);
+        doc.setDrawColor.apply(doc, LINE).line(AX, ay, W - M, ay);
+        doc.text(s.meet ? (r.end - r.start) + " min" : hm(r.start) + (r.end > r.start ? " to " + hm(r.end) : ""), AX, ay + 4);
+        doc.setFontSize(10).setFont("helvetica", r.x ? "normal" : "bold").setTextColor.apply(doc, r.x ? MUT : INK);
+        doc.text(tt, AX, ay + 8.8);
         doc.setFont("helvetica", "normal").setTextColor.apply(doc, r.x ? MUT : INK);
-        doc.text(dd, AX + TW + 4, ay + 3.4);
-        ay += h; doc.setDrawColor.apply(doc, LINE).line(AX, ay - 1.6, W - M, ay - 1.6);
+        doc.text(dd, AX + TW + 4, ay + 8.8);
+        ay += h;
       });
     });
     return Promise.resolve(doc.output("blob"));

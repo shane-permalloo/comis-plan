@@ -56,7 +56,7 @@
   .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 14px; }
   .label { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
   .field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-  input[type=number], select {
+  input[type=number], input[type=search], select {
     width: 100%; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; min-width: 0;
   }
   input[type=number] { font-family: var(--mono); font-size: 1.15rem; font-variant-numeric: tabular-nums; }
@@ -116,11 +116,11 @@
       <input type="number" id="amount" inputmode="decimal" min="0" step="any" value="1000">
     </div>
     <div class="route">
-      <div class="field"><label class="label" for="c0">1. Start with</label><select id="c0"></select></div>
+      <div class="field"><label class="label" for="c0">1. Start with</label><input type="search" id="search0" placeholder="Search country or currency" aria-label="Search start currency by country or currency"><select id="c0"></select></div>
       <div class="leg" id="leg1"><span>1st conversion</span><span class="arrow">→</span><b>–</b></div>
-      <div class="field"><label class="label" for="c1">2. Via</label><select id="c1"></select></div>
+      <div class="field"><label class="label" for="c1">2. Via</label><input type="search" id="search1" placeholder="Search country or currency" aria-label="Search via currency by country or currency"><select id="c1"></select></div>
       <div class="leg" id="leg2"><span>2nd conversion</span><span class="arrow">→</span><b>–</b></div>
-      <div class="field"><label class="label" for="c2">3. End with</label><select id="c2"></select></div>
+      <div class="field"><label class="label" for="c2">3. End with</label><input type="search" id="search2" placeholder="Search country or currency" aria-label="Search end currency by country or currency"><select id="c2"></select></div>
     </div>
     <div class="tools"><button class="btn" id="reverse" type="button">Reverse order</button></div>
   </section>
@@ -179,10 +179,25 @@
       } }
   ];
   var FALLBACK_CODES = ['AED','AUD','BRL','CAD','CHF','CNY','CZK','DKK','EUR','GBP','HKD','HUF','IDR','ILS','INR','JPY','KES','KRW','LKR','MGA','MUR','MXN','MYR','NOK','NZD','PHP','PLN','RUB','SAR','SEK','SGD','THB','TRY','USD','ZAR'];
+  var CURRENCY_REGIONS = {
+    AED: ['AE'], AFN: ['AF'], ALL: ['AL'], AMD: ['AM'], ANG: ['CW'], AOA: ['AO'], ARS: ['AR'], AUD: ['AU'], AWG: ['AW'], AZN: ['AZ'],
+    BAM: ['BA'], BBD: ['BB'], BDT: ['BD'], BGN: ['BG'], BHD: ['BH'], BIF: ['BI'], BMD: ['BM'], BND: ['BN'], BOB: ['BO'], BRL: ['BR'], BSD: ['BS'], BTN: ['BT'],
+    BWP: ['BW'], BYN: ['BY'], BZD: ['BZ'], CAD: ['CA'], CDF: ['CD'], CHF: ['CH'], CLP: ['CL'], CNY: ['CN'], COP: ['CO'], CRC: ['CR'], CUP: ['CU'], CVE: ['CV'],
+    CZK: ['CZ'], DJF: ['DJ'], DKK: ['DK'], DOP: ['DO'], DZD: ['DZ'], EGP: ['EG'], ERN: ['ER'], ETB: ['ET'], EUR: ['AT','BE','HR','CY','EE','FI','FR','DE','GR','IE','IT','LV','LT','LU','MT','NL','PT','SK','SI','ES'],
+    FJD: ['FJ'], GBP: ['GB'], GEL: ['GE'], GHS: ['GH'], GMD: ['GM'], GNF: ['GN'], GTQ: ['GT'], GYD: ['GY'], HKD: ['HK'], HNL: ['HN'], HTG: ['HT'], HUF: ['HU'],
+    IDR: ['ID'], ILS: ['IL'], INR: ['IN'], IQD: ['IQ'], IRR: ['IR'], JMD: ['JM'], JOD: ['JO'], JPY: ['JP'], KES: ['KE'], KGS: ['KG'], KHR: ['KH'], KMF: ['KM'],
+    KPW: ['KP'], KRW: ['KR'], KWD: ['KW'], KYD: ['KY'], KZT: ['KZ'], LAK: ['LA'], LBP: ['LB'], LKR: ['LK'], LRD: ['LR'], LSL: ['LS'], LYD: ['LY'], MAD: ['MA'],
+    MDL: ['MD'], MGA: ['MG'], MKD: ['MK'], MMK: ['MM'], MNT: ['MN'], MOP: ['MO'], MRU: ['MR'], MUR: ['MU'], MVR: ['MV'], MWK: ['MW'], MXN: ['MX'], MYR: ['MY'],
+    MZN: ['MZ'], NAD: ['NA'], NGN: ['NG'], NIO: ['NI'], NOK: ['NO'], NPR: ['NP'], NZD: ['NZ'], OMR: ['OM'], PAB: ['PA'], PEN: ['PE'], PGK: ['PG'], PHP: ['PH'],
+    PKR: ['PK'], PLN: ['PL'], PYG: ['PY'], QAR: ['QA'], RON: ['RO'], RSD: ['RS'], RUB: ['RU'], RWF: ['RW'], SAR: ['SA'], SBD: ['SB'], SCR: ['SC'], SDG: ['SD'],
+    SEK: ['SE'], SGD: ['SG'], SLL: ['SL'], SOS: ['SO'], SRD: ['SR'], SSP: ['SS'], STN: ['ST'], SVC: ['SV'], SYP: ['SY'], SZL: ['SZ'], THB: ['TH'], TJS: ['TJ'],
+    TMT: ['TM'], TND: ['TN'], TOP: ['TO'], TRY: ['TR'], TTD: ['TT'], TWD: ['TW'], TZS: ['TZ'], UAH: ['UA'], UGX: ['UG'], USD: ['US'], UYU: ['UY'], UZS: ['UZ'],
+    VND: ['VN'], VUV: ['VU'], WST: ['WS'], XAF: ['CM'], XCD: ['AG'], XOF: ['SN'], XPF: ['PF'], ZAR: ['ZA'], ZMW: ['ZM'], ZWL: ['ZW']
+  };
   var REFRESH_MS = 5 * 60 * 1000;
   var $ = function (id) { return document.getElementById(id); };
   var data = null;           // { rates, updated, source, fetchedAt }
-  var state = { amount: 1000, c: ['USD', 'MUR', 'EUR'], on1: false, pct1: 1.5, on2: false, pct2: 1.5, manual: false, mr1: '', mr2: '' };
+  var state = { amount: 1000, c: ['MUR', 'USD', 'EUR'], on1: false, pct1: 1.5, on2: false, pct2: 1.5, manual: false, mr1: '', mr2: '' };
 
   function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
@@ -194,6 +209,15 @@
   try { validCodes = new Set(Intl.supportedValuesOf('currency')); } catch (e) {}
   var names = null;
   try { names = new Intl.DisplayNames(undefined, { type: 'currency' }); } catch (e) {}
+  var regions = null;
+  try { regions = new Intl.DisplayNames(undefined, { type: 'region' }); } catch (e) {}
+
+  function countryNamesFor(code) {
+    var regionCodes = CURRENCY_REGIONS[code] || [];
+    return regionCodes.map(function (region) {
+      try { return regions ? regions.of(region) : region; } catch (e) { return region; }
+    });
+  }
 
   function liveRate(from, to) {
     if (!data) return NaN;
@@ -215,15 +239,32 @@
       : FALLBACK_CODES;
     ['c0', 'c1', 'c2'].forEach(function (id, i) {
       var sel = $(id), want = state.c[i];
+      var query = $('search' + i).value.trim().toLocaleLowerCase();
+      if (codes.indexOf(want) < 0) want = codes[i] || codes[0];
+      state.c[i] = want;
+      var filtered = codes.filter(function (c) {
+        if (!query) return true;
+        var currency = ''; try { currency = names ? names.of(c) : ''; } catch (e) {}
+        var countries = countryNamesFor(c);
+        return (c + ' ' + currency + ' ' + countries.join(' ')).toLocaleLowerCase().indexOf(query) >= 0;
+      });
       sel.innerHTML = '';
-      codes.forEach(function (c) {
+      if (query) {
         var o = document.createElement('option');
-        var n = ''; try { n = names ? names.of(c) : ''; } catch (e) {}
-        o.value = c; o.textContent = c + (n && n !== c ? ' — ' + n : '');
+        o.value = ''; o.textContent = filtered.length ? 'Choose a currency…' : 'No matching currencies';
+        o.disabled = true; o.selected = true;
+        sel.appendChild(o);
+      }
+      filtered.forEach(function (c) {
+        var o = document.createElement('option');
+        var currency = ''; try { currency = names ? names.of(c) : ''; } catch (e) {}
+        var countries = countryNamesFor(c);
+        var country = c === 'EUR' ? 'Euro area' : countries[0];
+        o.value = c;
+        o.textContent = c + (country ? ' — ' + country : '') + (currency && currency !== c ? ' (' + currency + ')' : '');
         sel.appendChild(o);
       });
-      if (codes.indexOf(want) < 0) want = codes[i] || codes[0];
-      sel.value = want; state.c[i] = want;
+      sel.value = filtered.indexOf(want) >= 0 ? want : (query ? '' : want);
     });
   }
 
@@ -322,7 +363,13 @@
   }
 
   ['c0', 'c1', 'c2'].forEach(function (id, i) {
-    $(id).addEventListener('change', function (e) { state.c[i] = e.target.value; render(); });
+    $(id).addEventListener('change', function (e) {
+      if (!e.target.value) return;
+      state.c[i] = e.target.value;
+      $('search' + i).value = '';
+      fillSelects(); render();
+    });
+    $('search' + i).addEventListener('input', fillSelects);
   });
   $('amount').addEventListener('input', function (e) { state.amount = e.target.value; render(); });
   $('pct1').addEventListener('input', function (e) { state.pct1 = e.target.value; render(); });

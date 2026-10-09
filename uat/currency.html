@@ -60,6 +60,14 @@
     width: 100%; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; min-width: 0;
   }
   input[type=number] { font-family: var(--mono); font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+  .currency-picker { position: relative; }
+  .currency-picker input[type=search] { padding-right: 36px; }
+  .currency-picker::after { content: "▾"; position: absolute; right: 13px; top: 9px; color: var(--muted); pointer-events: none; }
+  .picker-options { position: absolute; z-index: 5; top: calc(100% + 4px); left: 0; right: 0; max-height: 260px; overflow-y: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 8px 20px #0002; }
+  .picker-options[hidden] { display: none; }
+  .picker-option { display: block; width: 100%; border: 0; background: transparent; color: var(--ink); padding: 9px 12px; text-align: left; cursor: pointer; }
+  .picker-option:hover, .picker-option.active, .picker-option[aria-selected="true"] { background: var(--accent-soft); }
+  .picker-empty { padding: 9px 12px; color: var(--muted); }
   .route { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: end; gap: 8px; }
   .leg { display: flex; flex-direction: column; align-items: center; gap: 2px; padding-bottom: 8px; font-size: 0.72rem; color: var(--muted); min-width: 64px; text-align: center; }
   .leg b { font-family: var(--mono); font-size: 0.78rem; color: var(--ink); font-variant-numeric: tabular-nums; }
@@ -116,11 +124,11 @@
       <input type="number" id="amount" inputmode="decimal" min="0" step="any" value="1000">
     </div>
     <div class="route">
-      <div class="field"><label class="label" for="c0">1. Start with</label><input type="search" id="search0" placeholder="Search country or currency" aria-label="Search start currency by country or currency"><select id="c0"></select></div>
+      <div class="field"><label class="label" for="search0">1. Start with</label><div class="currency-picker"><input type="search" id="search0" placeholder="Search country or currency" role="combobox" aria-label="Start currency" aria-autocomplete="list" aria-expanded="false" aria-controls="options0" autocomplete="off"><div class="picker-options" id="options0" role="listbox" hidden></div><select id="c0" hidden></select></div></div>
       <div class="leg" id="leg1"><span>1st conversion</span><span class="arrow">→</span><b>–</b></div>
-      <div class="field"><label class="label" for="c1">2. Via</label><input type="search" id="search1" placeholder="Search country or currency" aria-label="Search via currency by country or currency"><select id="c1"></select></div>
+      <div class="field"><label class="label" for="search1">2. Via</label><div class="currency-picker"><input type="search" id="search1" placeholder="Search country or currency" role="combobox" aria-label="Via currency" aria-autocomplete="list" aria-expanded="false" aria-controls="options1" autocomplete="off"><div class="picker-options" id="options1" role="listbox" hidden></div><select id="c1" hidden></select></div></div>
       <div class="leg" id="leg2"><span>2nd conversion</span><span class="arrow">→</span><b>–</b></div>
-      <div class="field"><label class="label" for="c2">3. End with</label><input type="search" id="search2" placeholder="Search country or currency" aria-label="Search end currency by country or currency"><select id="c2"></select></div>
+      <div class="field"><label class="label" for="search2">3. End with</label><div class="currency-picker"><input type="search" id="search2" placeholder="Search country or currency" role="combobox" aria-label="End currency" aria-autocomplete="list" aria-expanded="false" aria-controls="options2" autocomplete="off"><div class="picker-options" id="options2" role="listbox" hidden></div><select id="c2" hidden></select></div></div>
     </div>
     <div class="tools"><button class="btn" id="reverse" type="button">Reverse order</button></div>
   </section>
@@ -202,7 +210,13 @@
   function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
 
-  try { var s = JSON.parse(lsGet('cc_state2') || 'null'); if (s && s.c && s.c.length === 3) state = Object.assign(state, s); } catch (e) {}
+  try {
+    var s = JSON.parse(lsGet('cc_state2') || 'null');
+    if (s && s.c && s.c.length === 3) {
+      state = Object.assign(state, s);
+      if (state.c[0] === 'USD' && state.c[1] === 'MUR' && state.c[2] === 'EUR') state.c = ['MUR', 'USD', 'EUR'];
+    }
+  } catch (e) {}
   try { var cached = JSON.parse(lsGet('cc_rates') || 'null'); if (cached && cached.rates) data = cached; } catch (e) {}
 
   var validCodes = null;
@@ -211,12 +225,74 @@
   try { names = new Intl.DisplayNames(undefined, { type: 'currency' }); } catch (e) {}
   var regions = null;
   try { regions = new Intl.DisplayNames(undefined, { type: 'region' }); } catch (e) {}
+  var pickerQueries = ['', '', ''];
+  var pickerOpen = [false, false, false];
+  var pickerActive = [-1, -1, -1];
 
   function countryNamesFor(code) {
     var regionCodes = CURRENCY_REGIONS[code] || [];
     return regionCodes.map(function (region) {
       try { return regions ? regions.of(region) : region; } catch (e) { return region; }
     });
+  }
+  function currencyLabel(code) {
+    var currency = ''; try { currency = names ? names.of(code) : ''; } catch (e) {}
+    var countries = countryNamesFor(code);
+    var country = code === 'EUR' ? 'Euro area' : countries[0];
+    return code + (country ? ' — ' + country : '') + (currency && currency !== code ? ' (' + currency + ')' : '');
+  }
+  function pickerMatches(code, query) {
+    if (!query) return true;
+    var currency = ''; try { currency = names ? names.of(code) : ''; } catch (e) {}
+    return (code + ' ' + currency + ' ' + countryNamesFor(code).join(' ')).toLocaleLowerCase().indexOf(query) >= 0;
+  }
+  var currencyCodes = [];
+
+  function renderPickerOptions(i) {
+    var menu = $('options' + i), input = $('search' + i), query = pickerQueries[i];
+    var matches = currencyCodes.filter(function (code) { return pickerMatches(code, query); });
+    menu.innerHTML = '';
+    if (!matches.length) pickerActive[i] = -1;
+    else if (pickerActive[i] >= matches.length) pickerActive[i] = matches.length - 1;
+    if (!matches.length) {
+      var empty = document.createElement('div');
+      empty.className = 'picker-empty'; empty.textContent = 'No matching currencies';
+      menu.appendChild(empty);
+      input.removeAttribute('aria-activedescendant');
+      return;
+    }
+    matches.forEach(function (code, index) {
+      var option = document.createElement('button');
+      option.type = 'button'; option.className = 'picker-option'; option.id = 'option-' + i + '-' + code;
+      option.setAttribute('role', 'option'); option.setAttribute('aria-selected', state.c[i] === code ? 'true' : 'false');
+      option.dataset.code = code; option.textContent = currencyLabel(code);
+      if (index === pickerActive[i]) option.classList.add('active');
+      option.addEventListener('mousedown', function (event) { event.preventDefault(); });
+      option.addEventListener('click', function () { chooseCurrency(i, code); });
+      menu.appendChild(option);
+    });
+    if (pickerActive[i] >= 0) input.setAttribute('aria-activedescendant', 'option-' + i + '-' + matches[pickerActive[i]]);
+    else input.removeAttribute('aria-activedescendant');
+  }
+
+  function openPicker(i) {
+    pickerOpen[i] = true;
+    $('options' + i).hidden = false;
+    $('search' + i).setAttribute('aria-expanded', 'true');
+    renderPickerOptions(i);
+  }
+
+  function closePicker(i, restoreValue) {
+    pickerOpen[i] = false; pickerQueries[i] = ''; pickerActive[i] = -1;
+    $('options' + i).hidden = true;
+    $('search' + i).setAttribute('aria-expanded', 'false');
+    $('search' + i).removeAttribute('aria-activedescendant');
+    if (restoreValue) $('search' + i).value = currencyLabel(state.c[i]);
+  }
+
+  function chooseCurrency(i, code) {
+    state.c[i] = code; $('c' + i).value = code;
+    closePicker(i, true); render();
   }
 
   function liveRate(from, to) {
@@ -234,37 +310,22 @@
   }
 
   function fillSelects() {
-    var codes = data
+    currencyCodes = data
       ? Object.keys(data.rates).filter(function (c) { return /^[A-Z]{3}$/.test(c) && (!validCodes || validCodes.has(c)); }).sort()
       : FALLBACK_CODES;
     ['c0', 'c1', 'c2'].forEach(function (id, i) {
       var sel = $(id), want = state.c[i];
-      var query = $('search' + i).value.trim().toLocaleLowerCase();
-      if (codes.indexOf(want) < 0) want = codes[i] || codes[0];
+      if (currencyCodes.indexOf(want) < 0) want = currencyCodes[i] || currencyCodes[0];
       state.c[i] = want;
-      var filtered = codes.filter(function (c) {
-        if (!query) return true;
-        var currency = ''; try { currency = names ? names.of(c) : ''; } catch (e) {}
-        var countries = countryNamesFor(c);
-        return (c + ' ' + currency + ' ' + countries.join(' ')).toLocaleLowerCase().indexOf(query) >= 0;
-      });
       sel.innerHTML = '';
-      if (query) {
+      currencyCodes.forEach(function (c) {
         var o = document.createElement('option');
-        o.value = ''; o.textContent = filtered.length ? 'Choose a currency…' : 'No matching currencies';
-        o.disabled = true; o.selected = true;
-        sel.appendChild(o);
-      }
-      filtered.forEach(function (c) {
-        var o = document.createElement('option');
-        var currency = ''; try { currency = names ? names.of(c) : ''; } catch (e) {}
-        var countries = countryNamesFor(c);
-        var country = c === 'EUR' ? 'Euro area' : countries[0];
-        o.value = c;
-        o.textContent = c + (country ? ' — ' + country : '') + (currency && currency !== c ? ' (' + currency + ')' : '');
+        o.value = c; o.textContent = currencyLabel(c);
         sel.appendChild(o);
       });
-      sel.value = filtered.indexOf(want) >= 0 ? want : (query ? '' : want);
+      sel.value = want;
+      if (!pickerOpen[i]) $('search' + i).value = currencyLabel(want);
+      else renderPickerOptions(i);
     });
   }
 
@@ -363,13 +424,38 @@
   }
 
   ['c0', 'c1', 'c2'].forEach(function (id, i) {
-    $(id).addEventListener('change', function (e) {
-      if (!e.target.value) return;
-      state.c[i] = e.target.value;
-      $('search' + i).value = '';
-      fillSelects(); render();
+    var input = $('search' + i);
+    input.addEventListener('focus', function () {
+      pickerQueries[i] = ''; pickerActive[i] = -1;
+      input.select(); openPicker(i);
     });
-    $('search' + i).addEventListener('input', fillSelects);
+    input.addEventListener('input', function () {
+      pickerQueries[i] = input.value.trim().toLocaleLowerCase(); pickerActive[i] = -1;
+      openPicker(i);
+    });
+    input.addEventListener('keydown', function (event) {
+      var options = $('options' + i).querySelectorAll('.picker-option');
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault(); openPicker(i);
+        var next = pickerActive[i] + (event.key === 'ArrowDown' ? 1 : -1);
+        if (next < 0) next = options.length - 1;
+        if (next >= options.length) next = 0;
+        pickerActive[i] = next; renderPickerOptions(i);
+        var active = $('options' + i).querySelector('.picker-option.active');
+        if (active) active.scrollIntoView({ block: 'nearest' });
+      } else if (event.key === 'Enter' && pickerOpen[i]) {
+        event.preventDefault();
+        var target = options[pickerActive[i] >= 0 ? pickerActive[i] : 0];
+        if (target) chooseCurrency(i, target.dataset.code);
+      } else if (event.key === 'Escape' && pickerOpen[i]) {
+        event.preventDefault(); closePicker(i, true);
+      }
+    });
+    input.addEventListener('blur', function () {
+      setTimeout(function () {
+        if (!input.matches(':focus')) closePicker(i, true);
+      }, 0);
+    });
   });
   $('amount').addEventListener('input', function (e) { state.amount = e.target.value; render(); });
   $('pct1').addEventListener('input', function (e) { state.pct1 = e.target.value; render(); });
@@ -389,7 +475,7 @@
   });
   $('reverse').addEventListener('click', function () {
     state.c.reverse();
-    ['c0', 'c1', 'c2'].forEach(function (id, i) { $(id).value = state.c[i]; });
+    fillSelects();
     render();
   });
   $('refresh').addEventListener('click', load);

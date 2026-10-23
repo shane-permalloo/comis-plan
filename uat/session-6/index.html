@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UAT Session 6: By-Laws Amendment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1410;overflow:hidden;font-family:'Public Sans',Arial,sans-serif}
+#vp{position:absolute;inset:0 0 56px 0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#stage{width:1920px;height:1080px;position:relative;transform-origin:center center;flex:none}
+#stage section{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:none!important}
+#stage section.on{display:flex!important}
+#stage p,#stage h1,#stage h2,#stage h3,#stage ul,#stage ol,#stage table{margin:0}
+#stage table{border-collapse:collapse}#stage td,#stage th{padding:.35em .6em}
+#stage aside{display:none!important}
+#bar{position:absolute;left:0;right:0;bottom:0;height:56px;background:#0E3B2D;color:#F7FAF8;display:flex;align-items:center;gap:12px;padding:0 16px;font-size:16px}
+#bar button,#bar select,#bar a{font:inherit;color:#F7FAF8;background:#17654A;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;text-decoration:none}
+#bar button:hover,#bar a:hover{background:#1f7f5e}
+#bar select{max-width:34vw}
+#count{margin-left:auto;font-weight:600}
+#notes{position:absolute;left:16px;right:16px;bottom:68px;background:#F2C46D;color:#2A1D00;padding:14px 18px;border-radius:10px;font-size:17px;line-height:1.4;display:none;max-height:40vh;overflow:auto}
+#notes.show{display:block}
+</style></head><body>
+<div id="vp"><div id="stage">
+<section id="cover" data-transition="fade" style="background:#0E3B2D;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">COMIS user acceptance testing · Office of the Registrar of Cooperatives, Malawi</p>
+<div style="display:flex;flex-direction:column;gap:32px">
+<h1 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:112px;font-weight:700;line-height:1.05;color:#F7FAF8">Session 6: By-Laws Amendment</h1>
+<p style="font-size:44px;line-height:1.3;color:#C9DCD2">By-Laws amendments from request to approval, amendment history, and a brief check of the Dashboard for every role.</p>
+</div>
+<div style="display:flex;gap:24px">
+<p style="font-size:32px;font-weight:600;background:#17654A;color:#F7FAF8;padding:16px 32px;border-radius:50px">Wednesday 28 October 2026</p>
+<p style="font-size:32px;font-weight:600;background:#F2C46D;color:#2A1D00;padding:16px 32px;border-radius:50px">13:30 to 17:00 CAT</p>
+</div>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 6 · 1 of 32</p>
+
+</section>
+<section id="today1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">The afternoon at a glance · 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Amendments, from request to history</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:20%;text-align:left">Time</th><th style="color:#F2C46D;width:36%;text-align:left">What we do</th><th style="color:#F2C46D;width:44%;text-align:left">By the end</th></tr>
+<tr style="background:#FFFFFF"><td>13:30 to 13:44</td><td><b>Make an amendment</b></td><td>Amendment submitted, Pending Review</td></tr>
+<tr style="background:#E6EDE9"><td>13:44 to 13:52</td><td><b>Follow up as applicant</b></td><td>Status, comment and resubmit seen</td></tr>
+<tr style="background:#FFFFFF"><td>13:52 to 13:58</td><td><b>Dashboard counts</b></td><td>Status cards open filtered lists</td></tr>
+<tr style="background:#E6EDE9"><td>13:58 to 14:04</td><td><b>Search amendments</b></td><td>Search, View and Edit checked</td></tr>
+<tr style="background:#FFFFFF"><td>14:04 to 14:14</td><td><b>Officer reviews</b></td><td>Recommend, ask for changes or reject</td></tr>
+<tr style="background:#E6EDE9"><td>14:14 to 14:24</td><td><b>Supervisor decides</b></td><td>Approve, ask for changes or reject</td></tr>
+<tr style="background:#FFFFFF"><td>14:24 to 14:29</td><td><b>After approval</b></td><td>Profile, certificate, By-Laws updated</td></tr>
+<tr style="background:#E6EDE9"><td>14:29 to 14:36</td><td><b>History: applicant</b></td><td>Approved and rejected cases opened</td></tr>
+<tr style="background:#FFFFFF"><td>14:36 to 14:43</td><td><b>History: officer, supervisor</b></td><td>Earlier amendment kept in History</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 2 of 32</p>
+
+</section>
+<section id="today2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">The afternoon at a glance · 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Search, the Dashboard and the review</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:20%;text-align:left">Time</th><th style="color:#F2C46D;width:36%;text-align:left">What we do</th><th style="color:#F2C46D;width:44%;text-align:left">By the end</th></tr>
+<tr style="background:#FFFFFF"><td>14:43 to 14:50</td><td><b>Search cooperatives</b></td><td>A cooperative found and opened</td></tr>
+<tr style="background:#E6EDE9"><td>14:50 to 15:05</td><td>Break</td><td>Back on time</td></tr>
+<tr style="background:#FFFFFF"><td>15:05 to 15:12</td><td><b>Announcements, links</b></td><td>Carousel and quick links checked</td></tr>
+<tr style="background:#E6EDE9"><td>15:12 to 15:19</td><td><b>Start an assessment</b></td><td>Both choices open the right form</td></tr>
+<tr style="background:#FFFFFF"><td>15:19 to 15:28</td><td><b>Track registration</b></td><td>Steps unlock one after the other</td></tr>
+<tr style="background:#E6EDE9"><td>15:28 to 15:35</td><td><b>Manage cooperative</b></td><td>Cards open the right screens</td></tr>
+<tr style="background:#FFFFFF"><td>15:35 to 15:40</td><td><b>Branding, loading</b></td><td>Logos and loading indicator seen</td></tr>
+<tr style="background:#E6EDE9"><td>15:40 to 16:30</td><td>Spare time</td><td>Late starts and second tries</td></tr>
+<tr style="background:#FFFFFF"><td>16:30 to 17:00</td><td><b>Daily review</b></td><td>With the client UAT Lead</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 3 of 32</p>
+
+</section>
+<section id="who" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">Who does what</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Four roles, prepared data</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">The roles</h3>
+<p style="font-size:32px;line-height:1.35;color:#14221C"><b>Cooperative Society (Applicant):</b> makes the amendment, follows it up, checks the history and the Dashboard.</p>
+<p style="font-size:32px;line-height:1.35;color:#14221C"><b>Registrar Officer:</b> reviews amendments, searches, views history and cooperatives.</p>
+<p style="font-size:32px;line-height:1.35;color:#14221C"><b>Registrar Supervisor:</b> decides amendments and also checks the Dashboard.</p>
+<p style="font-size:32px;line-height:1.35;color:#14221C"><b>IT Administrator (on call):</b> changes the announcements and quick links.</p>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">MNS has prepared</h3>
+<p style="font-size:32px;line-height:1.35;color:#F7FAF8">By-Laws amendments in different statuses.</p>
+<p style="font-size:32px;line-height:1.35;color:#F7FAF8">A cooperative with an approved amendment.</p>
+<p style="font-size:32px;line-height:1.35;color:#F7FAF8">A rejected assessment.</p>
+<p style="font-size:32px;line-height:1.35;color:#F7FAF8">An Active cooperative from the fast track, for the Dashboard checks.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 4 of 32</p>
+
+</section>
+<section id="a01-p1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">13:30 to 13:44 · 14 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Make and submit an amendment</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Applicant · part 1 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>On the Cooperative Profile, open the 3-dot menu and choose Make By Laws Amendment.</td><td>The form opens with all its sections, from Banner to Acknowledgement.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Read the orange information banner at the top.</td><td>It explains how to complete and submit, and stays visible throughout.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Edit fields under Cooperative Information. Hover over the greyed-out ones.</td><td>Traditional Authority and Group Village Headman are greyed out; hovering shows why.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Update Shares Information and Financial Year if needed.</td><td>Fields are pre-filled from the profile and your changes show.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 5 of 32</p>
+
+</section>
+<section id="a01-p2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">13:30 to 13:44 · 14 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Make and submit an amendment</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Applicant · part 2 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>5</td><td>Describe the changes in the Amendment details box.</td><td>Your text appears in the box.</td></tr>
+<tr style="background:#E6EDE9"><td>6</td><td>Upload Amended By-Laws and Minutes of Meeting, plus any other documents.</td><td>Files are listed and can be previewed. The Action Plan is view-only.</td></tr>
+<tr style="background:#FFFFFF"><td>7</td><td>Check the invoice.</td><td>It shows the fee set in Session 2.</td></tr>
+<tr style="background:#E6EDE9"><td>8</td><td>Tick the declaration, click Submit and confirm.</td><td>A message says the application was submitted and is awaiting review.</td></tr>
+<tr style="background:#FFFFFF"><td>9</td><td>Open the 3-dot menu, choose View Amendment.</td><td>Read-only form; status is Pending Review.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 6 of 32</p>
+
+</section>
+<section id="a02-p1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">13:44 to 13:52 · 8 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Follow up as the applicant</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Applicant · part 1 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open the Cooperative Profile and click the 3-dot menu.</td><td>View Amendment is offered while the application is under review.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Choose View Amendment.</td><td>Application number, date submitted, status and the latest reviewer comment.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>If changes were requested, open the 3-dot menu and choose Edit Amendment.</td><td>The form is editable and shows the reviewer comment.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 7 of 32</p>
+
+</section>
+<section id="a02-p2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">13:44 to 13:52 · 8 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Follow up as the applicant</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Applicant · part 2 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Update the details and click Submit.</td><td>The status returns to Pending Review.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>After approval, open the Cooperative Profile.</td><td>The approved changes and the new By-Laws are shown.</td></tr>
+<tr style="background:#FFFFFF"><td>6</td><td>If the amendment was rejected, open the 3-dot menu.</td><td>Make By Laws Amendment is offered and opens a blank form for a new application.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 8 of 32</p>
+
+</section>
+<section id="a03" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">13:52 to 13:58 · 6 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Dashboard counts</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Registrar Officer or Supervisor</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Log in and open the By-Law Amendment tab on the Dashboard.</td><td>Five status cards: Pending Review, Awaiting Supervisor Review, Amendment Requested (RO), Amendment Requested (Supervisor) and Rejected.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Click a status card.</td><td>The By-Laws Amendment List opens, filtered by that status.</td></tr>
+</table>
+<p style="font-size:32px;line-height:1.4;color:#14221C"><b>Done when:</b> each card you click opens a list that shows only that status.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 9 of 32</p>
+
+</section>
+<section id="a04" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">13:58 to 14:04 · 6 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Search amendments</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Registrar Officer or Supervisor</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Choose Applications, then By-Laws Amendment.</td><td>The search page lists applications, newest first.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Enter a number, name, dates or status and click Search.</td><td>The list shows the matching applications.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Check the Action column icons.</td><td>Each row has View; Edit shows only when it is your turn to review.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Click the View icon.</td><td>The application opens read-only; documents can only be previewed or downloaded.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 10 of 32</p>
+
+</section>
+<section id="a05" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:04 to 14:14 · 10 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Officer reviews the amendment</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Registrar Officer</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Search for status Pending Review.</td><td>The application is listed.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Click the Edit icon in the Action column.</td><td>The Review By Laws Amendment screen opens.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Click Action Required.</td><td>A pop-up offers Recommend for Approval, Request for Amendment or Reject, with a comment box.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Choose an action, enter a comment and click Confirm.</td><td>Status becomes Awaiting Supervisor Review, Amendment Requested (RO) or Rejected.</td></tr>
+</table>
+<p style="font-size:32px;line-height:1.4;color:#14221C"><b>Done when:</b> each officer has used a different action on a different application.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 11 of 32</p>
+
+</section>
+<section id="a06" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:14 to 14:24 · 10 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Supervisor decides the amendment</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Registrar Supervisor</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Search for status Awaiting Supervisor Review.</td><td>The application is listed.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Click the Edit icon in the Action column.</td><td>The review screen opens with the Registrar Officer’s comment.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Click Action Required.</td><td>A pop-up offers Approve, Request Amendment or Reject, with a comment box.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Choose an action, enter a comment and click Confirm.</td><td>Status becomes Approved, Amendment Requested (Supervisor) or Rejected.</td></tr>
+</table>
+<p style="font-size:32px;line-height:1.4;color:#14221C"><b>Done when:</b> the supervisor has tried approve, ask for changes and reject.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 12 of 32</p>
+
+</section>
+<section id="a07" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:24 to 14:29 · 5 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">After approval</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Supervisor and the Applicant</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open the Cooperative Profile of the approved amendment.</td><td>The profile shows the new details.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Look at the certificate.</td><td>A new certificate with a QR code is shown.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Look at the By-Laws.</td><td>The approved By-Laws are shown.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Look for the earlier by-laws.</td><td>The previous by-laws are archived.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 13 of 32</p>
+
+</section>
+<section id="a08-p1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:29 to 14:36 · 7 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Amendment history: applicant</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Applicant · part 1 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open the Cooperative Profile screen.</td><td>A yellow banner explains the Edit icon and the 3-dot menu options.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Click the 3-dot menu and choose View By Laws Amendment History.</td><td>The history opens in a new browser tab, filtered to this cooperative.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Review the list.</td><td>Cooperative name, dates, applicant, status and a View icon; newest first.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 14 of 32</p>
+
+</section>
+<section id="a08-p2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:29 to 14:36 · 7 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Amendment history: applicant</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Applicant · part 2 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Click the View icon on an approved application.</td><td>A read-only application with details, supporting documents and comments.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>Check the header and the documents.</td><td>The header shows approval details; documents can only be previewed or downloaded.</td></tr>
+<tr style="background:#FFFFFF"><td>6</td><td>Click the View icon on a rejected application.</td><td>The header shows rejection details and the latest comment. The amended document has no QR code.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 15 of 32</p>
+
+</section>
+<section id="a09-p1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:36 to 14:43 · 7 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">History: officer and supervisor</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Registrar Officer or Supervisor · part 1 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Go to Applications, Cooperative Societies. Find the cooperative and click View.</td><td>The View Cooperative Profile screen opens.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Click the By Laws Amendment tab.</td><td>The latest amendment opens read-only, with its status in the header.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Click History, then By Laws Amendment.</td><td>The list opens in a new tab, with the application number filled in.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 16 of 32</p>
+
+</section>
+<section id="a09-p2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:36 to 14:43 · 7 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">History: officer and supervisor</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Registrar Officer or Supervisor · part 2 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Enter some search filters and click Search.</td><td>Only the matching applications, newest first.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>Click the View icon on an application.</td><td>A read-only screen with details, supporting documents and review comments.</td></tr>
+<tr style="background:#FFFFFF"><td>6</td><td>Open the profile after an approved amendment.</td><td>The profile shows the approved details; the earlier amendment stays in History.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 17 of 32</p>
+
+</section>
+<section id="a10-p1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:43 to 14:50 · 7 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Search and view cooperatives</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Registrar Officer or Supervisor · part 1 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Choose Applications, then Cooperative Societies.</td><td>The Search Cooperative Societies page lists all cooperatives.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Enter a name, number, type, sector, district or status and click Search.</td><td>The Cooperative Society List shows the matching cooperatives.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Click Clear.</td><td>The fields reset and all cooperatives are listed again.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 18 of 32</p>
+
+</section>
+<section id="a10-p2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:43 to 14:50 · 7 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Search and view cooperatives</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Registrar Officer or Supervisor · part 2 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Click the View icon on a cooperative.</td><td>The read-only Cooperative Profile opens with a breadcrumb and a status bar.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>Scroll through the sections.</td><td>Cooperative information, members, shares, financial year, documents and contacts.</td></tr>
+<tr style="background:#FFFFFF"><td>6</td><td>For a Cooperative Union, scroll to the primary cooperatives.</td><td>A List of Primary Cooperative table sits above the members list.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 19 of 32</p>
+
+</section>
+<section id="break" data-transition="fade" style="background:#17654A;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:center;gap:32px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">14:50 to 15:05</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:128px;font-weight:700;line-height:1.05;color:#F7FAF8">Break</h2>
+<p style="font-size:44px;line-height:1.3;color:#DCEBE3">Back at 15:05 for the Dashboard.</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 6 · 20 of 32</p>
+
+</section>
+<section id="a11-p1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:05 to 15:12 · 7 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Dashboard: announcements and links</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Registrar Officer or Supervisor · part 1 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Log in as a Registrar Officer or Supervisor.</td><td>The Dashboard opens with the active announcements.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Look at the announcements area.</td><td>Each has a title and a short description; several appear as a carousel.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Use the carousel controls.</td><td>An indicator shows how many there are; you can move between them.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 21 of 32</p>
+
+</section>
+<section id="a11-p2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:05 to 15:12 · 7 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Dashboard: announcements and links</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Officer or Supervisor, and the IT Administrator · part 2 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Look to the right of the announcements.</td><td>A Quick Links section lists each active link with a clickable icon.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>Click a quick link.</td><td>The linked page opens in a new browser tab.</td></tr>
+<tr style="background:#FFFFFF"><td>6</td><td>IT Administrator: on System Reference, add, change, activate or deactivate one announcement or link. Then refresh the Dashboard.</td><td>The change appears after the refresh; a section with nothing active is hidden.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 22 of 32</p>
+
+</section>
+<section id="a12-p1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:12 to 15:19 · 7 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Dashboard: start a new assessment</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Applicant · part 1 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Log in as the Applicant and click Start Assessment.</td><td>A window opens with New Cooperative and Existing Cooperative.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Select a registration type.</td><td>Continue becomes available; Cancel is also shown.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Click Continue.</td><td>A window opens with Primary Cooperative and Union Cooperative.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Click Back.</td><td>You return to the first window with your choice kept.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 23 of 32</p>
+
+</section>
+<section id="a12-p2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:12 to 15:19 · 7 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Dashboard: start a new assessment</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Applicant · part 2 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>5</td><td>Click Cancel.</td><td>You return to the Dashboard.</td></tr>
+<tr style="background:#E6EDE9"><td>6</td><td>Click Start Assessment again, choose New Cooperative and a type, then Continue.</td><td>The Assessment form opens for that cooperative type.</td></tr>
+<tr style="background:#FFFFFF"><td>7</td><td>Repeat, choosing Existing Cooperative.</td><td>The Fast Track Registration form opens for that cooperative type.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 24 of 32</p>
+
+</section>
+<section id="a13-p1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:19 to 15:28 · 9 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Dashboard: track the registration</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Applicant · part 1 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Log in as a new Applicant and submit the Assessment form.</td><td>Assessment shows View Assessment; CME and Registration are locked.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>After the Assessment is approved, open the Dashboard.</td><td>CME is unlocked with Start CME; Registration is still locked.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>After the CME is approved, open the Dashboard.</td><td>CME shows View CME; Registration shows Start Registration.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 25 of 32</p>
+
+</section>
+<section id="a13-p2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:19 to 15:28 · 9 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Dashboard: track the registration</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Applicant · part 2 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Submit the Registration form; after approval, open the Dashboard.</td><td>Registration shows View Registration.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>Click View Registration.</td><td>The submitted details open in read-only mode.</td></tr>
+<tr style="background:#FFFFFF"><td>6</td><td>If an Assessment was rejected, open the Dashboard.</td><td>Start Assessment and a View previous Assessment link are available.</td></tr>
+<tr style="background:#E6EDE9"><td>7</td><td>Click View previous Assessment.</td><td>The earlier application opens read-only, with no window first.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 26 of 32</p>
+
+</section>
+<section id="a14-p1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:28 to 15:35 · 7 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Dashboard: manage your cooperative</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Applicant · part 1 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Log in as an Applicant with an approved registration and open the Dashboard.</td><td>A Cooperative Summary panel on top shows name, registration number and status.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Look below the summary panel.</td><td>Manage your Cooperative sits above Register your Cooperative, which stays as read-only history.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Check the cards in Manage your Cooperative.</td><td>Cooperative Profile, Member Management, By-Laws, Audit and Financial Statements, and more.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 27 of 32</p>
+
+</section>
+<section id="a14-p2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:28 to 15:35 · 7 minutes</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Dashboard: manage your cooperative</h2>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done by the Applicant · part 2 of 2</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Click any card.</td><td>The matching screen opens.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>For an existing cooperative, choose Existing Cooperative and submit the Fast Track Registration form.</td><td>The Dashboard shows only Registration with View Registration, opening read-only.</td></tr>
+<tr style="background:#FFFFFF"><td>6</td><td>After approval, open the Dashboard.</td><td>The Cooperative Summary and Manage your Cooperative section appear as before.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 28 of 32</p>
+
+</section>
+<section id="review" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">16:30 to 17:00 · 30 minutes · with the client UAT Lead</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Daily review</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">What we do</h3>
+<ol style="font-size:32px;line-height:1.4;color:#14221C">
+<li>Go through what was tested today.</li>
+<li>Note what passed and what did not.</li>
+<li>Check that every problem is written down.</li>
+<li>Agree what must be ready for the next session.</li>
+</ol>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">The outcome</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">Everyone knows what was covered and what still needs a second try.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 6 · 31 of 32</p>
+
+</section>
+<section id="wrap" data-transition="fade" style="background:#0E3B2D;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">At 17:00</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1;color:#F7FAF8">What we should have achieved</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">An amendment was made, submitted and followed up.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">The officer and supervisor reviewed and decided it.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">The profile, certificate and history show the result.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">Amendments and cooperatives can be searched and viewed.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">The Dashboard works for each role, with the right branding.</p></div>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#14503C;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">Next</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8"><b>Thursday 29 October, 08:30, Session 7:</b> Membership Management: the member register, the member CSV upload, and the deadline banners and reminder emails.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#9DB8AB;width:1664px">COMIS UAT · Session 6 · Wednesday 28 October 2026</p>
+<p style="position:absolute;left:128px;bottom:104px;font-size:24px;color:#C9DCD2;width:1664px">Nothing is fixed during UAT: problems are recorded and classified at the virtual meeting on Tuesday 3 November.</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 6 · 32 of 32</p>
+
+</section>
+</div></div>
+<div id="notes" role="note"></div>
+<div id="bar">
+<a href="../hub.html">All sessions</a>
+<button id="prev" aria-label="Previous slide">&#8592;</button><button id="next" aria-label="Next slide">&#8594;</button>
+<select id="jump" aria-label="Jump to a section"><option>Welcome, the plan for the afternoon and who does what.</option><option>Making, following up, finding and deciding on a By-Laws amendment.</option><option>After approval, amendment history and searching cooperatives.</option><option>The Dashboard for applicants and officers, plus branding and loading.</option><option>Daily review and what we have achieved.</option></select>
+<button id="nbtn" title="Show or hide the speaker notes (N)">Notes</button>
+<span id="count"></span>
+</div>
+<script>
+(function(){
+var secs=[].slice.call(document.querySelectorAll('#stage section')),i=0,N=["Welcome everyone to Session 6. This afternoon the applicant makes a By-Laws amendment, the officer and supervisor decide it, and then we check the Dashboard for each role. Walk through the plan on the next slide. Remind everyone that nothing is fixed during UAT: we record what we see and it is classified at the virtual meeting on Tuesday 3 November.", "Give the shape of the first half of the afternoon. We follow one amendment from the applicant\u2019s request, through the officer and the supervisor, to the history screens. Each activity has its own slide with what to do and what you should see. The next slide shows the rest of the afternoon, including the break at 14:50.", "The second half starts with searching cooperatives, then a 15 minute break. After the break we move to the Dashboard, one role at a time. The long spare time block is for late starts, slow emails and tests that need a second try. The daily review at 16:30 is with the client UAT Lead.", "Ask each tester to say which role they are using today. Make sure the applicant, the officer and the supervisor each know which account to sign in with. The IT Administrator is on call and will be asked to change an announcement or a quick link during the Dashboard test at 15:05. If someone cannot find the prepared cooperative or amendment they need, note it and ask the MNS trainer.", "The applicant needs an Active cooperative profile; MNS has prepared one. Let the applicant work through the four steps while the others watch the projected screen or follow on their own account. Watch for: the banner disappearing when scrolling, and the two greyed-out fields being editable. Anything that differs from the right-hand column is recorded, not fixed.", "Use the amended By-Laws and minutes files that MNS prepared. Check that the invoice amount is the fee that was set in Session 2 and say it out loud so everyone can compare. After Submit, the status must be Pending Review. This amendment is the one the officer and supervisor will pick up later, so make sure it is submitted before 14:04.", "Use the prepared amendments in different statuses. An applicant whose amendment was sent back should see Edit Amendment; one still under review sees only View Amendment. Read the reviewer comment aloud so everyone can see it matches the right-hand column.", "Steps 5 and 6 use the prepared cooperative with an approved amendment and the prepared rejected application. After a rejection the form must be blank, not filled with the old rejected data. Record anything that differs.", "Both the officer and the supervisor can do this. Ask each tester to click at least two different cards and compare the number on the card with the rows in the list. Watch for a card that opens an empty list or the wrong status.", "Ask the officer and the supervisor to compare their screens: the same application may show Edit for one and only View for the other, depending on whose turn it is. Try at least two different search fields.", "Ten minutes so that the three outcomes can be tried on different prepared applications: recommend, ask for changes, reject. Always enter a comment, because the applicant and the supervisor will read it later. Applications recommended here move to the supervisor at 14:14.", "The applications recommended by the officer should now appear as Awaiting Supervisor Review. If none arrived, use the prepared ones. Try all three outcomes on different applications. Keep one approved amendment for the next slide, where we check the cooperative profile.", "Use the amendment approved a few minutes ago, or the prepared cooperative with an approved amendment. The applicant looks at the profile; the supervisor can look at the same profile from the officer side. Watch for old details still showing, or a certificate without a QR code.", "Use the prepared Active cooperative that has at least one approved amendment. Point out that the history opens in a new tab, so the profile stays open behind it.", "Open one approved and one rejected application, as the plan asks. Compare the two headers: approval details on one, rejection details and the last comment on the other. Check that the rejected case has no QR code on the amended document.", "Use the Active cooperative with submitted amendments. The History link opens a new tab with the application number already typed in. Note whether the number is pre-filled.", "Step 6 is the key check: the profile shows the new details, but the earlier amendment must still be found in History. Try a filter that returns nothing as well as one that returns a match.", "Ask each tester to search with a different criterion so we cover name, number, type, sector, district and status between us. Then Clear and check the full list returns.", "Step 6 only applies if a Cooperative Union is available; skip it if there is none and say so. After this slide it is the 15 minute break.", "Fifteen minutes. The IT Administrator should stay reachable, because the first Dashboard test at 15:05 asks for an announcement and a quick link to be changed. Ask everyone to stay signed in on their own role.", "The announcements and quick links were set up beforehand in System Reference. Count the announcements and check the indicator shows the same number.", "Ask the IT Administrator on call to make one change while the officer or supervisor keeps the Dashboard open. Remember the refresh. If the administrator deactivates every announcement, the whole announcements section should disappear; reactivate them afterwards.", "Use the prepared applicant whose assessment was rejected, so that Start Assessment is available on the Dashboard. Check that Back keeps the choice made in the first window.", "Step 6 and step 7 open different forms: the Assessment form for a new cooperative, the Fast Track Registration form for an existing one. You can leave each form without submitting.", "Each stage is approved by the officer and the supervisor, so in the room this uses the prepared cooperatives at different stages rather than waiting for approvals. Check that each step unlocks only after the one before it.", "Steps 6 and 7 use the prepared rejected assessment. The previous Assessment must open straight away in read-only mode, without the two-window choice appearing first.", "Use the prepared Active cooperative with approved registration. Check that the Register your Cooperative section is still visible below, but only for reading.", "Click several different cards and check each opens the screen with the matching name. Steps 5 and 6 use the Active cooperative that MNS prepared from the fast track: before approval only the registration is shown, after approval the summary and the Manage your Cooperative cards appear.", "The review is led together with the client UAT Lead. Go through the list of problems recorded today and check each has enough detail. Any test that was not finished during the spare time is noted here.", "Read through the list. Anything not ticked goes to the problem log. Tomorrow morning is Membership Management, with a fresh cooperative for the upload and prepared CSV files. Remind everyone that nothing is fixed during UAT: problems are recorded and classified at the virtual meeting on Tuesday 3 November."],starts=[0, 4, 12, 20, 28];
+var st=document.getElementById('stage'),nt=document.getElementById('notes');
+function fit(){var w=document.getElementById('vp'),k=Math.min(w.clientWidth/1920,w.clientHeight/1080);st.style.transform='scale('+k+')'}
+function show(n,noh){i=Math.max(0,Math.min(secs.length-1,n));secs.forEach(function(s,k){s.classList.toggle('on',k===i)});
+ document.getElementById('count').textContent=(i+1)+' / '+secs.length;nt.textContent=N[i]||'';
+ var j=document.getElementById('jump'),b=0;starts.forEach(function(s,k){if(s<=i)b=k});j.selectedIndex=b;
+ if(!noh)try{history.replaceState(null,'','#'+(i+1))}catch(e){}}
+document.getElementById('prev').onclick=function(){show(i-1)};document.getElementById('next').onclick=function(){show(i+1)};
+document.getElementById('jump').onchange=function(){show(starts[this.selectedIndex]);this.blur()};
+function tn(){nt.classList.toggle('show')}document.getElementById('nbtn').onclick=tn;
+document.addEventListener('keydown',function(e){var k=e.key;
+ if(k==='ArrowRight'||k==='PageDown'||k===' '){e.preventDefault();show(i+1)}
+ else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();show(i-1)}
+ else if(k==='Home')show(0);else if(k==='End')show(secs.length-1);else if(k==='n'||k==='N')tn();
+ else if(k==='f'||k==='F'){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()}});
+window.addEventListener('resize',fit);fit();
+var h=parseInt((location.hash||'').slice(1),10);show(isNaN(h)?0:h-1,true);
+})();
+</script></body></html>

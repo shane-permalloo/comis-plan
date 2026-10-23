@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UAT Session 10: Grievance Redress and Dissolution</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1410;overflow:hidden;font-family:'Public Sans',Arial,sans-serif}
+#vp{position:absolute;inset:0 0 56px 0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#stage{width:1920px;height:1080px;position:relative;transform-origin:center center;flex:none}
+#stage section{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:none!important}
+#stage section.on{display:flex!important}
+#stage p,#stage h1,#stage h2,#stage h3,#stage ul,#stage ol,#stage table{margin:0}
+#stage table{border-collapse:collapse}#stage td,#stage th{padding:.35em .6em}
+#stage aside{display:none!important}
+#bar{position:absolute;left:0;right:0;bottom:0;height:56px;background:#0E3B2D;color:#F7FAF8;display:flex;align-items:center;gap:12px;padding:0 16px;font-size:16px}
+#bar button,#bar select,#bar a{font:inherit;color:#F7FAF8;background:#17654A;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;text-decoration:none}
+#bar button:hover,#bar a:hover{background:#1f7f5e}
+#bar select{max-width:34vw}
+#count{margin-left:auto;font-weight:600}
+#notes{position:absolute;left:16px;right:16px;bottom:68px;background:#F2C46D;color:#2A1D00;padding:14px 18px;border-radius:10px;font-size:17px;line-height:1.4;display:none;max-height:40vh;overflow:auto}
+#notes.show{display:block}
+</style></head><body>
+<div id="vp"><div id="stage">
+<section id="cover" data-transition="fade" style="background:#0E3B2D;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">COMIS user acceptance testing · Office of the Registrar of Cooperatives, Malawi</p>
+<div style="display:flex;flex-direction:column;gap:32px">
+<h1 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:112px;font-weight:700;line-height:1.05;color:#F7FAF8">Session 10: Grievance Redress and Dissolution</h1>
+<p style="font-size:40px;line-height:1.3;color:#C9DCD2">Handle public inquiries, complaints and grievances, close a cooperative, then close the week of testing.</p>
+</div>
+<div style="display:flex;gap:24px">
+<p style="font-size:32px;font-weight:600;background:#17654A;color:#F7FAF8;padding:16px 32px;border-radius:50px">Friday 30 October 2026</p>
+<p style="font-size:32px;font-weight:600;background:#F2C46D;color:#2A1D00;padding:16px 32px;border-radius:50px">13:30 to 17:00 CAT</p>
+</div>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 10 · 1 of 24</p>
+
+</section>
+<section id="today1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">The afternoon at a glance · 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Public requests, grievance, then dissolution</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:18%;text-align:left">Time</th><th style="color:#F2C46D;width:38%;text-align:left">What we do</th><th style="color:#F2C46D;width:44%;text-align:left">By the end</th></tr>
+<tr style="background:#FFFFFF"><td>13:30 to 13:40</td><td><b>Public forms and tickets</b></td><td>Three ticket types created</td></tr>
+<tr style="background:#E6EDE9"><td>13:40 to 13:50</td><td><b>Inquiry and complaint handling</b></td><td>Request resolved and closed</td></tr>
+<tr style="background:#FFFFFF"><td>13:50 to 14:00</td><td><b>Officer handles a grievance</b></td><td>Escalated, decisions recorded</td></tr>
+<tr style="background:#E6EDE9"><td>14:00 to 14:10</td><td><b>Supervisor decides a grievance</b></td><td>Resolved, closed and reopened</td></tr>
+<tr style="background:#FFFFFF"><td>14:10 to 14:22</td><td><b>Cooperative requests dissolution</b></td><td>Request saved with its ID</td></tr>
+<tr style="background:#E6EDE9"><td>14:22 to 14:30</td><td><b>Officer starts a dissolution</b></td><td>Pending Liquidator Report</td></tr>
+<tr style="background:#FFFFFF"><td>14:30 to 14:42</td><td><b>Process in ticketing</b></td><td>Approved or rejected, report uploaded</td></tr>
+<tr style="background:#E6EDE9"><td>14:42 to 14:54</td><td><b>Supervisor’s final decision</b></td><td>Cooperative shows Dissolved</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 2 of 24</p>
+
+</section>
+<section id="today2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">The afternoon at a glance · 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Dissolution, catch-up and closing</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:18%;text-align:left">Time</th><th style="color:#F2C46D;width:38%;text-align:left">What we do</th><th style="color:#F2C46D;width:44%;text-align:left">By the end</th></tr>
+<tr style="background:#FFFFFF"><td>14:54 to 15:06</td><td><b>Everything is read-only</b></td><td>Buttons disabled, documents download</td></tr>
+<tr style="background:#E6EDE9"><td>15:06 to 15:16</td><td>Break</td><td>Back on time</td></tr>
+<tr style="background:#FFFFFF"><td>15:16 to 16:05</td><td><b>Catch-up</b></td><td>Blocked tests finished if possible</td></tr>
+<tr style="background:#E6EDE9"><td>16:05 to 16:20</td><td><b>Review of problems logged</b></td><td>Each problem with a first severity view</td></tr>
+<tr style="background:#FFFFFF"><td>16:20 to 16:40</td><td><b>UAT summary</b></td><td>Tests run, passed, failed, blocked</td></tr>
+<tr style="background:#E6EDE9"><td>16:40 to 17:00</td><td><b>Close and Tuesday 3 November</b></td><td>Virtual meeting confirmed</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 3 of 24</p>
+
+</section>
+<section id="who" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">Before we start</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Who does what, and what is ready</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">Who takes part</h3>
+<ul style="font-size:32px;line-height:1.4;color:#14221C">
+<li><b>Cooperative Society (Applicant):</b> requests the dissolution and checks the read-only view.</li>
+<li><b>Registrar Officer:</b> starts a dissolution and handles tickets.</li>
+<li><b>Registrar Supervisor:</b> takes the final decisions.</li>
+<li><b>IT Administrator:</b> on call for access problems.</li>
+<li><b>UAT Lead and Registrar or delegate:</b> join the closing from 16:05.</li>
+</ul>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">Already prepared</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">Before the session, the ticketing users, the public tickets and the cooperatives for each dissolution stage are set up.</p>
+<p style="font-size:26px;line-height:1.4;font-weight:600;background:#F2C46D;color:#2A1D00;padding:16px 24px;border-radius:12px">Still being built: results may differ. Status names and screens in the ticketing system may change.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 4 of 24</p>
+
+</section>
+<section id="g1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">13:30 to 13:40 · 10 minutes</p>
+<p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Any public visitor</p>
+<p style="font-size:26px;font-weight:600;color:#2A1D00;background:#FFF3D6;border:2px solid #F2C46D;padding:6px 22px;border-radius:50px">Still being built: results may differ.</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Public forms and tickets</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:47%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Open the website and choose the Inquiry form.</td><td>The Inquiry form opens.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Enter the required details and click Submit.</td><td>The form is submitted and a ticket is created in COMIS Ticketing.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Repeat with the Complaint form. Add an attachment.</td><td>The submission succeeds and a Complaint ticket is created.</td></tr>
+<tr style="background:#E6EDE9"><td><b>4</b></td><td>Repeat with the Grievance form.</td><td>The submission succeeds and a Grievance ticket is created.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 5 of 24</p>
+
+</section>
+<section id="g2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">13:40 to 13:50 · 10 minutes</p>
+<p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Registrar Officer</p>
+<p style="font-size:26px;font-weight:600;color:#2A1D00;background:#FFF3D6;border:2px solid #F2C46D;padding:6px 22px;border-radius:50px">Still being built: results may differ.</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Inquiry and complaint handling</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:47%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Open Inquiry/Complaint/Grievance, search by Reference Number, click Search.</td><td>Matching records are listed.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Open a Pending Inquiry or Complaint and view or download the attachment.</td><td>The details and attachment are shown.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Set the status to Under Investigation and save.</td><td>The status changes.</td></tr>
+<tr style="background:#E6EDE9"><td><b>4</b></td><td>Enter remarks, upload an internal analysis if you wish, set Resolved.</td><td>The request closes automatically and an email is sent.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 6 of 24</p>
+
+</section>
+<section id="g3" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">13:50 to 14:00 · 10 minutes</p>
+<p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Registrar Officer</p>
+<p style="font-size:26px;font-weight:600;color:#2A1D00;background:#FFF3D6;border:2px solid #F2C46D;padding:6px 22px;border-radius:50px">Still being built: results may differ.</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Officer handles a grievance</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:47%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Open a grievance and set Under Investigation.</td><td>The status changes.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Add remarks, upload an internal analysis if you wish, set Escalated to Supervisor.</td><td>Officers and supervisors get an email. The sender does not.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>When sent back, upload the formal investigation report and escalate again.</td><td>The report is required. Status returns to Escalated to Supervisor.</td></tr>
+<tr style="background:#E6EDE9"><td><b>4</b></td><td>Record the Ministry’s decision, then the Court’s judgement.</td><td>Status: Ministry Decision Received, then Court Judgement Received. Grievance closed.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 7 of 24</p>
+
+</section>
+<section id="g4" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:00 to 14:10 · 10 minutes</p>
+<p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Registrar Supervisor</p>
+<p style="font-size:26px;font-weight:600;color:#2A1D00;background:#FFF3D6;border:2px solid #F2C46D;padding:6px 22px;border-radius:50px">Still being built: results may differ.</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Supervisor decides a grievance</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:47%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Search for and open an Inquiry or Complaint.</td><td>It opens read-only. Attachments can be viewed or downloaded.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Open a grievance, assign it to an officer, add remarks, set Pending Further Investigation.</td><td>The status changes. Officers and supervisors get an email.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Open a grievance, add remarks, upload a document if you wish, set Resolved.</td><td>The sender, officers and supervisors get an email.</td></tr>
+<tr style="background:#E6EDE9"><td><b>4</b></td><td>Close the grievance manually, then reopen it.</td><td>Both actions are saved and emails are sent.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 8 of 24</p>
+
+</section>
+<section id="d1a" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:10 to 14:22 · 12 minutes</p>
+<p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Cooperative Representative</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Request dissolution (1 of 2)</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:47%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Open your Cooperative Profile, click the 3-dot menu (⋮), choose Request for Dissolution.</td><td>The form opens with name, registration number and type Cooperative-Initiated filled in.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Enter the reason. Say if there is an accredited liquidator and add their details.</td><td>Your entries appear in the form.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Upload the Minutes of Meeting (PDF). Add other documents if you wish.</td><td>The files are listed and can be viewed or downloaded.</td></tr>
+<tr style="background:#E6EDE9"><td><b>4</b></td><td>Tick the declaration box and click Submit request.</td><td>A pop-up shows the new Request ID. Write it down.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 9 of 24</p>
+
+</section>
+<section id="d1b" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:10 to 14:22 · 12 minutes</p>
+<p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Cooperative Representative</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Request dissolution (2 of 2)</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:47%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>5</b></td><td>Save the request.</td><td>A success message appears and you return to the profile. Status: Pending Registrar Review.</td></tr>
+<tr style="background:#E6EDE9"><td><b>6</b></td><td>Open the 3-dot menu again.</td><td>The option now reads View Dissolution Request. A second request cannot be started.</td></tr>
+<tr style="background:#FFFFFF"><td><b>7</b></td><td>Open the form again, type something and click Exit.</td><td>The form closes and what you typed is discarded.</td></tr>
+</table>
+<p style="font-size:28px;line-height:1.3;background:#DCEBE3;padding:16px 24px;border-radius:12px"><b>Done when:</b> the request is saved and the status is Pending Registrar Review.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 10 of 24</p>
+
+</section>
+<section id="d2a" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:22 to 14:30 · 8 minutes</p>
+<p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Registrar Officer</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Start a dissolution (1 of 2)</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:47%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Open the cooperative’s profile, click the 3-dot menu, choose Request for Dissolution.</td><td>The form opens with name, registration number and type Cooperative-Initiated filled in.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Enter the reason and the liquidator’s name, contact number and email.</td><td>Your entries appear in the form.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Upload the supporting evidence, such as an inspection or audit report.</td><td>The files are listed and can be viewed or downloaded.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 11 of 24</p>
+
+</section>
+<section id="d2b" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:22 to 14:30 · 8 minutes</p>
+<p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Registrar Officer</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Start a dissolution (2 of 2)</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:47%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>4</b></td><td>Click Submit, then Save in the pop-up that shows the Dissolution Request ID.</td><td>A success message appears. Status: Pending Liquidator Report.</td></tr>
+<tr style="background:#E6EDE9"><td><b>5</b></td><td>Open the 3-dot menu again.</td><td>View Dissolution Request replaces Dissolve Cooperative.</td></tr>
+</table>
+<p style="font-size:28px;line-height:1.3;background:#DCEBE3;padding:16px 24px;border-radius:12px"><b>Done when:</b> the status is Pending Liquidator Report.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 12 of 24</p>
+
+</section>
+<section id="d3a" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:30 to 14:42 · 12 minutes</p>
+<p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Registrar Officer</p>
+<p style="font-size:26px;font-weight:600;color:#2A1D00;background:#FFF3D6;border:2px solid #F2C46D;padding:6px 22px;border-radius:50px">Still being built: results may differ.</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Process in ticketing (1 of 2)</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:47%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Open Dissolution in the sidebar, enter search criteria and click Search. Open a request.</td><td>Matching requests are listed.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>In Pending Registrar Review, view the Minutes of Meeting and set Under Investigation.</td><td>The status changes. Officers, supervisors and the cooperative get an email.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Add remarks, then set Dissolution Approved by Registrar or Rejected by Registrar.</td><td>Rejected ends the process and the cooperative stays Active.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 13 of 24</p>
+
+</section>
+<section id="d3b" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:30 to 14:42 · 12 minutes</p>
+<p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Registrar Officer</p>
+<p style="font-size:26px;font-weight:600;color:#2A1D00;background:#FFF3D6;border:2px solid #F2C46D;padding:6px 22px;border-radius:50px">Still being built: results may differ.</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Process in ticketing (2 of 2)</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:47%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>4</b></td><td>For an approved request, or a Registrar-Driven one in Pending Liquidator Report, upload the Liquidator Report.</td><td>The report is listed. It is required before escalating.</td></tr>
+<tr style="background:#E6EDE9"><td><b>5</b></td><td>Add remarks and set Escalated to Supervisor.</td><td>The request becomes read-only for the officer. Officers and supervisors get an email.</td></tr>
+</table>
+<p style="font-size:28px;line-height:1.3;background:#DCEBE3;padding:16px 24px;border-radius:12px"><b>Done when:</b> the request shows Escalated to Supervisor.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 14 of 24</p>
+
+</section>
+<section id="d4a" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:42 to 14:54 · 12 minutes</p>
+<p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Registrar Supervisor</p>
+<p style="font-size:26px;font-weight:600;color:#2A1D00;background:#FFF3D6;border:2px solid #F2C46D;padding:6px 22px;border-radius:50px">Still being built: results may differ.</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Final decision (1 of 2)</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:47%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Open the request that is Escalated to Supervisor.</td><td>The request, documents and liquidator report can be viewed or downloaded.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>To ask for more documents, assign the request to an officer, add remarks and set Additional Documents Required.</td><td>The status changes. The cooperative representative is not emailed.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>As Registrar Officer, upload the documents and escalate again.</td><td>The status returns to Escalated to Supervisor. This can repeat if needed.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 15 of 24</p>
+
+</section>
+<section id="d4b" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:42 to 14:54 · 12 minutes</p>
+<p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Registrar Supervisor</p>
+<p style="font-size:26px;font-weight:600;color:#2A1D00;background:#FFF3D6;border:2px solid #F2C46D;padding:6px 22px;border-radius:50px">Still being built: results may differ.</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Final decision (2 of 2)</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:47%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>4</b></td><td>Add remarks and set Cooperative Dissolved.</td><td>This is final. The request becomes read-only.</td></tr>
+<tr style="background:#E6EDE9"><td><b>5</b></td><td>Open the cooperative’s profile in the Back Office.</td><td>The status shows Dissolved. No manual action was needed.</td></tr>
+</table>
+<p style="font-size:28px;line-height:1.3;background:#DCEBE3;padding:16px 24px;border-radius:12px"><b>Done when:</b> the cooperative’s profile shows Dissolved.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 16 of 24</p>
+
+</section>
+<section id="d5a" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:54 to 15:06 · 12 minutes</p>
+<p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Officer, Supervisor and Applicant</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Read-only after dissolution (1 of 2)</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:47%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>As Officer or Supervisor: Applications &gt; Cooperative Societies, find it, click View.</td><td>Details show. Add, edit, delete, upload, submit and request buttons are disabled.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>As Applicant, open Cooperative Profile.</td><td>The profile is greyed out and all its buttons are disabled.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Open Member Management, AGM/GM, Post Training and By Laws Amendment.</td><td>Details show, but nothing can be added, changed or submitted.</td></tr>
+<tr style="background:#E6EDE9"><td><b>4</b></td><td>Open Registration, CME and Assessment.</td><td>They are read-only, as before.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 17 of 24</p>
+
+</section>
+<section id="d5b" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:54 to 15:06 · 12 minutes</p>
+<p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Officer, Supervisor and Applicant</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Read-only after dissolution (2 of 2)</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">Step</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:47%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>5</b></td><td>Open a supporting document and click download.</td><td>The document downloads.</td></tr>
+<tr style="background:#E6EDE9"><td><b>6</b></td><td>Look for the registration certificate download.</td><td>The download button is disabled.</td></tr>
+<tr style="background:#FFFFFF"><td><b>7</b></td><td>Check the profile for banners and reminders.</td><td>No banner is shown.</td></tr>
+<tr style="background:#E6EDE9"><td><b>8</b></td><td>Open a By-Laws, Post-training or AGM/GM request that was in progress.</td><td>It keeps its last status and is read-only.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 18 of 24</p>
+
+</section>
+<section id="break" data-transition="fade" style="background:#17654A;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:center;gap:32px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">15:06 to 15:16</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:128px;font-weight:700;line-height:1.05;color:#F7FAF8">Break</h2>
+<p style="font-size:44px;line-height:1.3;color:#DCEBE3">Back at 15:16 for the catch-up.</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 10 · 19 of 24</p>
+
+</section>
+<section id="catchup" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:16 to 16:05 · 49 minutes · everyone</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Catch-up</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">What you do</h3>
+<ol style="font-size:32px;line-height:1.4;color:#14221C">
+<li>Pick a test that was blocked or not finished.</li>
+<li>Run it again with the steps on the earlier slides.</li>
+<li>Record any problem you find.</li>
+<li>Ask the MNS team if you are still blocked.</li>
+</ol>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">The outcome</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">Every test is either finished or has a recorded reason why it was not.</p>
+<p style="font-size:28px;line-height:1.4;color:#C9DCD2">Nothing is fixed today: problems are only recorded.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 20 of 24</p>
+
+</section>
+<section id="review" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">16:05 to 16:20 · 15 minutes · with the UAT Lead and the Registrar or delegate</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Review of the problems logged</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">What we do</h3>
+<ol style="font-size:32px;line-height:1.4;color:#14221C">
+<li>Go through every problem found during the week.</li>
+<li>Say in one line what happened and where.</li>
+<li>Give each problem a first view of its severity.</li>
+</ol>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">The outcome</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">Every problem has been heard and has a first severity view.</p>
+<p style="font-size:28px;line-height:1.4;color:#C9DCD2">The final classification comes later, at the virtual meeting.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 21 of 24</p>
+
+</section>
+<section id="summary" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">16:20 to 16:40 · 20 minutes · presented by MNS</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">UAT summary</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">What we do</h3>
+<ol style="font-size:32px;line-height:1.4;color:#14221C">
+<li>MNS presents the results for each area.</li>
+<li>For each area: tests run, passed, failed and blocked.</li>
+<li>Testers say if a figure does not match what they saw.</li>
+</ol>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">The outcome</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">Everyone has seen the same picture of the week.</p>
+<p style="font-size:28px;line-height:1.4;color:#C9DCD2">Corrections are noted before we close.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 22 of 24</p>
+
+</section>
+<section id="close" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">16:40 to 17:00 · 20 minutes · everyone</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Close of testing</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">What we do</h3>
+<ol style="font-size:32px;line-height:1.4;color:#14221C">
+<li>Confirm the virtual fix-and-confirm meeting on Tuesday 3 November.</li>
+<li>Ask any question about how the meeting works.</li>
+<li>Thank the testers and close the week of testing.</li>
+</ol>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">The outcome</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">At the meeting the team classifies the defects with MNS.</p>
+<p style="font-size:28px;line-height:1.4;color:#C9DCD2">Nothing is fixed before then.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 10 · 23 of 24</p>
+
+</section>
+<section id="wrap" data-transition="fade" style="background:#0E3B2D;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">At 17:00</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1;color:#F7FAF8">What we should have achieved</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">An inquiry, complaint and grievance were sent and handled.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">A dissolution was requested by the cooperative and by the Officer.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">It went through ticketing to the final decision.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">A Dissolved cooperative is read-only.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">The problems were reviewed and the UAT summary was presented.</p></div>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#14503C;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">Next</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8"><b>Tuesday 3 November:</b> the virtual fix-and-confirm meeting, where the team classifies the defects with MNS.</p>
+</div>
+</div>
+<p style="font-size:26px;line-height:1.3;color:#DCEBE3">Nothing is fixed during UAT: problems are recorded and classified at the virtual meeting on Tuesday 3 November.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#9DB8AB">COMIS UAT · Session 10 · Friday 30 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 10 · 24 of 24</p>
+
+</section>
+</div></div>
+<div id="notes" role="note"></div>
+<div id="bar">
+<a href="../hub.html">All sessions</a>
+<button id="prev" aria-label="Previous slide">&#8592;</button><button id="next" aria-label="Next slide">&#8594;</button>
+<select id="jump" aria-label="Jump to a section"><option>Welcome, the plan for the afternoon and who does what.</option><option>Public forms, inquiries, complaints and grievances in ticketing.</option><option>Dissolution: request, ticketing, final decision, read-only and notifications.</option><option>Break and catch-up on blocked tests.</option><option>Review of problems, UAT summary and close of testing.</option></select>
+<button id="nbtn" title="Show or hide the speaker notes (N)">Notes</button>
+<span id="count"></span>
+</div>
+<script>
+(function(){
+var secs=[].slice.call(document.querySelectorAll('#stage section')),i=0,N=["Welcome to the last session of the week. This afternoon we test the grievance redress mechanism and then the dissolution of a cooperative, both in the COMIS ticketing system. From 16:05 the UAT Lead and the Registrar or delegate join us for the closing. Walk through the agenda on the next slide.", "Give the shape of the afternoon. The Grievance Redress Mechanism runs first, from the public forms to the supervisor's decision, then Dissolution from the cooperative's request through to the final decision. Each test has its own slides with what to do and what you should see. The ticketing system comes last because the IT officers prepared its users and data on Monday afternoon.", "Point out the break at 15:06 and that the catch-up is the time to finish tests that were blocked or not finished. The closing starts at 16:05 and the UAT Lead and the Registrar or delegate join us for it.", "Grievance redress and dissolution both run on the COMIS ticketing system and come last. Check that each tester knows their role and has their ticketing login. If someone cannot sign in, the IT Administrator on call helps. Remind testers that the module is still being finalised, so status names and screens may differ from what they see in the steps: note any difference but do not stop.", "Testers act as members of the public. Each form should create a ticket of the right type: Inquiry, Complaint and Grievance. Ask testers to keep a note of the reference numbers they see, as they search with them in the next test. The attachment on the Complaint is used again when the officer opens it.", "The officer works in COMIS Ticketing, Inquiry/Complaint/Grievance menu, on a request in status Pending. The Reference Number is the one the public form gave. Check that the email goes out when the request is resolved and the request closes by itself.", "The grievance must be in status Pending. Step 3 happens only after the supervisor has sent the grievance back, so it may need the supervisor test (next slide) to run first: the two testers can swap. In step 4 the sender appeals outside the system, and the officer only records the Ministry\u2019s decision and then the Court\u2019s judgement.", "The grievance must be in status Escalated to Supervisor. Sending it back for more work (step 2) lets the officer do step 3 of the previous test. Check which emails go out each time and that closing and reopening are both saved. This is the last test: the break follows at 14:10.", "The cooperative must be Active with no open dissolution request. The tester is the Cooperative Representative. Watch that the pre-filled fields are correct, and make sure the tester writes down the Dissolution Request ID. Steps 5 to 7 are on the next slide.", "Check that the status reads Pending Registrar Review and that the menu changes to View Dissolution Request. In step 7 the tester types something and exits: nothing should be saved.", "The cooperative must be Active with no open dissolution request, so use the cooperative prepared for this stage. Here the Registrar Officer starts the dissolution and enters the liquidator details. Steps 4 and 5 are on the next slide.", "The status differs from the cooperative\u2019s own request: here it is Pending Liquidator Report, not Pending Registrar Review. Make sure the officer notes the request ID for the ticketing test that follows.", "This is the COMIS ticketing system, Dissolution menu. The officer works on a request that has been submitted. A rejection ends the process and the cooperative stays Active, so choose the outcome the test plan expects for your request.Status names and screens may still change while the module is finalised. Steps 4 and 5 are on the next slide.", "The Registrar-Driven request is the one the officer started in the previous test. The liquidator report is required before the request can be escalated: if the screen lets someone escalate without it, record that as a problem. Hand over to the supervisor test next.", "The supervisor opens the request escalated in the previous test. Step 3 is done by the Registrar Officer, so the supervisor and officer testers need to work together. Check that the cooperative representative does not get an email when more documents are requested. Steps 4 and 5 are on the next slide.", "Cooperative Dissolved is final, so do it on the cooperative prepared for this stage. The profile should change by itself with no manual action.", "The cooperative must be Dissolved. Step 1 is done by the Registrar Officer or the Supervisor, and step 2 by the Applicant. Ask testers to try the disabled buttons: they should not respond. Steps 5 to 8 are on the next slide.", "Documents still download, but the certificate download is disabled and no banner or reminder appears. Check that a request that was in progress keeps its last status.", "Ten minutes. Ask everyone to note which tests they could not finish so the catch-up starts straight away.", "This is the last chance to finish tests from the week. Ask each tester which tests are still blocked or not finished and help them pick one. Remember the UAT Lead and the Registrar or delegate arrive at 16:05, so ask people to have their problems recorded by then.", "Welcome the UAT Lead and the Registrar or delegate. Read through the problem log together, area by area. Keep to a first view of severity only: the full classification happens with MNS at the virtual meeting. Do not discuss fixes. Watch the clock, as there are 15 minutes for the whole week.", "MNS presents the summary figures. Invite questions after each area. If a tester disagrees with a result, note it and move on: it goes to the virtual meeting with the rest.", "Confirm the meeting with the UAT Lead and the Registrar or delegate. Do not give a time or a link that has not been agreed: say the details will follow if they are not yet settled. Repeat that nothing is fixed during UAT. Problems are recorded and classified at the meeting on Tuesday 3 November.", "Read through the list. Anything not ticked is a test that was blocked or not finished: make sure it is in the problem log. Thank the testers for the week. Finish by repeating the reminder at the bottom of the slide."],starts=[0, 4, 8, 18, 20];
+var st=document.getElementById('stage'),nt=document.getElementById('notes');
+function fit(){var w=document.getElementById('vp'),k=Math.min(w.clientWidth/1920,w.clientHeight/1080);st.style.transform='scale('+k+')'}
+function show(n,noh){i=Math.max(0,Math.min(secs.length-1,n));secs.forEach(function(s,k){s.classList.toggle('on',k===i)});
+ document.getElementById('count').textContent=(i+1)+' / '+secs.length;nt.textContent=N[i]||'';
+ var j=document.getElementById('jump'),b=0;starts.forEach(function(s,k){if(s<=i)b=k});j.selectedIndex=b;
+ if(!noh)try{history.replaceState(null,'','#'+(i+1))}catch(e){}}
+document.getElementById('prev').onclick=function(){show(i-1)};document.getElementById('next').onclick=function(){show(i+1)};
+document.getElementById('jump').onchange=function(){show(starts[this.selectedIndex]);this.blur()};
+function tn(){nt.classList.toggle('show')}document.getElementById('nbtn').onclick=tn;
+document.addEventListener('keydown',function(e){var k=e.key;
+ if(k==='ArrowRight'||k==='PageDown'||k===' '){e.preventDefault();show(i+1)}
+ else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();show(i-1)}
+ else if(k==='Home')show(0);else if(k==='End')show(secs.length-1);else if(k==='n'||k==='N')tn();
+ else if(k==='f'||k==='F'){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()}});
+window.addEventListener('resize',fit);fit();
+var h=parseInt((location.hash||'').slice(1),10);show(isNaN(h)?0:h-1,true);
+})();
+</script></body></html>

@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UAT Session 7: Membership Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1410;overflow:hidden;font-family:'Public Sans',Arial,sans-serif}
+#vp{position:absolute;inset:0 0 56px 0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#stage{width:1920px;height:1080px;position:relative;transform-origin:center center;flex:none}
+#stage section{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:none!important}
+#stage section.on{display:flex!important}
+#stage p,#stage h1,#stage h2,#stage h3,#stage ul,#stage ol,#stage table{margin:0}
+#stage table{border-collapse:collapse}#stage td,#stage th{padding:.35em .6em}
+#stage aside{display:none!important}
+#bar{position:absolute;left:0;right:0;bottom:0;height:56px;background:#0E3B2D;color:#F7FAF8;display:flex;align-items:center;gap:12px;padding:0 16px;font-size:16px}
+#bar button,#bar select,#bar a{font:inherit;color:#F7FAF8;background:#17654A;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;text-decoration:none}
+#bar button:hover,#bar a:hover{background:#1f7f5e}
+#bar select{max-width:34vw}
+#count{margin-left:auto;font-weight:600}
+#notes{position:absolute;left:16px;right:16px;bottom:68px;background:#F2C46D;color:#2A1D00;padding:14px 18px;border-radius:10px;font-size:17px;line-height:1.4;display:none;max-height:40vh;overflow:auto}
+#notes.show{display:block}
+</style></head><body>
+<div id="vp"><div id="stage">
+<section id="cover" data-transition="fade" style="background:#0E3B2D;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">COMIS user acceptance testing · Office of the Registrar of Cooperatives, Malawi</p>
+<div style="display:flex;flex-direction:column;gap:32px">
+<h1 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:128px;font-weight:700;line-height:1.05;color:#F7FAF8">Session 7: Membership management</h1>
+<p style="font-size:44px;line-height:1.3;color:#C9DCD2">The member register, the member file upload and the AGM deadlines</p>
+</div>
+<div style="display:flex;gap:24px">
+<p style="font-size:32px;font-weight:600;background:#17654A;color:#F7FAF8;padding:16px 32px;border-radius:50px">Thursday 29 October 2026</p>
+<p style="font-size:32px;font-weight:600;background:#F2C46D;color:#2A1D00;padding:16px 32px;border-radius:50px">08:30 to 12:30 CAT</p>
+</div>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 7 · 1 of 32</p>
+
+</section>
+<section id="today1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">The morning at a glance · 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Four hours, fourteen tests</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:18%;text-align:left">Time</th><th style="color:#F2C46D;width:44%;text-align:left">What we do</th><th style="color:#F2C46D;width:38%;text-align:left">By the end</th></tr>
+<tr style="background:#FFFFFF"><td>08:30 to 08:42</td><td><b>View the member register</b></td><td>You can read the register</td></tr>
+<tr style="background:#E6EDE9"><td>08:42 to 08:57</td><td><b>Add a member</b></td><td>Member added; bad data refused</td></tr>
+<tr style="background:#FFFFFF"><td>08:57 to 09:12</td><td><b>Edit, inactivate, reactivate</b></td><td>Status follows the shares</td></tr>
+<tr style="background:#E6EDE9"><td>09:12 to 09:20</td><td><b>Search members</b></td><td>Search and Clear work</td></tr>
+<tr style="background:#FFFFFF"><td>09:20 to 09:35</td><td>Break</td><td>Back on time</td></tr>
+<tr style="background:#E6EDE9"><td>09:35 to 09:43</td><td><b>Officer opens a cooperative’s members</b></td><td>Read-only, no Add or Edit</td></tr>
+<tr style="background:#FFFFFF"><td>09:43 to 09:53</td><td><b>Officer searches all members</b></td><td>Search, export and paging work</td></tr>
+<tr style="background:#E6EDE9"><td>09:53 to 10:18</td><td><b>Template and member file upload</b></td><td>A good file fills the register</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 2 of 32</p>
+
+</section>
+<section id="today2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">The morning at a glance · 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">From faulty files to deadlines</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:18%;text-align:left">Time</th><th style="color:#F2C46D;width:44%;text-align:left">What we do</th><th style="color:#F2C46D;width:38%;text-align:left">By the end</th></tr>
+<tr style="background:#FFFFFF"><td>10:18 to 10:30</td><td><b>Faulty files are refused</b></td><td>Bad files are turned away</td></tr>
+<tr style="background:#E6EDE9"><td>10:30 to 10:38</td><td><b>Emails about the upload</b></td><td>Failure and success emails seen</td></tr>
+<tr style="background:#FFFFFF"><td>10:38 to 10:50</td><td><b>Restart the upload</b></td><td>Only the new members remain</td></tr>
+<tr style="background:#E6EDE9"><td>10:50 to 10:58</td><td><b>Member history</b></td><td>Shares and status show history</td></tr>
+<tr style="background:#FFFFFF"><td>10:58 to 11:08</td><td><b>Check the AGM/GM labels</b></td><td>Labels read AGM/GM</td></tr>
+<tr style="background:#E6EDE9"><td>11:08 to 11:23</td><td><b>AGM deadline banners</b></td><td>Yellow and red banners seen</td></tr>
+<tr style="background:#FFFFFF"><td>11:23 to 11:33</td><td><b>Reminder emails</b></td><td>Two reminders arrive</td></tr>
+<tr style="background:#E6EDE9"><td>11:33 to 12:30</td><td>Spare time</td><td>Late starts and second tries</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 3 of 32</p>
+
+</section>
+<section id="who" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">Before we start</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Who does what</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">Roles today</h3>
+<p style="font-size:32px;line-height:1.35;color:#14221C"><b>Cooperative Society (Applicant):</b> works in the member register and uploads the member file.</p>
+<p style="font-size:32px;line-height:1.35;color:#14221C"><b>Registrar Officer and Supervisor:</b> open and search members, check the labels and the banners.</p>
+<p style="font-size:32px;line-height:1.35;color:#14221C"><b>IT Administrator:</b> on call if anyone cannot sign in.</p>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">MNS has prepared</h3>
+<p style="font-size:32px;line-height:1.35;color:#F7FAF8">A fresh cooperative with an untouched register.</p>
+<p style="font-size:32px;line-height:1.35;color:#F7FAF8">Member files: one good file and about a dozen faulty ones.</p>
+<p style="font-size:32px;line-height:1.35;color:#F7FAF8">Cooperatives with approval dates moved on, to show the banners and emails.</p>
+</div>
+</div>
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:12px 24px;border-radius:16px">Still being built: results may differ. This covers some officer views, the deadline banners and the reminder emails.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 4 of 32</p>
+
+</section>
+<section id="reg1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">08:30 to 08:42 · 12 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">View the member register</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Cooperative Society (Applicant)</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Open Cooperative Profile / Member Management.</td><td>The Member Register opens, with a summary block above the table.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Read the summary block.</td><td>Nominal Share Value, Total Number of Shares and Total Share Capital show, and cannot be edited.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Look at the member table.</td><td>Highest Shareholding % first, 10 per page, each member Active or Inactive.</td></tr>
+<tr style="background:#E6EDE9"><td><b>4</b></td><td>Use the page controls to go to page 2.</td><td>The remaining members show, with Inactive members last.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 5 of 32</p>
+
+</section>
+<section id="reg2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">08:30 to 08:42 · 12 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">View the member register</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Cooperative Society (Applicant)</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>5</b></td><td>On a member row, select View.</td><td>The details open read-only, with no save button.</td></tr>
+<tr style="background:#E6EDE9"><td><b>6</b></td><td>On an Inactive member, select View.</td><td>Termination Date and Reason for Inactive are also shown.</td></tr>
+<tr style="background:#FFFFFF"><td><b>7</b></td><td>Return to the Member Register.</td><td>The register is shown again, unchanged.</td></tr>
+</table>
+<p style="font-size:28px;color:#17654A"><b>Done when:</b> the register, its totals and a member’s details all read correctly.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 6 of 32</p>
+
+</section>
+<section id="add1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">08:42 to 08:57 · 15 minutes · part 1 of 3</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Add a member</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Cooperative Society (Applicant)</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Open Member Management and click Add Member.</td><td>A pop-up form opens. Status shows Active; Shareholding % is read-only.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Fill in the mandatory fields, including the number of shares.</td><td>The Shareholding % preview updates as you type the shares.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Click Save.</td><td>A success message shows, the pop-up closes and the register refreshes.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 7 of 32</p>
+
+</section>
+<section id="add2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">08:42 to 08:57 · 15 minutes · part 2 of 3</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Add a member</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Cooperative Society (Applicant)</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>4</b></td><td>Check the Member Register.</td><td>The new member is listed as Active. Shareholding % of all Active members is recalculated.</td></tr>
+<tr style="background:#E6EDE9"><td><b>5</b></td><td>Click Add Member again, then Cancel.</td><td>The pop-up closes and no member is added.</td></tr>
+</table>
+<p style="font-size:28px;color:#17654A"><b>Done when:</b> one new member is in the register, and Cancel added nothing.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 8 of 32</p>
+
+</section>
+<section id="add3" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">08:42 to 08:57 · 15 minutes · part 3 of 3</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Add a member: wrong details</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Cooperative Society (Applicant)</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>6</b></td><td>Open Add Member, leave mandatory fields empty and click Save.</td><td>The member is not saved. The missing fields are flagged.</td></tr>
+<tr style="background:#E6EDE9"><td><b>7</b></td><td>Enter a date of birth under 18, or a future date.</td><td>The entry is refused and nothing is saved.</td></tr>
+<tr style="background:#FFFFFF"><td><b>8</b></td><td>Enter an ID number already in use, or an invalid one.</td><td>The entry is refused and nothing is saved.</td></tr>
+<tr style="background:#E6EDE9"><td><b>9</b></td><td>Enter shares below 1, or a bad email or phone number.</td><td>The entry is refused and nothing is saved.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 9 of 32</p>
+
+</section>
+<section id="edit1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">08:57 to 09:12 · 15 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Edit, inactivate, reactivate</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Cooperative Society (Applicant)</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>On a member row, select Edit.</td><td>The form opens pre-filled. ID Number and Status are read-only.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Change the email address and click Save.</td><td>A success message shows and the register displays the change.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Edit an Active member and set Number of Shares to 0.00.</td><td>Termination Date and Reason for Inactive appear and are mandatory.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 10 of 32</p>
+
+</section>
+<section id="edit2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">08:57 to 09:12 · 15 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Edit, inactivate, reactivate</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Cooperative Society (Applicant)</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>4</b></td><td>Enter the termination date and reason, then Save.</td><td>The member is Inactive with 0.00 shares and 0.00%. Others are recalculated.</td></tr>
+<tr style="background:#E6EDE9"><td><b>5</b></td><td>Edit that member and enter 1.00 or more shares.</td><td>Termination fields hide. Date of Entry is cleared and required.</td></tr>
+<tr style="background:#FFFFFF"><td><b>6</b></td><td>Enter a new Date of Entry and Save.</td><td>The member is Active again, with new shares and Shareholding %.</td></tr>
+<tr style="background:#E6EDE9"><td><b>7</b></td><td>Try to inactivate members below the minimum number of active members.</td><td>The change is refused: the minimum is protected.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 11 of 32</p>
+
+</section>
+<section id="search1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">09:12 to 09:20 · 8 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Search members</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Applicant, Registrar Officer or Supervisor</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Open Member Management.</td><td>The member list shows, with a search panel above it.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Look at the search panel.</td><td>First Name, Last Name, ID Number, Gender, Shareholding % (from and to), Status.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Enter part of a first name, such as Jo, and click Search.</td><td>Members whose first name contains the text are listed.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 12 of 32</p>
+
+</section>
+<section id="search2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">09:12 to 09:20 · 8 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Search members</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Applicant, Registrar Officer or Supervisor</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>4</b></td><td>Add Status and Gender, then click Search.</td><td>Only members matching every criterion are listed.</td></tr>
+<tr style="background:#E6EDE9"><td><b>5</b></td><td>Enter a name that does not exist and click Search.</td><td>“No members found matching the search criteria.”</td></tr>
+<tr style="background:#FFFFFF"><td><b>6</b></td><td>Click Clear.</td><td>All fields reset and the full member list shows again.</td></tr>
+</table>
+<p style="font-size:28px;color:#17654A"><b>Done when:</b> Clear brings back the full list.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 13 of 32</p>
+
+</section>
+<section id="break" data-transition="fade" style="background:#17654A;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:center;gap:32px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">09:20 to 09:35</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:128px;font-weight:700;line-height:1.05;color:#F7FAF8">Break</h2>
+<p style="font-size:44px;line-height:1.3;color:#DCEBE3">Back at 09:35 for the officer views.</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 7 · 14 of 32</p>
+
+</section>
+<section id="offc1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">09:35 to 09:43 · 8 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Open a cooperative’s members</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Registrar Officer or Supervisor</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Log in and open Cooperative Societies.</td><td>The Cooperative Societies search page opens.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Search for an Approved cooperative and select it.</td><td>The cooperative profile opens, with a Member tab.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Open the Member tab.</td><td>A search section and that cooperative’s members only.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:12px 24px;border-radius:16px">Still being built: results may differ.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 15 of 32</p>
+
+</section>
+<section id="offc2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">09:35 to 09:43 · 8 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Open a cooperative’s members</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Registrar Officer or Supervisor</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>4</b></td><td>Look at the list.</td><td>Columns from First Name to Status, highest Shareholding % first.</td></tr>
+<tr style="background:#E6EDE9"><td><b>5</b></td><td>Enter a search value, click Search, then Clear.</td><td>The list narrows, then returns to the full list.</td></tr>
+<tr style="background:#FFFFFF"><td><b>6</b></td><td>Select a member row.</td><td>Member Details and Membership Information, all read-only.</td></tr>
+<tr style="background:#E6EDE9"><td><b>7</b></td><td>Return to the Members list.</td><td>The list shows again. No Add Member or Edit option.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 16 of 32</p>
+
+</section>
+<section id="offall1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">09:43 to 09:53 · 10 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Search all members</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Registrar Officer or Supervisor</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Go to Applications &gt; Members.</td><td>The Search Parameters and the Member List table show.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Enter cooperative name, district, member ID, name or gender.</td><td>The search fields accept your choices.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Click Search.</td><td>Matching members are listed with cooperative, shares and status.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:12px 24px;border-radius:16px">Still being built: results may differ.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 17 of 32</p>
+
+</section>
+<section id="offall2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">09:43 to 09:53 · 10 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Search all members</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Registrar Officer or Supervisor</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>4</b></td><td>Search for a name that does not exist.</td><td>A message says no members match.</td></tr>
+<tr style="background:#E6EDE9"><td><b>5</b></td><td>Click Export to CSV above the table.</td><td>A CSV file of the listed records downloads.</td></tr>
+<tr style="background:#FFFFFF"><td><b>6</b></td><td>Use Items per page and the page arrows.</td><td>10, 25 or 50 rows show, and you can move between pages.</td></tr>
+<tr style="background:#E6EDE9"><td><b>7</b></td><td>Click Clear.</td><td>The search resets and all records are listed.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 18 of 32</p>
+
+</section>
+<section id="upload1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">09:53 to 10:18 · 25 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Download the template and upload</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Cooperative Society (Applicant), on the fresh cooperative</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Open Member Management.</td><td>Download CSV Template and Upload CSV File buttons show.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Click Download CSV Template.</td><td>The template downloads as a CSV file.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Fill it in, or take the good file MNS prepared.</td><td>The file is ready to upload.</td></tr>
+<tr style="background:#E6EDE9"><td><b>4</b></td><td>Click Upload CSV File.</td><td>A warning asks if you want to overwrite the existing member list.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 19 of 32</p>
+
+</section>
+<section id="upload2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">09:53 to 10:18 · 25 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Download the template and upload</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Cooperative Society (Applicant), on the fresh cooperative</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>5</b></td><td>Confirm the warning and choose your file.</td><td>A banner says processing is in progress and you will be told by email.</td></tr>
+<tr style="background:#E6EDE9"><td><b>6</b></td><td>Wait for processing to finish.</td><td>The upload succeeds and the register shows the members from the file.</td></tr>
+<tr style="background:#FFFFFF"><td><b>7</b></td><td>Look at the register buttons.</td><td>Upload CSV File and Download CSV Template are no longer offered.</td></tr>
+</table>
+<p style="font-size:28px;color:#17654A"><b>Done when:</b> the register holds the members from the file.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 20 of 32</p>
+
+</section>
+<section id="faulty" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">10:18 to 10:30 · 12 minutes</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Faulty files are refused</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Cooperative Society (Applicant), using the faulty files from MNS</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Upload a file of the wrong type, then one that is too big.</td><td>Each file is refused.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Upload a file with missing columns, then an empty file.</td><td>Each file is refused.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Upload a file with duplicate IDs, then one with an under-18 member.</td><td>Each file is refused.</td></tr>
+<tr style="background:#E6EDE9"><td><b>4</b></td><td>Upload a file with bad shares, then one with too few active members.</td><td>Each file is refused.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 21 of 32</p>
+
+</section>
+<section id="emails" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">10:30 to 10:38 · 8 minutes</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Emails about the upload</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Cooperative Society (Applicant)</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Open your mailbox after a faulty upload.</td><td>A failed upload email has arrived.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Open the email.</td><td>It carries an error report about the file.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Open your mailbox after the good upload.</td><td>A success email has arrived.</td></tr>
+<tr style="background:#E6EDE9"><td><b>4</b></td><td>Read the success email.</td><td>It shows the total, which matches the file.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 22 of 32</p>
+
+</section>
+<section id="restart1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">10:38 to 10:50 · 12 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Restart the upload</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Cooperative Society (Applicant), after a completed upload</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Open the Member Register.</td><td>Restart CSV Upload shows in place of Upload CSV File.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Click Restart CSV Upload.</td><td>A warning: all current members and history are deleted once a new file is uploaded.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Tick the acknowledgement box.</td><td>Continue is only enabled while the box is ticked.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 23 of 32</p>
+
+</section>
+<section id="restart2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">10:38 to 10:50 · 12 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Restart the upload</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Cooperative Society (Applicant), after a completed upload</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>4</b></td><td>Click Continue.</td><td>Upload CSV File shows again. Nothing has been deleted yet.</td></tr>
+<tr style="background:#E6EDE9"><td><b>5</b></td><td>Upload the corrected CSV file.</td><td>A banner says the file is being processed. No upload buttons meanwhile.</td></tr>
+<tr style="background:#FFFFFF"><td><b>6</b></td><td>When processing ends, open the Member Register.</td><td>Only the members of the new file are there. Restart CSV Upload is offered again.</td></tr>
+</table>
+<p style="font-size:28px;color:#17654A"><b>Done when:</b> the register holds only the new members.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 24 of 32</p>
+
+</section>
+<section id="hist1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">10:50 to 10:58 · 8 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Member history</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Applicant, Registrar Officer or Supervisor</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Open the member register and select a member.</td><td>The member details open.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Open the History section.</td><td>History entries are listed, most recent first.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Read an entry.</td><td>History Date, Membership Status and Number of Shares.</td></tr>
+<tr style="background:#E6EDE9"><td><b>4</b></td><td>Open History for a member with no changes.</td><td>“No member history available.”</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 25 of 32</p>
+
+</section>
+<section id="hist2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">10:50 to 10:58 · 8 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Member history</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Applicant, Registrar Officer or Supervisor</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>5</b></td><td>As Applicant, change a member’s shares or status, then open History.</td><td>A new history line shows the change.</td></tr>
+<tr style="background:#E6EDE9"><td><b>6</b></td><td>As Applicant, change only a contact detail, then open History.</td><td>No new history line is added.</td></tr>
+<tr style="background:#FFFFFF"><td><b>7</b></td><td>As Officer or Supervisor, find the cooperative, select the member, open History.</td><td>The same history shows, read-only.</td></tr>
+</table>
+<p style="font-size:28px;color:#17654A"><b>Done when:</b> history changes only for shares and status.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 26 of 32</p>
+
+</section>
+<section id="labels" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">10:58 to 11:08 · 10 minutes</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Check the AGM/GM labels</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Registrar Officer, Supervisor and Applicant</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>As Officer or Supervisor, open a cooperative through Search Cooperative.</td><td>The tab once called Elect Leaders now reads AGM/GM.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>As Applicant, open the cooperative.</td><td>The tabs read Members, AGM/GM and History.</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Open the History page.</td><td>The page heading reads AGM/GM History.</td></tr>
+<tr style="background:#E6EDE9"><td><b>4</b></td><td>Open the AGM/GM tab.</td><td>The same leaders screen opens as before the rename.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 27 of 32</p>
+
+</section>
+<section id="banner1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">11:08 to 11:23 · 15 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">AGM deadline banners</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Cooperative Society (Applicant)</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Open the Cooperative Profile of a newly approved cooperative.</td><td>A yellow banner shows the deadline, with an Elect Leaders button.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Open the profile of a cooperative past its deadline.</td><td>A red, bold banner: “Electing leaders and submitting AGM is overdue.”</td></tr>
+<tr style="background:#FFFFFF"><td><b>3</b></td><td>Click Elect Leaders.</td><td>The Elect Leaders screen opens for the AGM details and leaders.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:12px 24px;border-radius:16px">Still being built: results may differ.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 28 of 32</p>
+
+</section>
+<section id="banner2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">11:08 to 11:23 · 15 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">AGM deadline banners</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Applicant, then Registrar Officer or Supervisor</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>4</b></td><td>As Applicant, submit the AGM, then reopen the profile.</td><td>The First AGM banner is gone.</td></tr>
+<tr style="background:#E6EDE9"><td><b>5</b></td><td>As Officer or Supervisor, open the profile through Search Cooperative.</td><td>The same banner shows, but no Elect Leaders button.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:12px 24px;border-radius:16px">Still being built: results may differ.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 29 of 32</p>
+
+</section>
+<section id="remind1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">11:23 to 11:33 · 10 minutes</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Reminder emails</h2>
+<p style="font-size:28px;color:#4F6158"><b>Who:</b> Cooperative Society (Applicant) and its contacts</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:7%;text-align:left">#</th><th style="color:#F2C46D;width:43%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td><b>1</b></td><td>Open the mailbox of a prepared cooperative, 14 days before its financial year end.</td><td>A reminder email about the year end has arrived.</td></tr>
+<tr style="background:#E6EDE9"><td><b>2</b></td><td>Look again 14 days before its AGM submission deadline.</td><td>A second reminder, about submitting the AGM.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:12px 24px;border-radius:16px">Still being built: results may differ.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 7 · 30 of 32</p>
+
+</section>
+<section id="wrap" data-transition="fade" style="background:#0E3B2D;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">At 12:30</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1;color:#F7FAF8">What we should have achieved</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">The register was viewed, searched, and members added, edited and reactivated.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">Officers opened and searched members, read-only.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">A good file filled the register, faulty files were refused and the emails were seen.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">The upload was restarted and the history and AGM/GM labels were checked.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">The deadline banners and reminder emails were seen.</p></div>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#14503C;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">Next</h3>
+<p style="font-size:30px;line-height:1.4;color:#F7FAF8"><b>13:30, Session 8:</b> electing leaders for the first time, the meeting history, and committee changes.</p>
+<p style="font-size:30px;line-height:1.4;color:#F7FAF8">Same people, same day: the election can be submitted once for each cooperative.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;line-height:1.3;color:#9DB8AB">Nothing is fixed during UAT: problems are recorded and classified at the virtual meeting on Tuesday 3 November.<br>COMIS UAT · Session 7 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 7 · 32 of 32</p>
+
+</section>
+</div></div>
+<div id="notes" role="note"></div>
+<div id="bar">
+<a href="../hub.html">All sessions</a>
+<button id="prev" aria-label="Previous slide">&#8592;</button><button id="next" aria-label="Next slide">&#8594;</button>
+<select id="jump" aria-label="Jump to a section"><option>Welcome, the plan for the morning and who does what.</option><option>The member register as the cooperative society sees it: view, add, edit and search.</option><option>The officer views of members.</option><option>Uploading the member file, faulty files, emails and restarting the upload.</option><option>Member history, AGM/GM labels, deadline banners and reminder emails.</option><option>What we achieved and what comes next.</option></select>
+<button id="nbtn" title="Show or hide the speaker notes (N)">Notes</button>
+<span id="count"></span>
+</div>
+<script>
+(function(){
+var secs=[].slice.call(document.querySelectorAll('#stage section')),i=0,N=["Welcome everyone. This morning we test the whole membership module: the member register, the member file upload, what the officers see, and the AGM deadline banners and reminder emails. Some officer views, the banners and the reminder emails are still being built, so results there may differ. Walk through the agenda on the next slide.", "Give the shape of the morning. The first half is the register as the cooperative society sees it, then the officer views, then the file upload. Each test has its own slide with what to do and what you should see. The break is at 09:20.", "Second half of the morning. The banners and the reminder emails are still being built, so results there may differ. The last hour is spare time for late starts, slow emails and tests that need a second try.", "Say who does which test. The applicant tests the register and the upload; the officer and supervisor test their own views. Tell the room that MNS prepared the data, so nobody needs to create a cooperative. The upload works on a fresh register that can only be uploaded once per file, so go in the order of the agenda. Watch for the officer and supervisor needing a cooperative that is Approved.", "Everyone works in the prepared cooperative. Check that the totals in the summary block are correct for the members listed. Watch for the ordering: highest shareholding first, and Inactive members at the end.", "Ask people to try to change something on the details page. They should not be able to. An Inactive member needs to be shown, so use the one in the prepared register.", "Use correct details first. The mandatory fields include name, date of birth, gender, identification number, number of shares and date of entry. Watch that the Shareholding % preview moves while the number of shares is typed.", "Ask the room to compare the Shareholding % of the other members with what they were before. Next slide: wrong details that the form must refuse.", "These steps come from the test plan rather than a script. Try one wrong value at a time so you know which check refused it. Record exactly what message you saw. Cancel the form when you are done so no member is added.", "Pick a member who is not the last of the minimum number of active members. Shares set to 0 is what makes a member Inactive, so say that out loud.", "Step 7 comes from the test plan: keep inactivating members until the system should stop you. Note how many active members were left and what the system said.", "Short test, eight minutes. The applicant does it first; the officer and supervisor can repeat it when they reach their own views. Try the shareholding range as well as the name.", "Check that the message is shown exactly when nothing matches, and that Clear really empties every field.", "Fifteen minutes. Ask the Registrar Officer and Supervisor to have an Approved cooperative ready to search for when we return.", "Some officer views are still being built, so results may differ. Only an Approved cooperative can be used here. Check that only this cooperative\u2019s members appear.", "The key point is what is missing: officers must not be offered Add Member or Edit. Say so before they start and ask them to look for those buttons.", "Some officer views are still being built, so results may differ. Try a few different filters, one at a time and then together.", "Open the downloaded CSV and check that it holds the rows that were listed. Try all three page sizes.", "Upload works once on a fresh register, so be sure you use the good file here, not a faulty one. Read the overwrite warning aloud. The faulty files come in the next test.", "Processing can take a while, and an email arrives when it ends. Use the wait to start on the next tests if you are on a different cooperative. Do not click upload buttons while the banner is showing.", "These steps come from the test plan, not a script. Each of about a dozen faulty files has a different fault. Keep a list of which file you tried and what happened. Failure emails arrive for these uploads, and we check them in the next test.", "These steps come from the test plan. Emails can be slow, so if one has not arrived, move on and come back during the spare time. Note the time of upload and the time the email arrived.", "Read the warning aloud. Ask people to untick the box once and check that Continue turns off.", "The important check is the timing: nothing is deleted when Continue is clicked, only once the new file is uploaded. Look at the register between steps 4 and 5 to prove it.", "Use a member whose shares or status changed for steps 2 and 3, and a member with no changes for step 4.", "Steps 5 and 6 come from the test plan: a change of shares or status leaves a history line, a contact change does not. The officer and supervisor can only read the history.", "This is a quick check of wording only. Officer and supervisor go first, then the applicant. Look for any place that still says Elect Leaders as a tab name.", "MNS moved the approval dates of some cooperatives so both banners can be seen. The banners are still being built, so results may differ. The yellow banner shows for 30 days after approval. Read the colour and the words: the banner must say what it means, not only show a colour.", "Step 4 submits the election, which can be done only once for each cooperative, so use a cooperative that MNS prepared for this. The officer and supervisor must see the banner but must not be offered the Elect Leaders button.", "These steps come from the test plan. MNS moved approval dates on the test system so the 14-day points are reached now, rather than in real time. The reminder emails are still being built, so results may differ.", "Read through the list. Anything not ticked goes to the problem log, to be classified at the virtual meeting on Tuesday 3 November. Session 8 uses the same people and the cooperatives MNS prepared for the election."],starts=[0, 4, 14, 18, 24, 30];
+var st=document.getElementById('stage'),nt=document.getElementById('notes');
+function fit(){var w=document.getElementById('vp'),k=Math.min(w.clientWidth/1920,w.clientHeight/1080);st.style.transform='scale('+k+')'}
+function show(n,noh){i=Math.max(0,Math.min(secs.length-1,n));secs.forEach(function(s,k){s.classList.toggle('on',k===i)});
+ document.getElementById('count').textContent=(i+1)+' / '+secs.length;nt.textContent=N[i]||'';
+ var j=document.getElementById('jump'),b=0;starts.forEach(function(s,k){if(s<=i)b=k});j.selectedIndex=b;
+ if(!noh)try{history.replaceState(null,'','#'+(i+1))}catch(e){}}
+document.getElementById('prev').onclick=function(){show(i-1)};document.getElementById('next').onclick=function(){show(i+1)};
+document.getElementById('jump').onchange=function(){show(starts[this.selectedIndex]);this.blur()};
+function tn(){nt.classList.toggle('show')}document.getElementById('nbtn').onclick=tn;
+document.addEventListener('keydown',function(e){var k=e.key;
+ if(k==='ArrowRight'||k==='PageDown'||k===' '){e.preventDefault();show(i+1)}
+ else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();show(i-1)}
+ else if(k==='Home')show(0);else if(k==='End')show(secs.length-1);else if(k==='n'||k==='N')tn();
+ else if(k==='f'||k==='F'){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()}});
+window.addEventListener('resize',fit);fit();
+var h=parseInt((location.hash||'').slice(1),10);show(isNaN(h)?0:h-1,true);
+})();
+</script></body></html>

@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UAT Session 3: Users, Public Portal and Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1410;overflow:hidden;font-family:'Public Sans',Arial,sans-serif}
+#vp{position:absolute;inset:0 0 56px 0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#stage{width:1920px;height:1080px;position:relative;transform-origin:center center;flex:none}
+#stage section{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:none!important}
+#stage section.on{display:flex!important}
+#stage p,#stage h1,#stage h2,#stage h3,#stage ul,#stage ol,#stage table{margin:0}
+#stage table{border-collapse:collapse}#stage td,#stage th{padding:.35em .6em}
+#stage aside{display:none!important}
+#bar{position:absolute;left:0;right:0;bottom:0;height:56px;background:#0E3B2D;color:#F7FAF8;display:flex;align-items:center;gap:12px;padding:0 16px;font-size:16px}
+#bar button,#bar select,#bar a{font:inherit;color:#F7FAF8;background:#17654A;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;text-decoration:none}
+#bar button:hover,#bar a:hover{background:#1f7f5e}
+#bar select{max-width:34vw}
+#count{margin-left:auto;font-weight:600}
+#notes{position:absolute;left:16px;right:16px;bottom:68px;background:#F2C46D;color:#2A1D00;padding:14px 18px;border-radius:10px;font-size:17px;line-height:1.4;display:none;max-height:40vh;overflow:auto}
+#notes.show{display:block}
+</style></head><body>
+<div id="vp"><div id="stage">
+<section id="cover" data-transition="fade" style="background:#0E3B2D;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">COMIS user acceptance testing · Office of the Registrar of Cooperatives, Malawi</p>
+<div style="display:flex;flex-direction:column;gap:32px">
+<h1 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:112px;font-weight:700;line-height:1.05;color:#F7FAF8">Session 3: Users, public portal and assessment</h1>
+<p style="font-size:44px;line-height:1.3;color:#C9DCD2">The first day for the cooperative society, Officers and Supervisors</p>
+</div>
+<div style="display:flex;gap:24px">
+<p style="font-size:32px;font-weight:600;background:#17654A;color:#F7FAF8;padding:16px 32px;border-radius:50px">Tuesday 27 October 2026</p>
+<p style="font-size:32px;font-weight:600;background:#F2C46D;color:#2A1D00;padding:16px 32px;border-radius:50px">08:30 to 12:30 CAT</p>
+</div>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 3 · 1 of 26</p>
+
+</section>
+<section id="today1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">The morning at a glance · 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Accounts, systems, sign-in and transfer</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:20%;text-align:left">Time</th><th style="color:#F2C46D;width:38%;text-align:left">What we do</th><th style="color:#F2C46D;width:42%;text-align:left">By the end</th></tr>
+<tr style="background:#FFFFFF"><td>08:30 to 08:45</td><td><b>Welcome and ground rules</b></td><td>You know how to record results</td></tr>
+<tr style="background:#E6EDE9"><td>08:45 to 09:30</td><td><b>Self-registration</b></td><td>Account active, role changed</td></tr>
+<tr style="background:#FFFFFF"><td>09:30 to 09:45</td><td><b>Overview of the four systems</b></td><td>You can say how they connect</td></tr>
+<tr style="background:#E6EDE9"><td>09:45 to 09:53</td><td><b>Sign in</b></td><td>Blocked, then restored</td></tr>
+<tr style="background:#FFFFFF"><td>09:53 to 09:58</td><td><b>Sign out</b></td><td>Sign-out and timeout checked</td></tr>
+<tr style="background:#E6EDE9"><td>09:58 to 10:08</td><td><b>Forgot password</b></td><td>New password works</td></tr>
+<tr style="background:#FFFFFF"><td>10:08 to 10:23</td><td>Break</td><td>Back on time</td></tr>
+<tr style="background:#E6EDE9"><td>10:23 to 10:43</td><td><b>Transfer a society</b></td><td>New applicant owns the society</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 2 of 26</p>
+
+</section>
+<section id="today2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">The morning at a glance · 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Public portal and assessment</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:20%;text-align:left">Time</th><th style="color:#F2C46D;width:38%;text-align:left">What we do</th><th style="color:#F2C46D;width:42%;text-align:left">By the end</th></tr>
+<tr style="background:#FFFFFF"><td>10:43 to 10:55</td><td><b>Inquiry or complaint</b></td><td>You hold a reference number</td></tr>
+<tr style="background:#E6EDE9"><td>10:55 to 11:03</td><td><b>Search for a cooperative</b></td><td>Search, Clear, no results work</td></tr>
+<tr style="background:#FFFFFF"><td>11:03 to 11:18</td><td><b>Profile and QR check</b></td><td>Details, disclaimer and QR work</td></tr>
+<tr style="background:#E6EDE9"><td>11:18 to 11:26</td><td><b>Public portal pages</b></td><td>Pages display and download</td></tr>
+<tr style="background:#FFFFFF"><td>11:26 to 11:51</td><td><b>Start an assessment</b></td><td>Assessment submitted</td></tr>
+<tr style="background:#E6EDE9"><td>11:51 to 12:01</td><td><b>Names and limits</b></td><td>Bad names are refused</td></tr>
+<tr style="background:#FFFFFF"><td>12:01 to 12:30</td><td>Spare time</td><td>Second tries and late starts</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 3 of 26</p>
+
+</section>
+<section id="who" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">Who is here</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Who does what, and what is ready</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">Who does what</h3>
+<ul style="font-size:32px;line-height:1.4;color:#14221C">
+<li><b>Cooperative society (Applicant):</b> starts and submits the assessment.</li>
+<li><b>Registrar Officer and Supervisor:</b> register, sign in, transfer a society, and check the public portal signed out.</li>
+<li><b>IT Administrator (on call):</b> changes roles and deactivates accounts.</li>
+<li><b>Client UAT Lead:</b> attends.</li>
+</ul>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">Prepared by MNS</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">A registered cooperative with a certificate, so the QR check has something to scan.</p>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">An Active cooperative for the transfer.</p>
+<p style="font-size:32px;line-height:1.4;color:#C9DCD2">Your accounts were prepared by the IT Administrator on Monday.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 4 of 26</p>
+
+</section>
+<section id="welcome" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">08:30 to 08:45 · 15 minutes · led by the MNS trainers</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Welcome and ground rules</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">What we cover</h3>
+<ol style="font-size:32px;line-height:1.4;color:#14221C">
+<li>The objectives of today.</li>
+<li>How to record a result for each step.</li>
+<li>How to report a problem.</li>
+</ol>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">The outcome</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">You know how to record results and report a problem.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 5 of 26</p>
+
+</section>
+<section id="reg1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">08:45 to 09:30 · 45 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Part 1 of 2 · Officers and Supervisors, as new Applicants</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Self-registration</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open the Self-Registration page.</td><td>The registration form is displayed.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Fill in the form with a new email address you can open. Click Register.</td><td>A confirmation message shows. A verification email is sent.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Open the email.</td><td>The email contains an activation link.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 6 of 26</p>
+
+</section>
+<section id="reg2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">08:45 to 09:30 · 45 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Part 2 of 2 · Applicant, then the IT Administrator</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Self-registration</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Try to sign in before activating.</td><td>Sign-in is refused (account not verified).</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>Click the activation link, then Proceed.</td><td>Email verified. Account is active.</td></tr>
+<tr style="background:#FFFFFF"><td>6</td><td>Sign in as an Applicant.</td><td>You reach the Front Office portal.</td></tr>
+<tr style="background:#E6EDE9"><td>7</td><td>IT Administrator: change the role to Officer or Supervisor.</td><td>The role is updated.</td></tr>
+<tr style="background:#FFFFFF"><td>8</td><td>Everyone: sign in again and check that you can reach the dashboard for your role.</td><td>Each tester is signed in with the final role.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 7 of 26</p>
+
+</section>
+<section id="overview" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">09:30 to 09:45 · 15 minutes · led by the MNS trainers</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Overview of the four systems</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">What you do</h3>
+<ol style="font-size:32px;line-height:1.4;color:#14221C">
+<li>Follow the trainer through each system on screen.</li>
+<li>See where your account and role are kept (Keycloak).</li>
+<li>Open the public portal and see what the public can do there.</li>
+<li>Open the COMIS back-office and see where your work is done.</li>
+<li>Open the ticketing system and see where problems are reported.</li>
+</ol>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">The outcome</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">You can say what each system is for and how it connects to the others.</p>
+<p style="font-size:28px;line-height:1.4;color:#C9DCD2">You have just registered, so you can see where your new account fits.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 8 of 26</p>
+
+</section>
+<section id="signin" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">09:45 to 09:53 · 8 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Everyone, with the IT Administrator on call</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Sign in</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Enter a wrong email or password. Click Login.</td><td>Error: credentials are incorrect.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>IT Administrator: deactivate the account. Try to sign in.</td><td>Sign-in is refused. The message says the account is deactivated.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>IT Administrator: reactivate the account. Sign in.</td><td>You land on the dashboard for your role.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done when: you reach the dashboard for your role.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 9 of 26</p>
+
+</section>
+<section id="signout" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">09:53 to 09:58 · 5 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Everyone who is signed in</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Sign out</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>On the dashboard, click Logout, then No.</td><td>You stay on the dashboard.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Click Logout, then Yes.</td><td>You return to the login page.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Sign in again and leave this second session idle. After the break, click any menu.</td><td>Automatic sign-out. “Your session has expired” is shown.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done when: step 3 is checked after the break, at 10:23.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 10 of 26</p>
+
+</section>
+<section id="forgot1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">09:58 to 10:08 · 10 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Part 1 of 2 · Everyone, with an email you can open</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Forgot password</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>On the login page, click Forgot Password?</td><td>You are asked for your email address.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Enter your email. Click Reset password.</td><td>A message says you will receive an email shortly.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Open the email. Click the link.</td><td>The Reset Password screen is displayed.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 11 of 26</p>
+
+</section>
+<section id="forgot2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">09:58 to 10:08 · 10 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Part 2 of 2 · Everyone</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Forgot password</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Enter and confirm a new password. Submit.</td><td>Password updated.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>Sign in with the new password.</td><td>Sign-in is successful.</td></tr>
+<tr style="background:#FFFFFF"><td>6</td><td>Click the same email link again.</td><td>An error is shown. You are asked to request a new link.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done when: the old link no longer works.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 12 of 26</p>
+
+</section>
+<section id="break" data-transition="fade" style="background:#17654A;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:center;gap:32px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">10:08 to 10:23</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:128px;font-weight:700;line-height:1.05;color:#F7FAF8">Break</h2>
+<p style="font-size:44px;line-height:1.3;color:#DCEBE3">Back at 10:23 to transfer a cooperative society.</p>
+<p style="font-size:32px;line-height:1.3;color:#DCEBE3">Leave your idle session open: we check the timeout after the break.</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 3 · 13 of 26</p>
+
+</section>
+<section id="transfer1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">10:23 to 10:43 · 20 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Part 1 of 2 · Registrar Officer or Supervisor</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Transfer a cooperative society</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Go to Applications, then Cooperative Societies. Search for an Active cooperative.</td><td>It is listed. The 3-dot menu shows only on Active cooperatives.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Click the 3-dot menu, then Transfer Cooperative Society.</td><td>A window shows the name, the current email and a New Applicant Email Address field.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Enter the new applicant’s email. Click Transfer.</td><td>A success message. A profile update email is sent.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>New applicant: open the email and click the link.</td><td>COMIS opens to set a password and update the profile.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 14 of 26</p>
+
+</section>
+<section id="transfer2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">10:23 to 10:43 · 20 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Part 2 of 2 · The new applicant</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Transfer a cooperative society</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>5</td><td>Click Proceed. Enter and confirm a new password. Click Reset password.</td><td>The Update Account Information screen opens.</td></tr>
+<tr style="background:#E6EDE9"><td>6</td><td>Complete the profile. Click Save and continue.</td><td>A message confirms the account is updated.</td></tr>
+<tr style="background:#FFFFFF"><td>7</td><td>Sign in with the new email. Open My Profile.</td><td>Sign-in works. My Profile shows the updated details.</td></tr>
+<tr style="background:#E6EDE9"><td>8</td><td>Try to sign in with the old email.</td><td>Sign-in is refused with a message.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 15 of 26</p>
+
+</section>
+<section id="inquiry1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">10:43 to 10:55 · 12 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Part 1 of 2 · Public visitor, signed out, private window</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Inquiry, complaint or grievance</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open the public portal and go to the Contact Form.</td><td>Four sections: Submission Classification, Message Details, Contact Details, Supporting Documents.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Look at the Message Details section.</td><td>A Type drop-down (Inquiry, Complaint, Grievance), a Message box and a Submit checkbox.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>In Type, choose Grievance.</td><td>A Type of Grievance drop-down appears with six categories.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 16 of 26</p>
+
+</section>
+<section id="inquiry2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">10:43 to 10:55 · 12 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Part 2 of 2 · Public visitor, signed out, private window</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Inquiry, complaint or grievance</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Look at the Contact Details section.</td><td>Full Name, Email Address and Contact number fields.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>Fill in the required details, with or without contact details. Tick the reCAPTCHA.</td><td>The form is ready to send.</td></tr>
+<tr style="background:#FFFFFF"><td>6</td><td>Click Submit.</td><td>A success message appears and a Reference Number is generated.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done when: you hold a reference number.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 17 of 26</p>
+
+</section>
+<section id="search" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">10:55 to 11:03 · 8 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Public visitor, signed out, private window</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Search for a cooperative</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open the public portal search page.</td><td>Eight search fields, from Cooperative Name to Registration Status.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Look at the buttons below the fields.</td><td>Search and Clear buttons.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Enter or select your search details.</td><td>The values appear in the search fields.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Click Search. Then click Clear. Try a search that matches nothing.</td><td>A paged list of matches. Clear resets the search. “No results found” shows.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 18 of 26</p>
+
+</section>
+<section id="profile1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">11:03 to 11:18 · 15 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Part 1 of 2 · Public visitor, signed out, private window</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Public profile and certificate check</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Search for an Active cooperative on the public portal.</td><td>The cooperative appears in the results list.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Click the View icon in the Action column.</td><td>The Cooperative Profile opens.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Look at the profile details.</td><td>Name, certificate number, type, sector, district, region, address, registration date and status.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Try to change any detail.</td><td>The screen is read-only.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 19 of 26</p>
+
+</section>
+<section id="profile2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">11:03 to 11:18 · 15 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Part 2 of 2 · Public visitor, with a phone to scan</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Public profile and certificate check</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>5</td><td>Scroll to the bottom of the screen.</td><td>A disclaimer says the information is for public verification only.</td></tr>
+<tr style="background:#E6EDE9"><td>6</td><td>Scan the QR code on a generated certificate.</td><td>The Cooperative Profile opens with the cooperative’s details.</td></tr>
+<tr style="background:#FFFFFF"><td>7</td><td>Open a QR link that is no longer valid.</td><td>A message says the information could not be found or is no longer available.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done when: the profile opens from the QR code and a bad link gives a not-found message.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 20 of 26</p>
+
+</section>
+<section id="pages" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">11:18 to 11:26 · 8 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Public visitor, signed out, on a computer and a phone</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Public portal pages</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>On a computer, open the public portal and an information page.</td><td>The page displays.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Open the publications and resources.</td><td>They display.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Download a publication or a resource.</td><td>The file downloads.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Repeat steps 1 to 3 on a phone.</td><td>Pages display and files download on the phone.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 21 of 26</p>
+
+</section>
+<section id="assess1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">11:26 to 11:51 · 25 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Part 1 of 3 · Applicant (cooperative society)</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Start an assessment and submit it</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Sign in. Click Start Assessment, choose Primary Cooperative, click Continue.</td><td>The Cooperative Assessment Form opens.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Scroll through the form sections.</td><td>Group Information, Membership, Governance, Record Keeping, Business, Capacity Building, Finance, Assets, Progress &amp; Challenges.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Fill in Group and Membership Information. Use +Add more for group contacts.</td><td>Contacts appear in the table, with Edit and Delete icons.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 22 of 26</p>
+
+</section>
+<section id="assess2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">11:26 to 11:51 · 25 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Part 2 of 3 · Applicant (cooperative society)</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Start an assessment and submit it</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>In Governance, Business, Capacity Building, Finance and Assets, use +Add more to add a record.</td><td>Each record appears in its table. Totals and row numbers fill in automatically.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>Complete Record Keeping and Progress &amp; Challenges. Tick Terms and Conditions.</td><td>The Submit assessment button becomes available.</td></tr>
+<tr style="background:#FFFFFF"><td>6</td><td>Click Submit assessment, then OK in the pop-up.</td><td>You return to the Dashboard. The Assessment card shows Pending Review.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done when: the Assessment card shows Pending Review.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 23 of 26</p>
+
+</section>
+<section id="assess3" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">11:26 to 11:51 · 25 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Part 3 of 3 · Applicant, while you fill in the form</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Checks while you fill in</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Check</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>A</td><td>Leave data missing in a section, or enter a wrong value. Try to submit.</td><td>The section blocks submission until the data is fixed.</td></tr>
+<tr style="background:#E6EDE9"><td>B</td><td>Look at the totals in the tables.</td><td>The totals add up.</td></tr>
+<tr style="background:#FFFFFF"><td>C</td><td>Enter a phone number.</td><td>Phone numbers follow the Malawi format.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 24 of 26</p>
+
+</section>
+<section id="names" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:24px;align-items:center">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">11:51 to 12:01 · 10 minutes</p>
+<p style="font-size:28px;font-weight:600;color:#4F6158">Applicant (cooperative society)</p>
+</div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Names and limits</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Enter a cooperative name that uses a reserved word.</td><td>The name is refused with a message.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Enter a name that another cooperative already uses.</td><td>The name is refused as a duplicate.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>For a cooperative that already has an application, try to start another.</td><td>It is not allowed: each cooperative can have only one application.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done when: reserved and duplicate names are refused and a second application is not allowed.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 3 · 25 of 26</p>
+
+</section>
+<section id="wrap" data-transition="fade" style="background:#0E3B2D;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">At 12:30</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1;color:#F7FAF8">What we should have achieved</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">Officers and Supervisors registered, activated and signed in.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">Sign-out, the timeout and password reset were checked.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">A cooperative society was transferred to a new applicant.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">The public portal contact form, search, profile and QR check were tested.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">An assessment was submitted, and names and limits were checked.</p></div>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#14503C;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">Next</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8"><b>13:30, Session 4:</b> the assessment is found, approved or rejected and followed on the dashboards, then CME training.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:104px;width:1664px;font-size:24px;color:#C9DCD2">Nothing is fixed during UAT: problems are recorded and classified at the virtual meeting on Tuesday 3 November.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#9DB8AB">COMIS UAT · Session 3 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 3 · 26 of 26</p>
+
+</section>
+</div></div>
+<div id="notes" role="note"></div>
+<div id="bar">
+<a href="../hub.html">All sessions</a>
+<button id="prev" aria-label="Previous slide">&#8592;</button><button id="next" aria-label="Next slide">&#8594;</button>
+<select id="jump" aria-label="Jump to a section"><option>Welcome, the plan for the morning and who does what.</option><option>Self-registration, the overview of the four systems, sign in, sign out and forgot password.</option><option>Transferring a cooperative society to a new applicant.</option><option>The public portal: inquiries, search, public profile and information pages.</option><option>The assessment: start, submit, names and limits.</option><option>What we should have achieved and what comes next.</option></select>
+<button id="nbtn" title="Show or hide the speaker notes (N)">Notes</button>
+<span id="count"></span>
+</div>
+<script>
+(function(){
+var secs=[].slice.call(document.querySelectorAll('#stage section')),i=0,N=["Welcome everyone. This is the first testing day for the cooperative society, Officer and Supervisor testers. The client UAT Lead is with us, and the IT Administrator who prepared the accounts on Monday is on call. This morning we test how people register and sign in, the public portal, and the assessment. Walk through the agenda on the next slides.", "Give the shape of the first half of the morning. Each test has its own slide with what to do and what you should see. The break is at 10:08 and we come back at 10:23.", "The second half of the morning. The public portal checks are done signed out, in a private browser window. The assessment is the longest test, 25 minutes. The last 29 minutes are spare time for late starts, slow emails and tests that need a second try.", "Say who is in each role today. Officers run the public portal checks signed out, in a private browser window, so remind them to open one. If a tester cannot find their account, tell the IT Administrator on call straight away.", "This is not a test. Explain how to tick or note each result, and how a problem is reported. Remind everyone that nothing is fixed during UAT: problems are recorded.", "Each officer and supervisor registers with a new email address they can open. Watch for people who reuse an address from Monday. If the email does not arrive within a minute or two, ask them to check the spam folder and note it as a result.", "This block is 45 minutes so that every person finishes: the IT Administrator on call changes roles one by one, so some testers wait. Step 8 closes the block once your own role is changed. Step 4 must fail: that is the expected result. After step 6, each tester tells the IT Administrator on call which email they used and whether they are an Officer or a Supervisor. The IT Administrator then changes the role. Testers sign in again later to see the new role.", "This is a guided tour, not a test. Ask people to follow on their own screens. Nothing needs to be recorded, but note any system someone cannot open. Link it back to the accounts they have just registered.", "Testers work in pairs or one at a time with the IT Administrator so that only the account being tested is deactivated. Steps 1 and 2 must be refused: that is the expected result. Check that the refusal message for a deactivated account is different from the wrong-password message.", "Ask the project team for the timeout duration before this step and tell the room. Ask everyone to leave the idle session open and untouched during the break. After the break, give people a minute to click a menu and record what they see.", "Tell testers to keep the reset email open: they need the same link again in step 6. Emails can be slow. If one has not arrived, move on to another tester and come back, and use the spare time at the end of the morning if needed.", "Step 6 must show an error: that is the expected result. Remind people to remember the new password for the rest of the week. The break follows straight after this test.", "Fifteen minutes. Remind everyone not to touch the idle session from the sign-out test. Check that the MNS team has the Active cooperative for the transfer ready.", "Use the Active cooperative that MNS prepared for the transfer. The new applicant is a tester with an email address they can open. Check that the 3-dot menu does not appear on cooperatives that are not Active. Four steps on this slide, then four on the next.", "Step 8 must be refused: that is the expected result. If the profile email is slow to arrive, the officer or supervisor can carry on watching while the new applicant waits, and the spare time at the end of the morning can be used for a second try.", "Officers run this part signed out, in a private browser window, so they test as a member of the public. Check that the Type of Grievance list appears only when Grievance is chosen.", "Ask each tester to write down the reference number they receive. Try one submission with contact details and one without.", "Suggest searching by name, certificate number, type, sector, district, region, membership size and status, a few each, so every field is used by someone in the room. Check that Clear empties every field.", "Use the registered cooperative that MNS prepared so everyone finds the same one. In step 3 people do not need to find every detail by name; they check that the main details are shown and correct. Step 4 must fail to change anything: that is the expected result.", "MNS has prepared a registered cooperative with a certificate so the QR code has something to scan. Testers scan it with a phone. Step 7 must show a not-found message: that is the expected result.", "Short test. People with a phone do step 4 on the phone; others can borrow one. Note anything that does not display or download.", "This is the longest test of the morning, 25 minutes, over three slides. The Applicant fills in the form; Officers and Supervisors can follow with a test applicant account or watch. Part 3 lists the checks to make while filling in, so keep it in mind from the start.", "Watch the clock: people who are still adding records at 11:45 should move to step 5 so they can submit. The approval of the assessment is tested this afternoon in Session 4.", "These checks are done during the assessment, not after it. Each section of the form should block submission when data is missing or wrong. Ask people to record which section blocked them and what the message said.", "The plan does not list exact screens for this test, so the steps follow the plan: reserved or duplicate names are refused, and each cooperative can have only one application. Record where the refusal appears and what the message says.", "Read through the list. Anything not ticked goes to the problem log. Remind everyone that nothing is fixed during UAT: problems are recorded and classified at the virtual meeting on Tuesday 3 November. Session 4 starts at 13:30 and follows the assessments submitted this morning."],starts=[0, 5, 13, 15, 21, 25];
+var st=document.getElementById('stage'),nt=document.getElementById('notes');
+function fit(){var w=document.getElementById('vp'),k=Math.min(w.clientWidth/1920,w.clientHeight/1080);st.style.transform='scale('+k+')'}
+function show(n,noh){i=Math.max(0,Math.min(secs.length-1,n));secs.forEach(function(s,k){s.classList.toggle('on',k===i)});
+ document.getElementById('count').textContent=(i+1)+' / '+secs.length;nt.textContent=N[i]||'';
+ var j=document.getElementById('jump'),b=0;starts.forEach(function(s,k){if(s<=i)b=k});j.selectedIndex=b;
+ if(!noh)try{history.replaceState(null,'','#'+(i+1))}catch(e){}}
+document.getElementById('prev').onclick=function(){show(i-1)};document.getElementById('next').onclick=function(){show(i+1)};
+document.getElementById('jump').onchange=function(){show(starts[this.selectedIndex]);this.blur()};
+function tn(){nt.classList.toggle('show')}document.getElementById('nbtn').onclick=tn;
+document.addEventListener('keydown',function(e){var k=e.key;
+ if(k==='ArrowRight'||k==='PageDown'||k===' '){e.preventDefault();show(i+1)}
+ else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();show(i-1)}
+ else if(k==='Home')show(0);else if(k==='End')show(secs.length-1);else if(k==='n'||k==='N')tn();
+ else if(k==='f'||k==='F'){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()}});
+window.addEventListener('resize',fit);fit();
+var h=parseInt((location.hash||'').slice(1),10);show(isNaN(h)?0:h-1,true);
+})();
+</script></body></html>

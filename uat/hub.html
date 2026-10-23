@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"></head><body>
+<title>COMIS UAT Session Hub</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: a sticky switcher bar of ten numbered chips, then one row per day with a morning and an afternoon card. */
+:root{
+  --bg:#F3F6F4; --card:#FFFFFF; --line:#D5DDD8; --fg:#14221C; --muted:#4F6158;
+  --green:#17654A; --deep:#0E3B2D; --amber:#F2C46D; --amber-ink:#2A1D00; --on-deep:#F7FAF8;
+  --font-display:'Bricolage Grotesque', Georgia, serif; --font-body:'Public Sans', Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0C1A14; --card:#13281F; --line:#27443A; --fg:#E8F0EB; --muted:#9DB8AB;
+  --green:#5FD0A0; --deep:#0A2A20; --amber:#F2C46D; --amber-ink:#2A1D00; --on-deep:#F7FAF8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0C1A14; --card:#13281F; --line:#27443A; --fg:#E8F0EB; --muted:#9DB8AB;
+  --green:#5FD0A0; --deep:#0A2A20; --amber:#F2C46D; --amber-ink:#2A1D00; --on-deep:#F7FAF8; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:17px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 56px}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto}
+header{padding-block:40px 24px;display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+h1{font-family:var(--font-display);font-size:clamp(34px,6vw,56px);line-height:1.05;margin:0;text-wrap:balance}
+header p{margin:0;max-width:62ch;color:var(--muted)}
+nav.switch{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line);
+  display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+nav.switch span{font-size:14px;font-weight:600;color:var(--muted);margin-right:4px}
+nav.switch a{min-width:44px;text-align:center;text-decoration:none;font-weight:700;padding:8px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
+nav.switch a:hover,nav.switch a:focus-visible{background:var(--deep);color:var(--on-deep);border-color:var(--deep);outline:none}
+.day{display:flex;flex-direction:column;gap:12px;padding-top:32px}
+.day h2{font-family:var(--font-display);font-size:26px;margin:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:720px){.row{grid-template-columns:1fr}}
+.card{display:flex;flex-direction:column;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pill{font-size:14px;font-weight:700;padding:4px 12px;border-radius:999px;background:var(--amber);color:var(--amber-ink)}
+.no{font-size:14px;font-weight:700;color:var(--muted)}
+.card h3{font-family:var(--font-display);font-size:22px;line-height:1.2;margin:0;text-wrap:balance}
+.card p{margin:0;color:var(--muted);font-size:16px}
+.card .go{margin-top:auto;align-self:flex-start;text-decoration:none;font-weight:700;background:var(--deep);color:var(--on-deep);padding:10px 18px;border-radius:10px}
+.card .go:hover,.card .go:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.extra{margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:720px){.extra{grid-template-columns:1fr}}
+.extra .card.soft{background:transparent;border-style:dashed}
+.note{font-size:14px;color:var(--muted);margin-top:28px}
+
+.find{flex:1;min-width:160px;max-width:300px;margin-left:auto;font:inherit;font-size:16px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg)}
+.find:focus-visible{outline:3px solid var(--amber);outline-offset:1px}
+.day.today h2::after{content:"Today";font-family:var(--font-body);font-size:14px;font-weight:700;margin-left:12px;padding:4px 12px;border-radius:999px;background:var(--amber);color:var(--amber-ink);vertical-align:middle}
+.day.today .card{border-color:var(--green);box-shadow:0 0 0 2px var(--green)}
+.card[hidden],.day[hidden]{display:none}
+.empty{display:none;color:var(--muted);padding-top:24px}
+.empty.show{display:block}
+.top{position:fixed;right:16px;bottom:16px;background:var(--deep);color:var(--on-deep);text-decoration:none;font-weight:700;padding:10px 16px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.top:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+</style>
+<div class="wrap" id="top">
+<header>
+<p class="eyebrow">COMIS user acceptance testing · 26 to 30 October 2026</p>
+<h1>Session presentations</h1>
+<p>One presentation per session, each showing what to do and what you should see at every step. Pick a session below. Each opens in a new tab, so this page stays open for switching.</p>
+</header>
+
+<nav class="switch" aria-label="Jump to a session">
+<span>Open:</span>
+<a href="session-1/index.html" target="_blank" rel="noopener" title="Session 1">1</a>
+<a href="session-2/index.html" target="_blank" rel="noopener" title="Session 2">2</a>
+<a href="session-3/index.html" target="_blank" rel="noopener" title="Session 3">3</a>
+<a href="session-4/index.html" target="_blank" rel="noopener" title="Session 4">4</a>
+<a href="session-5/index.html" target="_blank" rel="noopener" title="Session 5">5</a>
+<a href="session-6/index.html" target="_blank" rel="noopener" title="Session 6">6</a>
+<a href="session-7/index.html" target="_blank" rel="noopener" title="Session 7">7</a>
+<a href="session-8/index.html" target="_blank" rel="noopener" title="Session 8">8</a>
+<a href="session-9/index.html" target="_blank" rel="noopener" title="Session 9">9</a>
+<a href="session-10/index.html" target="_blank" rel="noopener" title="Session 10">10</a>
+<input class="find" type="search" id="find" placeholder="Filter sessions" aria-label="Filter sessions by topic or number">
+</nav>
+
+<section class="day" data-date="2026-10-26"><h2>Monday 26 October · IT Administrator only</h2><div class="row">
+<article class="card"><div class="meta"><span class="no">Session 1</span><span class="pill">09:30 to 12:30</span></div>
+<h3>Public information and search portal</h3><p>Overview of the four systems, IT Administrator parts only, then public portal administration: user, content, announcement, event, news and publication.</p>
+<a class="go" href="session-1/index.html" target="_blank" rel="noopener">Open Session 1</a></article>
+<article class="card"><div class="meta"><span class="no">Session 2</span><span class="pill">13:30 to 17:00</span></div>
+<h3>User management and system config</h3><p>Overview of the four systems, then users and roles in Keycloak, ticketing users, settings, lists and fees.</p>
+<a class="go" href="session-2/index.html" target="_blank" rel="noopener">Open Session 2</a></article>
+</div></section>
+
+<section class="day" data-date="2026-10-27"><h2>Tuesday 27 October</h2><div class="row">
+<article class="card"><div class="meta"><span class="no">Session 3</span><span class="pill">08:30 to 12:30</span></div>
+<h3>Users, public portal and assessment</h3><p>A 45-minute self-registration, an overview of the four systems, sign in, transfer a society, public search and starting an assessment.</p>
+<a class="go" href="session-3/index.html" target="_blank" rel="noopener">Open Session 3</a></article>
+<article class="card"><div class="meta"><span class="no">Session 4</span><span class="pill">13:30 to 17:00</span></div>
+<h3>Assessment and CME training</h3><p>Find, decide, follow and search assessments, then CME training.</p>
+<a class="go" href="session-4/index.html" target="_blank" rel="noopener">Open Session 4</a></article>
+</div></section>
+
+<section class="day" data-date="2026-10-28"><h2>Wednesday 28 October</h2><div class="row">
+<article class="card"><div class="meta"><span class="no">Session 5</span><span class="pill">08:30 to 12:30</span></div>
+<h3>Registration</h3><p>Start a registration, members and shares, documents, fast track, with a brief profile check.</p>
+<a class="go" href="session-5/index.html" target="_blank" rel="noopener">Open Session 5</a></article>
+<article class="card"><div class="meta"><span class="no">Session 6</span><span class="pill">13:30 to 17:00</span></div>
+<h3>By-laws amendment</h3><p>Amendment from request to decision, with a brief check of the profile and the dashboard.</p>
+<a class="go" href="session-6/index.html" target="_blank" rel="noopener">Open Session 6</a></article>
+</div></section>
+
+<section class="day" data-date="2026-10-29"><h2>Thursday 29 October</h2><div class="row">
+<article class="card"><div class="meta"><span class="no">Session 7</span><span class="pill">08:30 to 12:30</span></div>
+<h3>Membership management</h3><p>Member register, upload, restart an upload, labels, banners and reminders.</p>
+<a class="go" href="session-7/index.html" target="_blank" rel="noopener">Open Session 7</a></article>
+<article class="card"><div class="meta"><span class="no">Session 8</span><span class="pill">13:30 to 17:00</span></div>
+<h3>Leaders management</h3><p>Election, subcommittees, history and committee changes.</p>
+<a class="go" href="session-8/index.html" target="_blank" rel="noopener">Open Session 8</a></article>
+</div></section>
+
+<section class="day" data-date="2026-10-30"><h2>Friday 30 October</h2><div class="row">
+<article class="card"><div class="meta"><span class="no">Session 9</span><span class="pill">08:30 to 12:30</span></div>
+<h3>Post-training and cooperative union</h3><p>Post-training requests, then the whole Union module and a recap.</p>
+<a class="go" href="session-9/index.html" target="_blank" rel="noopener">Open Session 9</a></article>
+<article class="card"><div class="meta"><span class="no">Session 10</span><span class="pill">13:30 to 17:00</span></div>
+<h3>Grievance redress and dissolution</h3><p>Public forms and grievance handling, then dissolution to the final decision, and closing.</p>
+<a class="go" href="session-10/index.html" target="_blank" rel="noopener">Open Session 10</a></article>
+</div></section>
+
+<div class="extra">
+<article class="card"><span class="no">Planning</span><h3>UAT plan and agendas</h3><p>Full schedule, load per session and the minute-by-minute agendas.</p>
+<a class="go" href="index.html" target="_blank" rel="noopener">Open the plan</a></article>
+<article class="card"><span class="no">Printable</span><h3>UAT Navigation Plan</h3><p>Checklist for each session with a defect log and a sign-off page, to print and fill in.</p>
+<a class="go" href="downloads/COMIS-UAT-Navigation-Plan.docx" download>Download the Word file</a></article>
+<article class="card soft"><span class="no">Tuesday 3 November</span><h3>Virtual fix-and-confirm meeting</h3><p>No presentation. The team classifies every recorded problem; nothing is fixed before then.</p></article>
+</div>
+<p class="empty" id="empty">No session matches that filter.</p>
+<p class="note">Each presentation opens in a new tab.</p>
+<a class="top" href="#top">Back to top</a>
+</div>
+<script>
+(function(){
+  var d=new Date(),k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  var days=document.querySelectorAll(".day");
+  days.forEach(function(x){if(x.getAttribute("data-date")===k)x.classList.add("today")});
+  var t=document.querySelector(".day.today");
+  if(t){try{t.scrollIntoView({block:"start"})}catch(e){}}
+  var f=document.getElementById("find"),em=document.getElementById("empty");
+  f.addEventListener("input",function(){
+    var q=f.value.trim().toLowerCase(),shown=0;
+    days.forEach(function(day){
+      var any=0;
+      day.querySelectorAll(".card").forEach(function(c){
+        var ok=!q||c.textContent.toLowerCase().indexOf(q)>-1||(day.querySelector("h2").textContent.toLowerCase().indexOf(q)>-1);
+        c.hidden=!ok;if(ok)any++;
+      });
+      day.hidden=!any;shown+=any;
+    });
+    em.classList.toggle("show",!shown);
+  });
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UAT Session 2: User Management and System Config</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1410;overflow:hidden;font-family:'Public Sans',Arial,sans-serif}
+#vp{position:absolute;inset:0 0 56px 0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#stage{width:1920px;height:1080px;position:relative;transform-origin:center center;flex:none}
+#stage section{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:none!important}
+#stage section.on{display:flex!important}
+#stage p,#stage h1,#stage h2,#stage h3,#stage ul,#stage ol,#stage table{margin:0}
+#stage table{border-collapse:collapse}#stage td,#stage th{padding:.35em .6em}
+#stage aside{display:none!important}
+#bar{position:absolute;left:0;right:0;bottom:0;height:56px;background:#0E3B2D;color:#F7FAF8;display:flex;align-items:center;gap:12px;padding:0 16px;font-size:16px}
+#bar button,#bar select,#bar a{font:inherit;color:#F7FAF8;background:#17654A;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;text-decoration:none}
+#bar button:hover,#bar a:hover{background:#1f7f5e}
+#bar select{max-width:34vw}
+#count{margin-left:auto;font-weight:600}
+#notes{position:absolute;left:16px;right:16px;bottom:68px;background:#F2C46D;color:#2A1D00;padding:14px 18px;border-radius:10px;font-size:17px;line-height:1.4;display:none;max-height:40vh;overflow:auto}
+#notes.show{display:block}
+</style></head><body>
+<div id="vp"><div id="stage">
+<section id="cover" data-transition="fade" style="background:#0E3B2D;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">COMIS user acceptance testing · Office of the Registrar of Cooperatives, Malawi</p>
+<div style="display:flex;flex-direction:column;gap:32px">
+<h1 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:112px;font-weight:700;line-height:1.05;color:#F7FAF8">Session 2: User Management and System Config</h1>
+<p style="font-size:44px;line-height:1.3;color:#C9DCD2">Users, roles, settings, lists and fees</p>
+</div>
+<div style="display:flex;gap:24px">
+<p style="font-size:32px;font-weight:600;background:#17654A;color:#F7FAF8;padding:16px 32px;border-radius:50px">Monday 26 October 2026</p>
+<p style="font-size:32px;font-weight:600;background:#F2C46D;color:#2A1D00;padding:16px 32px;border-radius:50px">13:30 to 17:00 CAT</p>
+</div>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 2 · 1 of 26</p>
+
+</section>
+<section id="today1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">The afternoon at a glance · 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Users, roles and settings</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:24%;text-align:left">Time</th><th style="color:#F2C46D;width:38%;text-align:left">What we do</th><th style="color:#F2C46D;width:38%;text-align:left">By the end</th></tr>
+<tr style="background:#FFFFFF"><td>13:30 to 13:45</td><td><b>Overview of the four systems</b></td><td>You know where each task is done</td></tr>
+<tr style="background:#E6EDE9"><td>13:45 to 14:20</td><td><b>Create users and roles</b></td><td>Users created with the right roles</td></tr>
+<tr style="background:#FFFFFF"><td>14:20 to 14:30</td><td><b>Remove a role</b></td><td>Access removed and checked</td></tr>
+<tr style="background:#E6EDE9"><td>14:30 to 14:50</td><td><b>Deactivate and reactivate</b></td><td>Sign-in blocked, then restored</td></tr>
+<tr style="background:#FFFFFF"><td>14:50 to 15:05</td><td><b>Ticketing system users</b></td><td>Officer and supervisor users made</td></tr>
+<tr style="background:#E6EDE9"><td>15:05 to 15:15</td><td><b>Look up system settings</b></td><td>Search and sort work</td></tr>
+<tr style="background:#FFFFFF"><td>15:15 to 15:25</td><td><b>Change a setting</b></td><td>New value saved, limits checked</td></tr>
+<tr style="background:#E6EDE9"><td>15:25 to 15:35</td><td><b>Deadline and reminder settings</b></td><td>Three settings found and edited</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 2 of 26</p>
+
+</section>
+<section id="today2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">The afternoon at a glance · 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Lists, fees and readiness</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:24%;text-align:left">Time</th><th style="color:#F2C46D;width:38%;text-align:left">What we do</th><th style="color:#F2C46D;width:38%;text-align:left">By the end</th></tr>
+<tr style="background:#FFFFFF"><td>15:35 to 15:55</td><td><b>Lists of choices</b></td><td>Value and reserved word added</td></tr>
+<tr style="background:#E6EDE9"><td>15:55 to 16:05</td><td>Break</td><td>Back on time</td></tr>
+<tr style="background:#FFFFFF"><td>16:05 to 16:13</td><td><b>Key designations</b></td><td>Locked fields confirmed</td></tr>
+<tr style="background:#E6EDE9"><td>16:13 to 16:28</td><td><b>Fees</b></td><td>A fee set with start and end dates</td></tr>
+<tr style="background:#FFFFFF"><td>16:28 to 16:35</td><td><b>Lists on public forms</b></td><td>Configured lists seen on forms</td></tr>
+<tr style="background:#E6EDE9"><td>16:35 to 17:00</td><td><b>Questions and readiness check</b></td><td>Entry gate confirmed at 17:00</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 3 of 26</p>
+
+</section>
+<section id="who" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">Who and what is ready</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">IT Administrators only</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:1;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">Who does what</h3>
+<p style="font-size:32px;line-height:1.4;color:#14221C">Every test this afternoon is done by the IT Administrator.</p>
+<p style="font-size:32px;line-height:1.4;color:#14221C">From 16:32 the client UAT Lead joins us for the readiness check.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">Ready for you</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">The project team has loaded the system parameters and the lists of choices.</p>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">This afternoon you test users and roles, and the system settings, lists and fees.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 4 of 26</p>
+
+</section>
+<section id="overview" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">13:30 to 13:45 · 15 minutes · led by the MNS trainers · IT Administrator parts only</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Overview of the four systems</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">What you do</h3>
+<ol style="font-size:32px;line-height:1.4;color:#14221C">
+<li>Keycloak: where the tester accounts and roles are created.</li>
+<li>COMIS back-office: settings, lists of choices and fees.</li>
+<li>Ticketing system: the officer and supervisor users.</li>
+<li>Public portal: only the lists shown on its forms.</li>
+</ol>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">The outcome</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">You know which system each task this afternoon is done in.</p>
+<p style="font-size:28px;line-height:1.4;color:#C9DCD2">Only the IT Administrator parts are covered today; the other tests start on Tuesday.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 5 of 26</p>
+
+</section>
+<section id="create" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">13:45 to 14:20 · 35 minutes · everyone tests</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Create users and give them roles</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">What you do</h3>
+<ol style="font-size:32px;line-height:1.4;color:#14221C">
+<li>In Keycloak, create a new user.</li>
+<li>Open Role mapping for that user.</li>
+<li>Assign a role, for example Applicant, Officer or Supervisor.</li>
+<li>Open the Events tab and find the change.</li>
+<li>Sign in to COMIS as that user.</li>
+</ol>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">What you should see</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">The roles update immediately and the change is logged.</p>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">The user sees the dashboard and menus of the role they were given.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 6 of 26</p>
+
+</section>
+<section id="remove" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:20 to 14:30 · 10 minutes · everyone tests</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Remove a role</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">What you do</h3>
+<ol style="font-size:32px;line-height:1.4;color:#14221C">
+<li>Take the user you just created.</li>
+<li>In Role mapping, remove all the roles.</li>
+<li>Open the Events tab and find the change.</li>
+<li>Sign in to COMIS as that user.</li>
+</ol>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">What you should see</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">The roles are removed and the change is logged.</p>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">The user sees an empty dashboard with no menus and a message that no roles are assigned.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 7 of 26</p>
+
+</section>
+<section id="deactivate" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:30 to 14:50 · 20 minutes · everyone tests</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Deactivate and reactivate a user</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:16px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">What you do</h3>
+<ol style="font-size:32px;line-height:1.4;color:#14221C">
+<li>Make sure the user is active, then sign in.</li>
+<li>Deactivate the user account.</li>
+<li>Try to sign in as that user.</li>
+<li>Check the user’s mailbox.</li>
+<li>Reactivate the account and sign in again.</li>
+<li>Check the change log.</li>
+</ol>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">What you should see</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">A deactivated account shows as Inactive and sign-in is refused, with a message that the account is deactivated.</p>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">No email is sent to the user. After reactivation, sign-in works again.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 8 of 26</p>
+
+</section>
+<section id="ticketing" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:50 to 15:05 · 15 minutes · IT Administrator tests</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Ticketing system users</h2>
+<p style="font-size:28px;color:#4F6158">Done by: IT Administrator</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Sign in to the ticketing system as IT Administrator.</td><td>You reach the ticketing system.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Create a ticketing user for an officer.</td><td>The officer user is saved and listed.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Create a ticketing user for a supervisor.</td><td>The supervisor user is saved and listed.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Check both users in the list.</td><td>Each user is listed once, with the right role.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 9 of 26</p>
+
+</section>
+<section id="lookup1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:05 to 15:15 · 10 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Look up system settings</h2>
+<p style="font-size:28px;color:#4F6158">Done by: IT Administrator</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open System Config, then System Parameters.</td><td>The list shows Key, Description, Value and Status, and a search panel.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Enter a Key, Description or Value, or pick a Status. Click Search.</td><td>Matching parameters are listed.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Click Clear.</td><td>The search entries are reset.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 10 of 26</p>
+
+</section>
+<section id="lookup2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:05 to 15:15 · 10 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Sort and page the list</h2>
+<p style="font-size:28px;color:#4F6158">Done by: IT Administrator</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Click a column header such as Key, Description or Value.</td><td>The list is sorted in ascending or descending order.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>Change Items per page. Use the forward and backward arrows below the table.</td><td>The list resizes and moves between pages.</td></tr>
+</table>
+<p style="font-size:32px;line-height:1.4;color:#14221C"><b>Done when:</b> you can search, sort and page the System Parameters list.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 11 of 26</p>
+
+</section>
+<section id="change" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:15 to 15:25 · 10 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Change a setting</h2>
+<p style="font-size:28px;color:#4F6158">Done by: IT Administrator</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Click the Edit icon on a parameter.</td><td>The Edit screen opens. The Key cannot be changed.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Change the details, click Cancel and confirm.</td><td>Nothing is saved. You return to the list.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Open Edit again, change the details and click Update.</td><td>A success message appears and you return to the list.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Check the row in the list.</td><td>The new details and the Modified Date are shown.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 12 of 26</p>
+
+</section>
+<section id="limits" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:15 to 15:25 · 10 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Check the business limits</h2>
+<p style="font-size:28px;color:#4F6158">Done by: IT Administrator</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open System Config, then System Parameters.</td><td>The System Parameters list appears.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Search for the minimum members, minimum primary cooperatives, NRB status and union limits.</td><td>Each is listed once, with description, value and Active status.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Edit one, change the value and click Update.</td><td>The new value and Modified Date are shown.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Edit it again and restore the original value.</td><td>The list shows the original value again.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 13 of 26</p>
+
+</section>
+<section id="deadline1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:25 to 15:35 · 10 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Deadline and reminder settings</h2>
+<p style="font-size:28px;color:#4F6158">Done by: IT Administrator</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Go to System Config, then System Parameters.</td><td>The list of system parameters is shown.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Search for First AGM Submission Period.</td><td>Key, description, value (30) and status (Active) are shown.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Search for Reminder Notification Period.</td><td>Key, description, value (14) and status (Active) are shown.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 14 of 26</p>
+
+</section>
+<section id="deadline2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:25 to 15:35 · 10 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Edit the three settings</h2>
+<p style="font-size:28px;color:#4F6158">Done by: IT Administrator</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Search for Subsequent AGM Submission Period.</td><td>Key, description, value (3) and status (Active) are shown.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>Edit the description, value and status of each of the three. Save.</td><td>The changes show in the table, with no duplicate parameters.</td></tr>
+</table>
+<p style="font-size:32px;line-height:1.4;color:#14221C"><b>Done when:</b> all three are edited and each appears only once.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 15 of 26</p>
+
+</section>
+<section id="lists1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:35 to 15:55 · 20 minutes · part 1 of 3</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Lists of choices: browse</h2>
+<p style="font-size:28px;color:#4F6158">Done by: IT Administrator</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open System Config, then System References.</td><td>The list shows Key, Description and Status, and a search panel.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Enter a Key or Description, or pick a Status. Click Search.</td><td>Matching system references are listed.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Click Clear, then sort by the Key or Description header.</td><td>The search is reset and the list is sorted.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Search for DESIGNATION, DISTRICT or AUDITOR and click Edit.</td><td>Its values are listed with no duplicates, each Active.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 16 of 26</p>
+
+</section>
+<section id="lists2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:35 to 15:55 · 20 minutes · part 2 of 3</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Lists of choices: add a list</h2>
+<p style="font-size:28px;color:#4F6158">Done by: IT Administrator</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>On System References, click +Add new system reference.</td><td>The Create System Reference screen opens.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Enter Key, Description and Status, then click Create.</td><td>You return to the list and the new reference appears.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Click Edit on it, change the Description or Status, click Update.</td><td>The list shows the updates. The Key cannot be changed.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 17 of 26</p>
+
+</section>
+<section id="lists3" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:35 to 15:55 · 20 minutes · part 3 of 3</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Add values and reserved words</h2>
+<p style="font-size:28px;color:#4F6158">Done by: IT Administrator</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>On the edit screen, click +Add new value. Fill in Key, Description and Status, then Create.</td><td>The value appears in the list of values.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>Edit a listed value, for example its Description or Status, and save.</td><td>The value is updated in the table.</td></tr>
+<tr style="background:#FFFFFF"><td>6</td><td>Open RESERVED_WORDS_FOR_NAME and add or edit a value.</td><td>The reserved word is listed and can be activated or deactivated.</td></tr>
+</table>
+<p style="font-size:32px;line-height:1.4;color:#14221C"><b>Done when:</b> a value and a reserved word for cooperative names are saved.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 18 of 26</p>
+
+</section>
+<section id="break" data-transition="fade" style="background:#17654A;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:center;gap:32px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">15:55 to 16:05</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:128px;font-weight:700;line-height:1.05;color:#F7FAF8">Break</h2>
+<p style="font-size:44px;line-height:1.3;color:#DCEBE3">Back at 16:05 for key designations and fees.</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 2 · 19 of 26</p>
+
+</section>
+<section id="desig" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">16:05 to 16:13 · 8 minutes · IT Administrator tests</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Key designations</h2>
+<p style="font-size:28px;color:#4F6158">Done by: IT Administrator</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>In System References, search for DESIGNATION and click Edit.</td><td>The Edit screen lists the designations.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Click Edit on Chairperson, Secretary or Treasurer.</td><td>Key and Status are locked. Only Description can change.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Change the Description and save.</td><td>The new Description is saved.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Edit any other designation: change Description and Status. Save.</td><td>Both can be edited and are saved.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 20 of 26</p>
+
+</section>
+<section id="fees1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">16:13 to 16:28 · 15 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Fees: find and edit</h2>
+<p style="font-size:28px;color:#4F6158">Done by: IT Administrator</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open System Config, then System Fees.</td><td>The List of Fees appears with a search panel.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Search by Fee Type, Start Date or End Date.</td><td>Matching fees appear in the table.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Click the View icon on a fee.</td><td>A read-only View Fee screen shows the details.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Click Edit, change the Description or Amount, click Update.</td><td>The list shows the update. Fee Type cannot change.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 21 of 26</p>
+
+</section>
+<section id="fees2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">16:13 to 16:28 · 15 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Fees: set a new fee</h2>
+<p style="font-size:28px;color:#4F6158">Done by: IT Administrator</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>5</td><td>Approve a CME or By Laws Amendment application and open its invoice.</td><td>The invoice shows the updated fee amount.</td></tr>
+</table>
+<p style="font-size:32px;line-height:1.4;color:#14221C"><b>Done when:</b> a new fee with start and end dates is listed and Active.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 22 of 26</p>
+
+</section>
+<section id="public1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">16:28 to 16:35 · 7 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Lists on public forms</h2>
+<p style="font-size:28px;color:#4F6158">Done by: IT Administrator</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>On the COMIS Login page, click Register.</td><td>The Self Registration screen opens.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Open the District dropdown and type a letter.</td><td>Districts are listed alphabetically and filter as you type.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Open the Acting Capacity dropdown.</td><td>The active designations are listed, including Employee.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 23 of 26</p>
+
+</section>
+<section id="public2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">16:28 to 16:35 · 7 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Inactive values on the forms</h2>
+<p style="font-size:28px;color:#4F6158">Done by: IT Administrator</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:46%;text-align:left">What to do</th><th style="color:#F2C46D;width:46%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Set Employee to Inactive in System References. Reopen the dropdown.</td><td>Employee no longer appears.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>On the Assessment form, use +Add more in Group Contact Details. Open Designation.</td><td>Employee is available when active.</td></tr>
+<tr style="background:#FFFFFF"><td>6</td><td>On the Registration form, use +Add more in List of Members. Open Designation.</td><td>Employee is not offered.</td></tr>
+</table>
+<p style="font-size:32px;line-height:1.4;color:#14221C"><b>Done when:</b> the forms show the lists as configured. Set Employee back to Active afterwards.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 24 of 26</p>
+
+</section>
+<section id="ready" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">16:35 to 17:00 · 25 minutes · the UAT Lead joins</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Questions and readiness check</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">What we do</h3>
+<ol style="font-size:32px;line-height:1.4;color:#14221C">
+<li>Ask your questions about today’s tests.</li>
+<li>Go through the settings, lists and fees together.</li>
+<li>Check the tester accounts exist, one per tester.</li>
+<li>Agree what still needs a second try.</li>
+</ol>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">The outcome</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">The UAT Lead confirms the entry gate at 17:00.</p>
+<p style="font-size:28px;line-height:1.4;color:#C9DCD2">Testing starts on Tuesday 27 October.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 2 · 25 of 26</p>
+
+</section>
+<section id="wrap" data-transition="fade" style="background:#0E3B2D;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">At 17:00</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1;color:#F7FAF8">What we should have achieved</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">Ticketing users exist for officers and supervisors.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">System settings, lists and designations were checked.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">A fee was updated and is reflected on the respective invoice.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">Users were created, given roles and deactivated as expected.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">The entry gate is confirmed.</p></div>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#14503C;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">Next</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8"><b>Tuesday 27 October, 08:30, Session 3:</b> user management, the public portal and assessment, with the cooperative society, Officer and Supervisor testers.</p>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">You are on call for them.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:104px;font-size:24px;color:#C9DCD2">Nothing is fixed during UAT: problems are recorded and classified at the virtual meeting on Tuesday 3 November.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#9DB8AB">COMIS UAT · Session 2 · Monday 26 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 2 · 26 of 26</p>
+
+</section>
+</div></div>
+<div id="notes" role="note"></div>
+<div id="bar">
+<a href="../hub.html">All sessions</a>
+<button id="prev" aria-label="Previous slide">&#8592;</button><button id="next" aria-label="Next slide">&#8594;</button>
+<select id="jump" aria-label="Jump to a section"><option>Welcome, the plan for the afternoon and who does what.</option><option>Overview of the four systems, then users and roles in Keycloak.</option><option>Ticketing users, then looking up and changing system settings.</option><option>Lists of choices, key designations, fees and the lists on public forms.</option><option>The readiness check.</option></select>
+<button id="nbtn" title="Show or hide the speaker notes (N)">Notes</button>
+<span id="count"></span>
+</div>
+<script>
+(function(){
+var secs=[].slice.call(document.querySelectorAll('#stage section')),i=0,N=["Welcome back. This afternoon is for the IT administrators only. We test users and roles in Keycloak, the system settings, lists and fees. The client UAT Lead joins us at 16:35 for the readiness check.", "Give the shape of the afternoon. This is the first half of the plan; the second half is on the next slide. Each test has its own slides with what to do and what you should see.", "The break is at 15:52. The UAT Lead joins for the readiness check at 16:32; any test that needs a second try is picked up before then.", "Confirm everyone is an IT Administrator and can sign in to the COMIS back office and the ticketing system. Remind them that the tester accounts they create at 15:32 are the ones the other testers use from Tuesday morning. Nothing is fixed during the test: record what you see.", "A short recap of the four systems for the IT Administrators, limited to the parts used this afternoon. It is a guided overview, not a test. Keep to 15 minutes so the afternoon stays on time.", "Try more than one role so each tester sees a different dashboard. The real tester accounts for Tuesday are created in the same way, so write down anything that makes account creation slow or confusing.", "This is the shortest activity. If anyone still sees a menu after the roles are removed, note the user, the time and the menu.", "Both the refusal message and the missing email matter: the user must be told the account is deactivated, but the system must not email them. Note exactly what message appears.", "Officers and supervisors will handle public tickets from Tuesday, so they need ticketing users first. Done when an officer user and a supervisor user both exist. Watch for anything that is slow or confusing when creating a user, and ask people to write it down.", "Try a real example, such as the minimum number of members. Part 2 on the next slide covers sorting and paging.", "Click the same header twice to see both sort directions. If the list does not change, record it.", "Show the difference between Cancel and Update. Done when a changed value is saved and visible in the list. The next slide checks the business limits.", "Always restore the original value so Tuesday\u2019s testers work with the agreed limits. Check that no parameter appears twice.", "Read out the values you expect before each search: 30 for the first AGM submission period and 14 for the reminder period. Part 2 covers the third setting and editing.", "The duplicate check matters: search again after saving and count the rows for each setting. Note the original values so they can be restored if the group agrees.", "These lists feed the dropdowns on the forms. Try Term of Office, Cooperative Sector and Auditor as well. Parts 2 and 3 add a value and reserved words.", "Use a clearly named test reference so it is easy to spot afterwards. Part 3 adds values to it.", "Reserved words stop cooperative names from using certain words. Try switching the new word between Active and Inactive and watch the status change.", "Ten minutes. Ask everyone to be back on time, because the readiness check with the UAT Lead starts at 16:35.", "Done when the three key designations are confirmed locked and another designation is confirmed editable. Put the description back if it was changed for the test.", "Part 2 sets a new fee with a start and end date. Do not change amounts you cannot restore.", "Step 7 needs an application that can be approved; if none exists yet, say so and come back to it after the Tuesday sessions. Check the dates carefully, because the old fee must end where the new one starts.", "These are the lists you configured earlier in System References. Part 2 switches Employee to Inactive and checks the other forms.", "Step 4 is normally done by the Registrar Officer; today the IT Administrator does it so the whole check can run in one sitting. Remind people to set Employee back to Active so Tuesday\u2019s testers see the normal list.", "The client UAT Lead joins. Walk through the list in order and be honest about anything not ready. The entry gate is confirmed at 17:00. Anything that blocks Tuesday\u2019s testers must be named now.", "Read through the list. Anything not ticked goes to the problem log. Thank the team: Tuesday morning the cooperative society, Officer and Supervisor testers start, and the IT Administrator is on call for them."],starts=[0, 4, 8, 15, 24];
+var st=document.getElementById('stage'),nt=document.getElementById('notes');
+function fit(){var w=document.getElementById('vp'),k=Math.min(w.clientWidth/1920,w.clientHeight/1080);st.style.transform='scale('+k+')'}
+function show(n,noh){i=Math.max(0,Math.min(secs.length-1,n));secs.forEach(function(s,k){s.classList.toggle('on',k===i)});
+ document.getElementById('count').textContent=(i+1)+' / '+secs.length;nt.textContent=N[i]||'';
+ var j=document.getElementById('jump'),b=0;starts.forEach(function(s,k){if(s<=i)b=k});j.selectedIndex=b;
+ if(!noh)try{history.replaceState(null,'','#'+(i+1))}catch(e){}}
+document.getElementById('prev').onclick=function(){show(i-1)};document.getElementById('next').onclick=function(){show(i+1)};
+document.getElementById('jump').onchange=function(){show(starts[this.selectedIndex]);this.blur()};
+function tn(){nt.classList.toggle('show')}document.getElementById('nbtn').onclick=tn;
+document.addEventListener('keydown',function(e){var k=e.key;
+ if(k==='ArrowRight'||k==='PageDown'||k===' '){e.preventDefault();show(i+1)}
+ else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();show(i-1)}
+ else if(k==='Home')show(0);else if(k==='End')show(secs.length-1);else if(k==='n'||k==='N')tn();
+ else if(k==='f'||k==='F'){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()}});
+window.addEventListener('resize',fit);fit();
+var h=parseInt((location.hash||'').slice(1),10);show(isNaN(h)?0:h-1,true);
+})();
+</script></body></html>

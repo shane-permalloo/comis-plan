@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UAT Session 4: Assessment and CME Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1410;overflow:hidden;font-family:'Public Sans',Arial,sans-serif}
+#vp{position:absolute;inset:0 0 56px 0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#stage{width:1920px;height:1080px;position:relative;transform-origin:center center;flex:none}
+#stage section{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:none!important}
+#stage section.on{display:flex!important}
+#stage p,#stage h1,#stage h2,#stage h3,#stage ul,#stage ol,#stage table{margin:0}
+#stage table{border-collapse:collapse}#stage td,#stage th{padding:.35em .6em}
+#stage aside{display:none!important}
+#bar{position:absolute;left:0;right:0;bottom:0;height:56px;background:#0E3B2D;color:#F7FAF8;display:flex;align-items:center;gap:12px;padding:0 16px;font-size:16px}
+#bar button,#bar select,#bar a{font:inherit;color:#F7FAF8;background:#17654A;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;text-decoration:none}
+#bar button:hover,#bar a:hover{background:#1f7f5e}
+#bar select{max-width:34vw}
+#count{margin-left:auto;font-weight:600}
+#notes{position:absolute;left:16px;right:16px;bottom:68px;background:#F2C46D;color:#2A1D00;padding:14px 18px;border-radius:10px;font-size:17px;line-height:1.4;display:none;max-height:40vh;overflow:auto}
+#notes.show{display:block}
+</style></head><body>
+<div id="vp"><div id="stage">
+<section id="cover" data-transition="fade" style="background:#0E3B2D;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">COMIS user acceptance testing · Office of the Registrar of Cooperatives, Malawi</p>
+<div style="display:flex;flex-direction:column;gap:32px">
+<h1 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:128px;font-weight:700;line-height:1.05;color:#F7FAF8">Session 4: Assessment and CME training</h1>
+<p style="font-size:44px;line-height:1.3;color:#C9DCD2">Decide the assessment, then request, hold and approve CME training</p>
+</div>
+<div style="display:flex;gap:24px">
+<p style="font-size:32px;font-weight:600;background:#17654A;color:#F7FAF8;padding:16px 32px;border-radius:50px">Tuesday 27 October 2026</p>
+<p style="font-size:32px;font-weight:600;background:#F2C46D;color:#2A1D00;padding:16px 32px;border-radius:50px">13:30 to 17:00 CAT</p>
+</div>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 4 · 1 of 25</p>
+
+</section>
+<section id="today" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">The afternoon at a glance · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Assessment, then CME requests</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:20%;text-align:left">Time</th><th style="color:#F2C46D;width:36%;text-align:left">What we do</th><th style="color:#F2C46D;width:44%;text-align:left">By the end</th></tr>
+<tr style="background:#FFFFFF"><td>13:30 to 13:40</td><td><b>Find the assessment</b></td><td>Application found in the queue</td></tr>
+<tr style="background:#E6EDE9"><td>13:40 to 13:52</td><td><b>Approve one, reject one</b></td><td>Decision recorded with a comment</td></tr>
+<tr style="background:#FFFFFF"><td>13:52 to 14:00</td><td><b>Follow the status</b></td><td>Dashboards show status and counts</td></tr>
+<tr style="background:#E6EDE9"><td>14:00 to 14:08</td><td><b>Search the assessments</b></td><td>Search and clear both work</td></tr>
+<tr style="background:#FFFFFF"><td>14:08 to 14:20</td><td><b>Request CME training</b></td><td>Request shows Pending, read-only</td></tr>
+<tr style="background:#E6EDE9"><td>14:20 to 14:28</td><td><b>Follow the request</b></td><td>Status colour and reason banner seen</td></tr>
+<tr style="background:#FFFFFF"><td>14:28 to 14:36</td><td><b>Officer dashboard</b></td><td>Counts per status and the CME list</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 2 of 25</p>
+
+</section>
+<section id="today2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">The afternoon at a glance · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">CME decisions and the review</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:20%;text-align:left">Time</th><th style="color:#F2C46D;width:36%;text-align:left">What we do</th><th style="color:#F2C46D;width:44%;text-align:left">By the end</th></tr>
+<tr style="background:#FFFFFF"><td>14:36 to 14:44</td><td><b>Search the CME list</b></td><td>Search, clear and paging work</td></tr>
+<tr style="background:#E6EDE9"><td>14:44 to 14:59</td><td>Break</td><td>Back on time</td></tr>
+<tr style="background:#FFFFFF"><td>14:59 to 15:09</td><td><b>Hold and release</b></td><td>Hold with a reason, then release</td></tr>
+<tr style="background:#E6EDE9"><td>15:09 to 15:21</td><td><b>Approve</b></td><td>Report and reason added</td></tr>
+<tr style="background:#FFFFFF"><td>15:21 to 15:29</td><td><b>View the approved request</b></td><td>Approved report downloaded</td></tr>
+<tr style="background:#E6EDE9"><td>15:29 to 15:39</td><td><b>Validity and deadlines</b></td><td>Expired status, banner and invoice seen</td></tr>
+<tr style="background:#FFFFFF"><td>15:39 to 16:30</td><td>Spare time</td><td>Late starts and second tries</td></tr>
+<tr style="background:#E6EDE9"><td>16:30 to 17:00</td><td><b>Daily review</b></td><td>With the client UAT Lead</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 3 of 25</p>
+
+</section>
+<section id="who" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">Who does what</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Three roles, one chain</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">Who is here</h3>
+<ul style="font-size:32px;line-height:1.4;color:#14221C">
+<li><b>Cooperative society (Applicant):</b> follows the assessment and requests CME training.</li>
+<li><b>Registrar Officer:</b> decides the assessment and handles the CME requests.</li>
+<li><b>Registrar Supervisor:</b> checks the lists, dashboards and approved requests.</li>
+<li><b>IT Administrator:</b> on call for accounts and access.</li>
+</ul>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">Prepared by MNS</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">Each cooperative approved in the assessment carries on into CME training, then Registration tomorrow morning.</p>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">MNS keeps a rejected assessment and an expired membership ready for the dashboard checks on Wednesday.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 4 of 25</p>
+
+</section>
+<section id="a1-find" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">13:30 to 13:40 · 10 minutes</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Officer finds the assessment</h2>
+<p style="font-size:28px;color:#4F6158">Done by the Registrar Officer in the back office.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open the email about the submitted assessment.</td><td>The email has arrived for the officer.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Log in and open the Dashboard. The Assessment tab is selected.</td><td>Cards show counts for Pending Review, Approved, Rejected and Expired.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Click the Pending Review card.</td><td>The list opens, filtered by Pending Review.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Go to Applications > Assessments, search by application number or group name, then click Search.</td><td>Only the matching application is listed.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done when: you have found the cooperative’s application.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 5 of 25</p>
+
+</section>
+<section id="a2-decide1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">13:40 to 13:52 · 12 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Approve one, reject one</h2>
+<p style="font-size:28px;color:#4F6158">Done by the Registrar Officer in the back office.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>On the Dashboard, click the Pending Review card under Assessment.</td><td>The list shows applications with status Pending Review.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Click the Edit icon in the Action column.</td><td>The Review Assessment Form opens read-only, with an Action required button.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Click Action required.</td><td>A pop-up shows an Action dropdown (Approve or Reject), a Comment box, Cancel and Confirm.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 6 of 25</p>
+
+</section>
+<section id="a2-decide2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">13:40 to 13:52 · 12 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Approve one, reject one</h2>
+<p style="font-size:28px;color:#4F6158">Done by the Registrar Officer, then the Applicant.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Officer: choose Approve or Reject, enter a comment and click Confirm.</td><td>A success message appears. The status changes and your comment is shown.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>Officer: return to the Dashboard.</td><td>Pending Review goes down. Approved or Rejected goes up.</td></tr>
+<tr style="background:#FFFFFF"><td>6</td><td>Applicant, if Approved: look at the CME card.</td><td>The CME step is now enabled.</td></tr>
+<tr style="background:#E6EDE9"><td>7</td><td>Applicant, if Rejected: look at the Assessment and CME cards.</td><td>Assessment is enabled again to resubmit. CME stays disabled.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done when: one assessment is approved and one is rejected.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 7 of 25</p>
+
+</section>
+<section id="a3-status" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">13:52 to 14:00 · 8 minutes</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Follow the status</h2>
+<p style="font-size:28px;color:#4F6158">Done by the Applicant and the Registrar Officer.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Applicant: open the Dashboard, then click View Assessment.</td><td>The status shows. The assessment opens read-only with its application number.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Applicant: after the decision, return to the Dashboard.</td><td>The Assessment card shows Approved or Rejected.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Officer: open the Dashboard and click a status card.</td><td>Counts are right. The list opens, filtered by that status.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Officer: compare the icons across statuses.</td><td>Pending Review has View and Edit. The others have View only.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 8 of 25</p>
+
+</section>
+<section id="a4-search" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:00 to 14:08 · 8 minutes</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Search the assessments</h2>
+<p style="font-size:28px;color:#4F6158">Done by the Registrar Officer or Supervisor in the back office.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Go to Applications > Assessments.</td><td>Search parameters and the list, newest submission first.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Enter criteria such as application number, group name or status. Click Search.</td><td>Only matching applications are listed.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Click Clear.</td><td>All criteria reset and the full list is shown again.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Click the View icon on a listed application.</td><td>The assessment opens read-only.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done when: search and clear both work.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 9 of 25</p>
+
+</section>
+<section id="a5-request1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:08 to 14:20 · 12 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Request CME training</h2>
+<p style="font-size:28px;color:#4F6158">Done by the Applicant. The assessment must be approved.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Log in and open the Dashboard.</td><td>Assessment shows Approved. The CME card has a Request CME button.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Click Request CME on the CME card.</td><td>The CME screen opens: Application Number (read only), Number of Members, Comments.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Enter the Number of Members and, if you wish, a comment.</td><td>Your entries appear in the fields.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Click Request CME.</td><td>A confirmation pop-up appears.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 10 of 25</p>
+
+</section>
+<section id="a5-request2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:08 to 14:20 · 12 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Request CME training</h2>
+<p style="font-size:28px;color:#4F6158">Done by the Applicant.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>5</td><td>Click Yes to confirm (or No to stay on the screen).</td><td>Yes: the request is submitted and you return to the Dashboard. No: your entries remain.</td></tr>
+<tr style="background:#E6EDE9"><td>6</td><td>Check the CME card on the Dashboard.</td><td>Status Pending shows in orange. Request CME is replaced by View CME.</td></tr>
+<tr style="background:#FFFFFF"><td>7</td><td>Click View CME.</td><td>The request opens read-only with your details and status Pending.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done when: the request shows Pending and cannot be edited.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 11 of 25</p>
+
+</section>
+<section id="a6-follow" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:20 to 14:28 · 8 minutes</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Follow the request</h2>
+<p style="font-size:28px;color:#4F6158">Done by the Applicant. A CME request must already be submitted.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open the Dashboard and look at the CME card.</td><td>The status: Pending (orange), On Hold (red), Approved (green) or Expired (red).</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Click View CME.</td><td>The screen is read-only. The header shows the status and Date Submitted.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>When the request is On Hold, read the banner below the header.</td><td>The officer’s reason, with name, date and time, on a red or pink card.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>When the request is Approved, open View CME again.</td><td>Header shows Approved on. The comment card is green.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 12 of 25</p>
+
+</section>
+<section id="a7-officer" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:28 to 14:36 · 8 minutes</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Officer dashboard</h2>
+<p style="font-size:28px;color:#4F6158">Done by the Registrar Officer. CME requests in several statuses should exist.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open the Dashboard and click the CME tab.</td><td>Cards for Pending, On Hold, Approved and Expired show the number of applications.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Click a status card, for example Pending.</td><td>The CME list opens, filtered by that status.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Look at the Actions column, then click the view icon.</td><td>Edit and view icons depend on the status. The application opens read-only.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Return to the Dashboard after processing an application.</td><td>Counts are updated. A card with no applications shows 0 and cannot be clicked.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 13 of 25</p>
+
+</section>
+<section id="a8-cmesearch" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:36 to 14:44 · 8 minutes</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Search the CME list</h2>
+<p style="font-size:28px;color:#4F6158">Done by the Registrar Officer or Supervisor.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Go to Applications > CME. Enter criteria, such as Application Number, Cooperative Name or Status.</td><td>The search section and list show. Your criteria appear in the fields.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Click Search.</td><td>Matching applications, latest Training End Date first. None: No records found.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Click Clear.</td><td>Criteria reset and the full CME list is shown.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Change Items per page (10, 25 or 50). Use the previous and next icons.</td><td>The list shows that many records and moves between pages.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 14 of 25</p>
+
+</section>
+<section id="break" data-transition="fade" style="background:#17654A;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:center;gap:32px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">14:44 to 14:59</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:128px;font-weight:700;line-height:1.05;color:#F7FAF8">Break</h2>
+<p style="font-size:44px;line-height:1.3;color:#DCEBE3">Back at 14:59 to put a request on hold.</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 4 · 15 of 25</p>
+
+</section>
+<section id="b1-hold1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:59 to 15:09 · 10 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Put on hold and release</h2>
+<p style="font-size:28px;color:#4F6158">Done by the Registrar Officer. A Pending CME request must exist.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open a Pending application from the CME list using the edit icon.</td><td>The CME screen opens. The On Hold toggle is Off.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Switch the On Hold toggle On.</td><td>An Application on hold pop-up asks for a reason.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Enter a reason and click Confirm action.</td><td>The toggle is On and the status changes to On Hold (red).</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Look at the Training Evidence section.</td><td>A red or pink card shows the officer name, date, time and reason.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 16 of 25</p>
+
+</section>
+<section id="b1-hold2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:59 to 15:09 · 10 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Put on hold and release</h2>
+<p style="font-size:28px;color:#4F6158">Done by the Registrar Officer and the Applicant.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>5</td><td>Officer: click the pencil icon on the reason card, change the text and save.</td><td>The card shows the updated reason and time. Status stays On Hold.</td></tr>
+<tr style="background:#E6EDE9"><td>6</td><td>Applicant: check the CME card, then click View CME.</td><td>On Hold shows in red. The read-only request has the reason banner.</td></tr>
+<tr style="background:#FFFFFF"><td>7</td><td>Officer: switch the On Hold toggle Off and click Yes.</td><td>The card is removed, status returns to Pending and a toast confirms it.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done when: the request is Pending again and Approve CME is enabled.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 17 of 25</p>
+
+</section>
+<section id="b2-approve1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:09 to 15:21 · 12 minutes · part 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Approve a CME request</h2>
+<p style="font-size:28px;color:#4F6158">Done by the Registrar Officer. A Pending CME request must exist.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open a Pending application from Applications > CME using the edit icon.</td><td>The CME screen shows members, Training Evidence, Approve CME and On Hold.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Upload the CME report under Attached documents.</td><td>The file is attached and can be previewed or downloaded.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Enter Remarks, Venue of Training, Training Started on and Training Ended on.</td><td>Your entries appear in the fields.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 18 of 25</p>
+
+</section>
+<section id="b2-approve2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:09 to 15:21 · 12 minutes · part 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Approve a CME request</h2>
+<p style="font-size:28px;color:#4F6158">Done by the Registrar Officer.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Click Approve CME.</td><td>An Approve CME pop-up asks for a reason.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>Enter a reason and click Confirm action.</td><td>A message confirms the request is approved and you return to the Dashboard.</td></tr>
+<tr style="background:#FFFFFF"><td>6</td><td>On the Dashboard, open the CME tab, click Approved and use the view icon.</td><td>View CME shows status Approved, is read-only, and the report can be downloaded.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done when: the request is Approved with its report and reason.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 19 of 25</p>
+
+</section>
+<section id="b3-view" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:21 to 15:29 · 8 minutes</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">View the approved request</h2>
+<p style="font-size:28px;color:#4F6158">Done by the Registrar Officer or Supervisor.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>On the Dashboard, click the CME tab, then the Approved card. Click the view icon.</td><td>The list of approved applications opens, then the View CME screen.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Check the header and the banner under it.</td><td>Green Approved badge with Approved on and Approved By. A green card with the approval comment.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Check the form and Training Evidence section.</td><td>Read-only. Documents, Remarks, Venue and training dates are shown.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Click the download icon on the CME report.</td><td>The report is downloaded.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 20 of 25</p>
+
+</section>
+<section id="b4-valid1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:29 to 15:39 · 10 minutes · part 1 of 3</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Validity and deadlines</h2>
+<p style="font-size:28px;color:#4F6158">Applicant and Officer. Needs Approved and Expired CME applications.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Applicant with a Pending CME: view the Dashboard.</td><td>CME shows Pending. The Registration card is greyed out.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Officer: approve the CME with venue, dates and report.</td><td>The CME status becomes Approved.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Applicant: view the Dashboard.</td><td>A yellow banner gives the date to complete registration. Start Registration is enabled.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Click Start Registration and open Payment Information.</td><td>The invoice generated on approval is shown as a PDF.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 21 of 25</p>
+
+</section>
+<section id="b4-valid2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:29 to 15:39 · 10 minutes · part 2 of 3</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Validity and deadlines</h2>
+<p style="font-size:28px;color:#4F6158">Done by the Applicant.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>5</td><td>Submit the registration.</td><td>The banner is removed. The CME card still shows Approved.</td></tr>
+<tr style="background:#E6EDE9"><td>6</td><td>When the CME validity has lapsed, view the Dashboard.</td><td>CME shows Expired with Request CME enabled. A yellow banner says the registration period has lapsed and gives a deadline.</td></tr>
+<tr style="background:#FFFFFF"><td>7</td><td>Click Request CME and submit a new request within the deadline.</td><td>The banner disappears. The CME card shows Pending.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 22 of 25</p>
+
+</section>
+<section id="b4-valid3" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:29 to 15:39 · 10 minutes · part 3 of 3</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Validity and deadlines</h2>
+<p style="font-size:28px;color:#4F6158">Done by the Applicant or the Officer.</p>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">#</th><th style="color:#F2C46D;width:42%;text-align:left">What to do</th><th style="color:#F2C46D;width:50%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>8</td><td>View the previous CME application.</td><td>A red banner says the registration period has lapsed. The screen is read-only.</td></tr>
+<tr style="background:#E6EDE9"><td>9</td><td>If the final deadline passes, check the Dashboard.</td><td>CME shows Expired without Request CME. Start Assessment is available, with a banner saying a new assessment is required.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;color:#17654A">Done when: each status and banner matched what is listed above.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 23 of 25</p>
+
+</section>
+<section id="review" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">16:30 to 17:00 · 30 minutes · with the client UAT Lead</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Daily review</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">What we do</h3>
+<ol style="font-size:32px;line-height:1.4;color:#14221C">
+<li>Go through each test of the day with the client UAT Lead.</li>
+<li>Say which tests were finished and which need a second try.</li>
+<li>Check that every problem was written down.</li>
+</ol>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">The outcome</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">Everyone agrees what was done today and what is open.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 4 · Tuesday 27 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 4 · 24 of 25</p>
+
+</section>
+<section id="wrap" data-transition="fade" style="background:#0E3B2D;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">At 17:00</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1;color:#F7FAF8">What we should have achieved</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">One assessment approved and one rejected, with comments.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">Dashboards and searches showed the right status and counts.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">A CME request was made, put on hold, released and approved.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">The approved report was viewed and downloaded.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">Expired status, deadline banners and the invoice were checked.</p></div>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#14503C;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">Next</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8"><b>Wednesday 28 October, 08:30, Session 5:</b> cooperative registration, starting with the cooperatives that have a valid CME, then viewing and editing the cooperative profile.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#9DB8AB">Nothing is fixed during UAT: problems are recorded and classified at the virtual meeting on Tuesday 3 November.</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 4 · 25 of 25</p>
+
+</section>
+</div></div>
+<div id="notes" role="note"></div>
+<div id="bar">
+<a href="../hub.html">All sessions</a>
+<button id="prev" aria-label="Previous slide">&#8592;</button><button id="next" aria-label="Next slide">&#8594;</button>
+<select id="jump" aria-label="Jump to a section"><option>Welcome, the plan for the afternoon and who does what.</option><option>Assessment: find, decide, follow and search.</option><option>CME training: request, follow, dashboard and search.</option><option>CME training after the break: hold, approve, view, validity and deadlines.</option><option>Daily review and what comes next.</option></select>
+<button id="nbtn" title="Show or hide the speaker notes (N)">Notes</button>
+<span id="count"></span>
+</div>
+<script>
+(function(){
+var secs=[].slice.call(document.querySelectorAll('#stage section')),i=0,N=["Welcome back after lunch. This afternoon the assessment submitted this morning is decided, and each approved cooperative carries on into CME training. Walk through the agenda on the next slides.", "Give the shape of the afternoon. Each test has its own slide with what to do and what you should see. Part 2 of the agenda follows.", "The break is at 14:44. Spare time from 15:39 is room for late starts, slow emails and tests that need a second try. The day closes with a review with the client UAT Lead at 16:30.", "Confirm who is playing which role and that everyone is signed in to the right portal: Applicants in the cooperative portal, Officers and Supervisors in the back office. Do not spend time on the preparation; it is already done by MNS.", "This is the officer\u2019s starting point for the next test. Make sure the Officer can find the application submitted this morning. If the email has not arrived, wait a moment, then note it and carry on from the Dashboard.", "Two cooperatives are decided here: one approved and one rejected. Agree who is approved and who is rejected before the officer starts.", "Make sure the comment is entered before Confirm. Keep the rejected assessment: MNS needs it for the dashboard checks on Wednesday. The approved cooperative goes on into CME training.", "Both dashboards must agree with the decisions just made. Note any count that does not match.", "Ask testers to try more than one criterion, not only the application number.", "Only the cooperative with the approved assessment can do this. The rejected cooperative should find the CME card disabled.", "Try No once to see that entries stay, then Yes. The word Pending must appear, not only the colour.", "Steps 3 and 4 can only be seen once a request is on hold or approved. We come back to them after the break. Each status must also be named in words.", "The request made at 14:08 should be counted under Pending. Check that the number on the card matches the list.", "Also try a search that matches nothing, to see the No records found message.", "Fifteen minutes. Ask the Officer to leave a Pending request open in the list so the next test starts on time.", "The reason typed here is what the Applicant will read on the banner. Use a clear sentence.", "The Applicant and the Officer work in turn here. Watch that the reason the Applicant sees is the updated one.", "Add the report before approving. Agree beforehand which file the Officer will use as the CME report.", "Keep this approved request: it is used in the next test and registration opens for this cooperative tomorrow morning.", "Check that the downloaded file opens and is the report uploaded in the previous test.", "Time is short for this test. Use the approved request from the earlier test where you can. Parts 2 and 3 need a lapsed CME; note it if none can be shown today.", "The Expired status must be shown in words, not only red. Note the deadline date on the banner.", "Step 9 needs a cooperative whose final deadline has passed. If none is available, note it and move on.", "Keep it factual. Do not discuss how serious a problem is; that happens at the meeting on 3 November. Confirm that the approved cooperatives, the rejected assessment and the expired membership are kept for tomorrow.", "Read through the list. Anything not ticked goes to the problem log. The approved cooperatives carry on into Registration tomorrow morning."],starts=[0, 4, 9, 15, 23];
+var st=document.getElementById('stage'),nt=document.getElementById('notes');
+function fit(){var w=document.getElementById('vp'),k=Math.min(w.clientWidth/1920,w.clientHeight/1080);st.style.transform='scale('+k+')'}
+function show(n,noh){i=Math.max(0,Math.min(secs.length-1,n));secs.forEach(function(s,k){s.classList.toggle('on',k===i)});
+ document.getElementById('count').textContent=(i+1)+' / '+secs.length;nt.textContent=N[i]||'';
+ var j=document.getElementById('jump'),b=0;starts.forEach(function(s,k){if(s<=i)b=k});j.selectedIndex=b;
+ if(!noh)try{history.replaceState(null,'','#'+(i+1))}catch(e){}}
+document.getElementById('prev').onclick=function(){show(i-1)};document.getElementById('next').onclick=function(){show(i+1)};
+document.getElementById('jump').onchange=function(){show(starts[this.selectedIndex]);this.blur()};
+function tn(){nt.classList.toggle('show')}document.getElementById('nbtn').onclick=tn;
+document.addEventListener('keydown',function(e){var k=e.key;
+ if(k==='ArrowRight'||k==='PageDown'||k===' '){e.preventDefault();show(i+1)}
+ else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();show(i-1)}
+ else if(k==='Home')show(0);else if(k==='End')show(secs.length-1);else if(k==='n'||k==='N')tn();
+ else if(k==='f'||k==='F'){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()}});
+window.addEventListener('resize',fit);fit();
+var h=parseInt((location.hash||'').slice(1),10);show(isNaN(h)?0:h-1,true);
+})();
+</script></body></html>

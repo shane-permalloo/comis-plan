@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UAT Session 8: Leaders Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b1410;overflow:hidden;font-family:'Public Sans',Arial,sans-serif}
+#vp{position:absolute;inset:0 0 56px 0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#stage{width:1920px;height:1080px;position:relative;transform-origin:center center;flex:none}
+#stage section{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:none!important}
+#stage section.on{display:flex!important}
+#stage p,#stage h1,#stage h2,#stage h3,#stage ul,#stage ol,#stage table{margin:0}
+#stage table{border-collapse:collapse}#stage td,#stage th{padding:.35em .6em}
+#stage aside{display:none!important}
+#bar{position:absolute;left:0;right:0;bottom:0;height:56px;background:#0E3B2D;color:#F7FAF8;display:flex;align-items:center;gap:12px;padding:0 16px;font-size:16px}
+#bar button,#bar select,#bar a{font:inherit;color:#F7FAF8;background:#17654A;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;text-decoration:none}
+#bar button:hover,#bar a:hover{background:#1f7f5e}
+#bar select{max-width:34vw}
+#count{margin-left:auto;font-weight:600}
+#notes{position:absolute;left:16px;right:16px;bottom:68px;background:#F2C46D;color:#2A1D00;padding:14px 18px;border-radius:10px;font-size:17px;line-height:1.4;display:none;max-height:40vh;overflow:auto}
+#notes.show{display:block}
+</style></head><body>
+<div id="vp"><div id="stage">
+<section id="cover" data-transition="fade" style="background:#0E3B2D;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">COMIS user acceptance testing · Office of the Registrar of Cooperatives, Malawi</p>
+<div style="display:flex;flex-direction:column;gap:32px">
+<h1 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:128px;font-weight:700;line-height:1.05;color:#F7FAF8">Session 8: Leaders Management</h1>
+<p style="font-size:44px;line-height:1.3;color:#C9DCD2">Electing leaders, running committees and keeping the meeting history</p>
+</div>
+<div style="display:flex;gap:24px">
+<p style="font-size:32px;font-weight:600;background:#17654A;color:#F7FAF8;padding:16px 32px;border-radius:50px">Thursday 29 October 2026</p>
+<p style="font-size:32px;font-weight:600;background:#F2C46D;color:#2A1D00;padding:16px 32px;border-radius:50px">13:30 to 17:00 CAT</p>
+</div>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 8 · 1 of 24</p>
+
+</section>
+<section id="today1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">The afternoon at a glance · 1 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Elect leaders and view the election</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:20%;text-align:left">Time</th><th style="color:#F2C46D;width:38%;text-align:left">What we do</th><th style="color:#F2C46D;width:42%;text-align:left">By the end</th></tr>
+<tr style="background:#FFFFFF"><td>13:30 to 14:12</td><td><b>First election of leaders</b></td><td>Election submitted and read-only</td></tr>
+<tr style="background:#E6EDE9"><td>14:12 to 14:18</td><td><b>Find members</b></td><td>Search works, chosen members greyed</td></tr>
+<tr style="background:#FFFFFF"><td>14:18 to 14:30</td><td><b>Optional subcommittees</b></td><td>Subcommittee saved with members</td></tr>
+<tr style="background:#E6EDE9"><td>14:30 to 14:38</td><td><b>View a submitted election</b></td><td>Read-only for all three roles</td></tr>
+<tr style="background:#FFFFFF"><td>14:38 to 14:53</td><td>Break</td><td>Back on time</td></tr>
+<tr style="background:#E6EDE9"><td>14:53 to 15:01</td><td><b>Browse the meeting history</b></td><td>Filter, paging and download work</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 2 of 24</p>
+
+</section>
+<section id="today2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">The afternoon at a glance · 2 of 2</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Meetings, committee changes and the review</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:20%;text-align:left">Time</th><th style="color:#F2C46D;width:38%;text-align:left">What we do</th><th style="color:#F2C46D;width:42%;text-align:left">By the end</th></tr>
+<tr style="background:#FFFFFF"><td>15:01 to 15:17</td><td><b>Record a new meeting</b></td><td>New meeting submitted</td></tr>
+<tr style="background:#E6EDE9"><td>15:17 to 15:25</td><td><b>Remove a member</b></td><td>Mandatory roles refuse removal</td></tr>
+<tr style="background:#FFFFFF"><td>15:25 to 15:35</td><td><b>Replace a member</b></td><td>Replacement saved, warning seen</td></tr>
+<tr style="background:#E6EDE9"><td>15:35 to 15:43</td><td><b>Member becomes inactive</b></td><td>Warnings show on the committees</td></tr>
+<tr style="background:#FFFFFF"><td>15:43 to 16:30</td><td>Spare time</td><td>Late starts and second tries</td></tr>
+<tr style="background:#E6EDE9"><td>16:30 to 17:00</td><td><b>Daily review</b></td><td>Day reviewed with the UAT Lead</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 3 of 24</p>
+
+</section>
+<section id="who" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#17654A">Before we start</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Who does what, and what is ready</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">Who does what</h3>
+<p style="font-size:28px;line-height:1.4;color:#14221C"><b>Cooperative Society (Applicant):</b> elects the leaders, records meetings and changes committees.</p>
+<p style="font-size:28px;line-height:1.4;color:#14221C"><b>Registrar Officer and Supervisor:</b> open the submitted election and the meeting history. They only look: nothing can be changed.</p>
+<p style="font-size:28px;line-height:1.4;color:#14221C"><b>IT Administrator:</b> on call if an account or an email causes trouble.</p>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">What MNS has prepared</h3>
+<p style="font-size:28px;line-height:1.4;color:#F7FAF8">Several cooperatives with at least 20 active members, one of them inactive. An election can be submitted only once for each.</p>
+<p style="font-size:28px;line-height:1.4;color:#F7FAF8">One cooperative with 12 or more submitted meetings over two years.</p>
+<p style="font-size:28px;line-height:1.4;color:#F7FAF8">Cooperatives for the changes: a submitted election, an ended term, a member on several committees.</p>
+</div>
+</div>
+<p style="font-size:28px;font-weight:600;line-height:1.3;color:#2A1D00;background:#FFF3D6;border:2px solid #F2C46D;padding:12px 24px;border-radius:12px">Please write down the committee names before you start the election. Still being built: results may differ.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 4 of 24</p>
+
+</section>
+<section id="elect1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">13:30 to 14:12 · 42 minutes · part 1 of 2</p><p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Cooperative Society (Applicant)</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">First election of leaders</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open Cooperative Profile, then Elect Leaders, to start a new election.</td><td>The election page opens with AGM Details and four committee sections.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>In AGM Details, enter the AGM Date, AGM Location and Term Start Date.</td><td>Term End Date fills in by itself and cannot be edited.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>In Management Committee, pick a member for each Board Member row and enter Start and End Dates.</td><td>Active members are offered. The committee shows its compliance status.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>In Executive Committee, assign Chairman, Vice Chairman, Secretary and Treasurer.</td><td>The positions are already there and the committee status updates.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;line-height:1.3;color:#2A1D00;background:#FFF3D6;border:2px solid #F2C46D;padding:12px 24px;border-radius:12px">Still being built: results may differ.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 5 of 24</p>
+
+</section>
+<section id="elect2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">13:30 to 14:12 · 42 minutes · part 2 of 2</p><p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Cooperative Society (Applicant)</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">First election of leaders</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>5</td><td>In Education and Supervisory Committee, assign the Chairperson, Secretary and one more member.</td><td>Education Chairperson is filled from the Executive Committee. Statuses turn Compliant.</td></tr>
+<tr style="background:#E6EDE9"><td>6</td><td>Open Upload Minutes / Documents and upload the AGM Minutes.</td><td>The uploaded documents are listed and can be opened.</td></tr>
+<tr style="background:#FFFFFF"><td>7</td><td>Review the Committee Hierarchy, then tick the acknowledgement box.</td><td>Committees show as a hierarchy. Select a member to see a read-only profile.</td></tr>
+<tr style="background:#E6EDE9"><td>8</td><td>Click Submit Election, then Confirm.</td><td>A success message shows, the election is read-only and the “Election Submission Successful” email arrives.</td></tr>
+</table>
+<p style="font-size:28px;line-height:1.3;color:#14221C"><b>Done when:</b> the election is read-only and the email has arrived. If a rule is broken, errors are listed and nothing is sent.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 6 of 24</p>
+
+</section>
+<section id="search" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:12 to 14:18 · 6 minutes</p><p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Cooperative Society (Applicant)</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Find members while choosing leaders</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Click into the Elected Member field on an open position.</td><td>A searchable dropdown opens.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Type at least three letters of a first name, last name or full name.</td><td>Matching Active members appear in alphabetical order. Inactive members never appear.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Type something that matches nobody.</td><td>The list shows “No matching members found.”</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Search for a member already chosen on this committee.</td><td>The entry is greyed out, marked “(Already Selected)”, and cannot be picked.</td></tr>
+</table>
+<p style="font-size:28px;line-height:1.3;color:#14221C"><b>Done when:</b> picking a member puts the full name in the field and closes the list.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 7 of 24</p>
+
+</section>
+<section id="sub1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:18 to 14:30 · 12 minutes · part 1 of 2</p><p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Cooperative Society (Applicant)</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Optional subcommittees</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open the Optional Subcommittee section and click + Add Subcommittee.</td><td>The form opens with Name, Minimum Members and Maximum Members.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Enter a name, a minimum of 3 and an odd maximum up to 15, then save.</td><td>The subcommittee appears in the list. A wrong name or a wrong size is refused.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Open the subcommittee and add a member.</td><td>The selection lists Active members.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 8 of 24</p>
+
+</section>
+<section id="sub2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:18 to 14:30 · 12 minutes · part 2 of 2</p><p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Cooperative Society (Applicant)</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Optional subcommittees</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Choose a designation, enter the Start and End Dates, then save.</td><td>The member is listed with designation and dates.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>Click View on an assigned member.</td><td>The member profile opens read-only.</td></tr>
+<tr style="background:#FFFFFF"><td>6</td><td>Add enough members, with one Chairperson and one Secretary, then save the subcommittee.</td><td>The subcommittee is saved with its members.</td></tr>
+</table>
+<p style="font-size:28px;line-height:1.3;color:#14221C"><b>Done when:</b> the subcommittee is kept once the election is submitted.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 9 of 24</p>
+
+</section>
+<section id="view1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:30 to 14:38 · 8 minutes · part 1 of 2</p><p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Registrar Officer</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">View a submitted election</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Search for and select the cooperative, then open the Elected Leaders tab.</td><td>The Current Committee Structure shows, read-only.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Look at the committee list.</td><td>Committees and subcommittees show status and member count. Management Committee is selected.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Select another committee, for example Executive.</td><td>Its members are listed with designation, name and status.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Select a member.</td><td>A read-only popup shows details, designation and membership history. Close it.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 10 of 24</p>
+
+</section>
+<section id="view2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:30 to 14:38 · 8 minutes · part 2 of 2</p><p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Officer, then Applicant and Supervisor</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">View a submitted election</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>5</td><td>Scroll through the submitted election record.</td><td>AGM details, committee members, documents and acknowledgement show read-only.</td></tr>
+<tr style="background:#E6EDE9"><td>6</td><td>Open Upload Minutes / Documents and view or download a document.</td><td>The submitted minutes and documents open or download.</td></tr>
+<tr style="background:#FFFFFF"><td>7</td><td>As Applicant, open View Members from the Cooperative Profile, then the Elect Leaders tab. Supervisor does the same.</td><td>The same read-only view is shown. Nothing can be changed.</td></tr>
+</table>
+<p style="font-size:28px;line-height:1.3;color:#14221C"><b>Done when:</b> all three roles see the same election and cannot edit it.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 11 of 24</p>
+
+</section>
+<section id="break" data-transition="fade" style="background:#17654A;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:center;gap:32px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">14:38 to 14:53</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:128px;font-weight:700;line-height:1.05;color:#F7FAF8">Break</h2>
+<p style="font-size:44px;line-height:1.3;color:#DCEBE3">Back at 14:53 for the meeting history.</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 8 · 12 of 24</p>
+
+</section>
+<section id="hist1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:53 to 15:01 · 8 minutes · part 1 of 2</p><p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Applicant, Officer and Supervisor</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Browse the meeting history</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open Member &amp; Leadership Management for the cooperative, then the History tab.</td><td>The AGM/GM History page opens with a Year filter and a records grid.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Look at the grid.</td><td>Year, Meeting Type, Meeting Date and Action, newest first, 10 per page.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Choose a year in the Year filter.</td><td>Only meetings from that year are listed.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Move to the next page.</td><td>The next records show and the filter stays applied.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;line-height:1.3;color:#2A1D00;background:#FFF3D6;border:2px solid #F2C46D;padding:12px 24px;border-radius:12px">Still being built: results may differ.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 13 of 24</p>
+
+</section>
+<section id="hist2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">14:53 to 15:01 · 8 minutes · part 2 of 2</p><p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Applicant, Officer and Supervisor</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Browse the meeting history</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>5</td><td>Set the filter back to All Years.</td><td>All submitted meeting records are listed again.</td></tr>
+<tr style="background:#E6EDE9"><td>6</td><td>Click View on a record.</td><td>The meeting opens read-only, with committees, documents and acknowledgement.</td></tr>
+<tr style="background:#FFFFFF"><td>7</td><td>Select a document in Documents / Minutes.</td><td>The minutes download. Nothing on the record can be edited.</td></tr>
+</table>
+<p style="font-size:28px;line-height:1.3;color:#14221C"><b>Done when:</b> a past meeting opened as it was submitted and its minutes downloaded.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 14 of 24</p>
+
+</section>
+<section id="rec1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:01 to 15:17 · 16 minutes · part 1 of 2</p><p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Cooperative Society (Applicant)</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Record a new meeting</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>On the Elect Leaders page, click New Meeting.</td><td>A Meeting Type dropdown appears.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Choose General Meeting or Annual General Meeting and continue.</td><td>The form opens. An AGM also shows AGM Start Date and a calculated AGM End Date.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Enter the meeting date, location and, for an AGM, the AGM Start Date.</td><td>The form accepts the details.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Check the committees copied from the last meeting.</td><td>All committees are prefilled. Members whose term ended are highlighted as Non-Compliant.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;line-height:1.3;color:#2A1D00;background:#FFF3D6;border:2px solid #F2C46D;padding:12px 24px;border-radius:12px">Still being built: results may differ.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 15 of 24</p>
+
+</section>
+<section id="rec2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:01 to 15:17 · 16 minutes · part 2 of 2</p><p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Cooperative Society (Applicant)</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Record a new meeting</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>5</td><td>Use Add Board Member or Add Committee Member.</td><td>A new row appears and an Active member can be assigned.</td></tr>
+<tr style="background:#E6EDE9"><td>6</td><td>Go to Review &amp; Submit.</td><td>Hierarchy, status per committee, documents and acknowledgement are shown.</td></tr>
+<tr style="background:#FFFFFF"><td>7</td><td>Click Submit, then Confirm.</td><td>The meeting opens read-only and becomes the current committee structure.</td></tr>
+<tr style="background:#E6EDE9"><td>8</td><td>To give up a meeting, click Cancel instead.</td><td>You return to Elect Leaders. The current structure is unchanged.</td></tr>
+</table>
+<p style="font-size:28px;line-height:1.3;color:#14221C"><b>Done when:</b> the new meeting is read-only and is now the current structure.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 16 of 24</p>
+
+</section>
+<section id="rem1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:17 to 15:25 · 8 minutes · part 1 of 2</p><p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Cooperative Society (Applicant)</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Remove a member or subcommittee</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Start a new meeting from Elect Leaders.</td><td>The committee structure is prefilled.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Find a member in a non-mandatory designation and click Delete.</td><td>The member is removed and the committee status is recalculated.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Check the Chairperson, Vice Chairperson, Secretary and Treasurer rows.</td><td>No Delete is offered. Mandatory roles are changed through Replace.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;line-height:1.3;color:#2A1D00;background:#FFF3D6;border:2px solid #F2C46D;padding:12px 24px;border-radius:12px">Still being built: results may differ.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 17 of 24</p>
+
+</section>
+<section id="rem2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:17 to 15:25 · 8 minutes · part 2 of 2</p><p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Cooperative Society (Applicant)</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Remove a member or subcommittee</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Read the message after a removal.</td><td>It names the member removed and the committee affected.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>On an optional subcommittee, click Delete.</td><td>The subcommittee is removed. The four main committees cannot be deleted.</td></tr>
+<tr style="background:#FFFFFF"><td>6</td><td>Try to delete a member from a committee that is already at its minimum size.</td><td>The removal is refused.</td></tr>
+</table>
+<p style="font-size:28px;line-height:1.3;color:#14221C"><b>Done when:</b> after Review &amp; Submit with every committee Compliant, the removals are in the submitted record.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 18 of 24</p>
+
+</section>
+<section id="rep1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:25 to 15:35 · 10 minutes · part 1 of 2</p><p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Cooperative Society (Applicant)</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Replace a committee member</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>Open a new meeting and find the Non-Compliant committee.</td><td>The committee is highlighted with its reason.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Click Delete (X) on the field of the inactive member. An active member can be replaced too.</td><td>The field clears and the position stays. The designation cannot be changed.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Choose a replacement from the Elected Member dropdown.</td><td>Eligible Active members are listed.</td></tr>
+<tr style="background:#E6EDE9"><td>4</td><td>Check the Start Date and End Date.</td><td>Both can be edited. End Date is prefilled from the outgoing member.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;line-height:1.3;color:#2A1D00;background:#FFF3D6;border:2px solid #F2C46D;padding:12px 24px;border-radius:12px">Still being built: results may differ.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 19 of 24</p>
+
+</section>
+<section id="rep2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:25 to 15:35 · 10 minutes · part 2 of 2</p><p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Cooperative Society (Applicant)</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Replace a committee member</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>5</td><td>Replace an Executive Vice Chairperson in the same way.</td><td>The Education Committee Chairperson updates automatically.</td></tr>
+<tr style="background:#E6EDE9"><td>6</td><td>For a member on several committees, read the warning and click Yes.</td><td>The warning lists each committee. No cancels, Yes continues.</td></tr>
+<tr style="background:#FFFFFF"><td>7</td><td>Read the confirmation message.</td><td>It names the outgoing and replacement members and any committees updated.</td></tr>
+<tr style="background:#E6EDE9"><td>8</td><td>Go to Review &amp; Submit and submit.</td><td>The committee is Compliant and the replacements are in the submitted record.</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 20 of 24</p>
+
+</section>
+<section id="inact1" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:35 to 15:43 · 8 minutes · part 1 of 2</p><p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Cooperative Society (Applicant)</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Member becomes inactive</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>1</td><td>In Member Management, set an elected member’s Membership Status to Inactive (shares 0.00).</td><td>The member is saved as Inactive.</td></tr>
+<tr style="background:#E6EDE9"><td>2</td><td>Open the cooperative’s Elect Leaders page.</td><td>The member’s committee roles show as Inactive and are still visible.</td></tr>
+<tr style="background:#FFFFFF"><td>3</td><td>Look at each committee the member served on.</td><td>Active counts drop. A red or orange warning shows under the committee structure.</td></tr>
+</table>
+<p style="font-size:28px;font-weight:600;line-height:1.3;color:#2A1D00;background:#FFF3D6;border:2px solid #F2C46D;padding:12px 24px;border-radius:12px">Still being built: results may differ.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 21 of 24</p>
+
+</section>
+<section id="inact2" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px"><p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">15:35 to 15:43 · 8 minutes · part 2 of 2</p><p style="font-size:28px;font-weight:700;color:#F7FAF8;background:#17654A;padding:8px 24px;border-radius:50px">Cooperative Society (Applicant)</p></div>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Member becomes inactive</h2>
+</div>
+<table style="font-size:32px;color:#14221C">
+<tr style="background:#0E3B2D"><th style="color:#F2C46D;width:8%;text-align:left">Step</th><th style="color:#F2C46D;width:44%;text-align:left">What to do</th><th style="color:#F2C46D;width:48%;text-align:left">What you should see</th></tr>
+<tr style="background:#FFFFFF"><td>4</td><td>Read the reason on a Non-Compliant committee.</td><td>It names the problem, for example no active Chairperson, a vacant designation or minimum not met.</td></tr>
+<tr style="background:#E6EDE9"><td>5</td><td>Open a new meeting and assign an eligible active member to the vacancy.</td><td>The committee turns Compliant and its warning disappears.</td></tr>
+</table>
+<p style="font-size:28px;line-height:1.3;color:#14221C"><b>Done when:</b> the warning showed for the inactive member and went away once the vacancy was filled.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 22 of 24</p>
+
+</section>
+<section id="review" data-transition="fade" style="background:#F3F6F4;color:#14221C;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:700;color:#2A1D00;background:#F2C46D;padding:8px 24px;border-radius:50px">16:30 to 17:00 · 30 minutes · with the client UAT Lead</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1">Daily review</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;padding:40px;border:1px solid #D5DDD8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#17654A">What we do</h3>
+<ol style="font-size:32px;line-height:1.4;color:#14221C">
+<li>Go through the afternoon with the client UAT Lead.</li>
+<li>Check each test has a box ticked or a note of what you saw.</li>
+<li>Say what was hard to follow or did not work.</li>
+</ol>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#0E3B2D;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">The outcome</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8">Every test from the afternoon has a result or a note.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#4F6158">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#17654A"><a href="../hub.html" style="color:#17654A">Back to all sessions</a> · Session 8 · 23 of 24</p>
+
+</section>
+<section id="wrap" data-transition="fade" style="background:#0E3B2D;color:#EEF4F0;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#F2C46D">At 17:00</p>
+<h2 style="font-family:'Bricolage Grotesque', Georgia, serif;font-size:72px;font-weight:700;line-height:1.1;color:#F7FAF8">What we should have achieved</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:3;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">Leaders were elected and the election submitted, with the email received.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">Member search and optional subcommittees were tried.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">All three roles saw the election read-only.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">The meeting history was browsed and a new meeting recorded.</p></div>
+<div style="display:flex;gap:20px;align-items:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:#F2C46D;width:48px;height:48px"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><p style="font-size:32px;line-height:1.3;color:#F7FAF8">Members were removed and replaced, and inactive-member warnings seen.</p></div>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:20px;background:#14503C;padding:40px;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#F2C46D">Next</h3>
+<p style="font-size:32px;line-height:1.4;color:#F7FAF8"><b>Friday 30 October, 08:30, Session 9:</b> Post-training and Cooperative Union.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:104px;font-size:24px;color:#C9DCD2">Nothing is fixed during UAT: problems are recorded and classified at the virtual meeting on Tuesday 3 November.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#9DB8AB">COMIS UAT · Session 8 · Thursday 29 October 2026</p>
+<p style="position:absolute;right:128px;top:56px;width:900px;text-align:right;font-size:24px;font-weight:600;line-height:1.3;color:#F2C46D"><a href="../hub.html" style="color:#F2C46D">Back to all sessions</a> · Session 8 · 24 of 24</p>
+
+</section>
+</div></div>
+<div id="notes" role="note"></div>
+<div id="bar">
+<a href="../hub.html">All sessions</a>
+<button id="prev" aria-label="Previous slide">&#8592;</button><button id="next" aria-label="Next slide">&#8594;</button>
+<select id="jump" aria-label="Jump to a section"><option>Welcome, the plan for the afternoon and who does what.</option><option>Electing leaders for the first time, searching members, optional subcommittees and viewing the result.</option><option>Browsing the meeting history and recording a new meeting.</option><option>Removing and replacing committee members and seeing warnings when a member becomes inactive.</option><option>Daily review and what comes next.</option></select>
+<button id="nbtn" title="Show or hide the speaker notes (N)">Notes</button>
+<span id="count"></span>
+</div>
+<script>
+(function(){
+var secs=[].slice.call(document.querySelectorAll('#stage section')),i=0,N=["Welcome back for the afternoon. This session is about the leaders of a cooperative: the first election, the committees, and the history of general and annual meetings. The cooperative society tester does most of the steps; the Registrar Officer and Supervisor check what they can see. Remind everyone that the election, meeting and committee-change screens are still being built, so results may differ. Walk through the agenda on the next slide.", "Give the shape of the afternoon. The first election is the longest test, 42 minutes. The break is at 14:38. Each test has its own slide with what to do and what you should see.", "The second half is about changing committees after the first election. The spare time is there for late starts, slow emails and tests that need a second try. The day ends with the review with the client UAT Lead at 16:30.", "Check who is in the room and who has which cooperative. The applicant needs a cooperative with at least 20 active members, one of them inactive, and the committee names written down beforehand. Each prepared cooperative can be used for one election only, so hand them out carefully. The election, meeting and committee-change screens are still in development, so expect some rough edges and ask people to note what they see.", "This is the longest test of the afternoon, so keep the pace. The applicant needs the committee names written down before starting. The Executive Committee members come from the Management Committee. Watch for: the Term End Date being editable (it should not be), and members who are not Active appearing in the list. Everything is on one page, so people can scroll; the next slide continues from step 5.", "Wait for the email after step 8: it can be slow, and the spare time later covers it. If a tester breaks a rule on purpose (for example a committee that is too small), the errors should be listed and a failed submission must send no email. Remember an election can be submitted only once per cooperative, so nobody should submit twice on the same one.", "Use the inactive member in the prepared cooperative: typing the start of their name must not show them. Colour is not the only signal for already chosen members, the words \u201c(Already Selected)\u201d must also be there. If someone changes their selection, the member becomes available again.", "Ask testers to try a wrong name and a wrong size first (for example an even maximum, or a minimum under 3) and check that each is refused with a message, then enter valid values. Do this once the four main committees are complete.", "Only one Chairperson and one Secretary are allowed. If the election is already submitted by now, check that the subcommittee shows in the submitted record. If someone tries to add a second chairperson, note what happens.", "A submitted election must exist: use a cooperative whose election was submitted in the first test or one of the prepared ones. The Registrar Officer goes first; the Applicant and Supervisor repeat on the next slide.", "Make sure each of the three roles actually does step 7 on their own screen. Watch for any button that lets someone change the election: there should be none.", "Fifteen minutes. If the election email has not yet arrived for someone, they can check again after the break.", "Use the cooperative with 12 or more submitted meetings over two years, so there is more than one page. Both general and annual meetings should be in the list. Watch the order (newest first) and that paging keeps the year filter.", "Let each role try at least one record. Check the downloaded minutes open on the tester\u2019s computer.", "A meeting must have been submitted before, so use a cooperative with a submitted election. Try a general meeting and an annual meeting if time allows. Use the cooperative that has a committee member whose term has ended, to see the highlight in step 4.", "Step 8 is an alternative to step 7: do it on a second meeting, not the same one. Do not submit a meeting you do not mean to keep, because the next tests build on the submitted structure. Check the new meeting also shows in the history.", "Use a cooperative with a submitted election. These changes happen inside a new meeting, so nothing is lost until the meeting is submitted. The point of step 3 is that the four mandatory roles have no Delete button.", "Step 6 needs a committee at its minimum size: if the prepared data has none, note it and move on. If the meeting is submitted here, the next tests need another new meeting.", "Use the cooperative with an inactive committee member. The position stays and only the person changes. Check that the dropdown offers only eligible Active members.", "Step 6 needs the cooperative with a member on several committees. Try both No and Yes if time allows. Submitting in step 8 ends this meeting, so the next test may need a new meeting.", "Use the cooperative with an elected member who can become inactive, and pick someone who sits on a committee. The warning must be shown in words as well as colour.", "This is the last test of the afternoon. Anyone who is behind can use the spare time that follows, which runs until 16:30.", "Keep it short and open. Ask which tests were not finished, especially the election, and whether the election email arrived. Make sure everyone\u2019s notes are complete before they leave.", "Read through the list. Anything not ticked goes to the problem log. Remind everyone that nothing is fixed during UAT: problems are recorded and classified at the virtual meeting on Tuesday 3 November. Session 9 starts tomorrow at 08:30."],starts=[0, 4, 12, 16, 22];
+var st=document.getElementById('stage'),nt=document.getElementById('notes');
+function fit(){var w=document.getElementById('vp'),k=Math.min(w.clientWidth/1920,w.clientHeight/1080);st.style.transform='scale('+k+')'}
+function show(n,noh){i=Math.max(0,Math.min(secs.length-1,n));secs.forEach(function(s,k){s.classList.toggle('on',k===i)});
+ document.getElementById('count').textContent=(i+1)+' / '+secs.length;nt.textContent=N[i]||'';
+ var j=document.getElementById('jump'),b=0;starts.forEach(function(s,k){if(s<=i)b=k});j.selectedIndex=b;
+ if(!noh)try{history.replaceState(null,'','#'+(i+1))}catch(e){}}
+document.getElementById('prev').onclick=function(){show(i-1)};document.getElementById('next').onclick=function(){show(i+1)};
+document.getElementById('jump').onchange=function(){show(starts[this.selectedIndex]);this.blur()};
+function tn(){nt.classList.toggle('show')}document.getElementById('nbtn').onclick=tn;
+document.addEventListener('keydown',function(e){var k=e.key;
+ if(k==='ArrowRight'||k==='PageDown'||k===' '){e.preventDefault();show(i+1)}
+ else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();show(i-1)}
+ else if(k==='Home')show(0);else if(k==='End')show(secs.length-1);else if(k==='n'||k==='N')tn();
+ else if(k==='f'||k==='F'){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()}});
+window.addEventListener('resize',fit);fit();
+var h=parseInt((location.hash||'').slice(1),10);show(isNaN(h)?0:h-1,true);
+})();
+</script></body></html>

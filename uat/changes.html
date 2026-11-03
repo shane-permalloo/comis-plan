@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>COMIS Change Tracker</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a light, airy review table. Compact chip controls on the left, wide text columns on the right, sticky header and module bands. */
+:root{
+  --bg:#f4f6f8; --surface:#ffffff; --band:#edf2f6; --line:#e2e7ee; --line2:#cdd5e0; --fg:#17202b; --muted:#647386; --faint:#8a97a8;
+  --accent:#0f766e; --accent-fg:#ffffff; --accent-soft:#e3f4f1; --focus:#0f766e; --hover:#f8fafb; --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 16px rgba(16,24,40,.05);
+  --bug:#b42318; --bug-bg:#fdebe8; --imp:#93500a; --imp-bg:#fdf1d6; --new:#1d4ed8; --new-bg:#e6edff;
+  --ok:#067647; --ok-bg:#e1f5e9; --warn:#93500a; --warn-bg:#fdf1d6; --bad:#b42318; --bad-bg:#fdebe8; --ask:#1d4ed8; --ask-bg:#e6edff;
+  --teal:#0f766e; --teal-bg:#d9f2ee; --slate:#475467; --slate-bg:#e8edf3;
+  --sans:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e141b; --surface:#151d27; --band:#1b2633; --line:#263344; --line2:#33445a; --fg:#e8edf3; --muted:#9aa8ba; --faint:#74839a;
+  --accent:#3cc2b4; --accent-fg:#06201d; --accent-soft:#12312e; --focus:#3cc2b4; --hover:#18222e; --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  --bug:#ff9a90; --bug-bg:#3b1d1a; --imp:#f4c767; --imp-bg:#3a2e12; --new:#8fb2ff; --new-bg:#1b2a4d;
+  --ok:#7fd9a2; --ok-bg:#15321f; --warn:#f4c767; --warn-bg:#3a2e12; --bad:#ff9a90; --bad-bg:#3b1d1a; --ask:#8fb2ff; --ask-bg:#1b2a4d;
+  --teal:#5fd6c9; --teal-bg:#12332f; --slate:#b2bfcf; --slate-bg:#243040; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e141b; --surface:#151d27; --band:#1b2633; --line:#263344; --line2:#33445a; --fg:#e8edf3; --muted:#9aa8ba; --faint:#74839a;
+  --accent:#3cc2b4; --accent-fg:#06201d; --accent-soft:#12312e; --focus:#3cc2b4; --hover:#18222e; --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  --bug:#ff9a90; --bug-bg:#3b1d1a; --imp:#f4c767; --imp-bg:#3a2e12; --new:#8fb2ff; --new-bg:#1b2a4d;
+  --ok:#7fd9a2; --ok-bg:#15321f; --warn:#f4c767; --warn-bg:#3a2e12; --bad:#ff9a90; --bad-bg:#3b1d1a; --ask:#8fb2ff; --ask-bg:#1b2a4d;
+  --teal:#5fd6c9; --teal-bg:#12332f; --slate:#b2bfcf; --slate-bg:#243040; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:13.5px/1.5 var(--sans);-webkit-text-size-adjust:100%;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1680px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+header{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between}
+h1{margin:0;font-size:24px;font-weight:700;letter-spacing:-.02em;text-wrap:balance}
+.status{font:500 12px var(--mono);color:var(--muted);display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--faint)}
+.status[data-s="live"] .dot{background:var(--ok)}
+.status[data-s="saving"] .dot{background:var(--warn)}
+.status[data-s="local"] .dot,.status[data-s="error"] .dot{background:var(--bad)}
+.stats{display:flex;flex-direction:column;gap:10px}
+.srow{display:flex;flex-wrap:wrap;gap:10px}
+.sgroup{flex:1 1 auto;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.gl{font:600 10.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);padding:9px 14px 7px}
+.cells{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);border-top:1px solid var(--line);flex:1}
+.stat{flex:1 1 104px;min-width:104px;background:var(--surface);padding:8px 12px;display:flex;flex-direction:column;align-items:flex-start;min-width:0;border:0;border-radius:0;font:inherit;color:var(--fg);text-align:left}
+button.stat{cursor:pointer;transition:background .12s}
+button.stat:hover{background:var(--hover)}
+.stat.on{background:var(--accent-soft);box-shadow:inset 0 -2px 0 var(--accent)}
+.stat b{font:700 18px/1.2 var(--sans);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.stat span{font-size:11.5px;color:var(--muted);line-height:1.3;display:flex;align-items:center;gap:6px}
+.stat[style*="--d"] span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--d);flex:none}
+.stat.on span{color:var(--fg)}
+.prog{height:3px;background:var(--line)}
+.prog i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:8px}
+.bar input,.bar select,.bar button{font:inherit;font-size:13px;color:var(--fg);background-color:var(--surface);border:1px solid var(--line2);border-radius:8px;padding:7px 12px;min-height:36px}
+.bar select{appearance:none;-webkit-appearance:none;padding-right:30px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%238a97a8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center}
+.bar input[type=search]{flex:1 1 240px;min-width:0;padding-left:34px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Ccircle cx='6' cy='6' r='4.5' fill='none' stroke='%238a97a8' stroke-width='1.5'/%3E%3Cpath d='M9.5 9.5L13 13' stroke='%238a97a8' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:12px center}
+.bar button{cursor:pointer;background-color:var(--accent);color:var(--accent-fg);border-color:var(--accent);font-weight:600}
+.bar button.ghost{background-color:var(--surface);color:var(--fg);border-color:var(--line2);font-weight:500}
+.bar button:hover{filter:brightness(.96)}
+.count{color:var(--muted);font-size:12.5px;margin-left:auto}
+:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+.scroll{overflow-x:auto;border:1px solid var(--line);background:var(--surface);border-radius:12px;box-shadow:var(--shadow)}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:1120px;table-layout:fixed}
+th{position:sticky;top:calc(var(--barh,0px) + env(safe-area-inset-top,0px));z-index:3;background:var(--surface);color:var(--muted);text-align:left;font-weight:600;font-size:11px;letter-spacing:.07em;text-transform:uppercase;padding:11px 8px;border-bottom:1px solid var(--line2)}
+th:first-child{padding-left:14px;border-top-left-radius:12px}
+th:nth-child(3),th:nth-child(4),th:nth-child(5),th:nth-child(7){text-align:center}
+th:last-child{border-top-right-radius:12px}
+td{border-bottom:1px solid var(--line);padding:9px 8px;vertical-align:top}
+td:first-child{padding-left:14px}
+tbody tr[data-k]:hover td{background:var(--hover)}
+tr.band td{position:sticky;top:calc(var(--barh,0px) + var(--thh,0px) + env(safe-area-inset-top,0px));z-index:2;background:var(--band);font-weight:700;font-size:12.5px;padding:8px 14px;border-bottom:1px solid var(--line2)}
+tr.band small{font-weight:500;color:var(--muted);margin-left:8px;font-size:11.5px}
+.ref{font:500 11.5px var(--mono);color:var(--faint);padding-top:13px}
+.chg{line-height:1.5;padding-top:11px}
+td select,td textarea{width:100%;font:inherit;font-size:13px;color:var(--fg);background-color:transparent;border:1px solid var(--line);border-radius:8px;padding:6px 9px;min-height:32px}
+td textarea{resize:vertical;display:block;line-height:1.5}
+td textarea::placeholder{color:var(--faint)}
+td textarea.sug{border-color:transparent;color:var(--muted)}
+td textarea.sug:hover,td textarea.sug:focus{border-color:var(--line2);background-color:var(--surface);color:var(--fg)}
+td textarea:hover{border-color:var(--line2)}
+td select{appearance:none;-webkit-appearance:none;cursor:pointer;width:100%;text-align:center;text-align-last:center;min-height:26px;font-size:11.5px;font-weight:600;border-radius:999px;border:1px solid transparent;padding:3px 15px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath d='M1 1l3 3 3-3' fill='none' stroke='%23788799' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 6px center;text-overflow:ellipsis;margin-top:2px}
+td select[data-v=""]{color:var(--faint);font-weight:500;border:1px dashed var(--line2)}
+td select:hover{filter:brightness(.97)}
+td select[data-v="Bug"]{background-color:var(--bug-bg);color:var(--bug)}
+td select[data-v="Improvement"]{background-color:var(--imp-bg);color:var(--imp)}
+td select[data-v="New feature"]{background-color:var(--new-bg);color:var(--new)}
+td select[data-v="High"]{background-color:var(--bad-bg);color:var(--bad)}
+td select[data-v="Medium"]{background-color:var(--warn-bg);color:var(--warn)}
+td select[data-v="Low"]{background-color:var(--slate-bg);color:var(--slate)}
+td select[data-v="Approved"]{background-color:var(--ok-bg);color:var(--ok)}
+td select[data-v="Suggestion approved"]{background-color:var(--teal-bg);color:var(--teal)}
+td select[data-v="Deferred"]{background-color:var(--warn-bg);color:var(--warn)}
+td select[data-v="To clarify"]{background-color:var(--ask-bg);color:var(--ask)}
+td select[data-f="effort"]:not([data-v=""]){background-color:var(--slate-bg);color:var(--slate)}
+td select[data-v="Done"]{background-color:var(--slate-bg);color:var(--slate)}
+td select option{color:var(--fg);background:var(--surface);font-weight:400}
+tr.done td{opacity:.55}
+tr.done .chg,tr.done .ref,tr.done textarea,tr.done select{text-decoration:line-through}
+.bren{display:inline-flex;vertical-align:middle;margin-left:6px;width:22px;height:20px;align-items:center;justify-content:center;color:var(--muted);background:transparent;border:1px solid transparent;border-radius:6px;padding:0;cursor:pointer;opacity:0;transition:opacity .15s}
+.bren[hidden]{display:none}
+tr.band:hover .bren,.bren:focus-visible{opacity:1;border-color:var(--line2)}
+@media (hover:none){.bren{opacity:.5}}
+.acts{display:flex;gap:2px;margin-top:6px}
+.acts[hidden]{display:none}
+.del{display:flex;align-items:center;justify-content:center;width:24px;height:22px;color:var(--muted);background:transparent;border:1px solid transparent;border-radius:6px;padding:0;cursor:pointer;opacity:0;transition:opacity .15s}
+.ref:hover .del,.del:focus-visible{opacity:1;border-color:var(--line2)}
+@media (hover:none){.del{opacity:.45}}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(10,17,27,.5);backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center;padding:16px}
+.modal[hidden]{display:none}
+.dlg{background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.25);max-width:460px;width:100%;padding:22px;display:flex;flex-direction:column;gap:12px}
+.dlg h2{margin:0;font-size:17px;font-weight:700}
+.dlg p{margin:0;color:var(--muted)}
+.dlg q{color:var(--fg);quotes:"“" "”"}
+.dlg .actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.dlg button{font:inherit;font-weight:600;padding:8px 16px;min-height:36px;cursor:pointer;border-radius:8px;border:1px solid var(--bad);background:var(--bad);color:var(--surface)}
+.dlg.edit{max-width:560px}
+.dlg label{display:flex;flex-direction:column;gap:5px;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.dlg select{font:inherit;font-size:14px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--fg);background-color:var(--bg);border:1px solid var(--line2);border-radius:8px;padding:8px 10px;width:100%;min-height:36px}
+.dlg input,.dlg textarea{font:inherit;font-size:14px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--fg);background:var(--bg);border:1px solid var(--line2);border-radius:8px;padding:8px 10px;width:100%;min-height:36px}
+.dlg.edit button{border-color:var(--accent);background:var(--accent);color:var(--accent-fg)}
+.dlg.edit button.ghost{background:var(--surface);color:var(--fg);border-color:var(--line2)}
+.dlg button.ghost{background:var(--surface);color:var(--fg);border-color:var(--line2)}
+tr.fresh td{animation:fresh 2.5s ease-out}
+@keyframes fresh{from{background:var(--accent-soft)}to{background:transparent}}
+@media (prefers-reduced-motion:reduce){tr.fresh td{animation:none}.prog i{transition:none}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:18px}
+.panel form{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:12px 16px}
+.panel .full{grid-column:1/-1}
+.panel label{display:flex;flex-direction:column;gap:5px;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;min-width:0}
+.panel input,.panel select,.panel textarea{font:inherit;font-size:14px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--fg);background:var(--bg);border:1px solid var(--line2);border-radius:8px;padding:8px 10px;min-height:36px;width:100%}
+.panel .actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.panel .actions button{font:inherit;font-weight:600;padding:8px 16px;min-height:36px;cursor:pointer;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-fg)}
+.panel .actions button[type=button]{background:var(--surface);color:var(--fg);border-color:var(--line2);font-weight:500}
+.err{color:var(--bad);font-size:13px}
+@media (max-width:640px){.panel form{grid-template-columns:minmax(0,1fr)}}
+@media (min-width:1200px){.scroll{overflow:visible}}
+@media (max-width:1199px){.scroll{overflow:auto;max-height:calc(100dvh - 120px)}th{top:0}tr.band td{top:var(--thh,0px)}}
+.lnk{font:inherit;color:var(--accent);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.foot{opacity:.75;margin:0}
+.note{color:var(--muted);font-size:12.5px;max-width:90ch}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+@media (max-width:640px){h1{font-size:21px}.count{margin-left:0;width:100%}}
+#status{display:none!important}</style>
+</head>
+<body>
+<script>
+window.CRT_STANDALONE=true;
+(function(){
+  var SEED={"items":{"ab1":{"decision":"Approved","effort":"Multiple days","priority":"High"},"ab3":{"decision":"Approved","effort":"Multiple days","priority":"High"},"ab4":{"decision":"Approved","request":"The certificate should also not be downloadable from the history. Only the latest one should be available for download at any time."},"as1":{"decision":"Approved","effort":"Multiple days","priority":"Medium"},"as2":{"decision":"Approved","effort":"Multiple days","priority":"Medium"},"as3":{"decision":"Approved","effort":"1 day","priority":"Medium","suggestion":""},"as4":{"decision":"Approved","effort":"1 day","priority":"Medium"},"as5":{"decision":"","effort":"Multiple days","priority":"Medium","type":"New feature"},"as6":{"decision":"Approved","effort":"1 day","priority":"High","request":"Remove the validation requiring at least 3 years of financial year in the production table. It can be sent with nothing filled; if the user fills it, the current behaviour applies.","suggestion":"Make the section optional for primary cooperatives. However, Run the existing checks only when at least one year has been filled in."},"as7":{"decision":"Approved","effort":"1 day","priority":"High","request":"Add a new field: \"Nominal share value\", optional field."},"bn1":{"decision":"Approved","effort":"1 day","priority":"High"},"bn2":{"decision":"Approved","effort":"1 day","priority":"High","suggestion":"Show the FGM wording only while the first general meeting is pending, and keep AGM afterwards."},"ce1":{"decision":"Approved","effort":"1 day","priority":"High"},"ce2":{"decision":"Approved","effort":"1 week","priority":"High","type":"New feature"},"ce3":{"decision":"Approved","effort":"1 day","priority":"Low"},"cm1":{"decision":"Approved","effort":"1 day","priority":"High","suggestion":""},"cm2":{"decision":"Approved","effort":"Multiple days","priority":"High","suggestion":"Set today as the maximum date on the date pickers."},"cmw0b9aw2th1":{"decision":"Approved","effort":"Multiple days","priority":"Medium","suggestion":"Similar implementation as for certificate. To be appended to the bottom of the last page of the by-laws."},"cmw0dwgqqvj0":{"decision":"Approved","effort":"1 day","priority":"Low"},"db1":{"decision":"Approved","effort":"1 day","priority":"High"},"ds1":{"decision":"To clarify","effort":"2 weeks","module":"Issues","priority":"High"},"ds2":{"decision":"To clarify","effort":"1 week","priority":"Medium"},"ft1":{"decision":"Approved","effort":"1 day","priority":"Medium"},"gm1":{"decision":"Approved","effort":"1 day","priority":"Medium","request":"Rename the tab to Meetings."},"gm2":{"decision":"Approved","effort":"1 day","priority":"Medium"},"gm3":{"decision":"Approved","effort":"1 day","priority":"High"},"gm4":{"decision":"Approved","effort":"1 day","priority":"Medium","type":"New feature"},"gm5":{"decision":"Approved","effort":"1 day","priority":"Medium"},"gm6":{"decision":"Approved","effort":"Multiple days","priority":"Medium"},"gm7":{"decision":"Approved","effort":"Multiple days","priority":"High","suggestion":"Add the option. It drives the FGM wording in the banners. Once this FGM is submitted, the option should no more be available to choose. There is only one FGM per cooperative."},"gm8":{"decision":"Approved","effort":"Multiple days","priority":"High"},"gm9":{"decision":"Approved","effort":"Multiple days","priority":"High","request":"Add the ID number in all member tables.","suggestion":"Add an ID number column to every member tables (registration, by-laws and member management modules)"},"gr1":{"decision":"Approved","effort":"Multiple days","priority":"Medium","suggestion":"Add a mandatory title field to the grievance form, store it on the ticket and show it as a column in the ticket list tables."},"is1":{"decision":"To clarify"},"kc1":{"decision":"Done","effort":"1 day","priority":"High"},"kc2":{"comment":"Done during UAT","decision":"Done","effort":"1 day","priority":"High"},"kc3":{"comment":"Will be provided before go-live.  During UAT only one account was provided.","decision":"Deferred","effort":"1 day","priority":"Low"},"kc4":{"comment":"Since Keycloak is open-source, we shall avoid changing the codebase and instead defer this improvement.","decision":"Deferred","effort":"1 week","priority":"Low"},"ml1":{"comment":"","decision":"To clarify","effort":"1 day","priority":"Medium","suggestion":"This can be uploaded on the public facing website and an announcement published on the dashboard to notify them of the new document for download.","type":"New feature"},"ml2":{"effort":"2 weeks","priority":"Low"},"mm1":{"module":"Registration","request":"For both NF and F, a minimum of 10 members is required. No minimum from the system configuration is used for filling this table."},"mm2":{"decision":"Approved","effort":"Multiple days","module":"Registration","priority":"Medium","request":"Add a new field at the end to provide the absolute number of members. The minimum number of members to fill will be kept to 10.","suggestion":"Numeric field, one or more as per the system parameters for the different types of cooperatives."},"mm3":{"effort":"1 week","priority":"Medium","type":"New feature"},"mm4":{"effort":"1 week","priority":"Medium","type":"New feature"},"mt1":{"decision":"Approved","effort":"1 week","priority":"Medium"},"mt2":{"decision":"Approved","effort":"Multiple days","priority":"Medium"},"pf1":{"decision":"Done"},"pp1":{"decision":"Done","effort":"1 day","priority":"High","suggestion":"Correct it in the footer and check the same address in the contact page and email templates. This is a Quick fix."},"pt1":{"decision":"Approved","effort":"Multiple days","priority":"Medium"},"pt2":{"decision":"Approved","effort":"Multiple days","priority":"Medium"},"pt3":{"decision":"Approved","effort":"Multiple days","priority":"Medium"},"rd1":{"decision":"To clarify","request":"Registrar, new 3rd role. Request by the Registrar Director, herself, for a 3rd level who will only approve the registration and generate the certificate. Own login access; upload of an updated signature image; view access to any data entry on the system, with intervention limited to approving the cooperative at registration and by-laws amendment level; a straightforward dashboard or a special link in the left sidebar identifying her pending actions. The Assistant Registrar, Mr. Smith Kamanga, is also eligible to generate a certificate, so the role has 2 users, each with their own signature image and name clearly shown at the bottom of the certificate."},"rg1":{"decision":"Approved","effort":"Multiple days","priority":"High"},"rg2":{"effort":"2 weeks","priority":"Medium","request":"Provide a suggestion box to the Registrar Officer that matches names close to the selected group name/cooperative society. To be implemented both on the assessment and registration module","suggestion":"Fuzzy name matching that lists the top 5 close names with registration number and status. Build it as one shared component, reused in Assessment and by-laws amendments too.","type":"New feature"},"rg3":{"decision":"Approved","effort":"2 weeks","priority":"High","request":"If Financial is selected, add several fields as per new requirements sent by Mr. Imfa.","suggestion":"There are multiple file uploaders and checkbox/radio buttons for choice by applicant with extra validation like minimum number of members: Employee 500, Community 1,000."},"rg4":{"decision":"Approved","effort":"Multiple days","priority":"High"},"ua1":{"decision":"To clarify","effort":"Multiple days","priority":"Medium"},"ua2":{"decision":"Approved","effort":"1 day","priority":"Medium"},"ua3":{"decision":"Approved","effort":"1 day","priority":"Medium","request":"“Current number of members” becomes “Current number of members of all the primary cooperatives”.","suggestion":"Rename the label. An absolute amount is required instead of retrieving the exact amount from the all primary cooperatives."},"ua4":{"decision":"Approved","effort":"1 day","priority":"Medium"},"ua6":{"decision":"Approved","effort":"1 day","priority":"Medium"},"ua7":{"decision":"Approved","effort":"1 day","priority":"Medium"},"ua8":{"decision":"Approved","effort":"1 day","priority":"High"},"ua9":{"decision":"Approved","effort":"Multiple days","priority":"Medium"},"ur1":{"decision":"To clarify"},"ur2":{"decision":"To clarify","request":"The member table should have a minimum of 5 instead of 10 (to be vetted by the Malawi team)."}},"custom":{"cmw0b9aw2th1":{"created":1793687554658,"m":"Certificate & By-Laws","r":"Add signature and title of the Registrar to the end of the by-laws documents, similar to the certificate","s":"","t":"Improvement"},"cmw0dwgqqvj0":{"created":1793691994563,"m":"Public Facing Cooperative Profile","r":"The status in the banner card should be more visible","s":"Increase the size of the status chip. If dissolved, display it in red too.(use a unique color code for the different status)","t":"Improvement"}},"removed":{"ab2":{"at":1793687959395,"removed":true},"ab4":{"at":1793687945922,"removed":true},"rg4":{"at":1793687747949,"removed":true},"ua5":{"at":1793689425739,"removed":true}},"modules":{"Amendment~20By-laws~20and~20Registration":{"from":"Amendment By-laws and Registration","to":"By-laws Amendment"},"Certificate":{"from":"Certificate","to":"Certificate & By-Laws"}}};
+  var K="crt-v1:",data={},subs={},names=["items","custom","removed","modules"];
+  function load(n){try{var v=localStorage.getItem(K+n);if(v)return JSON.parse(v)}catch(e){}return null}
+  function save(n){try{localStorage.setItem(K+n,JSON.stringify(data[n]))}catch(e){}}
+  names.forEach(function(n){var d=load(n);if(!d){d=JSON.parse(JSON.stringify(SEED[n]||{}));data[n]=d;save(n)}data[n]=d;subs[n]=[]});
+  function snap(n){var ids=Object.keys(data[n]).sort();return{docs:ids.map(function(id){return{id:id,exists:true,data:function(){return data[n][id]}}}),size:ids.length,empty:!ids.length}}
+  function emit(n){var s=snap(n);subs[n].slice().forEach(function(f){f(s)})}
+  function coll(n){return{
+    onSnapshot:function(f){subs[n].push(f);setTimeout(function(){f(snap(n))},0);return function(){subs[n]=subs[n].filter(function(x){return x!==f})}},
+    get:function(){return Promise.resolve(snap(n))},
+    doc:function(id){return{
+      set:function(o){data[n][id]=JSON.parse(JSON.stringify(o));save(n);emit(n);return Promise.resolve()},
+      delete:function(){delete data[n][id];save(n);emit(n);return Promise.resolve()}}}}}
+  var mods={
+    db:{collection:coll},
+    user:{can:function(){return true}},
+    downloads:{save:function(r){
+      var type=/\.csv$/i.test(r.filename)?"text/csv;charset=utf-8":"application/json";
+      var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([r.data],{type:type}));a.download=r.filename;
+      document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);return Promise.resolve({saved:true})}}
+  };
+  window.claude={use:function(n){return Promise.resolve(mods[n]||null)}};
+})();
+</script>
+
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>COMIS: Change Request Tracker</h1>
+    </div>
+    <div class="status" id="status" data-s="loading" role="status"><span class="dot"></span><span id="statusText">Connecting…</span></div>
+  </header>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="bar">
+    <input type="search" id="q" placeholder="Search changes and comments" aria-label="Search">
+    <select id="fMod" aria-label="Module"><option value="">All modules</option></select>
+    <select id="fType" aria-label="Type"><option value="">All types</option><option>Bug</option><option>Improvement</option><option>New feature</option></select>
+    <select id="fDec" aria-label="Decision"><option value="">Any decision</option><option>Approved</option><option>Suggestion approved</option><option>Deferred</option><option>To clarify</option><option>Done</option><option value="__none">Not decided</option></select>
+    <select id="fEff" aria-label="Effort"><option value="">Any effort</option><option>1 day</option><option>Multiple days</option><option>1 week</option><option>2 weeks</option><option>3 weeks</option><option>1 month</option><option value="__none">Not estimated</option></select>
+    <select id="fPri" aria-label="Priority"><option value="">Any priority</option><option>High</option><option>Medium</option><option>Low</option><option value="__none">Not set</option></select>
+    <button class="ghost" id="reset" type="button">Reset filters</button>
+    <button id="add" type="button" aria-expanded="false" aria-controls="addPanel">Add row</button>
+    <button id="csv" type="button" hidden>Download CSV</button>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div class="panel" id="addPanel" hidden>
+    <form id="addForm">
+      <label>Module<input id="aMod" list="modList" autocomplete="off" placeholder="Choose or type a new module"></label>
+      <label>Type<select id="aType"><option>Bug</option><option selected>Improvement</option><option>New feature</option></select></label>
+      <label class="full">Requested change<textarea id="aReq" rows="3" placeholder="Describe the change the client is asking for"></textarea></label>
+      <label class="full">Suggestion (optional)<textarea id="aSug" rows="2" placeholder="Proposed approach"></textarea></label>
+      <div class="full actions"><button type="submit">Add to table</button><button type="button" id="aCancel">Cancel</button><span class="err" id="aErr" role="alert"></span></div>
+    </form>
+    <datalist id="modList"></datalist>
+  </div>
+
+  <div class="modal" id="confirm" hidden>
+    <div class="dlg" role="alertdialog" aria-modal="true" aria-labelledby="cTitle" aria-describedby="cText">
+      <h2 id="cTitle">Delete this row?</h2>
+      <p id="cText"></p>
+      <div class="actions"><button type="button" class="ghost" id="cNo">Cancel</button><button type="button" id="cYes">Delete row</button></div>
+    </div>
+  </div>
+
+  <div class="modal" id="editModal" hidden>
+    <div class="dlg edit" role="dialog" aria-modal="true" aria-labelledby="eTitle">
+      <h2 id="eTitle">Edit change</h2>
+      <label>Module<select id="eSel"></select><input id="eMod" hidden placeholder="New module name" autocomplete="off"></label>
+      <label>Requested change<textarea id="eReq" rows="5"></textarea></label>
+      <span class="err" id="eErr" role="alert"></span>
+      <div class="actions"><button type="button" class="ghost" id="eRevert" hidden>Restore original</button><button type="button" class="ghost" id="eCancel">Cancel</button><button type="button" id="eSave">Save</button></div>
+    </div>
+  </div>
+
+  <div class="modal" id="renModal" hidden>
+    <div class="dlg edit" role="dialog" aria-modal="true" aria-labelledby="rTitle">
+      <h2 id="rTitle">Rename module</h2>
+      <label>Module name<input id="rName" autocomplete="off"></label>
+      <span class="err" id="rErr" role="alert"></span>
+      <div class="actions"><button type="button" class="ghost" id="rCancel">Cancel</button><button type="button" id="rSave">Rename</button></div>
+    </div>
+  </div>
+
+  <div class="modal" id="impModal" hidden>
+    <div class="dlg edit" role="dialog" aria-modal="true" aria-labelledby="iTitle">
+      <h2 id="iTitle">Import data?</h2>
+      <p id="iText"></p>
+      <div class="actions"><button type="button" class="ghost" id="iNo">Cancel</button><button type="button" id="iYes">Replace data</button></div>
+    </div>
+  </div>
+
+  <div class="scroll">
+    <table>
+      <colgroup><col style="width:44px"><col><col style="width:128px"><col style="width:94px"><col style="width:132px"><col><col style="width:180px"><col style="width:200px"></colgroup>
+      <thead><tr><th>Ref</th><th>Requested change</th><th>Type</th><th>Priority</th><th>Effort</th><th>Suggestion</th><th>Decision</th><th>Additional comment</th></tr></thead>
+      <tbody id="body"></tbody>
+    </table>
+    <div class="empty" id="none" hidden>No change matches these filters.</div>
+  </div>
+    <p class="note foot">Data: <button type="button" class="lnk" id="exp">Export</button> · <button type="button" class="lnk" id="imp">Import</button><input type="file" id="impFile" accept="application/json,.json" hidden></p>
+</div>
+
+<script>
+const DATA=[{"m":"Public Portal","items":[{"k":"pp1","n":1,"t":"Bug","r":"Footer contact email is missing the letter “s”. It should read cooperatives@trade.gov.mw.","s":"Correct it in the footer and check the same address in the contact page and email templates. Quick fix."}]},{"m":"Media Library","items":[{"k":"ml1","n":2,"t":"Improvement","r":"Allow the Registrar Officer to upload private documentation that is available to all cooperatives.","s":"Add a “Private” visibility option on media items: hidden from the public portal, listed only for logged-in cooperatives. Only the Registrar Officer role can upload."},{"k":"ml2","n":3,"t":"New feature","r":"Add a file previewer to the file uploader component.","s":"Build it once in the shared uploader so every upload screen gets it: inline preview for PDF and images, download link for other file types."}]},{"m":"Keycloak","items":[{"k":"kc1","n":4,"t":"Improvement","r":"Increase the validity of the email link on applicant registration from 5 minutes to 2 hours.","s":"Change the action-token lifespan in the Keycloak realm settings. No code change on the application side."},{"k":"kc3","n":5,"t":"Improvement","r":"Provision three IT Admin users on Keycloak.","s":"Create three named accounts with the admin role (no shared login), with a strong password policy and MFA."},{"k":"kc4","n":6,"t":"Improvement","r":"Sort the user list by created date.","s":"Newest first by default, with the order switchable by the user."},{"k":"kc2","n":7,"t":"Improvement","r":"Increase the session timeout from 30 minutes to 2 hours.","s":"Change the SSO session idle timeout in the Keycloak realm settings. No code change on the application side."}]},{"m":"Registration","items":[{"k":"rg1","n":8,"t":"New feature","r":"New upload component: Minutes of Meeting, mandatory.","s":"Add it as a required document on the registration form. PDF only, with a size limit. Block submission until it is uploaded."},{"k":"rg2","n":9,"t":"Improvement","r":"Provide a suggestion box to the Registrar Officer that matches names close to the selected group name.","s":"Fuzzy name matching that lists the top 5 close names with registration number and status. Build it as one shared component, reused in Assessment."},{"k":"rg3","n":10,"t":"New feature","r":"If Financial is selected, add a field so the applicant chooses between Employee and Community.","s":"Radio buttons shown only for Financial, mandatory, stored on the cooperative record and used by the member minimum rule below."},{"k":"rg4","n":11,"t":"New feature","r":"Minimum number of members: Employee 500, Community 1,000.","s":"Validate on submission. Keep the two thresholds as configuration values so they can change without a release."}]},{"m":"Certificate","items":[{"k":"ce1","n":12,"t":"Bug","r":"Name of cooperative and registration date are swapped.","s":"Swap the two fields in the certificate template and regenerate a sample to confirm."},{"k":"ce2","n":13,"t":"Bug","r":"The signature must follow the registrar user role, and the name of the registrar who generated the certificate must appear at the bottom of the signature.","s":"Take the signature image and name from the logged-in user who generates the certificate (Director or Assistant Registrar). Depends on the new Registrar (Director) role."},{"k":"ce3","n":14,"t":"Improvement","r":"Center the content of the certificate. The signature stays on the right.","s":"Centre the body content of the certificate template and leave the signature block on the right as it is. Regenerate a sample to confirm the layout."}]},{"m":"Assessment","items":[{"k":"as1","n":15,"t":"Improvement","r":"Volume field should have a suffix with units.","s":"Show the unit next to the input (for example kg, litres, tonnes). The list of units to be confirmed with the client."},{"k":"as2","n":16,"t":"Improvement","r":"Remove the suffix in the group name field, or add a helper text indicating the name of the cooperative.","s":"We recommend the helper text, because it explains what to enter without changing the stored name."},{"k":"as3","n":17,"t":"Improvement","r":"Replace the wording “Cooperative Society” with “Group”.","s":"Change it through the translation keys so it is updated everywhere (labels, messages, emails) in one pass."},{"k":"as4","n":18,"t":"Improvement","r":"Remove the validation on the number of members with shares. It can be zero, with no validation at all.","s":"Remove the rule on both the form and the server. Accept zero and empty values."},{"k":"as5","n":19,"t":"Improvement","r":"Provide a suggestion box to the Registrar Officer that matches names close to the selected group name.","s":"Reuse the name suggestion component built for Registration."},{"k":"as6","n":20,"t":"Improvement","r":"Remove the validation requiring at least 3 years of finance status. It can be sent with nothing filled; if the user fills it, the current behaviour applies.","s":"Make the section optional. Run the existing checks only when at least one year has been filled in."},{"k":"as7","n":21,"t":"New feature","r":"Nominal share value as a new optional field.","s":"Optional numeric field, positive values only, shown with the system currency."}]},{"m":"CME","items":[{"k":"cm1","n":22,"t":"Improvement","r":"Replace the wording “Cooperative Society” with “Group”.","s":"Same translation-key change as in Assessment."},{"k":"cm2","n":23,"t":"Improvement","r":"Disallow future dates in the training dates.","s":"Set today as the maximum date on the date pickers and also validate on the server."}]},{"m":"Dashboard","items":[{"k":"db1","n":24,"t":"Bug","r":"CME card wording is incorrect. It should read “Cooperative Member Education”.","s":"Fix the label on the card. Quick fix."}]},{"m":"Fast-Track","items":[{"k":"ft1","n":25,"t":"Improvement","r":"Add a helper text on the by-laws upload component stating that the by-laws must follow the new template, with a link to the downloadable resource on the Public Portal.","s":"Helper text under the uploader with a link that opens in a new tab. The template must be published on the Public Portal before this goes live."}]},{"m":"Amendment By-laws and Registration","items":[{"k":"ab1","n":26,"t":"New feature","r":"Add the QR code on the first page of the by-laws and the registrar’s signature on the last page.","s":"Stamp both when the by-laws are approved, so the approved PDF is final. Signature taken from the approving registrar."},{"k":"ab2","n":27,"t":"New feature","r":"Scanning the QR code needs an authentication on the by-laws to assess its authenticity.","s":"The QR opens a verification page that asks for authentication and shows the cooperative, approval date and status of the by-laws. To confirm who is allowed to verify."},{"k":"ab3","n":28,"t":"Improvement","r":"For the applicant: no download of the old by-laws documents after a by-laws is approved.","s":"Hide the download action on superseded versions in the applicant view. Keep them available to the registrar for audit."},{"k":"ab4","n":29,"t":"Improvement","r":"The certificate should also not be downloadable from the history.","s":"Remove the download action in the applicant history. The registrar keeps access."}]},{"m":"Banners","items":[{"k":"bn1","n":30,"t":"Improvement","r":"30-day first election banner: wording should be “submit the first general meeting minute” (instead of AGM).","s":"Update the banner text."},{"k":"bn2","n":31,"t":"Improvement","r":"“AGM is overdue” should read “FGM is overdue”.","s":"Show the FGM wording only while the first general meeting is pending, and keep AGM afterwards. To confirm."}]},{"m":"Member Management","items":[{"k":"mm1","n":32,"t":"Improvement","r":"For both NF and F, a minimum of 10 members is required. No minimum from the system configuration is used.","s":"Apply a fixed minimum of 10 for both types and remove the configurable minimum from the member validation."},{"k":"mm2","n":33,"t":"New feature","r":"Add a new field at the end to provide the absolute number of members.","s":"Numeric field, zero or more. To confirm how it relates to the number of members actually listed."},{"k":"mm3","n":34,"t":"Improvement","r":"Remove the rollback in the CSV upload. Populate the incorrect data with a new status “Need verification”. The cooperative must act on these members (correction or deletion).","s":"Import every row. Invalid rows are saved with the status and the reason for the error. Add a filter and a prompt for the cooperative to correct or delete them."},{"k":"mm4","n":35,"t":"Improvement","r":"Members with the status “Need verification” do not count in the total share capital.","s":"Exclude them from share capital totals and reports until they are corrected."},{"k":"mt1","n":36,"t":"New feature","r":"Dropdown for the termination reason: Voluntary withdrawal, Death, Permanent incapacitation, Dismissal.","s":"Mandatory dropdown on the termination form, with the four values."},{"k":"mt2","n":37,"t":"Improvement","r":"Add this dropdown as a filter in the member search when searching for inactive members.","s":"Show the reason filter only when the Inactive status is selected."}]},{"m":"AGM / General Meetings","items":[{"k":"gm1","n":38,"t":"Improvement","r":"Rename the tab to General Meetings.","s":"Rename the tab and its related titles."},{"k":"gm2","n":39,"t":"Improvement","r":"“AGM Date” becomes “Election date”.","s":"Rename the label."},{"k":"gm3","n":40,"t":"Improvement","r":"Use “Financial year” instead of “Term”.","s":"Rename the label and check the values shown match a financial year."},{"k":"gm4","n":41,"t":"Improvement","r":"Search member by ID in the dropdown search.","s":"Add the member ID to the searchable fields of the dropdown."},{"k":"gm5","n":42,"t":"Improvement","r":"Add Treasurer in the designation dropdown.","s":"Add the value to the list of designations."},{"k":"gm6","n":43,"t":"Improvement","r":"AGM Minutes file upload to be renamed according to the type chosen in the type of meeting dropdown.","s":"Make the upload label follow the selected meeting type."},{"k":"gm7","n":44,"t":"New feature","r":"The type of meeting needs a new option: First General Meeting.","s":"Add the option. It drives the FGM wording in the banners."},{"k":"gm8","n":45,"t":"Improvement","r":"Vice Secretary in the executive committee is mandatory (5 members).","s":"Require the Vice Secretary on submission, so the executive committee has 5 members."},{"k":"gm9","n":46,"t":"Improvement","r":"Add the ID number in all committee member tables.","s":"Add an ID number column to every committee member table."}]},{"m":"Grievance","items":[{"k":"gr1","n":47,"t":"New feature","r":"Add a title field onto the form and make it appear on the ticket main tables.","s":"Add a mandatory title field to the grievance form, store it on the ticket and show it as a column in the ticket list tables. Existing tickets show a blank or a default title until edited."}]},{"m":"Post-Training","items":[{"k":"pt1","n":48,"t":"New feature","r":"Accredited institutions maintenance screen, connected to the post-training. The list of institutions is maintained in the system parameters.","s":"New maintenance screen in the system parameters to add, edit and deactivate accredited institutions. The post-training module reads from this list."},{"k":"pt2","n":49,"t":"New feature","r":"A post-training can be associated with an accredited institution or not.","s":"Optional institution dropdown on the post-training form, fed from the list above. Deactivated institutions stay visible on records that already use them."},{"k":"pt3","n":50,"t":"Improvement","r":"The post-training search should also allow filtering by institution.","s":"Add an institution filter to the post-training search, with an option for post-trainings that have no institution."}]},{"m":"Dissolution","items":[{"k":"ds1","n":51,"t":"Improvement","r":"The 3rd level, the Registrar, has the right to approve the dissolution, not the Supervisor. Only the Registrar can dissolve a cooperative.","s":"Move the final dissolution approval from the Supervisor to the Registrar (Director) role and restrict the dissolve action to that role. Depends on the new Registrar (Director) role. To confirm whether the Supervisor still reviews first, and whether the Assistant Registrar may also dissolve."},{"k":"ds2","n":52,"t":"New feature","r":"A 60-day notice is gazetted once the request is sent.","s":"Record the gazette date when the dissolution request is submitted and show the 60-day period and its end date on the case. To confirm whether approval is only possible after the 60 days, and whether the notice is produced by the system or published outside it."}]},{"m":"Union – Assessment","items":[{"k":"ua1","n":53,"t":"Improvement","r":"“Primary cooperative Union” is the suffix to be used on the union assessment (replacing the earlier request to remove the suffix).","s":"Replace the suffix text on the union assessment form through the translation key. This applies to the Assessment only; the union Registration suffix is still to be removed."},{"k":"ua2","n":54,"t":"Improvement","r":"Name of cooperative union: this label is to be used in the assessment.","s":"Use the label “Name of cooperative union” in the assessment form and wherever the name is displayed on that screen."},{"k":"ua3","n":55,"t":"Improvement","r":"“Current number of members” becomes “Current number of members of all the primary cooperatives”. Can this be captured on the screen?","s":"Rename the label. Capturing it on the screen is possible: either a field the union fills in, or a total calculated from its linked primary cooperatives. To confirm which one the client prefers."},{"k":"ua4","n":56,"t":"Improvement","r":"Replace “Group” with “Primary cooperatives” in the union assessment. For instance: “How many members have shares in the Group?” becomes “How many members have shares in the primary cooperatives?”, and “How many members do not have shares in the Group?” becomes “How many members do not have shares in the primary cooperatives?”.","s":"Change the labels through the translation keys of the union assessment so every occurrence is updated in one pass."},{"k":"ua5","n":57,"t":"Improvement","r":"Use “Primary cooperative union” instead of “Group” in the label of every field of the union assessment (first noted as “Pre-cooperative union”; to confirm).","s":"Replace the term in all field labels of the union assessment through the translation keys. This overlaps with the “Primary cooperatives” wording above and with the suffix, so the client should confirm the exact term for each label."},{"k":"ua6","n":58,"t":"Improvement","r":"“Group contact details” becomes “Interim committee member details”.","s":"Rename the section title and its field labels."},{"k":"ua7","n":59,"t":"Improvement","r":"In the meetings section, remove the word “annual” in the 2nd and 3rd field.","s":"Rename the two labels. No change to the stored data."},{"k":"ua8","n":60,"t":"Improvement","r":"The production table is mandatory only for a union. For a primary cooperative, the validation is removed. The client notes this contradicts the requirement for the primary cooperative, so the rule per applicant type must be reconciled.","s":"Proposed: mandatory only when the applicant type is Union, optional for primary cooperatives, on both the form and the server. To confirm with the client which rule applies to the primary cooperative, since the two requirements conflict."},{"k":"ua9","n":61,"t":"New feature","r":"Next to the attached minutes file uploader, add another file uploader for supporting documents. Optional.","s":"Add a second uploader beside the minutes uploader, optional, using the shared uploader component (with the file previewer). Accept several files if the client agrees."}]},{"m":"Union – Registration","items":[{"k":"ur1","n":62,"t":"Improvement","r":"Suffix to be removed.","s":"Remove the suffix from the union registration form."},{"k":"ur2","n":63,"t":"Improvement","r":"The member table should have a minimum of 5 (to be checked by the Malawi team).","s":"Validate a minimum of 5 rows in the member table on submission. Keep the value as a configuration so it can change once the Malawi team confirms."}]},{"m":"Public Facing Cooperative Profile","items":[{"k":"pf1","n":64,"t":"Improvement","r":"Change the disclaimer. From: “The information displayed in this Cooperative Profile is generated from the COMIS portal and is provided for public verification purposes only. For more information or clarification, please contact COMIS.” To: “…please contact The Office of Registrar of Cooperative Societies in the Ministry of Industrialisation, Business, Trade and Tourism (MoIBTT)”.","s":"Update the disclaimer text on the public profile page, through the translation key. The final sentence should end with a full stop; to confirm the exact wording with the client."}]},{"m":"Issues","items":[{"k":"is1","n":65,"t":"New feature","r":"Merger and splitting of cooperatives process: to be defined (TBD).","s":"The process is still to be defined. We suggest a short workshop with the client to agree the steps, approvals and the effect on member and share data before estimating the effort."},{"k":"rd1","n":66,"t":"New feature","r":"Registrar, new 3rd role. Request by the Registrar Director, herself, for a 3rd level who will only approve the registration and generate the certificate. Own login access; upload of an updated signature image; view access to any data entry on the system, with intervention limited to approving the cooperative at registration level; a straightforward dashboard or a special link in the left sidebar identifying her pending actions. The Assistant Registrar, Mr. Smith Kamanga, is also eligible to generate a certificate, so the role has 2 users, each with their own signature and name clearly shown at the bottom of the certificate.","s":"New role “Registrar (Director)” with approve and generate-certificate permissions and read-only access elsewhere. Signature image stored per user. A “Pending approvals” link with a counter in the sidebar is the simplest option and avoids a separate dashboard."}]}];
+const TYPES=["Bug","Improvement","New feature"],PRI=["High","Medium","Low"],EFF=["1 day","Multiple days","1 week","2 weeks","3 weeks","1 month"],DEC=["Approved","Suggestion approved","Deferred","To clarify","Done"];
+const base=DATA.flatMap(g=>g.items.map(i=>Object.assign({m:g.m},i)));
+const baseMods=DATA.map(g=>g.m);
+const LIVE=window.CRT_STANDALONE?"Saved in this browser":"Shared live",SAVED=window.CRT_STANDALONE?"Saved in this browser":"Saved, shared live";
+let flat=base.slice(),mods=baseMods.slice(),custom={},removed={},modmap={},mcoll=null,store={},coll=null,ccoll=null,rcoll=null,canWrite=true,timers={},lastSig="";
+const $=id=>document.getElementById(id);
+function dm(m){return modmap[m]||m}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function setStatus(s,t){const e=$("status");e.dataset.s=s;$("statusText").textContent=t}
+function val(k,f){const s=store[k];if(s&&s[f]!==undefined)return s[f];const it=flat.find(x=>x.k===k);if(!it)return"";return f==="suggestion"?it.s:f==="type"?it.t:""}
+function opt(list,cur,ph){if(cur&&!list.includes(cur))list=list.concat([cur]);return (ph?'<option value="">'+ph+'</option>':'')+list.map(o=>'<option'+(o===cur?' selected':'')+'>'+o+'</option>').join('')}
+
+function rebuildFlat(){
+  const rows=Object.keys(custom).map(id=>({k:id,m:dm(custom[id].m),t:custom[id].t,r:custom[id].r,s:custom[id].s||"",custom:true,created:custom[id].created||0}))
+    .sort((a,b)=>a.created-b.created||(a.k<b.k?-1:1));
+  rows.forEach((r,j)=>r.n=base.length+j+1);
+  const eb=base.map(i=>{const o=store[i.k]||{};return Object.assign({},i,{m:dm(o.module||i.m),r:o.request||i.r})});
+  mods=[];baseMods.map(dm).concat(rows.map(r=>r.m),eb.map(i=>i.m)).forEach(m=>{if(!mods.includes(m))mods.push(m)});
+  const all=eb.concat(rows).filter(i=>!removed[i.k]);flat=[];
+  mods.forEach(m=>all.filter(i=>i.m===m).forEach(i=>flat.push(i)));
+}
+function refresh(){
+  rebuildFlat();
+  const cur=$("fMod").value;
+  $("fMod").innerHTML='<option value="">All modules</option>'+mods.map(m=>'<option'+(m===cur?' selected':'')+'>'+esc(m)+'</option>').join("");
+  $("modList").innerHTML=mods.map(m=>'<option value="'+esc(m)+'">').join("");
+  const sig=flat.map(i=>i.k+"|"+i.m).join(";");
+  if(sig!==lastSig){lastSig=sig;build()}else fillAll();
+}
+function build(){
+  let h="",last="";const cnt={};flat.forEach(i=>cnt[i.m]=(cnt[i.m]||0)+1);
+  flat.forEach(i=>{
+    if(i.m!==last){last=i.m;h+='<tr class="band" data-band="'+esc(i.m)+'"><td colspan="8">'+esc(i.m)+'<small>'+cnt[i.m]+(cnt[i.m]>1?' changes':' change')+'</small><button class="bren" type="button" data-ren="'+esc(i.m)+'" aria-label="Rename module"><svg width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 12l.6-2.8L9.5 2.3a1 1 0 011.4 0l.8.8a1 1 0 010 1.4L4.8 11.4 2 12z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></button></td></tr>'}
+    h+='<tr data-k="'+esc(i.k)+'"><td class="ref">#'+String(i.n).padStart(2,"0")+'<div class="acts"><button class="del" type="button" data-edit="'+esc(i.k)+'" aria-label="Edit change '+i.n+'"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 12l.6-2.8L9.5 2.3a1 1 0 011.4 0l.8.8a1 1 0 010 1.4L4.8 11.4 2 12z" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></button><button class="del" type="button" data-del="'+esc(i.k)+'" aria-label="More options for change '+i.n+'"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><circle cx="2" cy="7" r="1.4" fill="currentColor"/><circle cx="7" cy="7" r="1.4" fill="currentColor"/><circle cx="12" cy="7" r="1.4" fill="currentColor"/></svg></button></div>'+'</td>'
+     +(i.custom?'<td><textarea data-c="r" rows="2" aria-label="Requested change '+i.n+'"></textarea></td>':'<td class="chg">'+esc(i.r)+'</td>')
+     +'<td><select data-f="type" aria-label="Type for change '+i.n+'"></select></td>'
+     +'<td><select data-f="priority" aria-label="Priority for change '+i.n+'"></select></td>'
+     +'<td><select data-f="effort" aria-label="Effort for change '+i.n+'"></select></td>'
+     +'<td><textarea class="sug" data-f="suggestion" rows="3" aria-label="Suggestion for change '+i.n+'"></textarea></td>'
+     +'<td><select data-f="decision" aria-label="Decision for change '+i.n+'"></select></td>'
+     +'<td><textarea data-f="comment" rows="2" placeholder="Add a note" aria-label="Additional comment for change '+i.n+'"></textarea></td></tr>';
+  });
+  $("body").innerHTML=h;
+  fillAll();
+}
+function fillAll(){
+  document.querySelectorAll("#body tr[data-k]").forEach(tr=>{
+    const k=tr.dataset.k,it=flat.find(x=>x.k===k);if(!it)return;
+    tr.querySelectorAll("[data-f],[data-c]").forEach(el=>{
+      if(document.activeElement===el)return;
+      if(el.dataset.c){el.value=it.r;grow(el);el.disabled=!canWrite;return}
+      const f=el.dataset.f,v=val(k,f);
+      if(el.tagName==="SELECT"){
+        const L=f==="type"?TYPES:f==="priority"?PRI:f==="effort"?EFF:DEC,ph=f==="type"?"":(f==="priority"||f==="effort")?"Set":"Not decided";
+        el.innerHTML=opt(L,v,ph);el.dataset.v=v;
+      }else{el.value=v;grow(el)}
+      el.disabled=!canWrite;
+    });
+    const d=tr.querySelector(".acts");if(d)d.hidden=!canWrite;
+    const cc=tr.querySelector(".chg");if(cc)cc.textContent=it.r;
+    tr.classList.toggle("done",val(k,"decision")==="Done");
+  });
+  document.querySelectorAll(".bren").forEach(b=>b.hidden=!canWrite);
+  $("imp").hidden=!canWrite;
+  stats();filter();
+}
+function grow(t){t.style.height="auto";t.style.height=Math.max(t.scrollHeight+2,34)+"px"}
+
+function done(p){setStatus("saving","Saving…");p.then(()=>setStatus("live",SAVED)).catch(e=>setStatus("error","Not saved: "+(e&&e.code||"error")))}
+function save(k){if(coll)done(coll.doc(k).set(Object.assign({},store[k])))}
+function saveCustom(k){if(ccoll&&custom[k])done(ccoll.doc(k).set(Object.assign({},custom[k])))}
+function change(el){
+  const k=el.closest("tr").dataset.k,f=el.dataset.f;
+  store[k]=Object.assign({},store[k]);store[k][f]=el.value;
+  if(el.tagName==="SELECT")el.dataset.v=el.value;
+  if(f==="decision")el.closest("tr").classList.toggle("done",el.value==="Done");
+  const it=flat.find(x=>x.k===k);
+  if((f==="suggestion"&&el.value===it.s)||(f==="type"&&el.value===it.t))delete store[k][f];
+  stats();filter();
+  clearTimeout(timers[k]);timers[k]=setTimeout(()=>save(k),el.tagName==="SELECT"?50:700);
+}
+document.addEventListener("input",e=>{
+  const el=e.target;
+  if(el.matches("#body [data-f]")){if(el.tagName==="TEXTAREA")grow(el);change(el)}
+  else if(el.matches("#body [data-c]")){
+    grow(el);const k=el.closest("tr").dataset.k;
+    if(custom[k]){custom[k]=Object.assign({},custom[k],{r:el.value});const it=flat.find(x=>x.k===k);if(it)it.r=el.value;
+      clearTimeout(timers["c"+k]);timers["c"+k]=setTimeout(()=>saveCustom(k),700)}
+  }
+});
+
+let pendingDel=null;
+function closeConfirm(){pendingDel=null;$("confirm").hidden=true}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-del]");if(!b)return;
+  const it=flat.find(x=>x.k===b.dataset.del);if(!it)return;
+  pendingDel=it.k;
+  const t=it.r.length>110?it.r.slice(0,110)+"…":it.r;
+  $("cText").innerHTML="Change #"+String(it.n).padStart(2,"0")+" <q>"+esc(t)+"</q> will be permanently deleted for everyone. This cannot be undone.";
+  $("confirm").hidden=false;$("cNo").focus();
+});
+$("cNo").onclick=closeConfirm;
+$("confirm").addEventListener("click",e=>{if(e.target===$("confirm"))closeConfirm()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(!$("confirm").hidden)closeConfirm();if(!$("editModal").hidden)closeEdit();if(!$("renModal").hidden)closeRen();if(!$("impModal").hidden)$("iNo").click()}});
+let renFrom=null;
+function closeRen(){renFrom=null;$("renModal").hidden=true}
+function mid(n){return encodeURIComponent(n).replace(/[!'()*]/g,c=>"~"+c.charCodeAt(0).toString(16)).replace(/%/g,"~")}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-ren]");if(!b)return;
+  renFrom=b.dataset.ren;$("rName").value=renFrom;$("rErr").textContent="";
+  $("renModal").hidden=false;$("rName").focus();$("rName").select();
+});
+$("rCancel").onclick=closeRen;
+$("renModal").addEventListener("click",e=>{if(e.target===$("renModal"))closeRen()});
+$("rName").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("rSave").click()}});
+$("rSave").onclick=()=>{
+  const from=renFrom,to=$("rName").value.trim();
+  if(!from)return;
+  if(!to){$("rErr").textContent="The module name cannot be empty.";return}
+  if(to!==from){
+    const raws=new Set([from]);
+    baseMods.forEach(r=>{if(dm(r)===from)raws.add(r)});
+    Object.keys(modmap).forEach(r=>{if(modmap[r]===from)raws.add(r)});
+    raws.forEach(r=>{
+      if(r===to){delete modmap[r];if(mcoll)mcoll.doc(mid(r)).delete().catch(()=>{})}
+      else{modmap[r]=to;if(mcoll)done(mcoll.doc(mid(r)).set({from:r,to:to}))}
+    });
+    if($("fMod").value===from)$("fMod").value="";
+  }
+  closeRen();refresh();
+};
+let editKey=null;
+function fillSel(cur){
+  $("eSel").innerHTML=mods.map(m=>'<option'+(m===cur?' selected':'')+'>'+esc(m)+'</option>').join("")+'<option value="__new">New module…</option>';
+  $("eMod").hidden=true;$("eMod").value="";
+}
+document.addEventListener("change",e=>{if(e.target.id==="eSel"){const n=e.target.value==="__new";$("eMod").hidden=!n;if(n)$("eMod").focus()}});
+function closeEdit(){editKey=null;$("editModal").hidden=true}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-edit]");if(!b)return;
+  const it=flat.find(x=>x.k===b.dataset.edit);if(!it)return;
+  editKey=it.k;$("eTitle").textContent="Edit change #"+String(it.n).padStart(2,"0");
+  fillSel(it.m);$("eReq").value=it.r;$("eErr").textContent="";
+  const o=store[it.k];$("eRevert").hidden=!!it.custom||!(o&&(o.module||o.request));
+  $("editModal").hidden=false;$("eReq").focus();
+});
+$("eCancel").onclick=closeEdit;
+$("editModal").addEventListener("click",e=>{if(e.target===$("editModal"))closeEdit()});
+$("eSave").onclick=()=>{
+  const k=editKey,m=($("eSel").value==="__new"?$("eMod").value:$("eSel").value).trim(),r=$("eReq").value.trim();
+  if(!m){$("eErr").textContent="Choose a module or type a new module name.";return}
+  if(!r){$("eErr").textContent="The requested change cannot be empty.";return}
+  const it=flat.find(x=>x.k===k);if(!it){closeEdit();return}
+  if(it.custom){custom[k]=Object.assign({},custom[k],{m:m,r:r});saveCustom(k)}
+  else{
+    const o=base.find(x=>x.k===k);store[k]=Object.assign({},store[k]);
+    if(m===dm(o.m))delete store[k].module;else store[k].module=m;
+    if(r===o.r)delete store[k].request;else store[k].request=r;
+    save(k);
+  }
+  closeEdit();refresh();
+};
+$("eRevert").onclick=()=>{
+  const k=editKey;if(!k)return;
+  store[k]=Object.assign({},store[k]);delete store[k].module;delete store[k].request;save(k);
+  closeEdit();refresh();
+};
+$("cYes").onclick=()=>{
+  const k=pendingDel;closeConfirm();if(!k)return;
+  const it=flat.find(x=>x.k===k);
+  if(it&&it.custom){
+    delete custom[k];delete store[k];
+    if(ccoll)done(ccoll.doc(k).delete());
+    if(coll)coll.doc(k).delete().catch(()=>{});
+  }else{
+    removed[k]=1;delete store[k];
+    if(coll)coll.doc(k).delete().catch(()=>{});
+    if(rcoll)done(rcoll.doc(k).set({removed:true,at:Date.now()}));
+  }
+  refresh();
+};
+
+const DOT={"Bug":"bug","Improvement":"imp","New feature":"new","High":"bad","Medium":"warn","Low":"slate","Approved":"ok","Suggestion approved":"teal","Deferred":"warn","To clarify":"ask","Done":"slate"};
+const FSEL={type:"fType",decision:"fDec",priority:"fPri",effort:"fEff"};
+function cell(label,n,fk,fv){
+  const d=DOT[fv]?' style="--d:var(--'+DOT[fv]+')"':'';
+  if(!fk)return '<div class="stat static"'+d+'><b>'+n+'</b><span>'+esc(label)+'</span></div>';
+  return '<button type="button" class="stat" data-fk="'+fk+'" data-fv="'+esc(fv)+'"'+d+' aria-pressed="false"><b>'+n+'</b><span>'+esc(label)+'</span></button>';
+}
+function stats(){
+  const cnt=(f,v)=>flat.filter(i=>(val(i.k,f)||"")===v).length;
+  const none=f=>flat.filter(i=>!val(i.k,f)).length;
+  const decided=flat.filter(i=>val(i.k,"decision")).length;
+  const pct=flat.length?Math.round(decided/flat.length*100):0;
+  const g=(label,cells,extra)=>'<div class="sgroup" style="flex:'+cells.length+' 1 '+cells.length*104+'px"><div class="gl">'+label+'</div>'+(extra||"")+'<div class="cells">'+cells.join("")+'</div></div>';
+  const row=x=>'<div class="srow">'+x+'</div>';
+  const tl={"Bug":"Bugs","Improvement":"Improvements","New feature":"New features"};
+  $("stats").innerHTML=row(
+    g("Overview",[cell("Changes",flat.length,"all","")].concat(TYPES.map(t=>cell(tl[t],cnt("type",t),"type",t)),[cell("Decided",decided+" / "+flat.length,"","")]),'<div class="prog"><i style="width:'+pct+'%"></i></div>')
+   +g("Decision",DEC.map(d=>cell(d,cnt("decision",d),"decision",d)).concat([cell("Not decided",none("decision"),"decision","__none")]))
+  )+row(
+    g("Priority",PRI.map(p=>cell(p,cnt("priority",p),"priority",p)).concat([cell("Not set",none("priority"),"priority","__none")]))
+   +g("Effort",EFF.map(x=>cell(x,cnt("effort",x),"effort",x)).concat([cell("Not estimated",none("effort"),"effort","__none")])));
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest(".stat[data-fk]");if(!b)return;
+  const fk=b.dataset.fk;
+  if(fk==="all"){["q","fMod","fType","fDec","fPri","fEff"].forEach(id=>$(id).value="")}
+  else{const sel=$(FSEL[fk]);sel.value=sel.value===b.dataset.fv?"":b.dataset.fv}
+  filter();
+});
+function filter(){
+  const q=$("q").value.trim().toLowerCase(),m=$("fMod").value,t=$("fType").value,d=$("fDec").value,p=$("fPri").value,ef=$("fEff").value;
+  let shown=0;const vis={};
+  flat.forEach(i=>{
+    const tr=document.querySelector('tr[data-k="'+i.k+'"]');if(!tr)return;
+    const dv=val(i.k,"decision"),pv=val(i.k,"priority"),ev=val(i.k,"effort");
+    const txt=(i.r+" "+val(i.k,"suggestion")+" "+val(i.k,"comment")+" "+i.m).toLowerCase();
+    const ok=(!q||txt.includes(q))&&(!m||i.m===m)&&(!t||val(i.k,"type")===t)&&(!d||(d==="__none"?!dv:dv===d))&&(!p||(p==="__none"?!pv:pv===p))&&(!ef||(ef==="__none"?!ev:ev===ef));
+    tr.hidden=!ok;if(ok){shown++;vis[i.m]=1}
+  });
+  document.querySelectorAll("tr.band").forEach(b=>b.hidden=!vis[b.dataset.band]);
+  document.querySelectorAll(".stat[data-fk]").forEach(b=>{const fk=b.dataset.fk;const on=fk!=="all"&&$(FSEL[fk]).value===b.dataset.fv;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on?"true":"false")});
+  $("count").textContent=shown+" of "+flat.length+" shown";$("none").hidden=shown>0;
+}
+["q","fMod","fType","fDec","fPri","fEff"].forEach(id=>$(id).addEventListener("input",filter));
+$("reset").onclick=()=>{["q","fMod","fType","fDec","fPri","fEff"].forEach(id=>$(id).value="");filter()};
+
+/* Add row */
+function openAdd(open){$("addPanel").hidden=!open;$("add").setAttribute("aria-expanded",open?"true":"false");$("aErr").textContent="";if(open)$("aMod").focus()}
+$("add").onclick=()=>openAdd($("addPanel").hidden);
+$("aCancel").onclick=()=>openAdd(false);
+$("addForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const m=$("aMod").value.trim(),r=$("aReq").value.trim();
+  if(!m){$("aErr").textContent="Choose a module or type a new module name.";return}
+  if(!r){$("aErr").textContent="Describe the requested change.";return}
+  const id="c"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+  custom[id]={m:m,r:r,t:$("aType").value,s:$("aSug").value.trim(),created:Date.now()};
+  saveCustom(id);
+  ["q","fMod","fType","fDec","fPri","fEff"].forEach(x=>$(x).value="");
+  refresh();
+  $("addForm").reset();openAdd(false);
+  const tr=document.querySelector('tr[data-k="'+id+'"]');if(tr){tr.scrollIntoView({block:"center",behavior:"smooth"});tr.classList.add("fresh");setTimeout(()=>tr.classList.remove("fresh"),2500)}
+});
+
+function csvCell(s){s=String(s==null?"":s);return '"'+s.replace(/"/g,'""')+'"'}
+async function exportCsv(){
+  try{
+    const dl=await claude.use("downloads");if(!dl)return;
+    const head=["Ref","Module","Requested change","Type","Priority","Effort","Suggestion","Decision","Additional comment"];
+    const rows=flat.map(i=>[i.n,i.m,i.r,val(i.k,"type"),val(i.k,"priority"),val(i.k,"effort"),val(i.k,"suggestion"),val(i.k,"decision"),val(i.k,"comment")]);
+    const text="﻿"+[head].concat(rows).map(r=>r.map(csvCell).join(",")).join("\r\n");
+    await dl.save({filename:"change-request-tracker.csv",data:text});
+  }catch(e){}
+}
+$("csv").onclick=exportCsv;
+
+async function boot(){
+  try{const bar=document.querySelector(".bar"),set=()=>document.documentElement.style.setProperty("--barh",bar.getBoundingClientRect().height+"px");set();const hd=document.querySelector("thead"),set2=()=>document.documentElement.style.setProperty("--thh",hd.getBoundingClientRect().height+"px");set2();if(window.ResizeObserver){new ResizeObserver(set).observe(bar);new ResizeObserver(set2).observe(hd)}}catch(e){}
+  refresh();
+  try{
+    if(window.claude&&claude.use){
+      const dl=await claude.use("downloads");if(dl)$("csv").hidden=false;
+      const user=await claude.use("user");
+      if(user&&user.can){const w=user.can("data.write");if(w===false)canWrite=false}
+      const db=await claude.use("db");
+      if(db){
+        coll=db.collection("items");ccoll=db.collection("custom");rcoll=db.collection("removed");mcoll=db.collection("modules");
+        mcoll.onSnapshot(snap=>{
+          const m={};snap.docs.forEach(d=>{if(d.exists){const x=d.data();if(x&&x.from&&x.to)m[x.from]=x.to}});
+          modmap=m;refresh();
+        },e=>setStatus("error","Cannot load module names"));
+        rcoll.onSnapshot(snap=>{
+          const r={};snap.docs.forEach(d=>{if(d.exists)r[d.id]=1});
+          removed=r;refresh();
+        },e=>setStatus("error","Cannot load deleted rows"));
+        coll.onSnapshot(snap=>{
+          const s={};snap.docs.forEach(d=>{if(d.exists)s[d.id]=d.data()});
+          store=s;setStatus("live",canWrite?LIVE:"Read only");refresh();
+        },e=>setStatus("error","Cannot load saved edits"));
+        ccoll.onSnapshot(snap=>{
+          const c={};snap.docs.forEach(d=>{if(d.exists)c[d.id]=d.data()});
+          custom=c;refresh();
+        },e=>setStatus("error","Cannot load added rows"));
+        $("add").hidden=!canWrite;
+        return;
+      }
+    }
+  }catch(e){}
+  setStatus("local","Not saved: sign in to share edits");
+}
+function snapshotData(){
+  const items={};Object.keys(store).forEach(k=>{items[k]=store[k]});
+  const rem={};Object.keys(removed).forEach(k=>{rem[k]={removed:true}});
+  const md={};Object.keys(modmap).forEach(r=>{md[mid(r)]={from:r,to:modmap[r]}});
+  return {app:"change-request-tracker",version:1,exportedAt:new Date().toISOString(),items:items,custom:custom,removed:rem,modules:md};
+}
+$("exp").onclick=async()=>{
+  try{const dl=await claude.use("downloads");if(!dl)return;
+    await dl.save({filename:"change-tracker-data.json",data:JSON.stringify(snapshotData(),null,2)})}catch(e){}
+};
+let pendingImport=null;
+$("imp").onclick=()=>$("impFile").click();
+$("impFile").onchange=async e=>{
+  const f=e.target.files[0];e.target.value="";if(!f)return;
+  try{
+    const o=JSON.parse(await f.text());if(!o||o.app!=="change-request-tracker")throw new Error("bad");
+    pendingImport=o;
+    const n=Object.keys(o.items||{}).length+Object.keys(o.custom||{}).length;
+    $("iText").textContent="Everything on this page will be replaced by the data in "+f.name+" ("+n+" saved records). Current priorities, efforts, decisions and comments will be overwritten.";
+    $("impModal").hidden=false;
+  }catch(x){setStatus("error","Not a valid tracker data file")}
+};
+$("iNo").onclick=()=>{pendingImport=null;$("impModal").hidden=true};
+$("iYes").onclick=async()=>{
+  const o=pendingImport;pendingImport=null;$("impModal").hidden=true;if(!o)return;
+  if(!coll){
+    store=o.items||{};custom=o.custom||{};removed={};Object.keys(o.removed||{}).forEach(k=>{removed[k]=1});
+    modmap={};Object.values(o.modules||{}).forEach(x=>{modmap[x.from]=x.to});refresh();return;
+  }
+  setStatus("saving","Importing…");
+  try{
+    for(const [name,c] of [["items",coll],["custom",ccoll],["removed",rcoll],["modules",mcoll]]){
+      const want=o[name]||{};const have=(await c.get()).docs.map(d=>d.id);
+      for(const id of have){if(!(id in want))await c.doc(id).delete()}
+      for(const id of Object.keys(want)){await c.doc(id).set(want[id])}
+    }
+    setStatus("live",SAVED);
+  }catch(e){setStatus("error","Import failed: "+(e&&e.code||"error"))}
+};
+boot();
+</script>
+
+</body>
+</html>

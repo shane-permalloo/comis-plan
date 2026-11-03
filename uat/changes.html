@@ -52,6 +52,9 @@ button.stat:hover{background:var(--hover)}
 .stat[style*="--d"] span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--d);flex:none}
 .stat.on span{color:var(--fg)}
 .prog{height:3px;background:var(--line)}
+.seg{display:flex;height:4px;background:var(--line);gap:1px}
+.seg i{display:block;height:100%;min-width:0;transition:flex-grow .3s}
+@media (prefers-reduced-motion:reduce){.seg i{transition:none}}
 .prog i{display:block;height:100%;background:var(--accent);transition:width .3s}
 .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:8px}
 .bar input,.bar select,.bar button{font:inherit;font-size:13px;color:var(--fg);background-color:var(--surface);border:1px solid var(--line2);border-radius:8px;padding:7px 12px;min-height:36px}
@@ -454,12 +457,13 @@ function stats(){
   const pct=flat.length?Math.round(decided/flat.length*100):0;
   const g=(label,cells,extra)=>'<div class="sgroup" style="flex:'+cells.length+' 1 '+cells.length*104+'px"><div class="gl">'+label+'</div>'+(extra||"")+'<div class="cells">'+cells.join("")+'</div></div>';
   const row=x=>'<div class="srow">'+x+'</div>';
+  const seg=(vals,field)=>{const un=none(field);return '<div class="seg" role="img" aria-label="Breakdown">'+vals.map(v=>{const n=cnt(field,v);return n?'<i style="flex:'+n+' 1 0;background:var(--'+DOT[v]+')" title="'+esc(v)+': '+n+'"></i>':''}).join("")+(un?'<i style="flex:'+un+' 1 0;background:var(--line2)" title="Not set: '+un+'"></i>':'')+'</div>'};
   const tl={"Bug":"Bugs","Improvement":"Improvements","New feature":"New features"};
   $("stats").innerHTML=row(
     g("Overview",[cell("Changes",flat.length,"all","")].concat(TYPES.map(t=>cell(tl[t],cnt("type",t),"type",t)),[cell("Decided",decided+" / "+flat.length,"","")]),'<div class="prog"><i style="width:'+pct+'%"></i></div>')
-   +g("Decision",DEC.map(d=>cell(d,cnt("decision",d),"decision",d)).concat([cell("Not decided",none("decision"),"decision","__none")]))
+   +g("Decision",DEC.map(d=>cell(d,cnt("decision",d),"decision",d)).concat([cell("Not decided",none("decision"),"decision","__none")]),seg(DEC,"decision"))
   )+row(
-    g("Priority",PRI.map(p=>cell(p,cnt("priority",p),"priority",p)).concat([cell("Not set",none("priority"),"priority","__none")]))
+    g("Priority",PRI.map(p=>cell(p,cnt("priority",p),"priority",p)).concat([cell("Not set",none("priority"),"priority","__none")]),seg(PRI,"priority"))
    +g("Effort",EFF.map(x=>cell(x,cnt("effort",x),"effort",x)).concat([cell("Not estimated",none("effort"),"effort","__none")])));
 }
 document.addEventListener("click",e=>{
